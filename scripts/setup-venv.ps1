@@ -47,5 +47,25 @@ if ($LASTEXITCODE -ne 0) {
     throw 'The virtual environment must use Python 3.12 or newer.'
 }
 
+$requirementsHash = (Get-FileHash -LiteralPath $requirementsFile -Algorithm SHA256).Hash
+$requirementsStamp = Join-Path $venvDir '.requirements.sha256'
+$installedHash = if (Test-Path -LiteralPath $requirementsStamp -PathType Leaf) {
+    (Get-Content -Raw -LiteralPath $requirementsStamp).Trim()
+} else {
+    ''
+}
+
+if ($requirementsHash -ne $installedHash) {
+    Write-Host 'Installing project dependencies.' -ForegroundColor Cyan
+    & $venvPython -m pip install --disable-pip-version-check -r $requirementsFile
+    if ($LASTEXITCODE -ne 0) {
+        throw 'Project dependency installation failed.'
+    }
+    [System.IO.File]::WriteAllText($requirementsStamp, $requirementsHash, [System.Text.Encoding]::ASCII)
+}
+else {
+    Write-Host 'Project dependencies are up to date.' -ForegroundColor DarkGray
+}
+
 Write-Host 'Virtual environment is ready.' -ForegroundColor Green
 Write-Host "Python: $venvPython"

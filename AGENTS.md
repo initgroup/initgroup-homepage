@@ -13,10 +13,11 @@
 
 ## 프로젝트 성격과 구조
 
-- 인아이티 기업 홈페이지 전용 정적 MPA 프로젝트입니다.
-- FastAPI, Oracle DB, 인증 포털과 분리되어 있으며 서버 API나 세션에 의존하지 않습니다.
+- 인아이티 기업 홈페이지 전용 FastAPI 기반 MPA 프로젝트입니다.
+- 기존 HTML·CSS·JavaScript 페이지는 FastAPI가 공개 경로로 제공하며, 향후 게시판 API를 `/api/` 아래에 확장합니다.
+- Oracle DB, 인증 포털과는 분리되어 있으며 현재 공개 페이지는 DB나 세션에 의존하지 않습니다.
 - 각 공개 URL은 디렉터리별 `index.html`로 제공합니다.
-- 공통 CSS, JavaScript, 이미지는 `assets/`에서 관리합니다.
+- Python 애플리케이션 진입점은 저장소 루트의 `main.py`이며 공통 CSS, JavaScript, 이미지는 `assets/`에서 관리합니다.
 - 로컬 서버와 검증, 백업, Git 배포 자동화는 `scripts/*.ps1`과 `.vscode/tasks.json`에서 관리합니다.
 - Node.js, npm, 번들러 또는 외부 UI 프레임워크를 필수 실행 조건으로 추가하지 않습니다.
 

@@ -126,6 +126,24 @@ if ($node) {
     }
 }
 
+$venvPython = Join-Path $siteRoot 'venv\Scripts\python.exe'
+if (-not (Test-Path -LiteralPath $venvPython -PathType Leaf)) {
+    $errors.Add('venv Python is missing; run scripts\setup-venv.ps1')
+}
+else {
+    Push-Location $siteRoot
+    try {
+        & $venvPython -c "from main import app, resolve_public_page; assert app.title == 'INIT Homepage'; assert resolve_public_page('company/') is not None; assert resolve_public_page('requirements.txt') is None; assert resolve_public_page('../AGENTS.md') is None"
+        $pythonValidationExitCode = $LASTEXITCODE
+    }
+    finally {
+        Pop-Location
+    }
+    if ($pythonValidationExitCode -ne 0) {
+        $errors.Add('FastAPI application import or public-path validation failed')
+    }
+}
+
 if ($errors.Count -gt 0) {
     $errors | ForEach-Object { Write-Host "ERROR: $_" -ForegroundColor Red }
     throw "Homepage validation failed: $($errors.Count) issue(s)"

@@ -1,1 +1,2 @@
-# The homepage is build-free and has no third-party Python runtime dependencies.
+fastapi==0.141.1
+uvicorn[standard]==0.52.0

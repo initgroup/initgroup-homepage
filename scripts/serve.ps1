@@ -78,10 +78,16 @@ if ($existingResponse) {
     }
 }
 
-Write-Host 'INIT Homepage is a static site; uvicorn is not used.' -ForegroundColor DarkGray
+Write-Host 'INIT Homepage FastAPI application' -ForegroundColor DarkGray
 Write-Host "INIT Homepage: $siteUrl" -ForegroundColor Green
 Write-Host 'Press Ctrl+C to stop the local server.' -ForegroundColor DarkGray
-& $venvPython -u -m http.server $Port --bind 127.0.0.1 --directory $siteRoot
+Push-Location $siteRoot
+try {
+    & $venvPython -u -m uvicorn main:app --host 127.0.0.1 --port $Port
+}
+finally {
+    Pop-Location
+}
 if ($LASTEXITCODE -ne 0) {
     throw "INIT Homepage server exited with code $LASTEXITCODE."
 }
