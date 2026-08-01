@@ -1651,6 +1651,29 @@
     font-size: var(--type-support);
 }
 
+/* Product metadata stays technical through structure and color, not a code font. */
+.sol-architecture-head span,
+.sol-stage-label,
+.sol-architecture-card > span,
+.sol-architecture-link,
+.sol-product-card-top span,
+.sol-mini-pipeline span,
+.sol-path-list > li > span,
+.de-stage-bar em,
+.de-screen-bar em,
+.de-proof-grid span,
+.de-workflow li > span,
+.de-screen-card figcaption span,
+.de-governance-grid span,
+.ib-console-head span,
+.ib-console-node > span,
+.ib-module-index,
+.ib-analyze-visual > span,
+.ib-output-rail span,
+.ib-value-grid span {
+    font-family: var(--font-sans);
+}
+
 @media print {
     .sol-page-hero {
         padding-top: 2rem;

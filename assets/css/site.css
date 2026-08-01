@@ -27,9 +27,11 @@
     --type-label: clamp(0.8rem, 0.12vw + 0.77rem, 0.88rem);
     --type-label-small: clamp(0.75rem, 0.1vw + 0.73rem, 0.82rem);
     --type-support: clamp(0.84rem, 0.12vw + 0.81rem, 0.92rem);
+    --type-card-index: clamp(1.65rem, 0.3vw + 1.58rem, 1.82rem);
+    --font-sans: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, sans-serif;
     color: var(--ink);
     background: var(--paper);
-    font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans);
     font-synthesis: none;
     text-rendering: optimizeLegibility;
 }
@@ -752,6 +754,45 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
 .bap-analysis-visual strong,
 .bap-view-visual span {
     font-size: 0.68rem;
+}
+
+/* Brand typography: technical labels use the same clean sans-serif voice as the wordmark. */
+.mobile-navigation-head span,
+.mobile-navigation nav a span,
+.eyebrow,
+.live-status,
+.hero-workflow i,
+.evidence-float-top span,
+.step-card-head span,
+.step-card-head b,
+.step-visual-label,
+.step-visual-evidence b,
+.step-visual-evidence em,
+.step-visual-operate strong,
+.product-proof-tabs button span,
+.product-screen-chrome b,
+.bap-card header > span,
+.bap-source-visual i,
+.bap-source-visual strong,
+.bap-analysis-visual strong,
+.bap-analysis-visual i,
+.bap-card footer span,
+.service-list > a > span,
+.project-story-index span,
+.principle-grid article > span,
+.principle-symbol,
+.principle-check span {
+    font-family: var(--font-sans);
+}
+
+/* Repeated card ordinals use one restrained visual scale. */
+.step-card-head > span,
+.principle-grid article > span {
+    color: rgba(36, 87, 214, 0.35);
+    font-size: var(--type-card-index);
+    font-weight: 720;
+    line-height: 1;
+    letter-spacing: -0.035em;
 }
 
 .bap-source-visual strong,

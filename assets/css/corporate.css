@@ -380,9 +380,9 @@
 
 .corp-contact-channel-section { background: var(--surface); }
 .corp-contact-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-.corp-contact-card-grid article { display: flex; min-height: 19rem; padding: clamp(1.7rem, 3vw, 2.3rem); border: 1px solid var(--line); border-radius: 1rem; background: rgba(255, 255, 255, 0.72); box-shadow: var(--shadow-soft); flex-direction: column; }
+.corp-contact-card-grid article { display: grid; min-height: 19rem; padding: clamp(1.7rem, 3vw, 2.3rem); border: 1px solid var(--line); border-radius: 1rem; background: rgba(255, 255, 255, 0.72); box-shadow: var(--shadow-soft); grid-template-rows: auto auto auto minmax(3.4rem, auto) 1fr; align-content: start; }
 .corp-contact-card-grid article > span { color: rgba(36, 87, 214, 0.35); font: 760 1.75rem ui-monospace, "Cascadia Code", monospace; }
-.corp-contact-card-grid small { margin-top: auto; color: var(--brand); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em; }
+.corp-contact-card-grid small { margin-top: 2rem; color: var(--brand); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em; }
 .corp-contact-card-grid h3 { margin: 0.45rem 0 0.85rem; font-size: clamp(1.45rem, 2.3vw, 2rem); }
 .corp-contact-card-grid a, .corp-contact-card-grid address { color: var(--ink-soft); font-size: clamp(1rem, 1.6vw, 1.25rem); font-style: normal; font-weight: 680; }
 .corp-contact-card-grid a:hover { color: var(--brand); }
@@ -625,6 +625,32 @@
 .corp-timeline time,
 .corp-prep-list p {
     font-size: var(--type-support);
+}
+
+/* Corporate sequence labels share the brand's sans-serif typography. */
+.corp-principle-grid article > span,
+.corp-team-map li > span,
+.corp-timeline time,
+.corp-orbit-item i,
+.corp-anchor-nav span,
+.corp-service-index span,
+.corp-delivery-steps li > span,
+.corp-culture-list li > span,
+.corp-role-head span,
+.corp-growth-steps li > span,
+.corp-contact-card-grid article > span,
+.corp-prep-list > li > span,
+.corp-inquiry-scope li > span {
+    font-family: var(--font-sans);
+}
+
+.corp-principle-grid article > span,
+.corp-contact-card-grid article > span {
+    color: rgba(36, 87, 214, 0.35);
+    font-size: var(--type-card-index);
+    font-weight: 720;
+    line-height: 1;
+    letter-spacing: -0.035em;
 }
 
 @media print {

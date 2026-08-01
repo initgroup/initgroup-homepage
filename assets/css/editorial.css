@@ -1520,6 +1520,28 @@
     font-size: var(--type-support);
 }
 
+/* Editorial labels follow the corporate sans-serif system, not a code-editor face. */
+.editorial-hero-aside > span,
+.outcome-card > span,
+.project-case-index small,
+.project-case-index b,
+.project-result-label small,
+.case-framework dt span,
+.sector-card > span,
+.delivery-principles li > span,
+.article-meta,
+.insight-feature-rail i,
+.article-teaser-index,
+.editorial-standard > span,
+.article-summary > header span,
+.article-summary strong,
+.article-toc > strong,
+.article-toc a::before,
+.article-flow li > span,
+.related-card span {
+    font-family: var(--font-sans);
+}
+
 @media print {
     .breadcrumbs,
     .article-toc,

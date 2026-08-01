@@ -12,12 +12,10 @@
         {
             "label": "INIT Homepage: Run Server",
             "type": "process",
-            "command": "${workspaceFolder}\\venv\\Scripts\\python.exe",
-            "args": ["-u", "-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8200"],
+            "command": "powershell",
+            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\serve.ps1", "-Restart"],
             "options": { "cwd": "${workspaceFolder}" },
             "group": { "kind": "build", "isDefault": true },
-            "dependsOn": "INIT Homepage: Setup Venv",
-            "dependsOrder": "sequence",
             "runOptions": { "instanceLimit": 1 },
             "problemMatcher": [],
             "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "showReuseMessage": true }

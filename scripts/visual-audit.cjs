@@ -158,6 +158,11 @@ function intersection(a, b) {
             await page.evaluate(() => window.scrollTo(0, 0));
             const screenshot = path.join(siteOutputDir, `${viewport.name}-${name}.png`);
             await page.screenshot({ path: screenshot, fullPage: true });
+            let focusScreenshot = null;
+            if (name === 'contact') {
+                focusScreenshot = path.join(siteOutputDir, `${viewport.name}-${name}-cards.png`);
+                await page.locator('.corp-contact-card-grid').screenshot({ path: focusScreenshot });
+            }
             const metrics = await page.evaluate(() => ({
                 title: document.title,
                 lang: document.documentElement.lang,
@@ -166,13 +171,32 @@ function intersection(a, b) {
                 documentHeight: document.documentElement.scrollHeight,
                 h1: document.querySelector('h1')?.innerText || '',
                 mainSections: document.querySelectorAll('main > section').length,
+                contactCards: [...document.querySelectorAll('.corp-contact-card-grid article')].map((card) => {
+                    const index = card.querySelector(':scope > span');
+                    const label = card.querySelector(':scope > small');
+                    const heading = card.querySelector(':scope > h3');
+                    const rect = (element) => {
+                        const value = element.getBoundingClientRect();
+                        return { top: Math.round(value.top * 10) / 10, left: Math.round(value.left * 10) / 10 };
+                    };
+                    return {
+                        index: index?.textContent.trim() || '',
+                        label: label?.textContent.trim() || '',
+                        indexPosition: index ? rect(index) : null,
+                        labelPosition: label ? rect(label) : null,
+                        headingPosition: heading ? rect(heading) : null,
+                        indexFontSize: index ? getComputedStyle(index).fontSize : '',
+                        labelFontSize: label ? getComputedStyle(label).fontSize : '',
+                        fontFamily: label ? getComputedStyle(label).fontFamily : ''
+                    };
+                }),
                 images: [...document.images].map((image) => ({
                     src: image.currentSrc || image.src,
                     complete: image.complete,
                     naturalWidth: image.naturalWidth
                 })).filter((image) => !image.complete || image.naturalWidth === 0)
             }));
-            siteResults.push({ name, route, url, viewport, status: response?.status(), screenshot, consoleErrors, requestFailures, metrics });
+            siteResults.push({ name, route, url, viewport, status: response?.status(), screenshot, focusScreenshot, consoleErrors, requestFailures, metrics });
             await context.close();
         }
     }
