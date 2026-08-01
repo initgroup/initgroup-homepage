@@ -1,0 +1,30 @@
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+.tmp/
+
+# Python virtual environments and caches
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.env.local
+.envrc
+secrets/
+.secrets/
+
+# Local validation and editor output
+test-results/
+coverage/
+htmlcov/
+screenshots/
+prompt/
