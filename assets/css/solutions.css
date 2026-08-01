@@ -143,13 +143,13 @@
 .sol-architecture-head span,
 .sol-stage-label {
     color: var(--mint);
-    font: 800 0.58rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.7rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.12em;
 }
 
 .sol-architecture-head small {
     color: rgba(255, 255, 255, 0.65);
-    font-size: 0.65rem;
+    font-size: 0.72rem;
 }
 
 .sol-architecture-flow {
@@ -186,7 +186,7 @@
 
 .sol-architecture-card > span {
     color: rgba(255, 255, 255, 0.65);
-    font: 800 0.58rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.7rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.1em;
 }
 
@@ -198,7 +198,7 @@
 
 .sol-architecture-card p {
     color: rgba(255, 255, 255, 0.62);
-    font-size: 0.78rem;
+    font-size: 0.84rem;
 }
 
 .sol-architecture-card ul {
@@ -217,14 +217,14 @@
     border: 1px solid var(--line-dark);
     border-radius: 0.4rem;
     background: rgba(255, 255, 255, 0.035);
-    font-size: 0.67rem;
+    font-size: 0.74rem;
 }
 
 .sol-architecture-link {
     display: grid;
     align-content: center;
     color: var(--mint);
-    font: 800 0.58rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.68rem ui-monospace, "Cascadia Code", monospace;
     text-align: center;
     gap: 0.4rem;
 }
@@ -278,7 +278,7 @@
 .sol-product-card {
     position: relative;
     display: flex;
-    min-height: 42rem;
+    min-height: 39rem;
     padding: clamp(1.6rem, 3.5vw, 3.2rem);
     overflow: hidden;
     border: 1px solid var(--line);
@@ -303,7 +303,7 @@
 
 .sol-product-card-top span {
     color: var(--brand-strong);
-    font: 800 0.62rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.74rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.1em;
 }
 
@@ -369,7 +369,7 @@
 
 .sol-mini-pipeline span {
     color: var(--mint);
-    font: 800 0.56rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.68rem ui-monospace, "Cascadia Code", monospace;
 }
 
 .sol-mini-pipeline strong {
@@ -379,7 +379,7 @@
 
 .sol-mini-pipeline small {
     color: rgba(255, 255, 255, 0.5);
-    font-size: 0.62rem;
+    font-size: 0.7rem;
 }
 
 .sol-mini-pipeline > i {
@@ -395,7 +395,7 @@
     min-height: 2.75rem;
     margin-top: 1.3rem;
     color: var(--brand-strong);
-    font-size: 0.78rem;
+    font-size: 0.86rem;
     font-weight: 780;
     gap: 0.7rem;
 }
@@ -412,29 +412,27 @@
 .sol-path-list {
     display: grid;
     padding: 0;
-    border-top: 1px solid var(--line-dark);
     list-style: none;
     grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
 }
 
 .sol-path-list li {
-    min-height: 24rem;
-    padding: 2rem;
-    border-right: 1px solid var(--line-dark);
-}
-
-.sol-path-list li:last-child {
-    border-right: 0;
+    min-height: 20rem;
+    padding: 1.8rem;
+    border: 1px solid var(--line-dark);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.035);
 }
 
 .sol-path-list > li > span {
     color: var(--mint);
-    font: 800 0.62rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 1.1rem ui-monospace, "Cascadia Code", monospace;
 }
 
 .sol-path-list strong {
     display: block;
-    margin: 6rem 0 0.8rem;
+    margin: 4rem 0 0.8rem;
     font-size: clamp(1.5rem, 2.3vw, 2.2rem);
 }
 
@@ -479,7 +477,7 @@
 .de-stage-bar strong,
 .de-screen-bar strong {
     color: var(--muted);
-    font-size: 0.67rem;
+    font-size: 0.74rem;
     letter-spacing: 0;
 }
 
@@ -487,7 +485,7 @@
 .de-screen-bar em {
     margin-left: auto;
     color: var(--jade);
-    font: 800 0.56rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.68rem ui-monospace, "Cascadia Code", monospace;
     font-style: normal;
     letter-spacing: 0.08em;
 }
@@ -560,7 +558,7 @@
     border-radius: 0.45rem;
     color: var(--ink-soft);
     background: var(--paper);
-    font-size: 0.67rem;
+    font-size: 0.74rem;
     font-weight: 720;
     text-align: center;
 }
@@ -588,7 +586,7 @@
 .de-proof-grid span {
     display: block;
     color: var(--brand-strong);
-    font: 800 0.58rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.72rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.09em;
 }
 
@@ -635,7 +633,7 @@
     border-radius: 50%;
     background: var(--paper);
     place-items: center;
-    font: 800 0.62rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.74rem ui-monospace, "Cascadia Code", monospace;
 }
 
 .de-workflow li:nth-child(4) > span,
@@ -653,7 +651,7 @@
 
 .de-workflow small {
     color: var(--muted);
-    font-size: 0.69rem;
+    font-size: 0.74rem;
     line-height: 1.5;
 }
 
@@ -739,7 +737,7 @@
 
 .de-screen-card figcaption span {
     color: var(--brand-strong);
-    font: 800 0.56rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.7rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.09em;
 }
 
@@ -853,7 +851,7 @@
 
 .ib-console-head span {
     color: var(--mint);
-    font: 800 0.58rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.7rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.12em;
 }
 
@@ -881,7 +879,7 @@
 }
 
 .ib-console-node > span {
-    font: 800 0.57rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.7rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.08em;
 }
 
@@ -907,7 +905,7 @@
     padding: 0.5rem;
     border: 1px solid var(--line-dark);
     border-radius: 0.4rem;
-    font-size: 0.62rem;
+    font-size: 0.72rem;
     font-style: normal;
 }
 
@@ -951,7 +949,7 @@
 
 .ib-module-index {
     color: var(--module-accent);
-    font: 800 0.62rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.78rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.1em;
 }
 
@@ -1043,7 +1041,7 @@
 .ib-analyze-visual > span {
     position: absolute;
     color: var(--module-accent);
-    font: 800 0.58rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.7rem ui-monospace, "Cascadia Code", monospace;
 }
 
 .ib-analyze-visual > span:first-of-type { top: 2.4rem; left: 1.5rem; }
@@ -1062,7 +1060,7 @@
     border: 1px solid color-mix(in srgb, var(--module-accent), transparent 60%);
     border-radius: 0.55rem;
     background: rgba(255, 255, 255, 0.75);
-    font-size: 0.63rem;
+    font-size: 0.72rem;
     font-weight: 760;
 }
 
@@ -1130,7 +1128,7 @@
 
 .ib-output-rail span {
     color: var(--mint);
-    font: 800 0.58rem ui-monospace, "Cascadia Code", monospace;
+    font: 800 0.7rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.09em;
 }
 
@@ -1367,13 +1365,8 @@
 
     .sol-path-list li {
         min-height: 0;
-        padding: 1.7rem 0 2.2rem;
-        border-right: 0;
-        border-bottom: 1px solid var(--line-dark);
-    }
-
-    .sol-path-list li:last-child {
-        border-bottom: 0;
+        padding: 1.7rem;
+        border: 1px solid var(--line-dark);
     }
 
     .sol-path-list strong {
