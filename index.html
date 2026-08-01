@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/assets/images/brand/favicon.svg" type="image/svg+xml">
     <script src="/assets/js/boot.js?v=20260801.2"></script>
-    <link rel="stylesheet" href="/assets/css/site.css?v=20260801.8">
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260801.9">
     <script src="/assets/js/site.js?v=20260801.2" defer></script>
     <script type="application/ld+json">
     {
@@ -177,7 +177,16 @@
                 <ol class="decision-steps">
                     <li class="reveal">
                         <div class="step-card-head"><span>01</span><b>DIAGNOSE</b></div>
-                        <div class="step-visual step-visual-understand" aria-hidden="true"><span class="step-visual-label">PROFILE / RELATION</span><i></i><i></i><i></i><b></b></div>
+                        <div class="step-visual step-visual-dashboard step-profile-ui" aria-hidden="true">
+                            <div class="step-visual-toolbar"><span>PROFILE / RELATION</span><b>12 COLUMNS</b></div>
+                            <svg class="step-profile-chart" viewBox="0 0 320 104" preserveAspectRatio="none">
+                                <g class="step-chart-grid"><path d="M18 18H304M18 48H304M18 78H304M74 10V92M132 10V92M190 10V92M248 10V92"/></g>
+                                <path class="step-profile-range" d="M20 81 C74 72 110 66 154 53 S238 34 302 17 L302 33 C244 44 205 54 158 64 S72 83 20 92 Z"/>
+                                <path class="step-profile-line" d="M20 86 C76 74 112 67 157 57 S241 39 302 24"/>
+                                <g class="step-profile-points"><circle cx="38" cy="78" r="3"/><circle cx="58" cy="84" r="3"/><circle cx="77" cy="68" r="3"/><circle cx="98" cy="73" r="3"/><circle cx="116" cy="61" r="3"/><circle cx="139" cy="67" r="3"/><circle cx="157" cy="49" r="3"/><circle cx="181" cy="58" r="3"/><circle cx="204" cy="42" r="3"/><circle cx="226" cy="47" r="3"/><circle cx="248" cy="31" r="3"/><circle cx="274" cy="35" r="3"/><circle cx="294" cy="19" r="3"/></g>
+                            </svg>
+                            <div class="step-visual-metrics"><span><small>COL041 × COL049</small><b>R² 0.9976</b></span><span><small>QUALITY</small><b>98.6%</b></span></div>
+                        </div>
                         <small>UNDERSTAND DATA</small>
                         <h3>데이터를 이해합니다</h3>
                         <p>구조·분포·관계를 통계적으로 확인해 문제의 위치와 데이터의 한계를 먼저 밝힙니다.</p>
@@ -185,7 +194,12 @@
                     </li>
                     <li class="reveal">
                         <div class="step-card-head"><span>02</span><b>EXPLAIN</b></div>
-                        <div class="step-visual step-visual-evidence" aria-hidden="true"><span class="step-visual-label">RULE / EVIDENCE</span><b>IF</b><i></i><b>THEN</b><i></i><em>✓</em></div>
+                        <div class="step-visual step-visual-dashboard step-rule-ui" aria-hidden="true">
+                            <div class="step-visual-toolbar"><span>RULE / EVIDENCE</span><b>RULE 0248</b></div>
+                            <div class="step-rule-expression"><small>IF</small><b>COL041</b><em>&gt; P95</em><i>→</i><strong>REVIEW</strong></div>
+                            <div class="step-rule-proof"><div><span>SYMBOLIC REGRESSION</span><b>score 0.936</b></div><i><span></span></i></div>
+                            <div class="step-visual-metrics"><span><small>RMSE</small><b>8.66</b></span><span><small>SAMPLE</small><b>300 rows</b></span></div>
+                        </div>
                         <small>BUILD EVIDENCE</small>
                         <h3>판단 근거를 만듭니다</h3>
                         <p>조건·수식·지표가 남는 설명 가능한 규칙과 모델로 담당자의 검토를 지원합니다.</p>
@@ -193,7 +207,16 @@
                     </li>
                     <li class="reveal">
                         <div class="step-card-head"><span>03</span><b>OPERATE</b></div>
-                        <div class="step-visual step-visual-operate" aria-hidden="true"><span class="step-visual-label">REVIEW / RUN</span><i></i><i></i><i></i><strong>RUN</strong></div>
+                        <div class="step-visual step-visual-dashboard step-run-ui" aria-hidden="true">
+                            <div class="step-visual-toolbar"><span>REVIEW / RUN HISTORY</span><b class="step-run-status">PASS</b></div>
+                            <svg class="step-run-chart" viewBox="0 0 320 96" preserveAspectRatio="none">
+                                <g class="step-chart-grid"><path d="M18 18H304M18 45H304M18 72H304M74 10V82M132 10V82M190 10V82M248 10V82"/></g>
+                                <path class="step-run-area" d="M18 72 L58 66 L98 70 L138 51 L178 55 L218 34 L258 39 L302 18 L302 82 L18 82 Z"/>
+                                <path class="step-run-line" d="M18 72 L58 66 L98 70 L138 51 L178 55 L218 34 L258 39 L302 18"/>
+                                <g class="step-run-points"><circle cx="18" cy="72" r="3"/><circle cx="58" cy="66" r="3"/><circle cx="98" cy="70" r="3"/><circle cx="138" cy="51" r="3"/><circle cx="178" cy="55" r="3"/><circle cx="218" cy="34" r="3"/><circle cx="258" cy="39" r="3"/><circle cx="302" cy="18" r="3"/></g>
+                            </svg>
+                            <div class="step-run-history"><span class="is-done">PROFILE</span><span class="is-done">REVIEW</span><span class="is-live">RUN 0248</span></div>
+                        </div>
                         <small>OPERATE DECISIONS</small>
                         <h3>운영으로 연결합니다</h3>
                         <p>검토·시각화·권한·실행 이력을 시스템에 연결해 같은 판단을 재현할 수 있게 합니다.</p>
