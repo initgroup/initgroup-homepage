@@ -1608,6 +1608,49 @@
     }
 }
 
+/* Solution pages: labels and module metadata share the readable site scale. */
+.sol-breadcrumb,
+.sol-stage-label,
+.sol-architecture-head small,
+.sol-architecture-card > span,
+.sol-product-card-top span,
+.de-stage-bar em,
+.de-screen-bar em,
+.de-proof-grid span,
+.de-screen-card figcaption span,
+.de-governance-grid span,
+.ib-console-head span,
+.ib-console-node > span,
+.ib-module-index,
+.ib-analyze-visual > span,
+.ib-output-rail span,
+.ib-value-grid span {
+    font-size: var(--type-label);
+    letter-spacing: 0.075em;
+}
+
+.sol-hero-note,
+.sol-architecture-card li,
+.sol-architecture-link,
+.sol-mini-pipeline span,
+.sol-mini-pipeline small,
+.de-stage-bar strong,
+.de-screen-bar strong,
+.de-stage-badges span,
+.de-workflow li > span,
+.de-workflow small,
+.de-gallery-note,
+.ib-console-node div i,
+.ib-module-copy h2 small,
+.ib-capability-list strong,
+.ib-capability-list span {
+    font-size: var(--type-support);
+}
+
+.sol-hero-actions .button {
+    font-size: var(--type-support);
+}
+
 @media print {
     .sol-page-hero {
         padding-top: 2rem;

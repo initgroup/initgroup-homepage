@@ -1,12 +1,12 @@
 <#
 .SYNOPSIS
-Stages all changes, creates a numbered daily commit, rebases, and pushes main.
+Validates and publishes changes when the user explicitly runs this script.
 #>
 [CmdletBinding()]
 param(
     [string]$Remote = 'origin',
     [string]$Branch = 'main',
-    [string]$MessagePrefix = '',
+    [string]$Message = '',
     [switch]$DryRun
 )
 
@@ -15,13 +15,28 @@ $ErrorActionPreference = 'Stop'
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 Set-Location $repoRoot
-if ([string]::IsNullOrWhiteSpace($MessagePrefix)) { $MessagePrefix = Split-Path -Leaf $repoRoot }
 
 function Invoke-Git {
     param([Parameter(ValueFromRemainingArguments = $true)][string[]]$GitArgs)
     Write-Host "git $($GitArgs -join ' ')" -ForegroundColor Cyan
     & git -c "safe.directory=$repoRoot" @GitArgs
     if ($LASTEXITCODE -ne 0) { throw "Git command failed: git $($GitArgs -join ' ')" }
+}
+
+function Get-DefaultCommitMessage {
+    $messagePrefix = Split-Path -Leaf $repoRoot
+    $dateText = Get-Date -Format 'yyyyMMdd'
+    $pattern = '^' + [regex]::Escape("$messagePrefix-$dateText-") + '(\d+)$'
+    $maxSequence = 0
+
+    foreach ($subject in (& git -c "safe.directory=$repoRoot" log --all --format=%s 2>$null)) {
+        $match = [regex]::Match($subject, $pattern)
+        if ($match.Success) {
+            $maxSequence = [Math]::Max($maxSequence, [int]$match.Groups[1].Value)
+        }
+    }
+
+    return "$messagePrefix-$dateText-$($maxSequence + 1)"
 }
 
 if (-not (Test-Path -LiteralPath (Join-Path $repoRoot '.git'))) { throw 'Git metadata was not found.' }
@@ -37,9 +52,14 @@ Write-Host 'INIT Homepage publish preflight' -ForegroundColor Green
 Write-Host "Repository: $repoRoot"
 Write-Host "Remote:     $remoteUrl"
 Write-Host "Branch:     $currentBranch"
+Write-Host 'Commit mode: this manual command stages, commits, and pushes the listed changes' -ForegroundColor Yellow
 
-& (Join-Path $PSScriptRoot 'validate.ps1')
-if ($LASTEXITCODE -ne 0) { throw 'Homepage validation failed before publish.' }
+$workingChanges = @(& git -c "safe.directory=$repoRoot" status --short)
+if ($LASTEXITCODE -ne 0) { throw 'Unable to inspect working tree changes.' }
+if ($workingChanges.Count -gt 0) {
+    Write-Host 'Changes selected for commit:' -ForegroundColor Yellow
+    $workingChanges | ForEach-Object { Write-Host "  $_" }
+}
 
 if ($DryRun) {
     Write-Host 'Dry run: no files were staged, committed, pulled, or pushed.' -ForegroundColor Yellow
@@ -47,28 +67,21 @@ if ($DryRun) {
     return
 }
 
+& (Join-Path $PSScriptRoot 'validate.ps1')
+if ($LASTEXITCODE -ne 0) { throw 'Homepage validation failed before publish.' }
+
+if ($workingChanges.Count -gt 0) {
+    $defaultMessage = Get-DefaultCommitMessage
+    $commitMessage = if ([string]::IsNullOrWhiteSpace($Message)) { $defaultMessage } else { $Message.Trim() }
+
+    Invoke-Git add -A
+    Invoke-Git commit -m $commitMessage
+}
+
 & git -c "safe.directory=$repoRoot" ls-remote --exit-code --heads $Remote "refs/heads/$Branch" | Out-Null
 $remoteBranchExists = $LASTEXITCODE -eq 0
 if ($LASTEXITCODE -notin 0, 2) { throw "Unable to inspect remote branch '$Remote/$Branch'." }
 if ($remoteBranchExists) { Invoke-Git fetch $Remote $Branch }
-
-Invoke-Git add -A
-$staged = & git -c "safe.directory=$repoRoot" diff --cached --name-only
-if ($LASTEXITCODE -ne 0) { throw 'Unable to inspect staged changes.' }
-if (-not $staged) { Write-Host 'No changes to publish. Local main already matches the staged source.' -ForegroundColor Yellow; return }
-
-Write-Host 'Files to publish:' -ForegroundColor Green
-$staged | ForEach-Object { Write-Host "  $_" }
-
-$dateText = Get-Date -Format 'yyyyMMdd'
-$pattern = '^' + [regex]::Escape("$MessagePrefix-$dateText-") + '(\d+)$'
-$maxSequence = 0
-foreach ($subject in (& git -c "safe.directory=$repoRoot" log --all --format=%s 2>$null)) {
-    $match = [regex]::Match($subject, $pattern)
-    if ($match.Success) { $maxSequence = [Math]::Max($maxSequence, [int]$match.Groups[1].Value) }
-}
-$message = "$MessagePrefix-$dateText-$($maxSequence + 1)"
-Invoke-Git commit -m $message
 
 if ($remoteBranchExists) {
     Invoke-Git pull --rebase $Remote $Branch

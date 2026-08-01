@@ -47,7 +47,7 @@
             "problemMatcher": []
         },
         {
-            "label": "INIT Homepage: Publish Main (Explicit Commit + Push)",
+            "label": "INIT Homepage: Commit & Push (Manual Task)",
             "type": "process",
             "command": "powershell",
             "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\git-publish-main.ps1"],

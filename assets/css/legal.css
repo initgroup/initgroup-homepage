@@ -12,7 +12,7 @@
 
 .legal-layout { display: grid; grid-template-columns: minmax(12rem, 0.35fr) minmax(0, 1fr); gap: clamp(3rem, 8vw, 8rem); padding-block: clamp(4.5rem, 9vw, 8rem); }
 .legal-aside { align-self: start; position: sticky; top: 7rem; }
-.legal-aside span { display: block; color: #748094; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; }
+.legal-aside span { display: block; color: #5f6e83; font-size: var(--type-label); font-weight: 800; letter-spacing: 0.08em; }
 .legal-aside strong { display: block; margin-top: 0.8rem; color: #15213a; font-size: 1rem; }
 .legal-aside a { display: inline-flex; margin-top: 1.6rem; color: #255f9e; font-weight: 800; text-decoration: underline; text-underline-offset: 0.35rem; }
 .legal-copy { max-width: 52rem; }

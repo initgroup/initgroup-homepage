@@ -214,29 +214,47 @@
 
 .project-case {
     display: grid;
-    padding: clamp(2.2rem, 5vw, 4.5rem) 0;
+    padding: clamp(3.2rem, 6vw, 5.5rem) 0;
     border-bottom: 1px solid var(--line);
-    grid-template-columns: minmax(8rem, 0.18fr) minmax(0, 0.82fr);
-    gap: clamp(2rem, 4vw, 4rem);
+    grid-template-columns: clamp(10rem, 16vw, 13rem) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 6.5rem);
 }
 
 .project-case-index {
     display: flex;
-    min-height: 7rem;
+    min-height: 0;
+    padding: 0.35rem clamp(1.25rem, 2.5vw, 2.25rem) 0 0;
+    border-right: 1px solid var(--line);
     flex-direction: column;
-    justify-content: space-between;
+    gap: clamp(1.75rem, 3vw, 2.75rem);
 }
 
 .project-case-index > span {
+    display: grid;
+    align-content: start;
     color: var(--brand);
-    font: 800 0.74rem ui-monospace, "Cascadia Code", monospace;
+    gap: 0.4rem;
+}
+
+.project-case-index small {
+    font: 800 var(--type-label-small) ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.12em;
 }
 
+.project-case-index b {
+    color: var(--ink);
+    font: 500 clamp(2.7rem, 4vw, 3.8rem)/0.9 ui-monospace, "Cascadia Code", monospace;
+    letter-spacing: -0.08em;
+}
+
 .project-case-index strong {
-    color: var(--muted);
-    font-size: 0.84rem;
-    letter-spacing: 0;
+    max-width: 10rem;
+    padding-top: 1.1rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    font-size: 1rem;
+    line-height: 1.45;
+    letter-spacing: -0.025em;
 }
 
 .project-result {
@@ -244,28 +262,42 @@
     margin-bottom: clamp(2rem, 4vw, 3.5rem);
     padding-bottom: clamp(2rem, 4vw, 3.5rem);
     border-bottom: 1px solid var(--line);
-    grid-template-columns: 5rem minmax(0, 1fr);
-    gap: 1rem;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.75rem);
 }
 
-.project-result > span {
-    padding-top: 0.45rem;
+.project-result-label {
+    display: flex;
+    padding-top: 0.5rem;
     color: var(--jade);
-    font-size: 0.76rem;
-    font-weight: 800;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.project-result-label small {
+    color: var(--brand);
+    font: 800 var(--type-label-small) ui-monospace, "Cascadia Code", monospace;
+    letter-spacing: 0.1em;
+}
+
+.project-result-label b {
+    font-size: 1.05rem;
+    letter-spacing: -0.025em;
 }
 
 .project-result h3 {
-    max-width: 21ch;
-    margin: 0 0 0.8rem;
-    font-size: clamp(1.75rem, 3.3vw, 3rem);
-    line-height: 1.16;
+    max-width: 22ch;
+    margin: 0 0 1rem;
+    font-size: clamp(2.15rem, 3.5vw, 3.35rem);
+    line-height: 1.13;
 }
 
 .project-result p {
     max-width: 43rem;
     margin: 0;
     color: var(--ink-soft);
+    font-size: clamp(1rem, 0.25vw + 0.95rem, 1.1rem);
+    line-height: 1.75;
 }
 
 .case-framework {
@@ -276,22 +308,37 @@
 }
 
 .case-framework > div {
-    padding-top: 0.9rem;
+    padding: 1.2rem 0 1.35rem;
     border-top: 1px solid var(--line);
 }
 
 .case-framework dt {
-    margin-bottom: 0.65rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.85rem;
     color: var(--brand-strong);
-    font: 800 0.68rem ui-monospace, "Cascadia Code", monospace;
-    letter-spacing: 0.1em;
+    gap: 0.7rem;
+}
+
+.case-framework dt span {
+    font: 800 var(--type-label) ui-monospace, "Cascadia Code", monospace;
+    letter-spacing: 0.075em;
+}
+
+.case-framework dt em {
+    padding-left: 0.7rem;
+    color: var(--ink-soft);
+    border-left: 1px solid var(--line);
+    font-size: var(--type-label);
+    font-style: normal;
+    font-weight: 800;
 }
 
 .case-framework dd {
     margin: 0;
     color: var(--ink-soft);
-    font-size: 0.94rem;
-    line-height: 1.7;
+    font-size: clamp(0.98rem, 0.18vw + 0.94rem, 1.05rem);
+    line-height: 1.75;
 }
 
 .sector-grid {
@@ -1012,7 +1059,8 @@
     }
 
     .project-case {
-        grid-template-columns: 7rem minmax(0, 1fr);
+        grid-template-columns: 8.5rem minmax(0, 1fr);
+        gap: 2.5rem;
     }
 
     .delivery-principles ol {
@@ -1167,18 +1215,50 @@
     }
 
     .project-case-index {
+        display: grid;
+        align-items: end;
         min-height: 0;
-        margin-bottom: 1.5rem;
-        flex-direction: row;
+        margin-bottom: 2rem;
+        padding: 0 0 1.25rem;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 1.25rem;
+    }
+
+    .project-case-index > span {
+        display: flex;
+        align-items: baseline;
+        gap: 0.55rem;
+    }
+
+    .project-case-index b {
+        font-size: 2.65rem;
+    }
+
+    .project-case-index strong {
+        max-width: none;
+        margin-bottom: 0.15rem;
+        padding-top: 0;
+        border-top: 0;
+        text-align: right;
     }
 
     .project-result {
         display: block;
     }
 
-    .project-result > span {
-        display: block;
-        margin-bottom: 0.8rem;
+    .project-result-label {
+        align-items: center;
+        margin-bottom: 1.1rem;
+        padding-top: 0;
+        flex-direction: row;
+        gap: 0.75rem;
+    }
+
+    .project-result-label b {
+        padding-left: 0.75rem;
+        border-left: 1px solid var(--line);
     }
 
     .project-result h3 {
@@ -1412,6 +1492,32 @@
     .related-card {
         transition: none;
     }
+}
+
+/* Editorial pages: metadata remains secondary without becoming fine print. */
+.breadcrumbs ol,
+.editorial-hero-aside > span,
+.editorial-hero-aside dt,
+.outcome-card > span,
+.sector-card > span,
+.public-reference-note strong,
+.article-meta,
+.insight-feature-copy > span,
+.article-teaser-meta,
+.editorial-standard > span,
+.article-summary > header span,
+.article-summary strong,
+.article-toc > strong,
+.related-card span {
+    font-size: var(--type-label);
+    letter-spacing: 0.075em;
+}
+
+.article-toc a,
+.article-toc a::before,
+.article-byline,
+.editorial-hero-aside dd {
+    font-size: var(--type-support);
 }
 
 @media print {

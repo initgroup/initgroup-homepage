@@ -24,6 +24,9 @@
     --shell: 86rem;
     --header-height: 4.75rem;
     --section-space: clamp(5rem, 7.5vw, 7.5rem);
+    --type-label: clamp(0.8rem, 0.12vw + 0.77rem, 0.88rem);
+    --type-label-small: clamp(0.75rem, 0.1vw + 0.73rem, 0.82rem);
+    --type-support: clamp(0.84rem, 0.12vw + 0.81rem, 0.92rem);
     color: var(--ink);
     background: var(--paper);
     font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, sans-serif;
@@ -337,11 +340,11 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
 .hero-workflow small { color: rgba(255, 255, 255, 0.65); font-size: 0.62rem; }
 
 .evidence-float { position: absolute; z-index: 2; display: grid; padding: 0.72rem 0.9rem; border: 1px solid rgba(255, 255, 255, 0.82); border-radius: 0.75rem; background: rgba(255, 255, 255, 0.94); box-shadow: 0 0.75rem 2rem rgba(8, 23, 47, 0.1); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
-.evidence-float-top { top: 0; right: 1rem; min-width: 9.5rem; }
+.evidence-float-top { top: -0.25rem; right: 1rem; min-width: 9.5rem; }
 .evidence-float-top span { color: var(--brand); font: 800 0.62rem ui-monospace, "Cascadia Code", monospace; letter-spacing: 0.08em; }
 .evidence-float-top strong { margin-top: 0.1rem; font-size: 1.4rem; line-height: 1.15; }
 .evidence-float-top small { color: var(--muted); font-size: 0.68rem; line-height: 1.4; }
-.evidence-float-bottom { right: 1rem; bottom: 0; align-items: center; min-width: 11.5rem; grid-template-columns: auto 1fr; gap: 0.1rem 0.6rem; }
+.evidence-float-bottom { right: 1rem; bottom: -0.25rem; align-items: center; min-width: 11.5rem; grid-template-columns: auto 1fr; gap: 0.1rem 0.6rem; }
 .evidence-float-bottom i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #f59e0b; grid-row: 1 / span 2; }
 .evidence-float-bottom span { color: var(--muted); font-size: 0.66rem; }
 .evidence-float-bottom strong { font-size: 0.9rem; }
@@ -683,6 +686,77 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
     .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* Site-wide legibility: functional labels must read as hierarchy, not fine print. */
+.brand span,
+.mobile-navigation-head span,
+.mobile-navigation nav a span,
+.eyebrow,
+.decision-steps small,
+.product-proof-tabs button span,
+.product-proof-copy > span,
+.bap-card header small,
+.service-list small,
+.project-story-index span,
+.project-story dt,
+.principle-grid small,
+.insight-card > span,
+.insight-card i,
+.footer-links strong {
+    font-size: var(--type-label);
+    letter-spacing: 0.075em;
+}
+
+.step-card-head b,
+.step-visual-label,
+.evidence-float-top span,
+.principle-check span {
+    font-size: var(--type-label-small);
+    letter-spacing: 0.065em;
+}
+
+.evidence-float-top small,
+.evidence-float-bottom span,
+.proof-strip span,
+.proof-strip p,
+.step-deliverables li,
+.product-proof-copy a,
+.heritage-heading-copy > a,
+.projects-heading > a,
+.insight-heading > a,
+.footer-bottom {
+    font-size: var(--type-support);
+}
+
+.product-window-bar strong,
+.hero-workflow b {
+    font-size: var(--type-support);
+}
+
+.live-status,
+.hero-workflow i,
+.hero-workflow small,
+.step-visual-evidence b,
+.step-visual-evidence em,
+.step-visual-operate strong,
+.product-screen-chrome button {
+    font-size: var(--type-label-small);
+}
+
+.product-screen-chrome b {
+    font-size: 0.68rem;
+}
+
+.bap-source-visual i,
+.bap-analysis-visual strong,
+.bap-view-visual span {
+    font-size: 0.68rem;
+}
+
+.bap-source-visual strong,
+.bap-analysis-visual i {
+    font-size: 0.64rem;
 }
 
 @media print {

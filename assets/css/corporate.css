@@ -579,6 +579,54 @@
     .corp-anchor-nav a:hover { color: inherit; background: transparent; }
 }
 
+/* Corporate pages: keep metadata comfortably readable at every viewport. */
+.corp-evidence-main small,
+.corp-evidence-stats dt,
+.corp-principle-grid small,
+.corp-team-map small,
+.corp-credential-grid small,
+.corp-orbit-core small,
+.corp-anchor-nav span,
+.corp-service-index small,
+.corp-service-output dt,
+.corp-delivery-steps small,
+.corp-domain-grid small,
+.corp-signal-core small,
+.corp-culture-list small,
+.corp-role-head small,
+.corp-career-mail small,
+.corp-contact-primary > p,
+.corp-contact-card-grid small,
+.corp-prep-list small {
+    font-size: var(--type-label);
+    letter-spacing: 0.075em;
+}
+
+.corp-orbit-item,
+.corp-orbit-item i,
+.corp-signal-note,
+.corp-disclosure,
+.corp-career-mail p,
+.corp-inquiry-scope small,
+.corp-contact-primary small,
+.corp-role-grid li,
+.corp-prep-list ul li,
+.corp-contact-final-inner > div:last-child p {
+    font-size: var(--type-label-small);
+}
+
+.corp-evidence-stats dd,
+.corp-credential-grid p,
+.corp-team-map p,
+.corp-service-output dd,
+.corp-delivery-steps p,
+.corp-domain-grid span,
+.corp-growth-steps p,
+.corp-timeline time,
+.corp-prep-list p {
+    font-size: var(--type-support);
+}
+
 @media print {
     .corp-anchor-nav,
     .corp-career-contact,

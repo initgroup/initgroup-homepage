@@ -49,17 +49,17 @@ PowerShell에서 다음 명령을 실행합니다.
 .\scripts\validate.ps1
 ```
 
-VS Code에서는 `INIT Homepage: Setup Venv`, `Run Server`, `Validate`, `Backup`, `Publish Main` 작업을 사용할 수 있습니다. 저장소 루트의 `AGENTS.md`는 Codex가 이 작업공간을 열 때 프로젝트 지침으로 자동 인식합니다.
+VS Code에서는 `INIT Homepage: Setup Venv`, `Run Server`, `Validate`, `Backup`, `Commit & Push` 작업을 사용할 수 있습니다. 저장소 루트의 `AGENTS.md`는 Codex가 이 작업공간을 열 때 프로젝트 지침으로 자동 인식합니다.
 
 ## Git·백업 자동화
 
-이 폴더는 `main` 브랜치 Git 저장소로 사용하며 `origin`은 [initgroup/init-homepage](https://github.com/initgroup/init-homepage)에 연결합니다. 소스를 수정해도 자동으로 commit하거나 push하지 않으며, 명시적으로 배포할 때만 다음 스크립트를 실행합니다.
+이 폴더는 `main` 브랜치 Git 저장소로 사용하며 `origin`은 [initgroup/initgroup-homepage](https://github.com/initgroup/initgroup-homepage)에 연결합니다. 소스를 수정해도 자동으로 stage, commit 또는 push하지 않습니다. 수정 파일은 VS Code 소스 제어에 계속 표시되며 사용자가 배포 명령을 직접 실행할 때만 커밋합니다.
 
 ```powershell
 .\scripts\git-publish-main.ps1
 ```
 
-스크립트는 전체 변경을 stage하고 `init-homepage-yyyyMMdd-N` 형식으로 커밋한 뒤 원격 `main`과 rebase하여 push합니다. 실행 즉시 원격 저장소를 변경하므로 일반 소스 작업 중에는 실행하지 않습니다.
+Codex가 소스를 수정한 직후에는 자동으로 stage, commit 또는 push하지 않으며 변경 파일은 VS Code에 `M`으로 남습니다. 사용자가 `git-publish-main.ps1` 명령이나 `Commit & Push` 작업을 직접 실행하면 그 실행 자체를 명시적인 커밋 지시로 간주하여, 전체 변경을 검증한 뒤 stage·commit·pull --rebase·push합니다. 기본 커밋 메시지는 일련번호로 생성되며 `-Message "메시지"`로 직접 지정할 수 있습니다. `-DryRun` 옵션은 변경 없이 점검만 수행합니다.
 
 별도 창에서 실행 결과와 오류를 계속 확인하려면 `scripts\publish-homepage.cmd`를 실행합니다. 일반 PowerShell 터미널에서는 새 `powershell -File` 프로세스를 만들지 말고 위의 `.\scripts\git-publish-main.ps1` 명령을 직접 사용합니다.
 
@@ -83,7 +83,7 @@ FastAPI는 승인된 페이지 디렉터리와 `assets/`만 공개하며 저장�
 Render Dashboard에서 권장하는 구성은 다음과 같습니다.
 
 - Service Type: `Web Service`
-- Repository: `initgroup/init-homepage`
+- Repository: `initgroup/initgroup-homepage`
 - Branch: `main`
 - Runtime: `Python 3`
 - Build Command: `pip install -r requirements.txt`

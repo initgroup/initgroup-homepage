@@ -1,8 +1,8 @@
 services:
   - type: web
-    name: init-homepage
+    name: initgroup-homepage
     runtime: python
-    repo: https://github.com/initgroup/init-homepage
+    repo: https://github.com/initgroup/initgroup-homepage
     branch: main
     autoDeployTrigger: commit
     buildCommand: pip install -r requirements.txt

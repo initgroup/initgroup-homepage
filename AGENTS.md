@@ -50,6 +50,6 @@
 - `venv/`는 생성 결과물이므로 직접 수정하거나 커밋하지 않습니다.
 - `scripts\backup-source.ps1 -Mode Working`은 미커밋 파일까지 백업합니다.
 - `scripts\backup-source.ps1 -Mode Git`은 커밋된 소스와 Git bundle을 백업합니다.
-- `git-publish-main.ps1`은 add, commit, pull --rebase, push를 실제 수행하므로 사용자가 명시적으로 요청한 경우에만 실행합니다.
+- `git-publish-main.ps1` 실행 자체가 add·commit·pull --rebase·push에 대한 명시적 지시입니다. Codex는 사용자가 현재 요청에서 실행을 명시적으로 요구한 경우에만 이 스크립트를 실행합니다.
 
 모든 최종 답변 마지막에는 `Usage 확인: VS Code Codex 입력창에서 /status` 문구를 반드시 추가합니다.
