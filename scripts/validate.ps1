@@ -4,7 +4,19 @@ param()
 $ErrorActionPreference = 'Stop'
 $siteRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $errors = [System.Collections.Generic.List[string]]::new()
-$htmlFiles = @(Get-ChildItem -LiteralPath $siteRoot -Recurse -File -Filter '*.html')
+$excludedHtmlRoots = @(
+    (Join-Path $siteRoot '.render-static'),
+    (Join-Path $siteRoot '.tmp'),
+    (Join-Path $siteRoot 'venv'),
+    (Join-Path $siteRoot '.venv')
+) | ForEach-Object { [System.IO.Path]::GetFullPath($_).TrimEnd('\') + '\' }
+$htmlFiles = @(
+    Get-ChildItem -LiteralPath $siteRoot -Recurse -File -Filter '*.html' |
+        Where-Object {
+            $candidatePath = $_.FullName
+            -not ($excludedHtmlRoots | Where-Object { $candidatePath.StartsWith($_, [System.StringComparison]::OrdinalIgnoreCase) })
+        }
+)
 
 if ($htmlFiles.Count -eq 0) {
     throw 'No HTML files were found.'

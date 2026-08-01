@@ -445,13 +445,11 @@
     .corp-contact-hero-grid { width: 100%; padding: calc(var(--header-height) + 3.4rem) 1rem 4.5rem; gap: 3rem; }
     .corp-hero-copy { padding-top: 0; }
     .corp-hero-copy h1 { max-width: none; margin-bottom: 1.2rem; font-size: clamp(2.4rem, 11.5vw, 3.35rem); line-height: 1.08; }
-    .corp-hero-copy h1 br { display: none; }
     .corp-hero-lead { margin-bottom: 1.5rem; font-size: 0.94rem; }
     .corp-section { padding-block: 5rem; }
     .corp-heading,
     .corp-heading-split { display: block; margin-bottom: 2.5rem; }
     .corp-heading h2 { max-width: none; font-size: clamp(2rem, 9.5vw, 2.9rem); }
-    .corp-heading h2 br { display: none; }
     .corp-heading-split > p { margin-top: 1.2rem; font-size: 0.9rem; }
 
     .corp-hero-evidence { width: 100%; border-radius: 0.9rem; }
@@ -472,7 +470,6 @@
 
     .corp-team-layout { gap: 3rem; }
     .corp-team-copy h2 { max-width: none; font-size: clamp(2.1rem, 10vw, 3rem); }
-    .corp-team-copy h2 br { display: none; }
     .corp-team-map li { min-height: 7.5rem; grid-template-columns: 2.5rem minmax(0, 1fr); }
     .corp-team-map small { display: none; }
     .corp-team-map strong { font-size: 1.3rem; }
@@ -542,7 +539,6 @@
     .corp-career-contact h2,
     .corp-contact-final h2 { max-width: none; font-size: clamp(2.1rem, 10vw, 3rem); }
     .corp-career-contact h2 br,
-    .corp-contact-final h2 br { display: none; }
     .corp-career-mail,
     .corp-contact-final-inner > div:last-child { margin-top: 2.5rem; }
     .corp-career-mail a { font-size: 1.05rem; overflow-wrap: anywhere; }

@@ -43,6 +43,8 @@ PowerShell에서 다음 명령을 실행합니다.
 
 기본 주소는 `http://127.0.0.1:8200/`입니다. 검증은 다음 명령으로 실행합니다.
 
+이 홈페이지는 정적 사이트이므로 `uvicorn main:app`을 사용하지 않습니다. 새 명령창을 열어 서버를 계속 표시하려면 `scripts\start-homepage.cmd`를 실행합니다. 일반 실행은 8200번에서 이미 홈페이지가 실행 중이면 중복 서버를 만들지 않고 현재 주소를 안내합니다. VS Code의 `Ctrl+Shift+B` 작업은 이 프로젝트의 `venv\Scripts\python.exe`로 정적 서버를 직접 실행하므로, 작업 터미널이 서버 프로세스와 함께 계속 유지됩니다.
+
 ```powershell
 .\scripts\validate.ps1
 ```
@@ -59,6 +61,8 @@ VS Code에서는 `INIT Homepage: Setup Venv`, `Run Server`, `Validate`, `Backup`
 
 스크립트는 전체 변경을 stage하고 `init-homepage-yyyyMMdd-N` 형식으로 커밋한 뒤 원격 `main`과 rebase하여 push합니다. 실행 즉시 원격 저장소를 변경하므로 일반 소스 작업 중에는 실행하지 않습니다.
 
+별도 창에서 실행 결과와 오류를 계속 확인하려면 `scripts\publish-homepage.cmd`를 실행합니다. 일반 PowerShell 터미널에서는 새 `powershell -File` 프로세스를 만들지 말고 위의 `.\scripts\git-publish-main.ps1` 명령을 직접 사용합니다.
+
 백업 기본 위치는 프로젝트와 같은 상위 폴더의 `backup\`입니다.
 
 ```powershell
@@ -71,6 +75,26 @@ VS Code에서는 `INIT Homepage: Setup Venv`, `Run Server`, `Validate`, `Backup`
 ## 배포
 
 정적 호스팅의 document root를 이 폴더로 지정하고, 디렉터리의 `index.html`을 기본 문서로 제공해야 합니다. 현재 자산 파일명은 content hash를 포함하지 않으므로 HTML과 `assets/` 모두 재검증 가능한 짧은 캐시를 사용합니다. 장기 immutable 캐시는 배포 시 파일명을 fingerprint하는 경우에만 적용합니다.
+
+### Render
+
+이 프로젝트는 FastAPI 애플리케이션이 아니라 정적 MPA이므로 Render의 `Web Service`에서 `uvicorn main:app`으로 실행하지 않습니다. 저장소 루트의 `render.yaml`은 별도 `Static Site`를 만들기 위한 Blueprint이며, 공개 파일만 `.render-static/`에 복사한 뒤 해당 폴더를 배포합니다.
+
+Render Dashboard에서 권장하는 구성은 다음과 같습니다.
+
+- Service Type: `Static Site`
+- Repository: `initgroup/init-homepage`
+- Branch: `main`
+- Build Command: `bash scripts/build-render-static.sh`
+- Publish Directory: `.render-static`
+- Start Command: 없음
+
+기존 서비스를 당장 유지해야 하고 서비스 유형이 `Web Service`라면 다음 설정으로 임시 운영할 수 있습니다.
+
+- Build Command: `bash scripts/build-render-static.sh`
+- Start Command: `python -m http.server $PORT --bind 0.0.0.0 --directory .render-static`
+
+`uvicorn main:app`은 이 프로젝트에 사용하지 않습니다. 장기 운영은 CDN, 캐시 무효화와 시작 프로세스가 필요 없는 Render `Static Site` 구성을 사용합니다.
 
 기존 고객 포털을 계속 운영할 경우 홈페이지와 포털의 호스트를 분리하는 구성이 안전합니다.
 

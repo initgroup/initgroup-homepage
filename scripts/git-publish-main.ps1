@@ -6,7 +6,8 @@ Stages all changes, creates a numbered daily commit, rebases, and pushes main.
 param(
     [string]$Remote = 'origin',
     [string]$Branch = 'main',
-    [string]$MessagePrefix = ''
+    [string]$MessagePrefix = '',
+    [switch]$DryRun
 )
 
 $ErrorActionPreference = 'Stop'
@@ -32,6 +33,20 @@ if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($remoteUrl)) {
 $currentBranch = (& git -c "safe.directory=$repoRoot" branch --show-current | Out-String).Trim()
 if ($currentBranch -ne $Branch) { throw "Current branch is '$currentBranch'. Switch to '$Branch' before publishing." }
 
+Write-Host 'INIT Homepage publish preflight' -ForegroundColor Green
+Write-Host "Repository: $repoRoot"
+Write-Host "Remote:     $remoteUrl"
+Write-Host "Branch:     $currentBranch"
+
+& (Join-Path $PSScriptRoot 'validate.ps1')
+if ($LASTEXITCODE -ne 0) { throw 'Homepage validation failed before publish.' }
+
+if ($DryRun) {
+    Write-Host 'Dry run: no files were staged, committed, pulled, or pushed.' -ForegroundColor Yellow
+    & git -c "safe.directory=$repoRoot" status --short --branch
+    return
+}
+
 & git -c "safe.directory=$repoRoot" ls-remote --exit-code --heads $Remote "refs/heads/$Branch" | Out-Null
 $remoteBranchExists = $LASTEXITCODE -eq 0
 if ($LASTEXITCODE -notin 0, 2) { throw "Unable to inspect remote branch '$Remote/$Branch'." }
@@ -40,7 +55,10 @@ if ($remoteBranchExists) { Invoke-Git fetch $Remote $Branch }
 Invoke-Git add -A
 $staged = & git -c "safe.directory=$repoRoot" diff --cached --name-only
 if ($LASTEXITCODE -ne 0) { throw 'Unable to inspect staged changes.' }
-if (-not $staged) { Write-Host 'No changes to publish.' -ForegroundColor Yellow; exit 0 }
+if (-not $staged) { Write-Host 'No changes to publish. Local main already matches the staged source.' -ForegroundColor Yellow; return }
+
+Write-Host 'Files to publish:' -ForegroundColor Green
+$staged | ForEach-Object { Write-Host "  $_" }
 
 $dateText = Get-Date -Format 'yyyyMMdd'
 $pattern = '^' + [regex]::Escape("$MessagePrefix-$dateText-") + '(\d+)$'
@@ -60,4 +78,5 @@ else {
     Invoke-Git push --set-upstream $Remote $Branch
 }
 
-Write-Host 'Publish complete.' -ForegroundColor Green
+$publishedCommit = (& git -c "safe.directory=$repoRoot" rev-parse --short HEAD | Out-String).Trim()
+Write-Host "Publish complete: $publishedCommit -> $Remote/$Branch" -ForegroundColor Green

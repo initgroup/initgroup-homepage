@@ -826,7 +826,7 @@
     content: "";
 }
 
-/* INBUPS */
+/* IN-BAPS (인법스) */
 .ib-hero-console {
     min-width: 0;
     padding: 1.2rem;
@@ -1237,9 +1237,6 @@
         word-break: normal;
     }
 
-    .sol-hero-copy h1 br {
-        display: none;
-    }
 
     .sol-hero-copy > p:not(.eyebrow) {
         font-size: 0.94rem;
@@ -1316,9 +1313,6 @@
         font-size: clamp(2.15rem, 10vw, 3.2rem);
     }
 
-    .sol-section-heading h2 br {
-        display: none;
-    }
 
     .sol-section-heading > p {
         margin-top: 1.2rem;

@@ -3,6 +3,7 @@ Thumbs.db
 Desktop.ini
 *.log
 .tmp/
+.render-static/
 
 # Python virtual environments and caches
 venv/

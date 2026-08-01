@@ -3,7 +3,7 @@
     "tasks": [
         {
             "label": "INIT Homepage: Setup Venv",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\setup-venv.ps1"],
             "options": { "cwd": "${workspaceFolder}" },
@@ -11,17 +11,20 @@
         },
         {
             "label": "INIT Homepage: Run Server",
-            "type": "shell",
-            "command": "powershell",
-            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\serve.ps1"],
+            "type": "process",
+            "command": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+            "args": ["-u", "-m", "http.server", "8200", "--bind", "127.0.0.1", "--directory", "${workspaceFolder}"],
             "options": { "cwd": "${workspaceFolder}" },
             "group": { "kind": "build", "isDefault": true },
+            "dependsOn": "INIT Homepage: Setup Venv",
+            "dependsOrder": "sequence",
             "runOptions": { "instanceLimit": 1 },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "showReuseMessage": true }
         },
         {
             "label": "INIT Homepage: Validate",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\validate.ps1"],
             "options": { "cwd": "${workspaceFolder}" },
@@ -29,7 +32,7 @@
         },
         {
             "label": "INIT Homepage: Backup Working Source",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\backup-source.ps1", "-Mode", "Working"],
             "options": { "cwd": "${workspaceFolder}" },
@@ -37,7 +40,7 @@
         },
         {
             "label": "INIT Homepage: Backup Git Source",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\backup-source.ps1", "-Mode", "Git"],
             "options": { "cwd": "${workspaceFolder}" },
@@ -45,7 +48,7 @@
         },
         {
             "label": "INIT Homepage: Publish Main (Explicit Commit + Push)",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\git-publish-main.ps1"],
             "options": { "cwd": "${workspaceFolder}" },
