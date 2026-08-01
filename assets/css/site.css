@@ -446,7 +446,7 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
 .product-screen-chrome b { font: 600 0.48rem ui-monospace, "Cascadia Code", monospace; letter-spacing: 0.08em; }
 .product-screen-chrome button { min-height: 2rem; margin-left: auto; padding: 0.3rem 0.6rem; color: var(--mint); border: 1px solid rgba(78, 215, 189, 0.25); border-radius: 0.35rem; background: transparent; cursor: pointer; font-size: 0.52rem; }
 .product-proof-image { overflow: hidden; aspect-ratio: 1.98 / 1; }
-.product-proof-image img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.product-proof-image img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .product-proof-copy { align-self: center; padding: 1rem 0; }
 .product-proof-copy > span { color: var(--mint); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; }
 .product-proof-copy h3 { margin: 0.6rem 0 0.85rem; font-size: clamp(1.5rem, 2.5vw, 2.25rem); line-height: 1.2; }

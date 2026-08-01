@@ -17,8 +17,8 @@
     <meta property="og:image" content="https://initgroup.kr/assets/images/product/login-overview.png">
     <link rel="icon" href="/assets/images/brand/favicon.svg" type="image/svg+xml">
     <script src="/assets/js/boot.js?v=20260801.2"></script>
-    <link rel="stylesheet" href="/assets/css/site.css?v=20260801.9">
-    <link rel="stylesheet" href="/assets/css/solutions.css?v=20260801.9">
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260801.10">
+    <link rel="stylesheet" href="/assets/css/solutions.css?v=20260801.10">
     <script src="/assets/js/site.js?v=20260801.2" defer></script>
     <script type="application/ld+json">
     {
@@ -90,10 +90,10 @@
                         <p class="sol-hero-note"><i aria-hidden="true"></i> 아래 화면은 실제 개발·검증 환경의 제품 인터페이스입니다.</p>
                     </div>
 
-                    <div class="de-hero-stage" aria-label="INIT Data Editing System 실제 제품 시작 화면">
-                        <div class="de-stage-bar"><span><i></i><i></i><i></i></span><strong>INIT Data Editing System / Product Overview</strong><em>ACTUAL PRODUCT</em></div>
-                        <div class="de-hero-viewport" tabindex="0" aria-label="좌우로 이동하여 실제 제품 시작 화면 살펴보기"><img src="/assets/images/product/login-overview.png" alt="Profile, Discover, Validate, Execute 흐름과 데이터 프로파일링, 규칙 근거, 실행 이력을 소개하는 INIT Data Editing System 시작 화면" width="1060" height="559" fetchpriority="high" decoding="async"></div>
-                        <div class="de-stage-overlays" aria-hidden="true"><span><img src="/assets/images/product/rule-regression-detail.png" alt="" width="1275" height="855"></span><span><img src="/assets/images/product/rule-portfolio.png" alt="" width="1133" height="804"></span></div>
+                    <div class="de-hero-stage" aria-label="INIT Data Editing System 실제 Flow 설계 화면">
+                        <div class="de-stage-bar"><span><i></i><i></i><i></i></span><strong>INIT Data Editing System / Controlled Flow</strong><em>ACTUAL PRODUCT</em></div>
+                        <div class="de-hero-viewport" tabindex="0" aria-label="좌우로 이동하여 실제 Flow 설계 화면 살펴보기"><img src="/assets/images/reference/data-editing-system/flow-designer.png" alt="컬럼 유형 분석, 관계 분석, 자동 규칙 발굴과 규칙 위반 탐지를 연결한 INIT Data Editing System Flow 설계 화면" width="1920" height="949" fetchpriority="high" decoding="async"></div>
+                        <div class="de-stage-overlays" aria-hidden="true"><span><img src="/assets/images/reference/data-editing-system/continuous-rule-detail.png" alt="" width="1275" height="855"></span><span><img src="/assets/images/reference/data-editing-system/categorical-rules.png" alt="" width="1920" height="952"></span></div>
                         <div class="de-stage-badges" aria-label="제품 핵심 원칙"><span>원본 보존 편집</span><span>Human-in-the-loop</span><span>Run 단위 이력</span></div>
                     </div>
                 </div>
@@ -126,27 +126,78 @@
             </div>
         </section>
 
+        <section class="section de-rule-section" aria-labelledby="ruleFamilyTitle">
+            <div class="shell">
+                <div class="sol-section-heading reveal">
+                    <div><p class="eyebrow"><i></i> TWO RULE FAMILIES</p><h2 id="ruleFamilyTitle">형태가 다른 규칙도<br>근거까지 읽을 수 있게.</h2></div>
+                    <p>범주형 데이터의 조건–결과 관계와 연속형 데이터의 수식 관계를 구분해 발굴합니다. 후보마다 적용 조건과 품질 지표, 위반 데이터를 함께 제시해 담당자가 채택 여부를 판단할 수 있습니다.</p>
+                </div>
+
+                <div class="de-rule-grid">
+                    <article class="de-rule-card de-rule-categorical reveal">
+                        <div class="de-rule-card-head"><span>01 / CATEGORICAL RULE</span><strong>IF → THEN</strong></div>
+                        <div class="de-rule-console" aria-label="범주형 규칙 요약 예시">
+                            <div class="de-rule-console-bar"><span>ASSOCIATION RULE</span><b>RULE 0248</b></div>
+                            <div class="de-condition-flow">
+                                <div><small>IF</small><span><b>지역구분</b><em>= 도시</em></span><i>AND</i><span><b>모연령코드</b><em>= 0</em></span></div>
+                                <div><small>THEN</small><strong>부모경제활동코드 = 1</strong></div>
+                            </div>
+                            <dl class="de-rule-metrics"><div><dt>CONFIDENCE</dt><dd>98.6%</dd></div><div><dt>LIFT</dt><dd>3.418</dd></div><div><dt>EXCEPTION</dt><dd>1 row</dd></div></dl>
+                        </div>
+                        <div class="de-rule-copy"><h3>범주형 규칙</h3><p>여러 조건이 함께 나타날 때 기대되는 결과 범주를 <b>IF–THEN</b>으로 표현합니다. 지지도·신뢰도·향상도와 예외 행을 함께 확인합니다.</p><ul><li>조건 조합과 결과 범주 명시</li><li>확률·지지도·예외 데이터 검토</li></ul></div>
+                    </article>
+
+                    <article class="de-rule-card de-rule-continuous reveal">
+                        <div class="de-rule-card-head"><span>02 / CONTINUOUS RULE</span><strong>A = B + C</strong></div>
+                        <div class="de-rule-console" aria-label="연속형 규칙 요약 예시">
+                            <div class="de-rule-console-bar"><span>SYMBOLIC REGRESSION</span><b>R² 0.9976</b></div>
+                            <div class="de-equation"><small>F(X) = Y</small><strong>COL049 = COL041 − COL048</strong><span>원천소득 = 가처분소득 − 월총지출</span></div>
+                            <svg class="de-equation-chart" viewBox="0 0 520 118" preserveAspectRatio="none" aria-hidden="true">
+                                <g><path d="M22 23H498M22 57H498M22 91H498M116 12V105M212 12V105M308 12V105M404 12V105"/></g>
+                                <path class="de-equation-band" d="M22 94 C118 79 175 70 258 58 S415 31 498 18 L498 34 C417 44 344 57 260 69 S111 89 22 107 Z"/>
+                                <path class="de-equation-line" d="M22 100 C115 84 176 75 259 63 S417 36 498 24"/>
+                                <g class="de-equation-points"><circle cx="42" cy="92" r="3"/><circle cx="88" cy="89" r="3"/><circle cx="130" cy="77" r="3"/><circle cx="176" cy="81" r="3"/><circle cx="222" cy="64" r="3"/><circle cx="267" cy="68" r="3"/><circle cx="313" cy="49" r="3"/><circle cx="359" cy="52" r="3"/><circle cx="408" cy="35" r="3"/><circle cx="457" cy="32" r="3"/><circle cx="486" cy="20" r="3"/></g>
+                            </svg>
+                            <dl class="de-rule-metrics"><div><dt>RMSE</dt><dd>8.66</dd></div><div><dt>SAMPLE</dt><dd>300 rows</dd></div><div><dt>VARIABLES</dt><dd>2</dd></div></dl>
+                        </div>
+                        <div class="de-rule-copy"><h3>연속형 규칙</h3><p>수치 컬럼 사이의 관계를 <b>A=B+C</b>와 같은 설명 가능한 수식으로 표현합니다. 적합도·오차와 관측값 분포로 적용 가능성을 판단합니다.</p><ul><li>입력·결과 변수와 계수 공개</li><li>R²·RMSE·잔차와 산점도 검증</li></ul></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <section class="section de-gallery-section" aria-labelledby="productScreensTitle">
             <div class="shell">
                 <div class="sol-section-heading reveal">
                     <div><p class="eyebrow"><i></i> ACTUAL PRODUCT INTERFACE</p><h2 id="productScreensTitle">설명이 아니라<br>작동하는 제품 화면.</h2></div>
-                    <p>규칙 후보를 비교하고 수식·지표와 데이터 분포로 근거를 확인하는 제품 흐름을 안전한 공개 화면으로 살펴볼 수 있습니다.</p>
+                    <p>분석 노드를 연결하고 범주형·연속형 규칙을 발굴한 뒤, 위반 행을 확인하는 실제 제품 흐름을 화면 단위로 살펴볼 수 있습니다.</p>
                 </div>
                 <p class="de-gallery-note"><i aria-hidden="true"></i> 모바일에서는 이미지를 좌우로 이동해 축소되지 않은 세부 화면을 확인하세요.</p>
 
                 <div class="de-screen-grid">
-                    <figure class="de-screen-card de-screen-card-wide de-screen-card-portfolio reveal">
-                        <div class="de-screen-bar"><span><i></i><i></i><i></i></span><strong>Rule Portfolio</strong><em>01 / DISCOVERY</em></div>
-                        <div class="de-screen-media" tabindex="0" aria-label="좌우로 이동하여 규칙 후보 포트폴리오 살펴보기"><img src="/assets/images/product/rule-portfolio.png" alt="방법 유형, 위반 상태와 대상별 규칙을 필터링하고 수식, 위반 건수, 오차와 점수를 비교하는 규칙 후보 화면" width="1133" height="804" loading="lazy" decoding="async"></div>
-                        <figcaption><span>DISCOVER</span><h3>규칙 후보와 위반 신호를 비교</h3><p>방법 유형과 대상 컬럼별 후보를 필터링하고 수식, 위반 건수와 오차 지표를 근거로 검토 대상을 좁힙니다.</p></figcaption>
+                    <figure class="de-screen-card de-screen-card-wide reveal">
+                        <div class="de-screen-bar"><span><i></i><i></i><i></i></span><strong>Flow Designer</strong><em>01 / ORCHESTRATE</em></div>
+                        <div class="de-screen-media" tabindex="0" aria-label="좌우로 이동하여 Flow 설계 화면 살펴보기"><img src="/assets/images/reference/data-editing-system/flow-designer.png" alt="컬럼 유형 분석, 컬럼 상관 분석, 자동 규칙 발굴과 규칙 위반 탐지를 순서대로 연결하는 Flow 설계 화면" width="1920" height="949" loading="lazy" decoding="async"></div>
+                        <figcaption><span>ORCHESTRATE</span><h3>분석·발굴·탐지를 하나의 Flow로</h3><p>노드의 입력과 출력을 연결해 프로파일링부터 규칙 발굴과 위반 탐지까지 같은 실행 조건으로 반복합니다.</p></figcaption>
                     </figure>
 
-                    <figure class="de-screen-card de-screen-card-wide de-screen-card-regression reveal">
-                        <div class="de-screen-bar"><span><i></i><i></i><i></i></span><strong>Rule Evidence</strong><em>02 / EVIDENCE</em></div>
-                        <div class="de-screen-media" tabindex="0" aria-label="좌우로 이동하여 회귀 규칙 근거 화면 살펴보기"><img src="/assets/images/product/rule-regression-detail.png" alt="회귀 규칙의 수식, 적합도와 오차 지표, 입력·결과 컬럼, 관측값과 수식 곡선을 함께 보여주는 규칙 근거 화면" width="1275" height="855" loading="lazy" decoding="async"></div>
-                        <figcaption><span>EXPLAIN</span><h3>수식과 지표, 관측값으로 규칙을 설명</h3><p>규칙 수식과 적합도·오차, 입력 컬럼과 실제 분포를 함께 확인해 후보의 의미와 한계를 검토합니다.</p></figcaption>
+                    <figure class="de-screen-card de-screen-card-wide de-screen-card-categorical reveal">
+                        <div class="de-screen-bar"><span><i></i><i></i><i></i></span><strong>Categorical Rule Discovery</strong><em>02 / IF → THEN</em></div>
+                        <div class="de-screen-media" tabindex="0" aria-label="좌우로 이동하여 범주형 규칙 후보 화면 살펴보기"><img src="/assets/images/reference/data-editing-system/categorical-rules.png" alt="IF 조건과 THEN 결과, 지지도·신뢰도·향상도와 예외 수를 함께 비교하는 범주형 규칙 후보 화면" width="1920" height="952" loading="lazy" decoding="async"></div>
+                        <figcaption><span>CATEGORICAL</span><h3>IF–THEN 조건 규칙과 예외를 함께</h3><p>조건 조합과 결과 범주뿐 아니라 COUNT, SUPPORT, CONFIDENCE, LIFT와 실제 예외 행을 근거로 후보를 검토합니다.</p></figcaption>
                     </figure>
 
+                    <figure class="de-screen-card de-screen-card-continuous reveal">
+                        <div class="de-screen-bar"><span><i></i><i></i><i></i></span><strong>Continuous Rule Evidence</strong><em>03 / A = B + C</em></div>
+                        <div class="de-screen-media" tabindex="0" aria-label="좌우로 이동하여 연속형 규칙 근거 화면 살펴보기"><img src="/assets/images/reference/data-editing-system/continuous-rule-detail.png" alt="연속형 규칙의 수식, 적합도와 오차 지표, 입력·결과 컬럼과 산점도를 함께 보여주는 상세 화면" width="1275" height="855" loading="lazy" decoding="async"></div>
+                        <figcaption><span>CONTINUOUS</span><h3>수식과 관측값으로 관계를 검증</h3><p>결과값을 설명하는 입력 변수와 계수, R²·RMSE와 산점도를 한 화면에서 확인합니다.</p></figcaption>
+                    </figure>
+
+                    <figure class="de-screen-card de-screen-card-violation reveal">
+                        <div class="de-screen-bar"><span><i></i><i></i><i></i></span><strong>Violation Review</strong><em>04 / REVIEW</em></div>
+                        <div class="de-screen-media" tabindex="0" aria-label="좌우로 이동하여 규칙 위반 행 조회 화면 살펴보기"><img src="/assets/images/reference/data-editing-system/violation-query.png" alt="선택한 규칙의 위반 행과 예상값·실제값·신뢰도를 조회하고 검토하는 화면" width="1116" height="754" loading="lazy" decoding="async"></div>
+                        <figcaption><span>REVIEW</span><h3>규칙을 실제 위반 행까지 추적</h3><p>요약 지표에서 끝내지 않고 예상값과 실제값, 위반 점수와 근거 SQL을 확인해 처리 대상을 결정합니다.</p></figcaption>
+                    </figure>
                 </div>
             </div>
         </section>

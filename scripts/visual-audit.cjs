@@ -62,6 +62,8 @@ function intersection(a, b) {
         page.on('requestfailed', (request) => requestFailures.push(`${request.method()} ${request.url()}`));
 
         await page.goto(baseUrl, { waitUntil: 'networkidle' });
+        await page.locator('img[loading="lazy"]').evaluateAll((images) => images.forEach((image) => { image.loading = 'eager'; }));
+        await page.waitForLoadState('networkidle');
         await page.evaluate(() => window.scrollTo(0, 0));
         const screenshot = path.join(outputDir, `${viewport.name}.png`);
         await page.screenshot({ path: screenshot, fullPage: true });
@@ -155,6 +157,8 @@ function intersection(a, b) {
             page.on('requestfailed', (request) => requestFailures.push(`${request.method()} ${request.url()}`));
             const url = new URL(route, baseUrl).toString();
             const response = await page.goto(url, { waitUntil: 'networkidle' });
+            await page.locator('img[loading="lazy"]').evaluateAll((images) => images.forEach((image) => { image.loading = 'eager'; }));
+            await page.waitForLoadState('networkidle');
             await page.evaluate(() => window.scrollTo(0, 0));
             const screenshot = path.join(siteOutputDir, `${viewport.name}-${name}.png`);
             await page.screenshot({ path: screenshot, fullPage: true });
