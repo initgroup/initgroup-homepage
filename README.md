@@ -20,10 +20,15 @@ templates/partials/            헤더, 내비게이션, 푸터, 모바일 빠른
 templates/pages/               페이지별 본문과 JSON-LD
 assets/css/site.css            전 페이지 공통 스타일
 assets/css/{section}.css       corporate, editorial, legal, solutions 영역 스타일
+assets/css/i18n.css            공통 언어 선택 UI
 assets/js/boot.js              초기 문서 상태 설정
+assets/js/i18n.js              JSON 언어 사전 로딩, 전환과 선택 상태 유지
 assets/js/site.js              메뉴, 스크롤, 갤러리, 라이트박스 등 공통 동작
+assets/i18n/config.json         기본 언어, 지원 언어, 저장 키와 사전 경로
+assets/i18n/{ko,en}.json        한국어·영어 key/value 언어 사전
 assets/downloads/              공개 다운로드 자료
 scripts/build_site.py          정적 배포 HTML을 .render-static/에 생성
+scripts/i18n_catalog.py        템플릿 문구와 언어 사전 동기화·검증
 ```
 
 루트와 각 공개 디렉터리의 `index.html`은 해당 `templates/pages/*.html`을 상속하는 한 줄짜리 진입 템플릿입니다. 공통 UI는 `templates/base.html`과 `templates/partials/`, 페이지 본문은 `templates/pages/`, 페이지 제목·canonical·OG·연결 CSS는 `site_config.py`에서 수정합니다. 따라서 공통 CSS·JavaScript 버전이나 푸터를 바꿔도 각 `index.html`을 수정하지 않습니다.
@@ -48,6 +53,29 @@ scripts/build_site.py          정적 배포 HTML을 .render-static/에 생성
 ```
 
 공통 CSS와 JavaScript는 `assets/`에 있으며 현재 공개 페이지는 기존 시스템 DB, API, 세션 또는 환경변수에 의존하지 않습니다. Python 진입점은 `main.py`이고 향후 서버 기능은 `/api/` 경로에 추가합니다.
+
+## 한국어·영어 지원
+
+언어 지원은 DB, 세션, 언어별 HTML 또는 언어별 JavaScript를 만들지 않는 정적 JSON 방식입니다. 기본 언어는 한국어(`ko`)이며 공통 헤더의 `Korea`, `English` 버튼으로 전환합니다. 선택값은 `assets/i18n/config.json`의 `storageKey`에 따라 브라우저 `localStorage`에 저장되고, 현재 페이지에서는 `window.INIT_LANGUAGE`와 `window.INIT_I18N`으로 공유됩니다. 따라서 다른 메뉴로 이동해도 이전 언어가 유지됩니다.
+
+HTML은 한국어를 progressive-enhancement 원문으로 한 번만 유지합니다. `assets/js/i18n.js`가 `ko.json`의 값을 현재 DOM 문구와 연결하고, 선택된 언어 사전의 같은 key 값으로 본문, 메뉴, 버튼, 메타 설명과 접근성 속성을 교체합니다. 이미지의 대체 설명도 언어 사전으로 관리합니다.
+
+언어별 제품 캡처는 같은 폴더에서 `파일명_kor.png`, `파일명_eng.png` 쌍으로 관리하고, HTML에는 한국어 `src`와 확장자를 제외한 `data-i18n-image-base`만 선언합니다. 공통 로더는 `config.json`의 `imageSuffix`를 읽어 현재 언어의 캡처로 자동 교체합니다. 언어와 무관한 로고·도형·캡처는 접미사 없이 두고 `data-i18n-image-base`를 선언하지 않습니다. 새 언어별 캡처를 연결하면 `scripts/validate.ps1`이 두 파일의 존재를 함께 확인합니다.
+
+새 문구나 기존 한국어 문구를 변경할 때는 다음 순서를 지킵니다.
+
+```powershell
+.\venv\Scripts\python.exe .\scripts\i18n_catalog.py --sync
+```
+
+동기화 후 `assets/i18n/en.json`에 새 key의 자연스러운 영어 값을 작성합니다. `ko.json`의 key는 한국어 원문에서 결정적으로 생성되므로 HTML에 별도의 key 속성을 반복해서 추가할 필요가 없습니다. 영어 값이 비어 있거나 한국어로 남아 있거나 두 사전의 key가 다르면 검증이 실패합니다.
+
+```powershell
+.\venv\Scripts\python.exe .\scripts\i18n_catalog.py --check
+.\scripts\validate.ps1
+```
+
+메뉴 열기·닫기처럼 JavaScript가 실행 중 새로 만드는 문구는 HTML 문구를 하드코딩하지 않고 `window.INIT_I18N.t("key")`로 가져옵니다. 지원 언어, 기본 언어와 저장 키를 변경할 때는 `assets/i18n/config.json`만 수정합니다.
 
 ## 로컬 실행
 
@@ -112,7 +140,7 @@ Render Dashboard에서 권장하는 구성은 다음과 같습니다.
 - Repository: `initgroup/initgroup-homepage`
 - Branch: `main`
 - Runtime: `Python 3`
-- Build Command: `pip install -r requirements.txt && python scripts/build_site.py --check`
+- Build Command: `pip install -r requirements.txt && python scripts/build_site.py --check && python scripts/i18n_catalog.py --check`
 - Start Command: `python -m uvicorn main:app --host 0.0.0.0 --port $PORT`
 - Health Check Path: `/healthz`
 

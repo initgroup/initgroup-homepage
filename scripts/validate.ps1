@@ -15,6 +15,8 @@ Push-Location $siteRoot
 try {
     & $venvPython scripts\build_site.py --check
     if ($LASTEXITCODE -ne 0) { throw 'Template render validation failed' }
+    & $venvPython scripts\i18n_catalog.py --check
+    if ($LASTEXITCODE -ne 0) { throw 'Language catalog validation failed' }
     & $venvPython scripts\build_site.py --output-dir $validationRoot
     if ($LASTEXITCODE -ne 0) { throw 'Validation HTML render failed' }
 }
@@ -67,6 +69,22 @@ foreach ($file in $htmlFiles) {
         $assetPath = Join-Path $siteRoot ($match.Groups[1].Value.TrimStart('/') -replace '/', '\')
         if (-not (Test-Path -LiteralPath $assetPath -PathType Leaf)) {
             $errors.Add("$relative : missing asset '$($match.Groups[1].Value)'")
+        }
+    }
+
+    $localizedImageMatches = [regex]::Matches($content, 'data-i18n-image-base="(/assets/[^"?#]+)"', 'IgnoreCase')
+    foreach ($match in $localizedImageMatches) {
+        $baseUrl = $match.Groups[1].Value
+        if ($baseUrl -match '_(?:kor|eng)$') {
+            $errors.Add("$relative : localized image base must not include a language suffix '$baseUrl'")
+            continue
+        }
+        foreach ($suffix in @('kor', 'eng')) {
+            $localizedUrl = "${baseUrl}_${suffix}.png"
+            $localizedPath = Join-Path $siteRoot ($localizedUrl.TrimStart('/') -replace '/', '\')
+            if (-not (Test-Path -LiteralPath $localizedPath -PathType Leaf)) {
+                $errors.Add("$relative : missing localized image '$localizedUrl'")
+            }
         }
     }
 

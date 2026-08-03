@@ -1074,6 +1074,12 @@
     gap: 1rem;
 }
 
+.de-operations-heading {
+    margin-top: clamp(5rem, 9vw, 8rem);
+    padding-top: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--line);
+}
+
 .de-screen-card {
     min-width: 0;
     margin: 0;

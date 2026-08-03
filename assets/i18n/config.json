@@ -1,0 +1,24 @@
+{
+  "defaultLanguage": "ko",
+  "storageKey": "init-language",
+  "catalogs": {
+    "ko": "ko.json",
+    "en": "en.json"
+  },
+  "languages": [
+    {
+      "code": "ko",
+      "label": "Korea",
+      "htmlLang": "ko",
+      "ogLocale": "ko_KR",
+      "imageSuffix": "kor"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "htmlLang": "en",
+      "ogLocale": "en_US",
+      "imageSuffix": "eng"
+    }
+  ]
+}

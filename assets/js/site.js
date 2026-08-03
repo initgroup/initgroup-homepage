@@ -50,7 +50,7 @@
         menu.hidden = false;
         menuBackdrop.hidden = false;
         menuToggle.setAttribute("aria-expanded", "true");
-        menuToggle.setAttribute("aria-label", "메뉴 닫기");
+        menuToggle.setAttribute("aria-label", window.INIT_I18N?.t("ui.menu.close") || menuClose?.getAttribute("aria-label") || "");
         document.body.classList.add("menu-open");
         header.classList.add("is-menu-open");
         setPageInert(true);
@@ -62,7 +62,7 @@
         menu.hidden = true;
         menuBackdrop.hidden = true;
         menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "메뉴 열기");
+        menuToggle.setAttribute("aria-label", window.INIT_I18N?.t("ui.menu.open") || "");
         document.body.classList.remove("menu-open");
         header.classList.remove("is-menu-open");
         setPageInert(false);
@@ -143,6 +143,9 @@
                 activateTab(tabs[nextIndex], { focus: true });
             });
         });
+        document.addEventListener("init:languagechange", () => {
+            activateTab(tabs.find((tab) => tab.getAttribute("aria-selected") === "true") || tabs[0]);
+        });
     }
 
     function initLightbox() {
@@ -155,7 +158,7 @@
 
         function open() {
             dialogImage.src = productImage.currentSrc || productImage.src;
-            dialogImage.alt = `확대된 ${productImage.alt}`;
+            dialogImage.alt = window.INIT_I18N?.t("ui.product.zoomed", { alt: productImage.alt }) || productImage.alt;
             document.body.classList.add("lightbox-open");
             if (typeof dialog.showModal === "function") dialog.showModal();
             else dialog.setAttribute("open", "");

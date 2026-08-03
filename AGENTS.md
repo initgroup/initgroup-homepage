@@ -20,6 +20,7 @@
 - Python 애플리케이션 진입점은 저장소 루트의 `main.py`이며 공통 CSS, JavaScript, 이미지는 `assets/`에서 관리합니다.
 - 로컬 서버와 검증, 백업, Git 배포 자동화는 `scripts/*.ps1`과 `.vscode/tasks.json`에서 관리합니다.
 - Node.js, npm, 번들러 또는 외부 UI 프레임워크를 필수 실행 조건으로 추가하지 않습니다.
+- 한국어·영어 지원은 DB나 세션 없이 `assets/i18n/config.json`, `ko.json`, `en.json`과 `assets/js/i18n.js`로 제공합니다.
 
 ## HTML·CSS·JavaScript 기준
 
@@ -30,6 +31,16 @@
 - 키보드 조작, 포커스 표시, skip link, `prefers-reduced-motion`을 훼손하지 않습니다.
 - CSS는 기존 선택자와 cascade를 먼저 추적해 원본 규칙을 수정하며 중복 override를 누적하지 않습니다.
 - 외부 CDN이나 새 외부 요청을 추가할 때는 CSP, 개인정보, 가용성과 라이선스를 먼저 검토합니다.
+
+## 다국어 콘텐츠 기준
+
+- 기본 언어는 한국어(`ko`)이며 HTML 템플릿은 한국어 원문과 하나의 콘텐츠 구조만 유지합니다. 언어별 HTML, JavaScript 또는 페이지 복사본을 만들지 않습니다.
+- 사용자의 선택 언어는 `assets/i18n/config.json`에 정의한 키로 `localStorage`에 저장하며 현재 값은 `window.INIT_LANGUAGE`와 `window.INIT_I18N`에서 공유합니다.
+- 화면 문구를 추가하거나 한국어 원문을 바꾼 뒤 `.\venv\Scripts\python.exe scripts\i18n_catalog.py --sync`를 실행하고, 생성된 같은 key의 영어 값을 `assets/i18n/en.json`에 자연스러운 문맥으로 작성합니다.
+- 실행 중 JavaScript가 만드는 문구는 한국어·영어를 조건문으로 하드코딩하지 않고 `window.INIT_I18N.t("key")`를 사용합니다.
+- 언어별 제품 캡처는 같은 경로에 `_kor.png`, `_eng.png` 쌍으로 두고 템플릿의 한국어 `src`와 `data-i18n-image-base` 하나로 연결합니다. 언어와 무관한 이미지는 접미사와 해당 속성 없이 공용으로 사용합니다.
+- 캡처 이미지의 `alt`, `aria-label`, title, description과 버튼 문구는 두 언어 사전에 포함합니다.
+- 언어 사전 변경 후 `scripts/i18n_catalog.py --check`와 `scripts/validate.ps1`을 실행해 key 일치, 번역 누락과 기본 HTML 계약을 확인합니다.
 
 ## 콘텐츠·배포 기준
 

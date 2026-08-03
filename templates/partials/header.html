@@ -10,6 +10,10 @@
 {% endfor %}            </nav>
 
             <div class="header-actions">
+                <div class="language-switcher" role="group" aria-label="언어 선택" data-language-switcher>
+                    <button type="button" data-language="ko" aria-pressed="true">Korea</button>
+                    <button type="button" data-language="en" aria-pressed="false">English</button>
+                </div>
                 <a class="header-contact" href="/contact/"{% if page.nav_key == 'contact' %} aria-current="page"{% endif %}>과제 상담</a>
 {% if not page.compact_chrome %}                <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-controls="mobileNavigation" aria-expanded="false" data-menu-toggle>
                     <span></span><span></span>

@@ -25,10 +25,12 @@
 {% if page.section_css %}    <link rel="stylesheet" href="{{ asset_url(page.section_css) }}">
 {% endif %}    <link rel="stylesheet" href="{{ asset_url('css/page-hero.css') }}">
     <link rel="stylesheet" href="{{ asset_url('css/page-headings.css') }}">
+    <link rel="stylesheet" href="{{ asset_url('css/i18n.css') }}">
+    <script src="{{ asset_url('js/i18n.js') }}" data-i18n-config="{{ asset_url('i18n/config.json') }}" defer></script>
     <script src="{{ asset_url('js/site.js') }}" defer></script>
 {% block structured_data %}{% endblock %}
 </head>
-<body{% if page.body_class %} class="{{ page.body_class }}"{% endif %} data-page="{{ page.nav_key }}">
+<body{% if page.body_class %} class="{{ page.body_class }}"{% endif %} data-page="{{ page.nav_key }}" data-page-key="{{ page.key }}">
     <a class="skip-link" href="#mainContent">본문으로 바로가기</a>
 {% if not page.compact_chrome %}    <div class="scroll-progress" aria-hidden="true"><i data-scroll-progress></i></div>
 {% endif %}
