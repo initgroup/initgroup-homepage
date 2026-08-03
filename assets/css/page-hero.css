@@ -81,12 +81,9 @@
     .page-breadcrumb {
         min-height: 2.5rem;
         margin-bottom: 1.25rem;
-        overflow-x: auto;
-        white-space: nowrap;
-        scrollbar-width: none;
+        flex-wrap: wrap;
     }
-
-    .page-breadcrumb::-webkit-scrollbar { display: none; }
+    .page-breadcrumb ol { flex-wrap: wrap; }
     .page-breadcrumb a { min-height: 2.5rem; }
 
     .corp-hero.primary-page-hero,

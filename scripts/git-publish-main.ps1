@@ -7,6 +7,7 @@ param(
     [string]$Remote = 'origin',
     [string]$Branch = 'main',
     [string]$Message = '',
+    [string]$RepositoryUrl = 'https://github.com/initgroup/initgroup-homepage.git',
     [switch]$DryRun
 )
 
@@ -21,6 +22,24 @@ function Invoke-Git {
     Write-Host "git $($GitArgs -join ' ')" -ForegroundColor Cyan
     & git -c "safe.directory=$repoRoot" @GitArgs
     if ($LASTEXITCODE -ne 0) { throw "Git command failed: git $($GitArgs -join ' ')" }
+}
+
+function Test-RemoteBranch {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RemoteName,
+
+        [Parameter(Mandatory = $true)]
+        [string]$BranchName
+    )
+
+    Write-Host "Checking remote branch: $RemoteName/$BranchName" -ForegroundColor Cyan
+    & git -c "safe.directory=$repoRoot" ls-remote --exit-code --heads $RemoteName "refs/heads/$BranchName" | Out-Null
+
+    if ($LASTEXITCODE -eq 0) { return $true }
+    if ($LASTEXITCODE -eq 2) { return $false }
+
+    throw "Unable to inspect remote branch '$RemoteName/$BranchName'."
 }
 
 function Get-DefaultCommitMessage {
@@ -45,7 +64,14 @@ if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($remoteUrl)) {
     throw "Git remote '$Remote' is not configured. Add it before publishing."
 }
 
+$normalizedRemoteUrl = $remoteUrl.TrimEnd('/')
+$normalizedRepositoryUrl = $RepositoryUrl.Trim().TrimEnd('/')
+if (-not $normalizedRemoteUrl.Equals($normalizedRepositoryUrl, [System.StringComparison]::OrdinalIgnoreCase)) {
+    throw "Git remote '$Remote' points to '$remoteUrl'. Expected '$RepositoryUrl'."
+}
+
 $currentBranch = (& git -c "safe.directory=$repoRoot" branch --show-current | Out-String).Trim()
+if ($LASTEXITCODE -ne 0) { throw 'Unable to read the current Git branch.' }
 if ($currentBranch -ne $Branch) { throw "Current branch is '$currentBranch'. Switch to '$Branch' before publishing." }
 
 Write-Host 'INIT Homepage publish preflight' -ForegroundColor Green
@@ -67,40 +93,44 @@ if ($DryRun) {
     return
 }
 
-if ($workingChanges.Count -eq 0) {
+$remoteBranchExists = Test-RemoteBranch -RemoteName $Remote -BranchName $Branch
+if ($remoteBranchExists) {
+    Invoke-Git fetch $Remote $Branch
+}
+else {
+    Write-Host "Remote branch '$Remote/$Branch' does not exist. Preparing the first publish." -ForegroundColor Yellow
+}
+
+Invoke-Git add -A
+$staged = @(& git -c "safe.directory=$repoRoot" diff --cached --name-only)
+if ($LASTEXITCODE -ne 0) { throw 'Unable to inspect staged changes.' }
+
+$unpushedCommits = @()
+if ($remoteBranchExists) {
     $trackingRef = "refs/remotes/$Remote/$Branch"
-    & git -c "safe.directory=$repoRoot" show-ref --verify --quiet $trackingRef
-    $trackingRefExitCode = $LASTEXITCODE
-    if ($trackingRefExitCode -notin 0, 1) { throw "Unable to inspect tracking branch '$Remote/$Branch'." }
+    $unpushedCommits = @(& git -c "safe.directory=$repoRoot" rev-list "$trackingRef..HEAD")
+    if ($LASTEXITCODE -ne 0) { throw "Unable to inspect commits ahead of '$Remote/$Branch'." }
+}
+else {
+    $unpushedCommits = @(& git -c "safe.directory=$repoRoot" rev-list HEAD)
+    if ($LASTEXITCODE -ne 0) { throw 'Unable to inspect local commits for the first publish.' }
+}
 
-    if ($trackingRefExitCode -eq 0) {
-        $localHead = (& git -c "safe.directory=$repoRoot" rev-parse HEAD | Out-String).Trim()
-        if ($LASTEXITCODE -ne 0) { throw 'Unable to inspect the local HEAD commit.' }
-        $trackingHead = (& git -c "safe.directory=$repoRoot" rev-parse $trackingRef | Out-String).Trim()
-        if ($LASTEXITCODE -ne 0) { throw "Unable to inspect tracking branch '$Remote/$Branch'." }
-
-        if ($localHead -eq $trackingHead) {
-            Write-Host "No changes to publish. Local $Branch already matches $Remote/$Branch." -ForegroundColor Yellow
-            return
-        }
-    }
+if ($staged.Count -eq 0 -and $unpushedCommits.Count -eq 0) {
+    Write-Host 'No staged changes or unpushed commits. Nothing to publish.' -ForegroundColor Yellow
+    return
 }
 
 & (Join-Path $PSScriptRoot 'validate.ps1')
 if ($LASTEXITCODE -ne 0) { throw 'Homepage validation failed before publish.' }
 
-if ($workingChanges.Count -gt 0) {
+if ($staged.Count -gt 0) {
     $defaultMessage = Get-DefaultCommitMessage
     $commitMessage = if ([string]::IsNullOrWhiteSpace($Message)) { $defaultMessage } else { $Message.Trim() }
 
-    Invoke-Git add -A
+    Write-Host "Commit message: $commitMessage" -ForegroundColor Green
     Invoke-Git commit -m $commitMessage
 }
-
-& git -c "safe.directory=$repoRoot" ls-remote --exit-code --heads $Remote "refs/heads/$Branch" | Out-Null
-$remoteBranchExists = $LASTEXITCODE -eq 0
-if ($LASTEXITCODE -notin 0, 2) { throw "Unable to inspect remote branch '$Remote/$Branch'." }
-if ($remoteBranchExists) { Invoke-Git fetch $Remote $Branch }
 
 if ($remoteBranchExists) {
     Invoke-Git pull --rebase $Remote $Branch

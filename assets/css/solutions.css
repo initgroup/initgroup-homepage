@@ -1836,10 +1836,10 @@
     }
 
     .sol-product-card-visual img {
-        min-height: 13rem;
-        width: 46rem;
-        max-width: none;
-        transform: translateX(-7rem);
+        min-height: 0;
+        width: 100%;
+        height: auto;
+        transform: none;
     }
 
     .sol-mini-pipeline {
@@ -1870,43 +1870,30 @@
     }
 
     .de-hero-viewport {
-        overflow-x: auto;
         aspect-ratio: auto;
-        scrollbar-width: thin;
-        overscroll-behavior-inline: contain;
     }
 
     .de-hero-viewport img {
-        width: 58rem;
-        max-width: none;
+        width: 100%;
         height: auto;
-        object-fit: initial;
+        object-fit: contain;
     }
 
     .de-stage-badges {
-        overflow-x: auto;
-        grid-template-columns: repeat(3, minmax(9rem, 1fr));
-        scroll-snap-type: x mandatory;
+        grid-template-columns: 1fr;
     }
 
     .de-stage-overlays {
         display: none;
     }
 
-    .de-stage-badges span {
-        scroll-snap-align: start;
-    }
-
     .de-proof-grid {
         width: 100%;
-        overflow-x: auto;
-        grid-template-columns: repeat(3, minmax(12rem, 1fr));
-        scroll-snap-type: x mandatory;
+        grid-template-columns: 1fr;
     }
 
     .de-proof-grid div {
         min-height: 6.5rem;
-        scroll-snap-align: start;
     }
 
     .de-workflow {
@@ -1982,19 +1969,13 @@
 
     .de-screen-media,
     .de-screen-card:not(.de-screen-card-wide) .de-screen-media {
-        overflow-x: auto;
         aspect-ratio: auto;
-        scrollbar-width: thin;
-        overscroll-behavior-inline: contain;
-        scroll-snap-type: x proximity;
     }
 
     .de-screen-media img {
-        width: 58rem;
-        max-width: none;
+        width: 100%;
         height: auto;
-        object-fit: initial;
-        scroll-snap-align: start;
+        object-fit: contain;
     }
 
     .de-rule-copy ul {
@@ -2011,7 +1992,7 @@
     }
 
     .de-screen-card-relation .de-screen-media img {
-        width: 46rem;
+        width: 100%;
     }
 
     .de-governance-grid {
