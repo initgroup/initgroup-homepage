@@ -51,7 +51,7 @@ try {
 }
 
 if ($existingResponse) {
-    if ($existingHealthResponse -and $existingHealthResponse.Content -match '"service"\s*:\s*"init-homepage"') {
+    if ($existingHealthResponse -and $existingHealthResponse.Content -match '"service"\s*:\s*"initgroup-homepage"') {
         if (-not $Restart) {
             Write-Host "INIT Homepage is already running: $siteUrl" -ForegroundColor Green
             return

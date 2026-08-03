@@ -6,7 +6,7 @@ const playwrightModule = process.env.PLAYWRIGHT_MODULE || 'D:/work/Playwright/no
 const { chromium } = require(playwrightModule);
 
 const baseUrl = process.env.VISUAL_AUDIT_URL || 'http://127.0.0.1:8200/';
-const outputDir = process.env.VISUAL_AUDIT_OUTPUT || path.join(os.tmpdir(), 'init-homepage-visual-audit');
+const outputDir = process.env.VISUAL_AUDIT_OUTPUT || path.join(os.tmpdir(), 'initgroup-homepage-visual-audit');
 const viewports = [
     { name: 'desktop-1920', width: 1920, height: 1080 },
     { name: 'desktop-1440', width: 1440, height: 1000 },

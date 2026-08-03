@@ -63,12 +63,12 @@ async def add_security_headers(request: Request, call_next) -> Response:
 
 @app.get("/healthz", include_in_schema=False)
 async def healthcheck() -> dict[str, str]:
-    return {"status": "ok", "service": "init-homepage"}
+    return {"status": "ok", "service": "initgroup-homepage"}
 
 
 @app.get("/api/health", tags=["system"])
 async def api_healthcheck() -> dict[str, str]:
-    return {"status": "ok", "service": "init-homepage"}
+    return {"status": "ok", "service": "initgroup-homepage"}
 
 
 def render_page(request: Request, requested_path: str, *, status_code: int = 200) -> Response:

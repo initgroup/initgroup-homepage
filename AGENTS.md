@@ -1,6 +1,6 @@
 # AGENTS.md
 
-이 문서는 Codex가 `init-homepage` 저장소에서 작업할 때 자동으로 적용하는 프로젝트 전용 지침입니다.
+이 문서는 Codex가 `initgroup-homepage` 저장소에서 작업할 때 자동으로 적용하는 프로젝트 전용 지침입니다.
 
 ## 작업 원칙
 
