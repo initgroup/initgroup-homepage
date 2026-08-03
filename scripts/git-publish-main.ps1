@@ -67,6 +67,25 @@ if ($DryRun) {
     return
 }
 
+if ($workingChanges.Count -eq 0) {
+    $trackingRef = "refs/remotes/$Remote/$Branch"
+    & git -c "safe.directory=$repoRoot" show-ref --verify --quiet $trackingRef
+    $trackingRefExitCode = $LASTEXITCODE
+    if ($trackingRefExitCode -notin 0, 1) { throw "Unable to inspect tracking branch '$Remote/$Branch'." }
+
+    if ($trackingRefExitCode -eq 0) {
+        $localHead = (& git -c "safe.directory=$repoRoot" rev-parse HEAD | Out-String).Trim()
+        if ($LASTEXITCODE -ne 0) { throw 'Unable to inspect the local HEAD commit.' }
+        $trackingHead = (& git -c "safe.directory=$repoRoot" rev-parse $trackingRef | Out-String).Trim()
+        if ($LASTEXITCODE -ne 0) { throw "Unable to inspect tracking branch '$Remote/$Branch'." }
+
+        if ($localHead -eq $trackingHead) {
+            Write-Host "No changes to publish. Local $Branch already matches $Remote/$Branch." -ForegroundColor Yellow
+            return
+        }
+    }
+}
+
 & (Join-Path $PSScriptRoot 'validate.ps1')
 if ($LASTEXITCODE -ne 0) { throw 'Homepage validation failed before publish.' }
 
