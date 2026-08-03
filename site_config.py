@@ -41,7 +41,7 @@ SITE = SiteInformation(
 SITE_URL = SITE.url
 
 ASSET_VERSIONS = {
-    "css/site.css": "20260803.3",
+    "css/site.css": "20260803.4",
     "css/page-hero.css": "20260803.3",
     "css/page-headings.css": "20260803.1",
     "css/i18n.css": "20260803.1",
