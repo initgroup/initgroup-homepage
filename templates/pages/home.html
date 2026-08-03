@@ -169,16 +169,16 @@
                     </div>
                 </div>
 
-                <div class="product-overview reveal" aria-label="INIT Data Editing System 제품 개요">
+                <div class="product-overview reveal" aria-label="인뎁스 IN-DEPS 제품 개요">
                     <div class="product-overview-copy">
                         <span>FROM DATA PROFILE TO OPERATION</span>
                         <h3>데이터의 신뢰를 설계하고,<br>AI의 판단을 운영으로 연결합니다.</h3>
                         <p>첫 화면에서 소개하던 핵심 제품 흐름은 이곳에서 더 구체적으로 확인할 수 있습니다. 데이터를 이해하고 규칙을 발굴한 뒤 전문가 검토와 운영 이력까지 연결합니다.</p>
-                        <a href="/solutions/data-editing-system/">Data Editing System 전체 보기 <span aria-hidden="true">→</span></a>
+                        <a href="/solutions/data-editing-system/">인뎁스 IN-DEPS 전체 보기 <span aria-hidden="true">→</span></a>
                     </div>
                     <div class="product-overview-screen">
-                        <div class="product-overview-bar"><span><i></i><i></i><i></i></span><strong>INIT Data Editing System</strong><small>PRODUCT OVERVIEW</small></div>
-                        <div class="product-overview-image"><img src="/assets/images/product/login-overview.png" alt="Profile, Discover, Validate, Execute 흐름과 핵심 원칙을 소개하는 INIT Data Editing System 제품 개요 화면" width="1060" height="559" loading="lazy" decoding="async"></div>
+                        <div class="product-overview-bar"><span><i></i><i></i><i></i></span><strong>인뎁스 IN-DEPS</strong><small>INIT-DATA EDITING PLATFORM SYSTEM</small></div>
+                        <div class="product-overview-image"><img src="/assets/images/product/login-overview.png" alt="Profile, Discover, Validate, Execute 흐름과 핵심 원칙을 소개하는 인뎁스 IN-DEPS 제품 개요 화면" width="1060" height="559" loading="lazy" decoding="async"></div>
                         <div class="product-overview-flow" aria-label="제품 핵심 업무 흐름">
                             <span><i>01</i><b>Profile</b><small>구조·유형</small></span>
                             <span><i>02</i><b>Relation</b><small>관계 분석</small></span>
@@ -222,20 +222,36 @@
                 <div class="bap-flow">
                     <article class="bap-card bap-collect reveal">
                         <header><span>C</span><div><small>COLLECT</small><h3>C-BAP</h3></div></header>
-                        <div class="bap-mini-visual bap-source-visual" aria-hidden="true"><i>API</i><i>SNS</i><i>WEB</i><strong>DATA</strong></div>
-                        <p>공공·민간 API, 웹·게시판·블로그와 소셜 텍스트를 분석 가능한 상태로 연결합니다.</p>
+                        <div class="bap-mini-visual bap-source-visual" aria-hidden="true">
+                            <div class="bap-source-stack"><span><b>API</b><small>JSON · XML</small></span><span><b>SNS</b><small>POST · COMMENT</small></span><span><b>WEB</b><small>HTML · TEXT</small></span></div>
+                            <i class="bap-flow-arrow">→</i>
+                            <div class="bap-process-stack"><span>수집</span><span>정제</span><span>표준화</span><strong>ANALYSIS DATA</strong></div>
+                        </div>
+                        <p>공공·민간 API, 웹·게시판·블로그와 소셜 텍스트를 소스별 방식으로 연결하고 분석 가능한 구조로 변환합니다.</p>
+                        <ul class="bap-capabilities"><li>스케줄·증분 수집</li><li>중복·오류 데이터 정제</li><li>공통 스키마 표준화</li></ul>
                         <footer><span>OUTPUT</span><strong>표준화된 분석 데이터</strong></footer>
                     </article>
                     <article class="bap-card bap-analyze reveal">
                         <header><span>R</span><div><small>ANALYZE</small><h3>R-BAP</h3></div></header>
-                        <div class="bap-mini-visual bap-analysis-visual" aria-hidden="true"><i>TEXT</i><strong>HYBRID<br>ANALYSIS</strong><i>STATS</i></div>
-                        <p>통계, 텍스트·감성·토픽 분석과 변수 관계를 결합해 패턴과 맥락을 해석합니다.</p>
+                        <div class="bap-mini-visual bap-analysis-visual" aria-hidden="true">
+                            <div class="bap-input-pair"><span><b>TEXT</b><small>문서 · SNS</small></span><span><b>TABLE</b><small>수치 · 범주</small></span></div>
+                            <i class="bap-flow-arrow">→</i>
+                            <div class="bap-analysis-core"><strong>R-BAP</strong><span>통계</span><span>토픽</span><span>관계</span></div>
+                            <i class="bap-flow-arrow">→</i>
+                            <div class="bap-result-stack"><span>PATTERN</span><span>MODEL</span></div>
+                        </div>
+                        <p>통계와 텍스트·감성·토픽 분석, 변수 관계를 함께 적용해 수치 패턴과 문맥의 의미를 교차 검증합니다.</p>
+                        <ul class="bap-capabilities"><li>기술·추론 통계 분석</li><li>텍스트·감성·토픽 탐색</li><li>변수·개체 관계 모델링</li></ul>
                         <footer><span>OUTPUT</span><strong>분석 결과와 모델</strong></footer>
                     </article>
                     <article class="bap-card bap-visualize reveal">
                         <header><span>V</span><div><small>VISUALIZE</small><h3>V-BAP</h3></div></header>
-                        <div class="bap-mini-visual bap-view-visual" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 100 35"><path d="M2 29C17 28 20 18 34 21S54 27 63 13 81 17 98 4"></path></svg></div>
-                        <p>인터랙티브 차트, 역할별 대시보드와 BI 연계로 다음 행동이 보이는 화면을 구성합니다.</p>
+                        <div class="bap-mini-visual bap-view-visual" aria-hidden="true">
+                            <div class="bap-view-bar"><span><i></i><i></i><i></i></span><b>DECISION DASHBOARD</b><small>LIVE</small></div>
+                            <div class="bap-view-body"><div class="bap-view-filter"><small>FILTER</small><span>기간</span><span>지역</span><span>지표</span></div><div class="bap-view-chart"><div><span><small>KPI 01</small><b>84.2</b></span><span><small>KPI 02</small><b>+12%</b></span></div><svg viewBox="0 0 100 35"><path d="M2 29C17 28 20 18 34 21S54 27 63 13 81 17 98 4"></path></svg><small>비교 · 탐색 · 드릴다운</small></div></div>
+                        </div>
+                        <p>인터랙티브 차트와 역할별 대시보드를 구성하고 BI·업무 시스템과 연결해 결과 확인부터 후속 행동까지 지원합니다.</p>
+                        <ul class="bap-capabilities"><li>지표·추세 비교 차트</li><li>조건 필터와 상세 탐색</li><li>BI·업무 화면 연계</li></ul>
                         <footer><span>OUTPUT</span><strong>의사결정 화면</strong></footer>
                     </article>
                 </div>
@@ -304,9 +320,21 @@
                     <p>공공·금융·통계 업무에서 자동화는 책임을 지우는 기능이 아니라, 더 정확한 검토를 가능하게 하는 도구여야 합니다.</p>
                 </div>
                 <div class="principle-grid">
-                    <article class="reveal"><span>01</span><div class="principle-symbol" aria-hidden="true">IF<span>→</span>WHY</div><small>EXPLAINABILITY</small><h3>설명 가능한 결과</h3><p>조건·수식·지표와 임계값을 남겨 결과의 이유를 다시 확인할 수 있습니다.</p><div class="principle-check"><span>CHECKPOINT</span><strong>조건 · 수식 · 임계값</strong></div></article>
-                    <article class="reveal"><span>02</span><div class="principle-symbol" aria-hidden="true">AI<span>+</span>HUMAN</div><small>HUMAN-IN-THE-LOOP</small><h3>전문가의 최종 판단</h3><p>AI는 후보와 근거를 제시하고, 선정·제외·확정은 업무 담당자의 검토를 거칩니다.</p><div class="principle-check"><span>CHECKPOINT</span><strong>제안 · 검토 · 확정 분리</strong></div></article>
-                    <article class="reveal"><span>03</span><div class="principle-symbol" aria-hidden="true">DATA<span>···</span>RUN</div><small>TRACEABILITY</small><h3>추적 가능한 변화</h3><p>원본, 입력 조건, 실행 결과와 운영 반영 이력을 연결해 같은 판단을 재현합니다.</p><div class="principle-check"><span>CHECKPOINT</span><strong>입력 · 실행 · 변경 이력</strong></div></article>
+                    <article class="reveal">
+                        <span>01</span>
+                        <div class="principle-symbol principle-explain" aria-hidden="true"><div class="principle-flow"><span><small>IF</small><b>조건·규칙</b></span><i>→</i><span><small>WHY</small><b>판단 근거</b></span></div><dl><div><dt>RULE</dt><dd>적용 조건</dd></div><div><dt>SCORE</dt><dd>영향 지표</dd></div><div><dt>LIMIT</dt><dd>임계값</dd></div></dl></div>
+                        <small>EXPLAINABILITY</small><h3>설명 가능한 결과</h3><p>어떤 조건과 수식이 결과를 만들었는지, 영향을 준 지표와 임계값은 무엇인지 함께 제시해 판단 이유를 다시 확인합니다.</p><div class="principle-check"><span>CHECKPOINT</span><strong>적용 조건 · 산출 근거 · 영향 지표</strong></div>
+                    </article>
+                    <article class="reveal">
+                        <span>02</span>
+                        <div class="principle-symbol principle-human" aria-hidden="true"><div class="principle-human-flow"><span><small>AI</small><b>후보·근거 제안</b></span><i>→</i><span><small>HUMAN</small><b>업무 맥락 검토</b></span><i>→</i><span><small>DECISION</small><b>승인·보류·제외</b></span></div><div class="principle-human-note"><span>AI 제안</span><span>검토 기록</span><span>최종 책임</span></div></div>
+                        <small>HUMAN-IN-THE-LOOP</small><h3>전문가의 최종 판단</h3><p>AI가 후보와 근거를 제안하면 담당자가 업무 맥락과 예외를 검토합니다. 승인·보류·제외 결정과 사유는 분리해 기록합니다.</p><div class="principle-check"><span>CHECKPOINT</span><strong>제안 주체 · 검토 의견 · 최종 승인</strong></div>
+                    </article>
+                    <article class="reveal">
+                        <span>03</span>
+                        <div class="principle-symbol principle-trace" aria-hidden="true"><ol><li><small>DATA</small><b>원본·버전</b><span>v1.4</span></li><li><small>RUN</small><b>조건·모델</b><span>#0248</span></li><li><small>APPLY</small><b>결과·반영</b><span>14:32</span></li></ol><div class="principle-trace-log"><span>INPUT</span><i></i><span>EXECUTION</span><i></i><span>CHANGE LOG</span></div></div>
+                        <small>TRACEABILITY</small><h3>추적 가능한 변화</h3><p>원본 데이터 버전과 실행 조건, 모델·결과, 운영 반영 시점을 하나의 실행 ID로 연결해 같은 판단을 재현하고 변경을 추적합니다.</p><div class="principle-check"><span>CHECKPOINT</span><strong>데이터 버전 · 실행 ID · 반영 이력</strong></div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -335,7 +363,7 @@
 
 {% block after_body %}
 <dialog class="image-lightbox" data-lightbox aria-labelledby="lightboxTitle">
-        <div class="lightbox-head"><div><span>ACTUAL PRODUCT INTERFACE</span><h2 id="lightboxTitle" data-lightbox-title>INIT Data Editing System</h2></div><button type="button" aria-label="제품 화면 닫기" data-lightbox-close>닫기</button></div>
-        <div class="lightbox-image"><img src="/assets/images/product/login-overview.png" alt="확대된 INIT Data Editing System 제품 화면" data-lightbox-image></div>
+        <div class="lightbox-head"><div><span>ACTUAL PRODUCT INTERFACE</span><h2 id="lightboxTitle" data-lightbox-title>인뎁스 IN-DEPS</h2></div><button type="button" aria-label="제품 화면 닫기" data-lightbox-close>닫기</button></div>
+        <div class="lightbox-image"><img src="/assets/images/product/login-overview.png" alt="확대된 인뎁스 IN-DEPS 제품 화면" data-lightbox-image></div>
     </dialog>
 {% endblock %}

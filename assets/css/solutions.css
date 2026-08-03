@@ -196,6 +196,10 @@
     line-height: 1.08;
 }
 
+html[lang="en"] .sol-architecture-ko-name {
+    display: none;
+}
+
 .sol-architecture-card p {
     color: rgba(255, 255, 255, 0.62);
     font-size: 0.84rem;
@@ -277,14 +281,14 @@
 
 .sol-product-card {
     position: relative;
-    display: flex;
+    display: grid;
     min-height: 39rem;
     padding: clamp(1.6rem, 3.5vw, 3.2rem);
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    flex-direction: column;
     background: var(--surface);
+    grid-template-rows: auto minmax(7.8rem, auto) minmax(6.6rem, auto) 15rem auto;
     transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
@@ -324,16 +328,30 @@
     line-height: 1.02;
 }
 
+.sol-product-card h3 > span {
+    white-space: nowrap;
+}
+
 .sol-product-card > p {
     max-width: 38rem;
     color: var(--muted);
+}
+
+.sol-product-fullname {
+    display: block;
+    margin-bottom: 0.55rem;
+    color: var(--brand-strong);
+    font-size: 0.78rem;
+    font-weight: 780;
+    line-height: 1.3;
+    letter-spacing: 0.025em;
 }
 
 .sol-product-card-visual {
     position: relative;
     display: grid;
     min-height: 15rem;
-    margin-top: auto;
+    margin-top: 0;
     padding: 1.1rem;
     overflow: hidden;
     border-radius: 0.9rem;
@@ -489,8 +507,11 @@
 }
 
 .sol-mini-pipeline small {
+    display: block;
+    min-height: 2.8em;
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.7rem;
+    line-height: 1.4;
 }
 
 .sol-mini-pipeline > i {
@@ -551,7 +572,7 @@
     color: rgba(255, 255, 255, 0.6);
 }
 
-/* Data Editing System */
+/* IN-DEPS */
 .de-hero-stage {
     position: relative;
     min-width: 0;
@@ -781,12 +802,14 @@
 }
 
 .de-rule-card {
+    display: grid;
     min-width: 0;
     padding: clamp(1.25rem, 2.5vw, 2rem);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     background: rgba(255, 255, 255, 0.92);
     box-shadow: 0 18px 50px rgba(8, 23, 47, 0.06);
+    grid-template-rows: auto 24.5rem minmax(0, 1fr);
 }
 
 .de-rule-card-head,
@@ -820,7 +843,8 @@
 }
 
 .de-rule-console {
-    min-height: 22rem;
+    height: 100%;
+    min-height: 0;
     padding: 1rem;
     overflow: hidden;
     border: 1px solid rgba(36, 87, 214, 0.16);
@@ -1398,31 +1422,184 @@
 }
 
 .ib-collect-visual {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.7rem;
-}
-
-.ib-collect-visual span {
-    display: flex;
     align-items: center;
-    min-height: 5rem;
-    padding: 0.8rem;
-    border: 1px solid color-mix(in srgb, var(--module-accent), transparent 55%);
-    border-radius: 0.6rem;
-    background: rgba(255, 255, 255, 0.75);
-    font-size: 0.7rem;
-    font-weight: 760;
+    padding: 1rem;
+    grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.2fr) auto minmax(4.7rem, 0.72fr);
+    grid-template-rows: 1fr auto;
+    gap: 0.55rem;
 }
 
-.ib-collect-visual strong {
+.ib-collect-sources,
+.ib-collect-control,
+.ib-collect-output {
+    min-width: 0;
+}
+
+.ib-collect-sources {
     display: grid;
-    min-height: 7rem;
-    border-radius: 50%;
+    align-content: center;
+    gap: 0.42rem;
+}
+
+.ib-collect-sources > small,
+.ib-collect-control > small,
+.ib-collect-output > small {
+    color: var(--module-accent);
+    font-size: 0.54rem;
+    font-weight: 820;
+    letter-spacing: 0.06em;
+}
+
+.ib-collect-sources span {
+    display: grid;
+    padding: 0.52rem;
+    border: 1px solid color-mix(in srgb, var(--module-accent), transparent 55%);
+    border-radius: 0.42rem;
+    background: rgba(255, 255, 255, 0.82);
+    gap: 0.15rem;
+}
+
+.ib-collect-sources b {
+    color: var(--ink);
+    font-size: 0.6rem;
+    white-space: nowrap;
+}
+
+.ib-collect-sources em {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 0.48rem;
+    font-style: normal;
+    font-weight: 680;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ib-visual-arrow {
+    color: var(--module-accent);
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 800;
+}
+
+.ib-collect-control {
+    display: grid;
+    padding: 0.7rem;
+    border: 1px solid color-mix(in srgb, var(--module-accent), transparent 50%);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.82);
+    gap: 0.45rem;
+}
+
+.ib-collect-control > strong {
+    color: var(--module-accent);
+    font-size: 1rem;
+}
+
+.ib-collect-control ol {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 0.3rem;
+}
+
+.ib-collect-control li {
+    display: grid;
+    align-items: center;
+    padding-top: 0.3rem;
+    border-top: 1px solid color-mix(in srgb, var(--module-accent), transparent 78%);
+    grid-template-columns: 1.2rem minmax(0, 1fr);
+    gap: 0.25rem;
+}
+
+.ib-collect-control li > b {
+    color: var(--module-accent);
+    font-size: 0.48rem;
+}
+
+.ib-collect-control li > span {
+    display: grid;
+    color: var(--ink-soft);
+    font-size: 0.58rem;
+    font-weight: 760;
+    gap: 0.05rem;
+}
+
+.ib-collect-control li em {
+    color: var(--muted);
+    font-size: 0.45rem;
+    font-style: normal;
+    font-weight: 620;
+}
+
+.ib-collect-output {
+    display: grid;
+    min-height: 7.4rem;
+    padding: 0.7rem 0.45rem;
+    border-radius: 0.7rem;
+    place-content: center;
     color: #fff;
     background: var(--module-accent);
+    text-align: center;
+    gap: 0.35rem;
+}
+
+.ib-collect-output > small {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.ib-collect-output strong {
+    font-size: 0.82rem;
+    line-height: 1.1;
+}
+
+.ib-collect-output span {
+    font-size: 0.45rem;
+    font-weight: 700;
+}
+
+.ib-collect-status {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid color-mix(in srgb, var(--module-accent), transparent 65%);
+    border-radius: 0.45rem;
     grid-column: 1 / -1;
-    place-items: center;
-    font-size: 1.4rem;
+    background: rgba(255, 255, 255, 0.72);
+    gap: 0.6rem;
+}
+
+.ib-collect-status span {
+    display: flex;
+    align-items: center;
+    color: var(--ink-soft);
+    font-size: 0.5rem;
+    font-weight: 720;
+    gap: 0.3rem;
+}
+
+.ib-collect-status span i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--module-accent);
+}
+
+.ib-collect-status b,
+.ib-collect-status em {
+    font-size: 0.48rem;
+    font-style: normal;
+}
+
+.ib-collect-status b {
+    color: var(--module-accent);
+}
+
+.ib-collect-status em {
+    margin-left: auto;
+    color: var(--muted);
 }
 
 .ib-analyze-visual {
@@ -1458,45 +1635,236 @@
 .ib-analyze-visual > span:last-of-type { right: 1.4rem; bottom: 2.3rem; }
 
 .ib-dashboard-visual {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 4.5rem 1fr;
-    gap: 0.65rem;
+    align-content: stretch;
+    padding: 1rem;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    gap: 0.55rem;
 }
 
-.ib-dashboard-visual > span {
+.ib-dashboard-head {
     display: flex;
-    align-items: flex-end;
-    padding: 0.7rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.65rem;
     border: 1px solid color-mix(in srgb, var(--module-accent), transparent 60%);
-    border-radius: 0.55rem;
-    background: rgba(255, 255, 255, 0.75);
-    font-size: 0.72rem;
-    font-weight: 760;
+    border-radius: 0.45rem;
+    background: rgba(255, 255, 255, 0.82);
 }
 
-.ib-dashboard-chart {
-    position: relative;
-    overflow: hidden;
+.ib-dashboard-head strong {
+    color: var(--ink-soft);
+    font-size: 0.62rem;
+}
+
+.ib-dashboard-head span {
+    color: var(--module-accent);
+    font-size: 0.5rem;
+    font-weight: 780;
+}
+
+.ib-dashboard-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem;
+}
+
+.ib-dashboard-kpis > span {
+    display: grid;
+    padding: 0.55rem 0.6rem;
     border: 1px solid color-mix(in srgb, var(--module-accent), transparent 60%);
-    border-radius: 0.55rem;
+    border-radius: 0.45rem;
     background: rgba(255, 255, 255, 0.8);
+    grid-template-columns: 1fr auto;
+    gap: 0.12rem 0.35rem;
+}
+
+.ib-dashboard-kpis small {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 0.45rem;
+    font-weight: 760;
     grid-column: 1 / -1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.ib-dashboard-chart i {
+.ib-dashboard-kpis b {
+    color: var(--ink);
+    font-size: 0.86rem;
+}
+
+.ib-dashboard-kpis em {
+    align-self: end;
+    color: var(--module-accent);
+    font-size: 0.46rem;
+    font-style: normal;
+    font-weight: 780;
+}
+
+.ib-dashboard-panels {
+    display: grid;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1.45fr) minmax(7rem, 0.75fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 0.45rem;
+}
+
+.ib-dashboard-panels > div {
+    min-width: 0;
+    padding: 0.6rem;
+    border: 1px solid color-mix(in srgb, var(--module-accent), transparent 65%);
+    border-radius: 0.45rem;
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.ib-dashboard-trend {
+    display: grid;
+    min-height: 0;
+    grid-row: 1 / -1;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.ib-dashboard-trend > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ib-dashboard-trend strong,
+.ib-dashboard-share > strong,
+.ib-dashboard-rank > strong {
+    color: var(--ink-soft);
+    font-size: 0.56rem;
+}
+
+.ib-dashboard-trend > div span {
+    color: var(--module-accent);
+    font-size: 0.52rem;
+    font-weight: 800;
+}
+
+.ib-dashboard-trend svg {
+    width: 100%;
+    height: 100%;
+    min-height: 5.5rem;
+    color: var(--module-accent);
+    overflow: visible;
+}
+
+.ib-trend-area { fill: url(#ibTrendFill); }
+.ib-trend-line { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; }
+.ib-dashboard-trend circle { fill: #fff; stroke: currentColor; stroke-width: 2; }
+
+.ib-dashboard-trend > small {
+    color: var(--muted);
+    font-size: 0.4rem;
+    letter-spacing: 0.025em;
+}
+
+.ib-dashboard-share {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    gap: 0.25rem 0.4rem;
+}
+
+.ib-dashboard-share > div {
+    position: relative;
+    display: grid;
+    width: 3.3rem;
+    height: 3.3rem;
+    border-radius: 50%;
+    place-items: center;
+    background: conic-gradient(var(--module-accent) 0 68%, rgba(109, 120, 224, 0.14) 68% 100%);
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+
+.ib-dashboard-share > div::before {
     position: absolute;
-    bottom: 1rem;
-    width: 11%;
-    border-radius: 0.2rem 0.2rem 0 0;
-    background: var(--module-accent);
-    opacity: 0.75;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 50%;
+    background: #fff;
+    content: "";
 }
 
-.ib-dashboard-chart i:nth-child(1) { left: 10%; height: 32%; }
-.ib-dashboard-chart i:nth-child(2) { left: 27%; height: 62%; }
-.ib-dashboard-chart i:nth-child(3) { left: 44%; height: 45%; }
-.ib-dashboard-chart i:nth-child(4) { left: 61%; height: 76%; }
-.ib-dashboard-chart i:nth-child(5) { left: 78%; height: 55%; }
+.ib-dashboard-share > div span {
+    position: relative;
+    z-index: 1;
+    color: var(--module-accent);
+    font-size: 0.62rem;
+    font-weight: 820;
+}
+
+.ib-dashboard-share > small {
+    color: var(--muted);
+    font-size: 0.46rem;
+}
+
+.ib-dashboard-rank {
+    display: grid;
+    align-content: center;
+    gap: 0.32rem;
+}
+
+.ib-dashboard-rank > span {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2rem minmax(0, 1fr) 1.2rem;
+    gap: 0.28rem;
+}
+
+.ib-dashboard-rank span b,
+.ib-dashboard-rank span em {
+    color: var(--muted);
+    font-size: 0.43rem;
+    font-style: normal;
+}
+
+.ib-dashboard-rank span i {
+    height: 0.28rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: rgba(109, 120, 224, 0.12);
+}
+
+.ib-dashboard-rank span i::before {
+    display: block;
+    width: var(--bar);
+    height: 100%;
+    border-radius: inherit;
+    background: var(--module-accent);
+    content: "";
+}
+
+.ib-dashboard-rank > span:nth-of-type(1) i { --bar: 88%; }
+.ib-dashboard-rank > span:nth-of-type(2) i { --bar: 72%; }
+.ib-dashboard-rank > span:nth-of-type(3) i { --bar: 61%; }
+
+.ib-dashboard-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 0.1rem;
+    gap: 0.8rem;
+}
+
+.ib-dashboard-legend span {
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.43rem;
+    font-weight: 680;
+    gap: 0.25rem;
+}
+
+.ib-dashboard-legend i {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--module-accent);
+}
 
 .ib-capability-list {
     display: grid;
@@ -1821,9 +2189,11 @@
     }
 
     .sol-product-card {
+        display: flex;
         min-height: 35rem;
         padding: 1.35rem;
         border-radius: 1rem;
+        flex-direction: column;
     }
 
     .sol-product-card h3 {
@@ -1832,6 +2202,7 @@
 
     .sol-product-card-visual {
         min-height: 13rem;
+        margin-top: auto;
         padding: 0.7rem;
     }
 
@@ -1949,6 +2320,7 @@
     }
 
     .de-rule-console {
+        height: auto;
         min-height: 0;
     }
 
@@ -2058,6 +2430,42 @@
 
     .ib-code-visual {
         min-height: 22rem;
+    }
+
+    .ib-collect-visual {
+        padding: 0.8rem;
+        grid-template-columns: minmax(0, 0.8fr) auto minmax(0, 1.35fr) auto minmax(4.5rem, 0.75fr);
+        gap: 0.35rem;
+    }
+
+    .ib-collect-sources span {
+        padding: 0.45rem;
+    }
+
+    .ib-collect-sources b {
+        font-size: 0.5rem;
+    }
+
+    .ib-collect-sources > small,
+    .ib-collect-control > small,
+    .ib-collect-output > small {
+        font-size: 0.48rem;
+        letter-spacing: 0.025em;
+    }
+
+    .ib-dashboard-share > strong {
+        font-size: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .ib-dashboard-share > div {
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+
+    .ib-dashboard-share > div::before {
+        width: 1.95rem;
+        height: 1.95rem;
     }
 
     .ib-capability-list {

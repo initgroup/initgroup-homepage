@@ -6,7 +6,7 @@
 
 - 공통 Jinja 템플릿을 FastAPI가 렌더링하는 MPA 구조
 - 외부 UI 프레임워크나 Node.js 없이 Python만 사용하는 템플릿 빌드
-- 실제 INIT Data Editing System 화면 중심의 제품 증명
+- 실제 인뎁스 IN-DEPS 화면 중심의 제품 증명
 - 360px부터 설계한 모바일 적응형 내비게이션·갤러리·프로젝트 카드
 - JavaScript 없이도 본문과 링크를 사용할 수 있는 progressive enhancement
 - `prefers-reduced-motion`, 키보드 메뉴, dialog와 skip link 지원

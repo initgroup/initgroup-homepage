@@ -73,7 +73,14 @@
                 <div class="ib-module-stack">
                     <article class="ib-module ib-module-c reveal" aria-labelledby="cbapTitle">
                         <div class="ib-module-copy"><span class="ib-module-index">01 / COLLECT</span><h2 id="cbapTitle">C-BAP<small>수집 솔루션</small></h2><p>분석에 필요한 정형·비정형 데이터를 소스 특성에 맞는 방식으로 수집하고 활용 가능한 입력으로 연결합니다.</p></div>
-                        <div class="ib-code-visual ib-collect-visual" aria-hidden="true"><span>OPEN API<br>공공·민간 연계</span><span>SNS DATA<br>텍스트·반응</span><span>WEB<br>페이지·게시판</span><span>SOURCE<br>EXTENSION</span><strong>COLLECT<br>HUB</strong></div>
+                        <div class="ib-code-visual ib-collect-visual" aria-hidden="true">
+                            <div class="ib-collect-sources"><small>DATA SOURCE</small><span><b>OPEN API</b><em>JSON · XML</em></span><span><b>SNS DATA</b><em>POST · REPLY</em></span><span><b>WEB</b><em>HTML · TEXT</em></span><span><b>EXTENSION</b><em>NEW SOURCE</em></span></div>
+                            <i class="ib-visual-arrow">→</i>
+                            <div class="ib-collect-control"><small>COLLECTION CONTROL</small><strong>C-BAP</strong><ol><li><b>01</b><span>연결<em>인증 · 엔드포인트</em></span></li><li><b>02</b><span>수집<em>스케줄 · 증분</em></span></li><li><b>03</b><span>정제<em>중복 · 오류 제거</em></span></li><li><b>04</b><span>표준화<em>필드 · 스키마 매핑</em></span></li></ol></div>
+                            <i class="ib-visual-arrow">→</i>
+                            <div class="ib-collect-output"><small>OUTPUT</small><strong>ANALYSIS<br>DATA</strong><span>TABLE · TEXT</span></div>
+                            <div class="ib-collect-status"><span><i></i>수집 상태</span><b>4 SOURCES CONNECTED</b><em>LAST RUN 14:32</em></div>
+                        </div>
                         <ul class="ib-capability-list"><li><strong>OPEN API</strong><span>공공기관과 민간 서비스의 개방형 데이터 연계</span></li><li><strong>SNS DATA</strong><span>소셜 채널의 텍스트와 반응 데이터 수집</span></li><li><strong>WEB CRAWLING</strong><span>URL 기반 페이지·게시판·블로그 데이터 수집</span></li></ul>
                     </article>
 
@@ -85,7 +92,16 @@
 
                     <article class="ib-module ib-module-v reveal" aria-labelledby="vbapTitle">
                         <div class="ib-module-copy"><span class="ib-module-index">03 / VISUALIZE</span><h2 id="vbapTitle">V-BAP<small>시각화 솔루션</small></h2><p>분석 결과를 표·차트와 맞춤형 대시보드로 구성하고, 사용자가 비교·탐색해 다음 판단으로 이어가도록 전달합니다.</p></div>
-                        <div class="ib-code-visual ib-dashboard-visual" aria-hidden="true"><span>ANALYSIS STATUS<br>84%</span><span>ACTIVE SIGNAL<br>12</span><div class="ib-dashboard-chart"><i></i><i></i><i></i><i></i><i></i></div></div>
+                        <div class="ib-code-visual ib-dashboard-visual" aria-hidden="true">
+                            <div class="ib-dashboard-head"><strong>DECISION DASHBOARD</strong><span>FILTER · ALL</span></div>
+                            <div class="ib-dashboard-kpis"><span><small>ANALYSIS STATUS</small><b>84%</b><em>+4.2%</em></span><span><small>ACTIVE SIGNAL</small><b>12</b><em>3 HIGH</em></span><span><small>DATA COVERAGE</small><b>96%</b><em>24 / 25</em></span></div>
+                            <div class="ib-dashboard-panels">
+                                <div class="ib-dashboard-trend"><div><strong>주간 변화 추세</strong><span>+12.4%</span></div><svg viewBox="0 0 240 110" preserveAspectRatio="none"><defs><linearGradient id="ibTrendFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity=".22"></stop><stop offset="100%" stop-color="currentColor" stop-opacity="0"></stop></linearGradient></defs><path class="ib-trend-area" d="M0 95 C25 88 35 72 58 76 S88 91 108 63 S145 44 162 53 S196 39 240 18 L240 110 L0 110 Z"></path><path class="ib-trend-line" d="M0 95 C25 88 35 72 58 76 S88 91 108 63 S145 44 162 53 S196 39 240 18"></path><g><circle cx="58" cy="76" r="3"></circle><circle cx="108" cy="63" r="3"></circle><circle cx="162" cy="53" r="3"></circle><circle cx="240" cy="18" r="3"></circle></g></svg><small>MON · TUE · WED · THU · FRI</small></div>
+                                <div class="ib-dashboard-share"><strong>신호 구성</strong><div><span>68%</span></div><small>긍정 신호</small></div>
+                                <div class="ib-dashboard-rank"><strong>상위 지표</strong><span><b>수요</b><i></i><em>88</em></span><span><b>품질</b><i></i><em>72</em></span><span><b>관계</b><i></i><em>61</em></span></div>
+                            </div>
+                            <div class="ib-dashboard-legend"><span><i></i>실시간 지표</span><span><i></i>비교 분석</span><span><i></i>상세 탐색</span></div>
+                        </div>
                         <ul class="ib-capability-list"><li><strong>WEB CHART</strong><span>분석 목적에 맞는 표·그래프와 인터랙티브 차트</span></li><li><strong>BI CONNECTION</strong><span>Spotfire·Power BI 등 업무용 BI 도구와 결과 연계</span></li><li><strong>R VISUALIZATION</strong><span>R 분석 결과에 최적화된 탐색·비교 시각화</span></li></ul>
                     </article>
                 </div>
