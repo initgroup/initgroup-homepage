@@ -4,19 +4,25 @@ param()
 $ErrorActionPreference = 'Stop'
 $siteRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $errors = [System.Collections.Generic.List[string]]::new()
-$excludedHtmlRoots = @(
-    (Join-Path $siteRoot '.render-static'),
-    (Join-Path $siteRoot '.tmp'),
-    (Join-Path $siteRoot 'venv'),
-    (Join-Path $siteRoot '.venv')
-) | ForEach-Object { [System.IO.Path]::GetFullPath($_).TrimEnd('\') + '\' }
-$htmlFiles = @(
-    Get-ChildItem -LiteralPath $siteRoot -Recurse -File -Filter '*.html' |
-        Where-Object {
-            $candidatePath = $_.FullName
-            -not ($excludedHtmlRoots | Where-Object { $candidatePath.StartsWith($_, [System.StringComparison]::OrdinalIgnoreCase) })
-        }
-)
+$venvPython = Join-Path $siteRoot 'venv\Scripts\python.exe'
+$validationRoot = [System.IO.Path]::GetFullPath((Join-Path $siteRoot '.tmp\validate-site'))
+
+if (-not (Test-Path -LiteralPath $venvPython -PathType Leaf)) {
+    throw 'venv Python is missing; run scripts\setup-venv.ps1'
+}
+
+Push-Location $siteRoot
+try {
+    & $venvPython scripts\build_site.py --check
+    if ($LASTEXITCODE -ne 0) { throw 'Template render validation failed' }
+    & $venvPython scripts\build_site.py --output-dir $validationRoot
+    if ($LASTEXITCODE -ne 0) { throw 'Validation HTML render failed' }
+}
+finally {
+    Pop-Location
+}
+
+$htmlFiles = @(Get-ChildItem -LiteralPath $validationRoot -Recurse -File -Filter '*.html')
 
 if ($htmlFiles.Count -eq 0) {
     throw 'No HTML files were found.'
@@ -24,7 +30,7 @@ if ($htmlFiles.Count -eq 0) {
 
 foreach ($file in $htmlFiles) {
     $content = Get-Content -Raw -Encoding UTF8 -LiteralPath $file.FullName
-    $relative = $file.FullName.Substring($siteRoot.Length).TrimStart('\')
+    $relative = $file.FullName.Substring($validationRoot.Length).TrimStart('\')
     $h1Count = [regex]::Matches($content, '<h1(?:\s|>)', 'IgnoreCase').Count
     $titleCount = [regex]::Matches($content, '<title>.*?</title>', 'IgnoreCase, Singleline').Count
     $canonicalCount = [regex]::Matches($content, '<link\s+rel="canonical"', 'IgnoreCase').Count
@@ -76,11 +82,11 @@ foreach ($file in $htmlFiles) {
         $urlPath = $match.Groups[1].Value
         if ($urlPath.StartsWith('/assets/')) { continue }
         if ($urlPath -eq '/') {
-            $targetPath = Join-Path $siteRoot 'index.html'
+            $targetPath = Join-Path $validationRoot 'index.html'
         } elseif ([System.IO.Path]::GetExtension($urlPath)) {
-            $targetPath = Join-Path $siteRoot ($urlPath.TrimStart('/') -replace '/', '\')
+            $targetPath = Join-Path $validationRoot ($urlPath.TrimStart('/') -replace '/', '\')
         } else {
-            $targetPath = Join-Path $siteRoot (($urlPath.Trim('/') -replace '/', '\') + '\index.html')
+            $targetPath = Join-Path $validationRoot (($urlPath.Trim('/') -replace '/', '\') + '\index.html')
         }
         if (-not (Test-Path -LiteralPath $targetPath -PathType Leaf)) {
             $errors.Add("$relative : broken internal link '$urlPath'")
@@ -94,11 +100,11 @@ foreach ($file in $htmlFiles) {
         if (-not $urlPath) {
             $targetPath = $file.FullName
         } elseif ($urlPath -eq '/') {
-            $targetPath = Join-Path $siteRoot 'index.html'
+            $targetPath = Join-Path $validationRoot 'index.html'
         } elseif ([System.IO.Path]::GetExtension($urlPath)) {
-            $targetPath = Join-Path $siteRoot ($urlPath.TrimStart('/') -replace '/', '\')
+            $targetPath = Join-Path $validationRoot ($urlPath.TrimStart('/') -replace '/', '\')
         } else {
-            $targetPath = Join-Path $siteRoot (($urlPath.Trim('/') -replace '/', '\') + '\index.html')
+            $targetPath = Join-Path $validationRoot (($urlPath.Trim('/') -replace '/', '\') + '\index.html')
         }
         if (Test-Path -LiteralPath $targetPath -PathType Leaf) {
             $targetContent = Get-Content -Raw -Encoding UTF8 -LiteralPath $targetPath
@@ -126,22 +132,16 @@ if ($node) {
     }
 }
 
-$venvPython = Join-Path $siteRoot 'venv\Scripts\python.exe'
-if (-not (Test-Path -LiteralPath $venvPython -PathType Leaf)) {
-    $errors.Add('venv Python is missing; run scripts\setup-venv.ps1')
+Push-Location $siteRoot
+try {
+    & $venvPython -c "from main import app, resolve_public_page; assert app.title == 'INIT Homepage'; assert resolve_public_page('company/') is not None; assert resolve_public_page('requirements.txt') is None; assert resolve_public_page('../AGENTS.md') is None"
+    $pythonValidationExitCode = $LASTEXITCODE
 }
-else {
-    Push-Location $siteRoot
-    try {
-        & $venvPython -c "from main import app, resolve_public_page; assert app.title == 'INIT Homepage'; assert resolve_public_page('company/') is not None; assert resolve_public_page('requirements.txt') is None; assert resolve_public_page('../AGENTS.md') is None"
-        $pythonValidationExitCode = $LASTEXITCODE
-    }
-    finally {
-        Pop-Location
-    }
-    if ($pythonValidationExitCode -ne 0) {
-        $errors.Add('FastAPI application import or public-path validation failed')
-    }
+finally {
+    Pop-Location
+}
+if ($pythonValidationExitCode -ne 0) {
+    $errors.Add('FastAPI application import or public-path validation failed')
 }
 
 if ($errors.Count -gt 0) {

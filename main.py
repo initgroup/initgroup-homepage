@@ -5,25 +5,30 @@ from pathlib import Path, PurePosixPath
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
+from site_config import (
+    MOBILE_NAV_ITEMS,
+    NAV_ITEMS,
+    PAGES_BY_KEY,
+    SITE,
+    asset_url,
+    page_for_request,
+)
 
 
 BASE_DIR = Path(__file__).resolve().parent
 ASSETS_DIR = BASE_DIR / "assets"
-NOT_FOUND_PAGE = BASE_DIR / "404.html"
+TEMPLATES_DIR = BASE_DIR / "templates"
+PUBLIC_ROOT_FILES = frozenset({"robots.txt", "sitemap.xml"})
 
-PUBLIC_PAGE_ROOTS = frozenset(
-    {
-        "careers",
-        "company",
-        "contact",
-        "insights",
-        "privacy",
-        "projects",
-        "services",
-        "solutions",
-    }
+templates = Jinja2Templates(directory=[BASE_DIR, TEMPLATES_DIR])
+templates.env.globals.update(
+    asset_url=asset_url,
+    nav_items=NAV_ITEMS,
+    mobile_nav_items=MOBILE_NAV_ITEMS,
+    site=SITE,
 )
-PUBLIC_ROOT_FILES = frozenset({"index.html", "404.html", "robots.txt", "sitemap.xml"})
 
 app = FastAPI(
     title="INIT Homepage",
@@ -66,33 +71,36 @@ async def api_healthcheck() -> dict[str, str]:
     return {"status": "ok", "service": "init-homepage"}
 
 
-def not_found_response() -> FileResponse:
-    return FileResponse(NOT_FOUND_PAGE, status_code=404)
+def render_page(request: Request, requested_path: str, *, status_code: int = 200) -> Response:
+    page = page_for_request(requested_path)
+    if page is None:
+        page = PAGES_BY_KEY["not-found"]
+        status_code = 404
+    return templates.TemplateResponse(
+        request=request,
+        name=page.template,
+        context={"page": page},
+        status_code=status_code,
+    )
+
+
+def not_found_response(request: Request) -> Response:
+    return render_page(request, "404.html", status_code=404)
 
 
 def resolve_public_page(requested_path: str) -> Path | None:
-    if requested_path in {"", "index.html"}:
-        return BASE_DIR / "index.html"
     if requested_path in PUBLIC_ROOT_FILES:
         return BASE_DIR / requested_path
 
     relative_path = PurePosixPath(requested_path)
     if relative_path.is_absolute() or ".." in relative_path.parts or not relative_path.parts:
-        return None
-    if relative_path.parts[0] not in PUBLIC_PAGE_ROOTS:
-        return None
+        if requested_path not in {"", "index.html"}:
+            return None
 
-    candidate = BASE_DIR.joinpath(*relative_path.parts)
-    if candidate.is_dir() or candidate.suffix == "":
-        candidate = candidate / "index.html"
-    if candidate.suffix.lower() != ".html":
+    page = page_for_request(requested_path)
+    if page is None:
         return None
-
-    try:
-        candidate.resolve(strict=True).relative_to(BASE_DIR)
-    except (FileNotFoundError, ValueError):
-        return None
-    return candidate
+    return BASE_DIR / page.output_path
 
 
 @app.api_route("/{requested_path:path}", methods=["GET", "HEAD"], include_in_schema=False)
@@ -102,7 +110,10 @@ async def public_pages(requested_path: str, request: Request) -> Response:
 
     page = resolve_public_page(requested_path)
     if page is None:
-        return not_found_response()
+        return not_found_response(request)
+
+    if requested_path in PUBLIC_ROOT_FILES:
+        return FileResponse(page)
 
     if page.name == "index.html" and requested_path not in {"", "index.html"}:
         requested = PurePosixPath(requested_path)
@@ -110,4 +121,4 @@ async def public_pages(requested_path: str, request: Request) -> Response:
             query = f"?{request.url.query}" if request.url.query else ""
             return RedirectResponse(f"{request.url.path}/{query}", status_code=308)
 
-    return FileResponse(page)
+    return render_page(request, requested_path)

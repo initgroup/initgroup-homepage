@@ -1,0 +1,3 @@
+    <div class="mobile-action-bar" aria-label="빠른 이동">
+{% for action in page.mobile_actions %}        <a href="{{ action.href }}">{{ action.label }}{% if action.arrow %} <span aria-hidden="true">↗</span>{% endif %}</a>
+{% endfor %}    </div>

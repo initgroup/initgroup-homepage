@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://initgroup.kr/solutions/inbups/#software",
+                "name": "인법스",
+                "alternateName": "IN-BAPS 빅데이터 분석 플랫폼",
+                "url": "https://initgroup.kr/solutions/inbups/",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "Web",
+                "description": "정형·비정형 데이터의 수집, 통계·텍스트·관계 분석과 업무용 시각화를 연결하는 빅데이터 플랫폼",
+                "publisher": {% include "partials/organization-jsonld.html" %}
+            },
+            {
+                "@type": "WebPage",
+                "@id": "https://initgroup.kr/solutions/inbups/#page",
+                "url": "https://initgroup.kr/solutions/inbups/",
+                "name": "인법스(IN-BAPS) 빅데이터 플랫폼",
+                "mainEntity": { "@id": "https://initgroup.kr/solutions/inbups/#software" }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://initgroup.kr/" },
+                    { "@type": "ListItem", "position": 2, "name": "솔루션", "item": "https://initgroup.kr/solutions/" },
+                    { "@type": "ListItem", "position": 3, "name": "인법스", "item": "https://initgroup.kr/solutions/inbups/" }
+                ]
+            }
+        ]
+    }
+    </script>
+{% endblock %}
+
+{% block main %}
+<section class="sol-page-hero" aria-labelledby="inbupsTitle">
+            <div class="shell">
+                <nav class="sol-breadcrumb" aria-label="현재 위치"><a href="/">홈</a><i aria-hidden="true"></i><a href="/solutions/">솔루션</a><i aria-hidden="true"></i><span aria-current="page">인법스</span></nav>
+                <div class="sol-hero-grid">
+                    <div class="sol-hero-copy">
+                        <p class="eyebrow"><i></i> END-TO-END BIG DATA PLATFORM</p>
+                        <h1 id="inbupsTitle">수집에서 시각화까지,<br><em>인법스가 잇는 데이터 여정.</em></h1>
+                        <p>서로 다른 형태의 데이터를 소스 특성에 맞게 모으고, 통계와 비정형 분석으로 의미를 발견해, 사용자가 판단할 수 있는 화면으로 전달합니다.</p>
+                        <div class="sol-hero-actions"><a class="button button-primary" href="#inbupsModules">3개 모듈 살펴보기 <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="/contact/">적용 범위 상담하기</a></div>
+                        <p class="sol-hero-note"><i aria-hidden="true"></i> C-BAP · R-BAP · V-BAP을 하나의 활용 파이프라인으로 구성합니다.</p>
+                    </div>
+
+                    <div class="ib-hero-console" aria-label="인법스 수집 분석 시각화 파이프라인">
+                        <div class="ib-console-head"><span>IN-BAPS / C-BAP · R-BAP · V-BAP</span><small>RAW DATA → DECISION VIEW</small></div>
+                        <div class="ib-console-flow">
+                            <article class="ib-console-node ib-node-c"><span>01 / COLLECT</span><h2>C-BAP</h2><small>수집 솔루션</small><div><i>Open API</i><i>SNS Data</i><i>Web Crawling</i></div></article>
+                            <i class="ib-console-arrow" aria-hidden="true">→</i>
+                            <article class="ib-console-node ib-node-r"><span>02 / ANALYZE</span><h2>R-BAP</h2><small>분석 솔루션</small><div><i>Text Mining</i><i>Relation</i><i>Statistics</i></div></article>
+                            <i class="ib-console-arrow" aria-hidden="true">→</i>
+                            <article class="ib-console-node ib-node-v"><span>03 / VISUALIZE</span><h2>V-BAP</h2><small>시각화 솔루션</small><div><i>Web Chart</i><i>BI Connection</i><i>R Visual</i></div></article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="inbupsModules" class="section" aria-labelledby="moduleTitle">
+            <div class="shell">
+                <div class="sol-section-heading reveal">
+                    <div><p class="eyebrow"><i></i> THREE CONNECTED MODULES</p><h2 id="moduleTitle">분절된 도구가 아닌<br>이어지는 데이터 활용 체계.</h2></div>
+                    <p>각 모듈은 독립된 목적을 가지면서도 이전 단계의 결과를 다음 단계가 활용할 수 있도록 수집·분석·표현의 맥락을 연결합니다.</p>
+                </div>
+
+                <div class="ib-module-stack">
+                    <article class="ib-module ib-module-c reveal" aria-labelledby="cbapTitle">
+                        <div class="ib-module-copy"><span class="ib-module-index">01 / COLLECT</span><h2 id="cbapTitle">C-BAP<small>수집 솔루션</small></h2><p>분석에 필요한 정형·비정형 데이터를 소스 특성에 맞는 방식으로 수집하고 활용 가능한 입력으로 연결합니다.</p></div>
+                        <div class="ib-code-visual ib-collect-visual" aria-hidden="true"><span>OPEN API<br>공공·민간 연계</span><span>SNS DATA<br>텍스트·반응</span><span>WEB<br>페이지·게시판</span><span>SOURCE<br>EXTENSION</span><strong>COLLECT<br>HUB</strong></div>
+                        <ul class="ib-capability-list"><li><strong>OPEN API</strong><span>공공기관과 민간 서비스의 개방형 데이터 연계</span></li><li><strong>SNS DATA</strong><span>소셜 채널의 텍스트와 반응 데이터 수집</span></li><li><strong>WEB CRAWLING</strong><span>URL 기반 페이지·게시판·블로그 데이터 수집</span></li></ul>
+                    </article>
+
+                    <article class="ib-module ib-module-r reveal" aria-labelledby="rbapTitle">
+                        <div class="ib-module-copy"><span class="ib-module-index">02 / ANALYZE</span><h2 id="rbapTitle">R-BAP<small>분석 솔루션</small></h2><p>R 기반 분석 생태계와 통계 방법론을 활용해 정형 데이터의 패턴과 비정형 데이터의 의미·관계를 함께 탐색합니다.</p></div>
+                        <div class="ib-code-visual ib-analyze-visual" aria-hidden="true"><span>TEXT &amp; RELATION</span><div class="ib-analysis-ring"><strong>HYBRID<br>DATA<br>ANALYSIS</strong></div><span>STATISTICAL MODEL</span></div>
+                        <ul class="ib-capability-list"><li><strong>TEXT MINING</strong><span>워드클라우드·감성·토픽 분석을 통한 텍스트 해석</span></li><li><strong>RELATION ANALYSIS</strong><span>변수와 개체 간 관계, 연결 구조와 군집 탐색</span></li><li><strong>STATISTICS</strong><span>기초·고급 통계와 산업·프로젝트별 맞춤 분석</span></li></ul>
+                    </article>
+
+                    <article class="ib-module ib-module-v reveal" aria-labelledby="vbapTitle">
+                        <div class="ib-module-copy"><span class="ib-module-index">03 / VISUALIZE</span><h2 id="vbapTitle">V-BAP<small>시각화 솔루션</small></h2><p>분석 결과를 표·차트와 맞춤형 대시보드로 구성하고, 사용자가 비교·탐색해 다음 판단으로 이어가도록 전달합니다.</p></div>
+                        <div class="ib-code-visual ib-dashboard-visual" aria-hidden="true"><span>ANALYSIS STATUS<br>84%</span><span>ACTIVE SIGNAL<br>12</span><div class="ib-dashboard-chart"><i></i><i></i><i></i><i></i><i></i></div></div>
+                        <ul class="ib-capability-list"><li><strong>WEB CHART</strong><span>분석 목적에 맞는 표·그래프와 인터랙티브 차트</span></li><li><strong>BI CONNECTION</strong><span>Spotfire·Power BI 등 업무용 BI 도구와 결과 연계</span></li><li><strong>R VISUALIZATION</strong><span>R 분석 결과에 최적화된 탐색·비교 시각화</span></li></ul>
+                    </article>
+                </div>
+
+                <div class="ib-reference-block reveal" aria-labelledby="inbapsReferenceTitle">
+                    <div class="ib-reference-heading"><span>PRODUCT REFERENCE</span><div><h3 id="inbapsReferenceTitle">C-BAP·R-BAP·V-BAP 원본 소개 자료</h3><p>기존 제품 자료의 기능 범위를 현재 홈페이지의 수집–분석–시각화 흐름에 맞춰 재구성했습니다.</p></div></div>
+                    <div class="ib-reference-gallery">
+                        <figure><div><img src="/assets/images/reference/in-baps/c-bap-collection.png" alt="Open API, SNS와 Web Crawling으로 정형·비정형 데이터를 수집하는 C-BAP 소개 자료" width="1067" height="749" loading="lazy" decoding="async"></div><figcaption><span>01 / COLLECT</span><strong>C-BAP 수집 채널</strong><small>Open API · SNS · Web Crawling</small></figcaption></figure>
+                        <figure><div><img src="/assets/images/reference/in-baps/r-bap-analysis.png" alt="R Package, 빅데이터 분석과 통계 분석을 결합하는 R-BAP 소개 자료" width="1056" height="615" loading="lazy" decoding="async"></div><figcaption><span>02 / ANALYZE</span><strong>R-BAP 하이브리드 분석</strong><small>Text · Relation · Statistical Analysis</small></figcaption></figure>
+                        <figure><div><img src="/assets/images/reference/in-baps/v-bap-visualization.png" alt="Web Chart, BI 도구와 R 시각화를 활용하는 V-BAP 소개 자료" width="1055" height="807" loading="lazy" decoding="async"></div><figcaption><span>03 / VISUALIZE</span><strong>V-BAP 결과 시각화</strong><small>Web Chart · BI · R Visualization</small></figcaption></figure>
+                    </div>
+                </div>
+
+                <div class="ib-output-rail reveal" aria-label="인법스 단계별 산출물"><span>RAW DATA</span><i></i><strong>ANALYSIS-READY DATA</strong><i></i><strong>INSIGHT &amp; MODEL</strong><i></i><strong>DECISION VIEW</strong><i></i><span>BUSINESS ACTION</span></div>
+            </div>
+        </section>
+
+        <section class="section sol-path-section" aria-labelledby="inbupsFlowTitle">
+            <div class="shell">
+                <div class="sol-section-heading reveal"><div><p class="eyebrow eyebrow-light"><i></i> ONE CONNECTED PIPELINE</p><h2 id="inbupsFlowTitle">데이터 소스와 분석 목적에<br>맞춰 연결합니다.</h2></div><p>모든 데이터를 같은 방식으로 다루지 않습니다. 소스 특성, 분석 질문과 최종 사용자의 판단 방식을 기준으로 필요한 모듈을 구성합니다.</p></div>
+                <ol class="sol-path-list"><li class="reveal"><span>01 / SOURCE</span><strong>다양한 데이터 소스 연결</strong><p>공공 API, 민간 서비스, SNS와 웹의 정형·비정형 데이터를 목적에 맞게 수집합니다.</p></li><li class="reveal"><span>02 / METHOD</span><strong>분석 질문에 맞는 방법론</strong><p>통계·텍스트·관계 분석을 조합해 데이터에서 답해야 할 질문에 필요한 근거를 만듭니다.</p></li><li class="reveal"><span>03 / EXPERIENCE</span><strong>사용자 판단 중심의 표현</strong><p>결과를 나열하지 않고 비교·탐색·의사결정에 필요한 화면과 지표로 구성합니다.</p></li></ol>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="inbupsValueTitle">
+            <div class="shell">
+                <div class="sol-section-heading reveal"><div><p class="eyebrow"><i></i> PLATFORM VALUE</p><h2 id="inbupsValueTitle">한 번의 분석이 아니라<br>반복 가능한 활용으로.</h2></div><p>수집 범위를 확장하고 분석 방법을 재사용하며, 업무에 맞는 결과 전달 구조를 운영하는 기반을 지향합니다.</p></div>
+                <div class="ib-value-grid"><article class="reveal"><span>01 / EXTENSIBILITY</span><h3>수집 범위의 확장성</h3><p>새로운 API, 채널과 웹 소스를 분석 목적에 맞춰 수집 범위에 추가할 수 있습니다.</p></article><article class="reveal"><span>02 / REPRODUCIBILITY</span><h3>분석 근거의 재현성</h3><p>선택한 데이터와 분석 방법을 명확히 구성해 같은 질문을 반복 검증할 수 있게 합니다.</p></article><article class="reveal"><span>03 / DELIVERY</span><h3>업무별 맞춤 시각화</h3><p>정해진 차트 목록이 아니라 사용자 역할과 판단 흐름에 맞는 결과 화면을 설계합니다.</p></article></div>
+            </div>
+        </section>
+
+        <section class="contact-cta" aria-labelledby="inbupsContactTitle">
+            <div class="shell contact-cta-inner reveal"><div><p class="eyebrow eyebrow-light"><i></i> PLATFORM CONVERSATION</p><h2 id="inbupsContactTitle">어떤 데이터를 모으고,<br>어떤 판단에 쓸 것인가요?</h2></div><div><p>데이터 소스, 분석 질문과 최종 사용자 환경을 알려주시면 필요한 수집·분석·시각화 범위를 함께 구성하겠습니다.</p><a class="button button-light" href="/contact/">인법스 적용 상담하기 <span aria-hidden="true">↗</span></a></div></div>
+        </section>
+{% endblock %}

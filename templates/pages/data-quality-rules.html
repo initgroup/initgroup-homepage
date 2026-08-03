@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {% include "partials/organization-jsonld.html" %},
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://initgroup.kr/insights/data-quality-rules/#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "홈",
+                        "item": "https://initgroup.kr/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "인사이트",
+                        "item": "https://initgroup.kr/insights/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "데이터 품질 규칙",
+                        "item": "https://initgroup.kr/insights/data-quality-rules/"
+                    }
+                ]
+            },
+            {
+                "@type": "Article",
+                "@id": "https://initgroup.kr/insights/data-quality-rules/#article",
+                "mainEntityOfPage": "https://initgroup.kr/insights/data-quality-rules/",
+                "headline": "데이터 품질은 전처리가 아니라 운영 체계입니다",
+                "description": "데이터 품질 규칙을 제안·검토·실행·개선의 운영 수명주기로 설계하는 방법",
+                "datePublished": "2026-08-01",
+                "dateModified": "2026-08-01",
+                "inLanguage": "ko-KR",
+                "author": { "@id": "https://initgroup.kr/#organization" },
+                "publisher": { "@id": "https://initgroup.kr/#organization" },
+                "articleSection": "데이터 품질",
+                "keywords": ["데이터 품질", "품질 규칙", "데이터 거버넌스", "Human-in-the-loop"],
+                "breadcrumb": { "@id": "https://initgroup.kr/insights/data-quality-rules/#breadcrumb" }
+            }
+        ]
+    }
+    </script>
+{% endblock %}
+
+{% block main %}
+<article>
+            <header class="editorial-hero article-hero">
+                <div class="shell">
+                    <nav class="breadcrumbs" aria-label="현재 위치">
+                        <ol>
+                            <li><a href="/">홈</a></li>
+                            <li><a href="/insights/">인사이트</a></li>
+                            <li aria-current="page">데이터 품질 규칙</li>
+                        </ol>
+                    </nav>
+                    <div class="editorial-hero-grid article-hero-grid">
+                        <div class="editorial-hero-copy article-hero-copy">
+                            <p class="eyebrow"><i></i> DATA QUALITY</p>
+                            <h1>데이터 품질은 전처리가 아니라 <em>운영 체계</em>입니다</h1>
+                            <p class="article-deck">오류를 한 번 고치는 일보다 중요한 것은 어떤 규칙을 왜 적용했고, 누가 판단했으며, 다음 실행에서 무엇이 달라졌는지 설명할 수 있는 구조입니다.</p>
+                            <ul class="article-byline" aria-label="문서 정보">
+                                <li>인아이티 데이터 프랙티스</li>
+                                <li><time datetime="2026-08-01">2026.08.01</time></li>
+                                <li>데이터 품질 · 실무 가이드</li>
+                            </ul>
+                        </div>
+                        <aside class="editorial-hero-aside article-hero-aside" aria-label="글의 핵심 주장">
+                            <span>ONE SENTENCE</span>
+                            <p>좋은 품질 규칙은 오류를 찾는 조건이 아니라, 근거와 책임이 반복 실행되는 운영 자산입니다.</p>
+                        </aside>
+                    </div>
+                </div>
+            </header>
+
+            <section class="article-summary-band" aria-labelledby="summaryTitle">
+                <div class="shell article-summary">
+                    <header><span id="summaryTitle">먼저 읽기</span></header>
+                    <div><strong>01</strong><p>데이터가 바뀌면 품질 규칙과 기준도 함께 관리되어야 합니다.</p></div>
+                    <div><strong>02</strong><p>규칙은 조건뿐 아니라 목적·근거·담당자·버전을 가져야 합니다.</p></div>
+                    <div><strong>03</strong><p>자동 탐지와 최종 판단을 분리하고, 결정 이유를 다음 실행에 남겨야 합니다.</p></div>
+                </div>
+            </section>
+
+            <section class="article-section">
+                <div class="article-shell article-layout">
+                    <nav class="article-toc" aria-label="이 글의 목차">
+                        <strong>CONTENTS</strong>
+                        <ol>
+                            <li><a href="#why-operation">왜 운영 문제인가</a></li>
+                            <li><a href="#rule-lifecycle">규칙의 수명주기</a></li>
+                            <li><a href="#rule-anatomy">좋은 규칙의 구성</a></li>
+                            <li><a href="#review">사람의 검토 설계</a></li>
+                            <li><a href="#starting">현실적인 시작 순서</a></li>
+                            <li><a href="#checklist">운영 점검표</a></li>
+                        </ol>
+                    </nav>
+
+                    <div class="article-body">
+                        <p>많은 데이터 프로젝트에서 품질 관리는 분석 직전의 정제 작업으로 배치됩니다. 결측값을 채우고 형식을 맞춘 뒤 “깨끗해진 데이터”를 다음 단계로 넘기는 방식입니다. 그러나 데이터가 계속 들어오고 업무 기준이 변하는 운영 환경에서는 이 접근만으로 품질을 유지하기 어렵습니다.</p>
+                        <p>오늘 통과한 값이 내일도 올바르다는 보장은 없습니다. 입력 시스템이 바뀌거나 코드 체계가 개편될 수 있고, 한 부서에서 오류인 값이 다른 업무에서는 허용될 수도 있습니다. 그래서 데이터 품질은 정답 데이터셋을 한 번 만드는 일이 아니라, 기준을 합의하고 실행 결과를 검토하며 그 판단을 다시 기준에 반영하는 반복 과정이어야 합니다.</p>
+
+                        <section id="why-operation">
+                            <p class="eyebrow"><i></i> 01 / OPERATING PROBLEM</p>
+                            <h2>오류를 고치는 일에서 기준을 운영하는 일로</h2>
+                            <p>일회성 정제는 현재 발견된 문제를 빠르게 해결하는 데 유용합니다. 하지만 정제 스크립트가 왜 만들어졌는지, 어떤 데이터에 적용해야 하는지, 예외가 누구의 승인으로 허용되었는지가 남지 않으면 같은 문제가 다시 발생했을 때 처음부터 조사해야 합니다.</p>
+                            <p>운영 관점의 품질 관리는 세 가지 질문에 답할 수 있어야 합니다.</p>
+                            <ul>
+                                <li><strong>무엇을 검사했는가:</strong> 적용 대상, 컬럼과 데이터 범위가 분명해야 합니다.</li>
+                                <li><strong>왜 문제라고 판단했는가:</strong> 업무 정의, 통계적 근거 또는 참조 기준을 확인할 수 있어야 합니다.</li>
+                                <li><strong>그 뒤에 무엇을 했는가:</strong> 수정·제외·보류 같은 결정과 책임 주체가 이력으로 남아야 합니다.</li>
+                            </ul>
+                            <div class="article-pullquote">
+                                <p>품질의 목표는 오류 건수를 ‘0’으로 만드는 것이 아니라, 중요한 오류를 같은 기준으로 발견하고 책임 있게 처리하는 것입니다.</p>
+                            </div>
+                            <p>모든 이상치를 제거하면 오히려 실제 현상의 중요한 변화를 지울 수 있습니다. 통계적 범위를 벗어났다는 사실은 검토 신호이지 곧바로 오류라는 뜻이 아닙니다. 자동 탐지는 후보를 만들고, 업무 담당자는 맥락을 확인해 최종 결정을 내려야 합니다.</p>
+                        </section>
+
+                        <section id="rule-lifecycle">
+                            <p class="eyebrow"><i></i> 02 / RULE LIFECYCLE</p>
+                            <h2>품질 규칙은 발견에서 개선까지 순환합니다</h2>
+                            <p>규칙을 SQL 조건이나 검증 수식 한 줄로만 저장하면 운영에 필요한 맥락이 빠집니다. 규칙이 만들어지고 사용되고 폐기되는 전체 수명주기를 관리해야 합니다.</p>
+                            <ol class="article-flow" aria-label="데이터 품질 규칙 수명주기">
+                                <li><span>01</span><strong>관찰</strong><p>프로파일, 분포와 컬럼 관계를 살펴 반복되는 이상 패턴과 업무상 위험을 찾습니다.</p></li>
+                                <li><span>02</span><strong>제안</strong><p>조건, 지표와 임계값을 포함한 후보 규칙을 만들고 그 근거와 적용 범위를 함께 기록합니다.</p></li>
+                                <li><span>03</span><strong>검토</strong><p>담당자가 표본과 원천 맥락을 확인해 채택·수정·제외 여부를 결정합니다.</p></li>
+                                <li><span>04</span><strong>실행</strong><p>승인된 규칙을 정해진 데이터와 주기에 적용하고 위반 건과 실행 상태를 저장합니다.</p></li>
+                                <li><span>05</span><strong>처리</strong><p>원본을 보존한 채 수정안, 예외 승인 또는 후속 조치 상태를 관리합니다.</p></li>
+                                <li><span>06</span><strong>개선</strong><p>오탐, 누락과 데이터 변화를 검토해 규칙의 조건·범위·우선순위를 갱신합니다.</p></li>
+                            </ol>
+                            <p>이 과정에서 중요한 것은 단계마다 입력과 출력이 이어지는 것입니다. 후보 규칙이 승인 규칙으로 바뀌었을 때 원래 근거가 사라지거나, 실행 결과가 규칙 버전과 연결되지 않으면 나중에 같은 결과를 설명하기 어렵습니다.</p>
+                        </section>
+
+                        <section id="rule-anatomy">
+                            <p class="eyebrow"><i></i> 03 / RULE ANATOMY</p>
+                            <h2>좋은 규칙은 조건보다 많은 정보를 가집니다</h2>
+                            <p>예를 들어 “종료일은 시작일보다 빠를 수 없다”는 조건은 직관적입니다. 그러나 휴지 기간이나 정정 데이터처럼 업무상 허용되는 예외가 있다면 단순 비교식만으로는 충분하지 않습니다. 운영 가능한 규칙에는 다음 정보가 함께 있어야 합니다.</p>
+                            <dl class="article-definition-grid">
+                                <div><dt>목적</dt><dd>이 규칙이 막으려는 업무 위험과 잘못된 데이터가 미치는 영향을 설명합니다.</dd></div>
+                                <div><dt>적용 범위</dt><dd>대상 데이터셋, 컬럼, 기간과 제외 조건을 명확히 정의합니다.</dd></div>
+                                <div><dt>판단 조건</dt><dd>비교식, 허용 목록, 통계 지표와 임계값을 실행 가능한 형태로 기록합니다.</dd></div>
+                                <div><dt>근거</dt><dd>업무 정의서, 법·제도 기준, 데이터 관계 또는 분석 결과를 연결합니다.</dd></div>
+                                <div><dt>처리 방식</dt><dd>차단, 경고, 표본 검토, 수정 후보 제시 등 위반 후 행동을 정합니다.</dd></div>
+                                <div><dt>책임과 버전</dt><dd>제안자·승인자, 적용일, 변경 이유와 이전 버전을 추적합니다.</dd></div>
+                            </dl>
+                            <div class="article-note">
+                                <strong>규칙 예시를 검토할 때</strong>
+                                <p>“조건이 맞는가?”만 묻지 말고 “이 조건이 틀렸다고 말할 권한은 어디에서 오는가?”, “예외를 누가 판단하는가?”, “오류가 발견되면 원본과 수정본을 어떻게 구분하는가?”를 함께 확인해야 합니다.</p>
+                            </div>
+                            <p>규칙의 설명은 기술 담당자만 이해하는 쿼리로 끝나면 안 됩니다. 업무 담당자가 읽을 수 있는 문장과 실제 위반 사례, 적용 대상의 요약을 함께 보여주면 검토 품질이 높아지고 규칙 변경에 대한 합의도 쉬워집니다.</p>
+                        </section>
+
+                        <section id="review">
+                            <p class="eyebrow"><i></i> 04 / HUMAN REVIEW</p>
+                            <h2>자동 탐지와 최종 판단을 분리합니다</h2>
+                            <p>자동화가 모든 위반 건을 곧바로 수정하거나 삭제하면 빠르게 보일 수 있습니다. 그러나 공공·금융·통계처럼 데이터의 변경 이유를 설명해야 하는 업무에서는 속도보다 통제 가능한 절차가 중요합니다.</p>
+                            <p>검토 화면은 단순한 승인 버튼보다 충분한 판단 정보를 제공해야 합니다. 원본 값과 제안 값, 위반한 규칙, 관련 컬럼과 이전 처리 이력을 한 흐름에서 볼 수 있어야 합니다. 담당자가 제외를 선택했다면 “정상 예외”, “규칙 범위 오류”, “추가 확인 필요”처럼 결정 이유를 남길 수 있어야 합니다.</p>
+                            <h3>결정 이력은 규칙 개선의 학습 데이터입니다</h3>
+                            <p>담당자가 반복적으로 제외하는 유형은 규칙이 너무 넓거나 예외 조건이 빠졌다는 신호일 수 있습니다. 반대로 자주 확정되는 위반은 우선순위를 높이거나 입력 단계에서 예방할 후보입니다. 검토 결과를 단순 처리 상태로만 저장하지 않고 규칙 개선에 다시 사용해야 운영할수록 품질 체계가 나아집니다.</p>
+                            <div class="article-note">
+                                <strong>원본 보존 원칙</strong>
+                                <p>가능하면 원천 데이터를 직접 덮어쓰지 말고 원본, 편집 제안과 승인된 결과를 분리해 관리합니다. 그래야 언제든 변경 전 상태와 판단 과정을 다시 확인할 수 있습니다.</p>
+                            </div>
+                        </section>
+
+                        <section id="starting">
+                            <p class="eyebrow"><i></i> 05 / STARTING POINT</p>
+                            <h2>모든 데이터를 한 번에 고치려 하지 않습니다</h2>
+                            <p>품질 체계를 시작할 때 가장 흔한 부담은 전사 데이터 전체를 완벽하게 정의해야 한다는 생각입니다. 실제로는 업무 영향이 크고 담당자가 분명한 데이터 흐름 하나에서 시작하는 편이 현실적입니다.</p>
+                            <ol>
+                                <li><strong>중요한 업무 결과를 고릅니다.</strong> 보고서, 통계표, 심사 결과처럼 오류가 의사결정에 직접 영향을 주는 산출물을 선택합니다.</li>
+                                <li><strong>결과의 입력 데이터를 거슬러 올라갑니다.</strong> 어떤 원천과 변환 단계를 거쳐 값이 만들어지는지 확인합니다.</li>
+                                <li><strong>현재 사람이 확인하는 기준을 수집합니다.</strong> 문서에 없는 경험 규칙과 예외를 인터뷰와 실제 사례로 정리합니다.</li>
+                                <li><strong>소수의 규칙을 운영 주기에 넣습니다.</strong> 자동 실행, 담당자 검토와 변경 이력이 실제 업무와 맞는지 확인합니다.</li>
+                                <li><strong>오탐과 누락을 기준으로 개선합니다.</strong> 규칙 수보다 검토 가능한 품질과 반복 가능성을 먼저 봅니다.</li>
+                            </ol>
+                            <p>처음부터 많은 규칙을 등록하면 담당자가 경고에 익숙해져 중요한 신호를 놓칠 수 있습니다. 규칙의 수보다 각 규칙의 책임자와 처리 절차가 분명한지가 더 중요합니다.</p>
+                        </section>
+
+                        <section id="checklist">
+                            <p class="eyebrow"><i></i> 06 / CHECKLIST</p>
+                            <h2>현재 품질 운영을 확인하는 질문</h2>
+                            <p>아래 질문에 여러 개 답하기 어렵다면 정제 로직은 있어도 품질 운영 체계는 아직 분리되어 있을 가능성이 큽니다.</p>
+                            <ul class="article-checklist">
+                                <li>각 품질 규칙의 목적과 업무상 근거를 담당자가 설명할 수 있는가?</li>
+                                <li>규칙이 적용되는 데이터 범위와 예외 조건이 명시되어 있는가?</li>
+                                <li>어떤 규칙 버전이 어떤 실행 결과를 만들었는지 확인할 수 있는가?</li>
+                                <li>자동 탐지 결과를 승인·제외·보류하는 책임자가 정해져 있는가?</li>
+                                <li>결정 이유와 수정 전후 값이 원본과 분리되어 남는가?</li>
+                                <li>오탐과 누락이 규칙 변경과 우선순위 조정에 다시 반영되는가?</li>
+                                <li>입력 데이터가 바뀌었을 때 영향을 받는 규칙을 찾을 수 있는가?</li>
+                            </ul>
+                        </section>
+
+                        <aside class="article-conclusion" aria-labelledby="conclusionTitle">
+                            <p class="eyebrow eyebrow-light"><i></i> FINAL THOUGHT</p>
+                            <h2 id="conclusionTitle">품질은 깨끗한 데이터보다 설명 가능한 운영에서 시작됩니다</h2>
+                            <p>데이터 품질을 전처리 단계에만 두면 문제는 매번 새로 발견됩니다. 규칙의 근거와 버전, 사람의 결정과 실행 이력을 연결하면 품질 관리는 반복할수록 강해지는 조직의 운영 자산이 됩니다.</p>
+                            <a class="button button-light" href="/contact/">데이터 품질 과제 상담하기 <span aria-hidden="true">↗</span></a>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <section class="related-section" aria-labelledby="relatedTitle">
+            <div class="article-shell">
+                <div class="related-heading">
+                    <h2 id="relatedTitle">함께 읽으면 좋은 글</h2>
+                    <a href="/insights/">인사이트 전체 보기 →</a>
+                </div>
+                <div class="related-grid">
+                    <a class="related-card" href="/insights/human-in-the-loop/">
+                        <span>RESPONSIBLE AI</span>
+                        <h3>자동화의 마지막 판단을 전문가에게 남기는 설계</h3>
+                    </a>
+                    <a class="related-card" href="/insights/reproducible-analysis/">
+                        <span>TRACEABILITY</span>
+                        <h3>재현 가능한 분석은 Run 단위 이력에서 시작됩니다</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+{% endblock %}

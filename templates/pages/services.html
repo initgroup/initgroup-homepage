@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "CollectionPage",
+                "@id": "https://initgroup.kr/services/#webpage",
+                "url": "https://initgroup.kr/services/",
+                "name": "AI·통계·데이터 품질 서비스 | 인아이티",
+                "description": "데이터 전략, 품질, AI·통계 분석과 시스템 구축·운영 서비스",
+                "about": { "@id": "https://initgroup.kr/#organization" },
+                "mainEntity": { "@id": "https://initgroup.kr/services/#catalog" }
+            },
+            {
+                "@type": "OfferCatalog",
+                "@id": "https://initgroup.kr/services/#catalog",
+                "name": "인아이티 데이터·AI 서비스",
+                "itemListElement": [
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "데이터 전략·통계 컨설팅", "provider": { "@id": "https://initgroup.kr/#organization" } } },
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "데이터 엔지니어링·품질", "provider": { "@id": "https://initgroup.kr/#organization" } } },
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI·통계 분석", "provider": { "@id": "https://initgroup.kr/#organization" } } },
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "의사결정 시스템 구축·운영", "provider": { "@id": "https://initgroup.kr/#organization" } } }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://initgroup.kr/" },
+                    { "@type": "ListItem", "position": 2, "name": "서비스", "item": "https://initgroup.kr/services/" }
+                ]
+            }
+        ]
+    }
+    </script>
+{% endblock %}
+
+{% block main %}
+<section class="corp-hero corp-services-hero" aria-labelledby="servicesHeroTitle">
+            <div class="shell corp-hero-grid">
+                <div class="corp-hero-copy reveal">
+                    <p class="eyebrow"><i></i> DATA &amp; AI SERVICES</p>
+                    <h1 id="servicesHeroTitle">문제 정의부터 시스템 운영까지,<br><em>하나의 팀으로 이어갑니다.</em></h1>
+                    <p class="corp-hero-lead">컨설팅, 데이터 품질, AI·통계 분석과 시스템 구축을 따로 떼어내지 않습니다. 고객의 업무와 데이터가 실제 결정으로 이어지는 전체 과정을 함께 설계합니다.</p>
+                    <a class="button button-primary" href="/contact/">현재 과제 상담하기 <span aria-hidden="true">↗</span></a>
+                </div>
+                <div class="corp-service-orbit reveal" aria-label="인아이티 서비스 연결 구조">
+                    <div class="corp-orbit-core"><small>ONE TEAM</small><strong>DATA TO<br>DECISION</strong></div>
+                    <span class="corp-orbit-item orbit-item-one"><i>01</i>전략</span>
+                    <span class="corp-orbit-item orbit-item-two"><i>02</i>품질</span>
+                    <span class="corp-orbit-item orbit-item-three"><i>03</i>분석</span>
+                    <span class="corp-orbit-item orbit-item-four"><i>04</i>운영</span>
+                </div>
+            </div>
+        </section>
+
+        <nav class="corp-anchor-nav" aria-label="서비스 바로가기">
+            <div class="shell">
+                <a href="#consulting"><span>01</span>전략·컨설팅</a>
+                <a href="#quality"><span>02</span>엔지니어링·품질</a>
+                <a href="#analytics"><span>03</span>AI·통계 분석</a>
+                <a href="#engineering"><span>04</span>시스템 구축·운영</a>
+            </div>
+        </nav>
+
+        <section class="corp-section corp-service-detail-section" aria-labelledby="serviceDetailTitle">
+            <div class="shell">
+                <div class="corp-heading corp-heading-split reveal">
+                    <div><p class="eyebrow"><i></i> FOUR CAPABILITIES</p><h2 id="serviceDetailTitle">필요한 기술보다<br>필요한 변화를 먼저 봅니다.</h2></div>
+                    <p>각 서비스는 독립적으로 시작할 수 있지만, 데이터와 모델, 화면과 운영 기준이 끊기지 않도록 처음부터 다음 단계를 함께 고려합니다.</p>
+                </div>
+
+                <div class="corp-service-stack">
+                    <article id="consulting" class="corp-service-block reveal">
+                        <div class="corp-service-index"><span>01</span><small>DATA STRATEGY</small></div>
+                        <div class="corp-service-body"><h3>데이터 전략·통계 컨설팅</h3><p>업무 목표와 데이터 환경을 진단하고 실행 가능한 통계 방법론과 데이터 활용 로드맵을 설계합니다.</p><ul><li>데이터·AI 활용 전략과 ISP</li><li>국가통계·수요예측 방법론</li><li>데이터 기반 행정과 공동활용 체계</li><li>분석 역량 강화와 실무 교육</li></ul></div>
+                        <dl class="corp-service-output"><dt>DELIVERABLE</dt><dd>현황 진단</dd><dd>방법론·로드맵</dd><dd>단계별 실행 범위</dd></dl>
+                    </article>
+
+                    <article id="quality" class="corp-service-block reveal">
+                        <div class="corp-service-index"><span>02</span><small>DATA QUALITY</small></div>
+                        <div class="corp-service-body"><h3>데이터 엔지니어링·품질</h3><p>흩어진 데이터를 분석 가능한 구조로 통합하고, 담당자가 확인할 수 있는 품질 기준과 변경 이력을 만듭니다.</p><ul><li>정형·비정형 데이터 수집과 통합</li><li>DW·Data Mart와 메타데이터</li><li>프로파일링·관계 분석·품질 규칙</li><li>원본 보존과 데이터 편집 이력</li></ul></div>
+                        <dl class="corp-service-output"><dt>DELIVERABLE</dt><dd>데이터 모델</dd><dd>품질 기준·규칙</dd><dd>재현 가능한 파이프라인</dd></dl>
+                    </article>
+
+                    <article id="analytics" class="corp-service-block reveal">
+                        <div class="corp-service-index"><span>03</span><small>AI &amp; STATISTICS</small></div>
+                        <div class="corp-service-body"><h3>AI·통계 분석</h3><p>통계적 해석과 머신러닝을 결합해 패턴과 관계, 미래의 신호를 찾고 결과의 한계까지 함께 설명합니다.</p><ul><li>기초·고급 통계와 데이터 마이닝</li><li>예측 모델·시계열·수요예측</li><li>텍스트·관계·이상 패턴 분석</li><li>SAS·R·Python 기반 분석</li></ul></div>
+                        <dl class="corp-service-output"><dt>DELIVERABLE</dt><dd>분석 모델</dd><dd>검증 지표·근거</dd><dd>업무 적용 시나리오</dd></dl>
+                    </article>
+
+                    <article id="engineering" class="corp-service-block reveal">
+                        <span id="operations" class="corp-anchor-alias" aria-hidden="true"></span>
+                        <div class="corp-service-index"><span>04</span><small>SYSTEM &amp; OPERATION</small></div>
+                        <div class="corp-service-body"><h3>의사결정 시스템 구축·운영</h3><p>분석 결과를 사용자가 발견하고 검토하며 실행할 수 있는 화면과 업무 시스템으로 구현하고 안정적으로 개선합니다.</p><ul><li>통계·분석 엔진과 업무 포털</li><li>대시보드·맞춤형 리포트</li><li>권한·모니터링·변경관리</li><li>공공·금융·산업 시스템 운영</li></ul></div>
+                        <dl class="corp-service-output"><dt>DELIVERABLE</dt><dd>업무 시스템</dd><dd>사용자 의사결정 화면</dd><dd>운영·고도화 체계</dd></dl>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="corp-section corp-delivery-section" aria-labelledby="deliveryMethodTitle">
+            <div class="shell">
+                <div class="corp-heading reveal"><p class="eyebrow eyebrow-light"><i></i> DELIVERY METHOD</p><h2 id="deliveryMethodTitle">보고서로 끝나지 않는<br>네 단계의 수행 방식.</h2></div>
+                <ol class="corp-delivery-steps">
+                    <li class="reveal"><span>01</span><small>DISCOVER</small><h3>현장 언어로 정의</h3><p>사용자의 업무, 판단 기준과 데이터 제약을 확인합니다.</p></li>
+                    <li class="reveal"><span>02</span><small>DESIGN</small><h3>근거를 설계</h3><p>방법론, 데이터 구조와 검증 기준을 함께 정합니다.</p></li>
+                    <li class="reveal"><span>03</span><small>BUILD &amp; VALIDATE</small><h3>작동하며 검증</h3><p>모델과 화면을 실제 조건에서 반복 실행해 확인합니다.</p></li>
+                    <li class="reveal"><span>04</span><small>OPERATE</small><h3>운영하며 개선</h3><p>권한, 이력과 현장 피드백을 반영해 안정화합니다.</p></li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="corp-section corp-domain-section" aria-labelledby="domainTitle">
+            <div class="shell corp-domain-layout">
+                <div class="corp-heading reveal"><p class="eyebrow"><i></i> DOMAIN EXPERIENCE</p><h2 id="domainTitle">데이터가 중요한 현장을 이해합니다.</h2><p>같은 기술도 업무의 책임과 판단 절차에 따라 다르게 설계되어야 합니다.</p></div>
+                <div class="corp-domain-grid">
+                    <a class="reveal" href="/projects/"><small>PUBLIC / STATISTICS</small><strong>국가통계·공공</strong><span>생산 절차 · 메타데이터 · 공동활용</span><i aria-hidden="true">↗</i></a>
+                    <a class="reveal" href="/projects/"><small>FINANCE</small><strong>금융</strong><span>이상 신호 · 검토 근거 · 분석 이력</span><i aria-hidden="true">↗</i></a>
+                    <a class="reveal" href="/projects/"><small>MANUFACTURING</small><strong>제조·산업</strong><span>수요 변화 · 품질 신호 · 예측 운영</span><i aria-hidden="true">↗</i></a>
+                    <a class="reveal" href="/projects/"><small>RESEARCH / POLICY</small><strong>연구·정책</strong><span>분석 수요 · 지표 · 데이터 활용</span><i aria-hidden="true">↗</i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-cta" aria-labelledby="servicesContactTitle">
+            <div class="shell contact-cta-inner reveal">
+                <div><p class="eyebrow eyebrow-light"><i></i> START WITH THE PROBLEM</p><h2 id="servicesContactTitle">어떤 데이터 문제부터 시작해야 할지 고민되나요?</h2></div>
+                <div><p>현재 환경과 기대하는 변화를 알려주시면 진단, 분석과 구축 범위를 단계별로 정리하겠습니다.</p><a class="button button-light" href="/contact/">과제 상담하기 <span aria-hidden="true">↗</span></a></div>
+            </div>
+        </section>
+{% endblock %}

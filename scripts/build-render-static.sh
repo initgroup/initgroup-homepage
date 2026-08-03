@@ -19,19 +19,9 @@ esac
 
 public_directories=(
     assets
-    careers
-    company
-    contact
-    insights
-    privacy
-    projects
-    services
-    solutions
 )
 
 public_files=(
-    index.html
-    404.html
     robots.txt
     sitemap.xml
 )
@@ -55,5 +45,7 @@ done
 for file in "${public_files[@]}"; do
     cp -- "$repo_root/$file" "$output_dir/$file"
 done
+
+python "$repo_root/scripts/build_site.py" --output-dir "$output_dir"
 
 echo "Render static output prepared: $output_dir"

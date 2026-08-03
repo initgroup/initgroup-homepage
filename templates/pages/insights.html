@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {% include "partials/organization-jsonld.html" %},
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://initgroup.kr/insights/#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "홈",
+                        "item": "https://initgroup.kr/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "인사이트",
+                        "item": "https://initgroup.kr/insights/"
+                    }
+                ]
+            },
+            {
+                "@type": "CollectionPage",
+                "@id": "https://initgroup.kr/insights/#webpage",
+                "url": "https://initgroup.kr/insights/",
+                "name": "AI·통계·데이터 품질 인사이트",
+                "description": "AI와 통계를 데이터 품질과 실제 운영에 연결하는 인아이티의 실무 아티클 모음",
+                "inLanguage": "ko-KR",
+                "breadcrumb": { "@id": "https://initgroup.kr/insights/#breadcrumb" },
+                "publisher": { "@id": "https://initgroup.kr/#organization" },
+                "mainEntity": {
+                    "@type": "ItemList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "url": "https://initgroup.kr/insights/data-quality-rules/",
+                            "name": "데이터 품질은 전처리가 아니라 운영 체계입니다"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "url": "https://initgroup.kr/insights/human-in-the-loop/",
+                            "name": "자동화의 마지막 판단을 전문가에게 남기는 설계"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "url": "https://initgroup.kr/insights/reproducible-analysis/",
+                            "name": "재현 가능한 분석은 Run 단위 이력에서 시작됩니다"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+    </script>
+{% endblock %}
+
+{% block main %}
+<section class="editorial-hero" aria-labelledby="insightsTitle">
+            <div class="shell">
+                <nav class="breadcrumbs" aria-label="현재 위치">
+                    <ol>
+                        <li><a href="/">홈</a></li>
+                        <li aria-current="page">인사이트</li>
+                    </ol>
+                </nav>
+                <div class="editorial-hero-grid">
+                    <div class="editorial-hero-copy">
+                        <p class="eyebrow"><i></i> DATA PRACTICE</p>
+                        <h1 id="insightsTitle">AI와 통계를 현장에 적용하는<br><em>실질적인 관점.</em></h1>
+                        <p class="editorial-hero-lead">새로운 기술의 이름보다 데이터의 상태, 판단의 근거와 운영 책임을 먼저 살핍니다. 바로 적용할 수 있는 질문과 설계 원칙으로 정리했습니다.</p>
+                    </div>
+                    <aside class="editorial-hero-aside" aria-label="인사이트 작성 원칙">
+                        <span>EDITORIAL RULE</span>
+                        <dl>
+                            <div><dt>주장</dt><dd>한 글에 하나</dd></div>
+                            <div><dt>근거</dt><dd>업무 흐름으로 설명</dd></div>
+                            <div><dt>마무리</dt><dd>실행 점검표 제공</dd></div>
+                        </dl>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section class="editorial-section editorial-section--white" aria-labelledby="featuredTitle">
+            <div class="shell">
+                <article class="insight-feature reveal">
+                    <div class="insight-feature-copy">
+                        <span>FEATURED / DATA QUALITY</span>
+                        <h2 id="featuredTitle">데이터 품질은 전처리가 아니라 운영 체계입니다</h2>
+                        <p>일회성 정제보다 중요한 것은 규칙의 근거, 담당자의 판단과 변경 이력이 다음 실행에도 이어지는 구조입니다.</p>
+                        <a href="/insights/data-quality-rules/">품질 규칙을 운영하는 방법 읽기 <span aria-hidden="true">↗</span></a>
+                    </div>
+                    <div class="insight-feature-rail" aria-label="데이터 품질 운영 흐름">
+                        <span><i>01</i>데이터 상태 관찰</span>
+                        <span><i>02</i>설명 가능한 규칙 제안</span>
+                        <span><i>03</i>담당자 검토와 결정</span>
+                        <span><i>04</i>실행 이력과 개선</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="editorial-section" aria-labelledby="articlesTitle">
+            <div class="shell">
+                <div class="editorial-heading reveal">
+                    <div>
+                        <p class="eyebrow"><i></i> PRACTICE NOTES</p>
+                        <h2 id="articlesTitle">운영에서 다시 확인할<br>세 가지 질문.</h2>
+                    </div>
+                    <p>데이터를 정제하는 방법, 자동화와 사람의 경계, 같은 결과를 다시 만들 수 있는 조건을 각각 하나의 아티클로 깊게 다룹니다.</p>
+                </div>
+
+                <div class="article-index">
+                    <a class="article-teaser reveal" href="/insights/data-quality-rules/">
+                        <span class="article-teaser-index">01</span>
+                        <div>
+                            <span class="article-teaser-meta">DATA QUALITY · GUIDE</span>
+                            <h2>데이터 품질은 전처리가 아니라 운영 체계입니다</h2>
+                        </div>
+                        <p>좋은 규칙의 구성 요소와 제안·검토·실행·개선으로 이어지는 수명주기를 설명합니다.</p>
+                        <i aria-hidden="true">↗</i>
+                    </a>
+                    <a class="article-teaser reveal" href="/insights/human-in-the-loop/">
+                        <span class="article-teaser-index">02</span>
+                        <div>
+                            <span class="article-teaser-meta">RESPONSIBLE AI · DESIGN</span>
+                            <h2>자동화의 마지막 판단을 전문가에게 남기는 설계</h2>
+                        </div>
+                        <p>AI의 후보 제안과 업무 담당자의 최종 책임을 분리하고 연결하는 검토 흐름을 다룹니다.</p>
+                        <i aria-hidden="true">↗</i>
+                    </a>
+                    <a class="article-teaser reveal" href="/insights/reproducible-analysis/">
+                        <span class="article-teaser-index">03</span>
+                        <div>
+                            <span class="article-teaser-meta">OPERATIONS · TRACEABILITY</span>
+                            <h2>재현 가능한 분석은 Run 단위 이력에서 시작됩니다</h2>
+                        </div>
+                        <p>입력 데이터, 실행 조건, 코드·모델 버전과 결과를 하나의 실행 식별자로 연결하는 방법입니다.</p>
+                        <i aria-hidden="true">↗</i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="editorial-section editorial-section--soft" aria-labelledby="standardsTitle">
+            <div class="shell">
+                <div class="editorial-heading reveal">
+                    <div>
+                        <p class="eyebrow"><i></i> WHAT WE VALUE</p>
+                        <h2 id="standardsTitle">근거가 남는 글,<br>현장에 쓰이는 글.</h2>
+                    </div>
+                    <p>제품을 홍보하기 위해 문제를 과장하지 않습니다. 실무자가 자신의 환경을 점검하고 다음 대화를 시작할 수 있게 쓰는 것이 목표입니다.</p>
+                </div>
+                <div class="editorial-standards">
+                    <article class="editorial-standard reveal">
+                        <span>01 / CONTEXT</span>
+                        <h3>맥락을 먼저 설명합니다</h3>
+                        <p>기술 이름보다 어떤 업무에서 왜 문제가 생기고 누구의 판단이 필요한지부터 정리합니다.</p>
+                    </article>
+                    <article class="editorial-standard reveal">
+                        <span>02 / EVIDENCE</span>
+                        <h3>조건과 근거를 남깁니다</h3>
+                        <p>정답처럼 단정하기보다 적용 조건, 예외와 확인해야 할 데이터를 함께 제시합니다.</p>
+                    </article>
+                    <article class="editorial-standard reveal">
+                        <span>03 / ACTION</span>
+                        <h3>다음 행동으로 끝냅니다</h3>
+                        <p>읽은 뒤 현재 시스템과 절차를 스스로 확인할 수 있는 질문과 점검표를 제공합니다.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-cta" aria-labelledby="contactTitle">
+            <div class="shell contact-cta-inner reveal">
+                <div>
+                    <p class="eyebrow eyebrow-light"><i></i> DISCUSS THE PRACTICE</p>
+                    <h2 id="contactTitle">당신의 데이터 환경에서는<br>무엇부터 확인해야 할까요?</h2>
+                </div>
+                <div>
+                    <p>품질 규칙, 전문가 검토 또는 분석 이력에 관한 현재 과제를 알려주시면 업무 맥락에 맞는 시작점을 함께 정리하겠습니다.</p>
+                    <a class="button button-light" href="/contact/">데이터·AI 과제 상담하기 <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </section>
+{% endblock %}

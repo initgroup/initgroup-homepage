@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- 이 파일은 templates/와 site_config.py에서 자동 생성됩니다. 직접 수정하지 마세요. -->
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="{{ page.theme_color }}">
+    <meta name="color-scheme" content="light">
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
+    <link rel="canonical" href="{{ page.canonical }}">
+{% if page.robots %}    <meta name="robots" content="{{ page.robots }}">
+{% endif %}{% if page.og_type %}    <meta property="og:type" content="{{ page.og_type }}">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="{{ site.brand_name }}">
+    <meta property="og:title" content="{{ page.og_title or page.title }}">
+    <meta property="og:description" content="{{ page.og_description or page.description }}">
+    <meta property="og:url" content="{{ page.canonical }}">
+{% if page.og_image %}    <meta property="og:image" content="{{ page.og_image }}">
+{% endif %}{% if page.og_image_alt %}    <meta property="og:image:alt" content="{{ page.og_image_alt }}">
+{% endif %}{% endif %}{% if page.twitter_card %}    <meta name="twitter:card" content="{{ page.twitter_card }}">
+{% endif %}    <link rel="icon" href="/assets/images/brand/favicon.svg" type="image/svg+xml">
+    <script src="{{ asset_url('js/boot.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset_url('css/site.css') }}">
+{% if page.section_css %}    <link rel="stylesheet" href="{{ asset_url(page.section_css) }}">
+{% endif %}    <script src="{{ asset_url('js/site.js') }}" defer></script>
+{% block structured_data %}{% endblock %}
+</head>
+<body{% if page.body_class %} class="{{ page.body_class }}"{% endif %} data-page="{{ page.nav_key }}">
+    <a class="skip-link" href="#mainContent">본문으로 바로가기</a>
+{% if not page.compact_chrome %}    <div class="scroll-progress" aria-hidden="true"><i data-scroll-progress></i></div>
+{% endif %}
+{% include "partials/header.html" %}
+
+    <main id="mainContent"{% if page.main_class %} class="{{ page.main_class }}"{% endif %}>
+{% block main %}{% endblock %}
+    </main>
+
+{% include "partials/footer.html" %}
+{% if page.mobile_actions %}
+{% include "partials/mobile-actions.html" %}
+{% endif %}
+{% block after_body %}{% endblock %}
+</body>
+</html>

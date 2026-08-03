@@ -21,6 +21,14 @@
             "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "showReuseMessage": true }
         },
         {
+            "label": "INIT Homepage: Build Static Pages",
+            "type": "process",
+            "command": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+            "args": ["${workspaceFolder}\\scripts\\build_site.py"],
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": []
+        },
+        {
             "label": "INIT Homepage: Validate",
             "type": "process",
             "command": "powershell",

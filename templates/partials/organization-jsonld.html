@@ -1,0 +1,24 @@
+{
+    "@type": "Organization",
+    "@id": "{{ site.url }}/#organization",
+    "name": "{{ site.company_name }}",
+    "alternateName": "{{ site.alternate_name }}",
+    "url": "{{ site.url }}/",
+    "logo": "{{ site.url }}/assets/images/brand/init-logo.png",
+    "foundingDate": "{{ site.founding_date }}",
+    "email": "{{ site.email }}",
+    "telephone": "{{ site.phone_international }}",
+{% if include_contact_point | default(false) %}    "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "business inquiries",
+        "telephone": "{{ site.phone_international }}",
+        "email": "{{ site.email }}",
+        "availableLanguage": "Korean"
+    },
+{% endif %}    "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "{{ site.address_country }}",
+        "addressRegion": "{{ site.address_region }}",
+        "streetAddress": "{{ site.street_address }}"
+    }
+}
