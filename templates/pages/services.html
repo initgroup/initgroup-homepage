@@ -38,11 +38,14 @@
 {% endblock %}
 
 {% block main %}
-<section class="corp-hero corp-services-hero" aria-labelledby="servicesHeroTitle">
-            <div class="shell corp-hero-grid">
+<section class="corp-hero corp-services-hero primary-page-hero" aria-labelledby="servicesHeroTitle">
+            <div class="shell primary-page-hero-inner">
+{% set breadcrumb_label = "서비스" %}
+{% include "partials/page-breadcrumb.html" %}
+                <div class="corp-hero-grid">
                 <div class="corp-hero-copy reveal">
                     <p class="eyebrow"><i></i> DATA &amp; AI SERVICES</p>
-                    <h1 id="servicesHeroTitle">문제 정의부터 시스템 운영까지,<br><em>하나의 팀으로 이어갑니다.</em></h1>
+                    <h1 id="servicesHeroTitle">문제 정의부터<br>시스템 운영까지,<br><em>하나의 팀으로<br>이어갑니다.</em></h1>
                     <p class="corp-hero-lead">컨설팅, 데이터 품질, AI·통계 분석과 시스템 구축을 따로 떼어내지 않습니다. 고객의 업무와 데이터가 실제 결정으로 이어지는 전체 과정을 함께 설계합니다.</p>
                     <a class="button button-primary" href="/contact/">현재 과제 상담하기 <span aria-hidden="true">↗</span></a>
                 </div>
@@ -52,6 +55,7 @@
                     <span class="corp-orbit-item orbit-item-two"><i>02</i>품질</span>
                     <span class="corp-orbit-item orbit-item-three"><i>03</i>분석</span>
                     <span class="corp-orbit-item orbit-item-four"><i>04</i>운영</span>
+                </div>
                 </div>
             </div>
         </section>

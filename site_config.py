@@ -41,11 +41,13 @@ SITE = SiteInformation(
 SITE_URL = SITE.url
 
 ASSET_VERSIONS = {
-    "css/site.css": "20260801.10",
-    "css/corporate.css": "20260801.9",
-    "css/editorial.css": "20260801.9",
+    "css/site.css": "20260803.1",
+    "css/page-hero.css": "20260803.2",
+    "css/page-headings.css": "20260803.1",
+    "css/corporate.css": "20260803.1",
+    "css/editorial.css": "20260803.1",
     "css/legal.css": "20260801.9",
-    "css/solutions.css": "20260801.10",
+    "css/solutions.css": "20260803.1",
     "js/boot.js": "20260801.2",
     "js/site.js": "20260801.2",
 }
@@ -56,9 +58,10 @@ NAV_ITEMS = (
     ("solutions", "/solutions/", "솔루션"),
     ("projects", "/projects/", "프로젝트"),
     ("insights", "/insights/", "인사이트"),
+    ("careers", "/careers/", "채용"),
 )
 
-MOBILE_NAV_ITEMS = NAV_ITEMS + (("careers", "/careers/", "채용"),)
+MOBILE_NAV_ITEMS = NAV_ITEMS
 
 
 @dataclass(frozen=True, slots=True)
@@ -107,13 +110,10 @@ PAGES = (
         title="인아이티 | AI·통계·데이터 품질 전문기업",
         description="인아이티는 데이터의 신뢰를 설계하고 AI의 판단을 운영으로 연결합니다. 국가통계·공공·금융·산업 데이터 컨설팅, 분석 시스템 구축과 데이터 품질 솔루션을 제공합니다.",
         nav_key="home",
-        og_title="인아이티 | 근거가 보이는 데이터 인텔리전스",
-        og_description="데이터의 신뢰를 설계하고, AI의 판단을 운영으로 연결합니다.",
-        og_image=f"{SITE_URL}/assets/images/product/login-overview.png",
-        og_image_alt="INIT Data Editing System 제품 개요 화면",
-        twitter_card="summary_large_image",
+        og_title="인아이티 | 데이터의 맥락을 읽고, 판단이 작동하는 시스템",
+        og_description="통계적 전문성으로 현장 문제를 정의하고, 데이터 품질·AI 분석·업무 시스템을 설계·구축·운영합니다.",
         mobile_actions=(
-            MobileAction("/solutions/", "솔루션 보기"),
+            MobileAction("/services/", "역량 보기"),
             MobileAction("/contact/", "과제 상담", arrow=True),
         ),
     ),

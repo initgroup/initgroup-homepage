@@ -28,12 +28,16 @@
 {% endblock %}
 
 {% block main %}
-<section class="corp-hero corp-company-hero" aria-labelledby="companyHeroTitle">
-            <div class="shell corp-hero-grid">
+<section class="corp-hero corp-company-hero primary-page-hero" aria-labelledby="companyHeroTitle">
+            <div class="shell primary-page-hero-inner">
+{% set breadcrumb_label = "회사" %}
+{% include "partials/page-breadcrumb.html" %}
+                <div class="corp-hero-grid">
                 <div class="corp-hero-copy reveal">
                     <p class="eyebrow"><i></i> ABOUT INIT</p>
-                    <h1 id="companyHeroTitle">통계의 깊이로 데이터를 읽고,<br><em>운영의 언어로 완성합니다.</em></h1>
+                    <h1 id="companyHeroTitle">통계의 깊이로<br>데이터를 읽고,<br><em>운영의 언어로<br>완성합니다.</em></h1>
                     <p class="corp-hero-lead">인아이티는 2013년부터 국가통계와 공공·금융·산업 데이터를 다뤄왔습니다. 분석 보고서에 머물지 않고 데이터, 시스템과 현장의 판단이 함께 움직이는 구조를 만듭니다.</p>
+                    <div class="hero-actions"><a class="button button-primary" href="/assets/downloads/init-company-introduction.pdf" download="INIT_회사소개서.pdf">회사소개서 다운로드 <span aria-hidden="true">↓</span></a></div>
                 </div>
                 <div class="corp-hero-evidence reveal" aria-label="인아이티 핵심 역량">
                     <div class="corp-evidence-main"><small>OUR MISSION</small><strong>근거가 보이는<br>데이터 인텔리전스</strong><p>복잡한 데이터를 이해하고 판단의 근거를 만들며 실제 운영까지 책임집니다.</p></div>
@@ -42,6 +46,7 @@
                         <div><dt>Coverage</dt><dd>공공 · 금융 · 산업</dd></div>
                         <div><dt>Delivery</dt><dd>전략 · 분석 · 구축 · 운영</dd></div>
                     </dl>
+                </div>
                 </div>
             </div>
         </section>

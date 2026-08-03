@@ -38,14 +38,20 @@ function Get-HomepageListenerProcessId {
 }
 
 $existingResponse = $null
+$existingHealthResponse = $null
 try {
     $existingResponse = Invoke-WebRequest -Uri $siteUrl -UseBasicParsing -TimeoutSec 2
 } catch {
     $existingResponse = $null
 }
+try {
+    $existingHealthResponse = Invoke-WebRequest -Uri "${siteUrl}healthz" -UseBasicParsing -TimeoutSec 2
+} catch {
+    $existingHealthResponse = $null
+}
 
 if ($existingResponse) {
-    if ($existingResponse.Content -match 'EVIDENCE-DRIVEN DATA INTELLIGENCE') {
+    if ($existingHealthResponse -and $existingHealthResponse.Content -match '"service"\s*:\s*"init-homepage"') {
         if (-not $Restart) {
             Write-Host "INIT Homepage is already running: $siteUrl" -ForegroundColor Green
             return
@@ -88,6 +94,11 @@ try {
 finally {
     Pop-Location
 }
-if ($LASTEXITCODE -ne 0) {
-    throw "INIT Homepage server exited with code $LASTEXITCODE."
+$serverExitCode = $LASTEXITCODE
+if ($serverExitCode -eq -1) {
+    Write-Host 'INIT Homepage server stopped for a local restart.' -ForegroundColor DarkGray
+    return
+}
+if ($serverExitCode -ne 0) {
+    throw "INIT Homepage server exited with code $serverExitCode."
 }

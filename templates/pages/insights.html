@@ -63,18 +63,14 @@
 {% endblock %}
 
 {% block main %}
-<section class="editorial-hero" aria-labelledby="insightsTitle">
-            <div class="shell">
-                <nav class="breadcrumbs" aria-label="현재 위치">
-                    <ol>
-                        <li><a href="/">홈</a></li>
-                        <li aria-current="page">인사이트</li>
-                    </ol>
-                </nav>
+<section class="editorial-hero primary-page-hero" aria-labelledby="insightsTitle">
+            <div class="shell primary-page-hero-inner">
+{% set breadcrumb_label = "인사이트" %}
+{% include "partials/page-breadcrumb.html" %}
                 <div class="editorial-hero-grid">
                     <div class="editorial-hero-copy">
                         <p class="eyebrow"><i></i> DATA PRACTICE</p>
-                        <h1 id="insightsTitle">AI와 통계를 현장에 적용하는<br><em>실질적인 관점.</em></h1>
+                        <h1 id="insightsTitle">AI와 통계를<br>현장에 적용하는<br><em>실질적인 관점.</em></h1>
                         <p class="editorial-hero-lead">새로운 기술의 이름보다 데이터의 상태, 판단의 근거와 운영 책임을 먼저 살핍니다. 바로 적용할 수 있는 질문과 설계 원칙으로 정리했습니다.</p>
                     </div>
                     <aside class="editorial-hero-aside" aria-label="인사이트 작성 원칙">

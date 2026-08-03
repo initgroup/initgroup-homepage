@@ -1,0 +1,34 @@
+/* Shared display scale for prominent section headings across every page family. */
+
+.section-heading h2,
+.product-intro h2,
+.corp-heading h2,
+.corp-team-copy h2,
+.sol-section-heading h2,
+.sol-product-card h3,
+.ib-module h2,
+.editorial-heading h2,
+.insight-feature h2,
+.contact-cta h2,
+.corp-career-contact h2,
+.corp-contact-final h2 {
+    font-size: var(--primary-hero-title-size);
+    line-height: 1.1;
+}
+
+@media (max-width: 50rem) {
+    .section-heading h2,
+    .product-intro h2,
+    .corp-heading h2,
+    .corp-team-copy h2,
+    .sol-section-heading h2,
+    .sol-product-card h3,
+    .ib-module h2,
+    .editorial-heading h2,
+    .insight-feature h2,
+    .contact-cta h2,
+    .corp-career-contact h2,
+    .corp-contact-final h2 {
+        line-height: 1.08;
+    }
+}

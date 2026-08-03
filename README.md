@@ -22,6 +22,7 @@ assets/css/site.css            전 페이지 공통 스타일
 assets/css/{section}.css       corporate, editorial, legal, solutions 영역 스타일
 assets/js/boot.js              초기 문서 상태 설정
 assets/js/site.js              메뉴, 스크롤, 갤러리, 라이트박스 등 공통 동작
+assets/downloads/              공개 다운로드 자료
 scripts/build_site.py          정적 배포 HTML을 .render-static/에 생성
 ```
 

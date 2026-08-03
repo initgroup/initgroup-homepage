@@ -9,6 +9,7 @@
 *.gif binary
 *.ico binary
 *.webp binary
+*.pdf binary
 *.svg text eol=lf
 
 *.woff binary

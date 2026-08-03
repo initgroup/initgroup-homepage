@@ -30,9 +30,10 @@
 {% endblock %}
 
 {% block main %}
-<section class="sol-page-hero" aria-labelledby="solutionHubTitle">
-            <div class="shell">
-                <nav class="sol-breadcrumb" aria-label="현재 위치"><a href="/">홈</a><i aria-hidden="true"></i><span aria-current="page">솔루션</span></nav>
+<section class="sol-page-hero primary-page-hero" aria-labelledby="solutionHubTitle">
+            <div class="shell primary-page-hero-inner">
+{% set breadcrumb_label = "솔루션" %}
+{% include "partials/page-breadcrumb.html" %}
                 <div class="sol-hero-grid">
                     <div class="sol-hero-copy">
                         <p class="eyebrow"><i></i> INIT SOLUTION PORTFOLIO</p>

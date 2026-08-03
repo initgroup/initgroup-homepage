@@ -27,8 +27,11 @@
 {% endblock %}
 
 {% block main %}
-<section class="corp-hero corp-careers-hero" aria-labelledby="careersHeroTitle">
-            <div class="shell corp-hero-grid">
+<section class="corp-hero corp-careers-hero primary-page-hero" aria-labelledby="careersHeroTitle">
+            <div class="shell primary-page-hero-inner">
+{% set breadcrumb_label = "채용" %}
+{% include "partials/page-breadcrumb.html" %}
+                <div class="corp-hero-grid">
                 <div class="corp-hero-copy reveal">
                     <p class="eyebrow"><i></i> WORKING AT INIT</p>
                     <h1 id="careersHeroTitle">깊이 탐구하고,<br>근거로 소통하며,<br><em>함께 완성합니다.</em></h1>
@@ -41,6 +44,7 @@
                     <span class="corp-signal-note signal-note-one">통계와 도메인</span>
                     <span class="corp-signal-note signal-note-two">데이터와 AI</span>
                     <span class="corp-signal-note signal-note-three">서비스와 운영</span>
+                </div>
                 </div>
             </div>
         </section>
