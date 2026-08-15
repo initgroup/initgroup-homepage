@@ -8,8 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from site_config import (
-    MOBILE_NAV_ITEMS,
-    NAV_ITEMS,
+    MENU_GROUPS,
     PAGES_BY_KEY,
     SITE,
     asset_url,
@@ -25,8 +24,7 @@ PUBLIC_ROOT_FILES = frozenset({"robots.txt", "sitemap.xml"})
 templates = Jinja2Templates(directory=[BASE_DIR, TEMPLATES_DIR])
 templates.env.globals.update(
     asset_url=asset_url,
-    nav_items=NAV_ITEMS,
-    mobile_nav_items=MOBILE_NAV_ITEMS,
+    menu_groups=MENU_GROUPS,
     site=SITE,
 )
 

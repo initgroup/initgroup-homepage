@@ -8,13 +8,22 @@
     const menuClose = document.querySelector("[data-menu-close]");
     const menuBackdrop = document.querySelector("[data-menu-backdrop]");
     const headerInner = document.querySelector(".header-inner");
+    const hoverMenu = document.querySelector("[data-hover-menu]");
+    const hoverSections = Array.from(hoverMenu?.querySelectorAll("[data-hover-section]") || []);
+    const pageSubNavigation = document.querySelector("[data-page-sub-navigation]");
+    const pageSubLinks = Array.from(document.querySelectorAll("[data-page-sub-link]"));
     const main = document.querySelector("main");
     const footer = document.querySelector(".site-footer");
     const mobileActionBar = document.querySelector(".mobile-action-bar");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const desktopNavigation = window.matchMedia("(min-width: 72.01rem)");
+    const desktopHoverNavigation = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 72.01rem)");
+    const desktopNavLinks = Array.from(document.querySelectorAll(".desktop-nav [data-nav]"));
     let menuReturnFocus = null;
+    let hoverCloseTimer = null;
+    let activePageSubLink = pageSubLinks.find((link) => link.classList.contains("is-current")) || null;
     let frameRequested = false;
+    let readableTypeFrameRequested = false;
 
     function updateScrollUi() {
         frameRequested = false;
@@ -22,12 +31,63 @@
         const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
         header?.classList.toggle("is-scrolled", scrollTop > 12);
         if (progress) progress.style.transform = `scaleX(${Math.min(1, scrollTop / scrollRange)})`;
+        updatePageSubNavigation();
+    }
+
+    function updatePageSubNavigation() {
+        if (!pageSubLinks.length) return;
+        const currentPath = window.location.pathname;
+        const localTargets = pageSubLinks.map((link) => {
+            const url = new URL(link.href, document.baseURI);
+            const target = url.pathname === currentPath && url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
+            return { link, url, target };
+        });
+        let activeLink = localTargets.find(({ url }) => url.pathname === currentPath && !url.hash)?.link || null;
+        const threshold = Math.max(
+            (pageSubNavigation?.getBoundingClientRect().bottom || 0) + 80,
+            window.innerHeight * 0.48
+        );
+        localTargets.forEach(({ link, target }) => {
+            if (target && target.getBoundingClientRect().top <= threshold) activeLink = link;
+        });
+        if (!activeLink) activeLink = localTargets.find(({ url }) => url.pathname === currentPath)?.link || null;
+        if (activeLink === activePageSubLink) return;
+        activePageSubLink = activeLink;
+        pageSubLinks.forEach((link) => {
+            const active = link === activeLink;
+            link.classList.toggle("is-current", active);
+            if (active) link.setAttribute("aria-current", "page");
+            else link.removeAttribute("aria-current");
+        });
+        activeLink?.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
 
     function requestScrollUiUpdate() {
         if (frameRequested) return;
         frameRequested = true;
         window.requestAnimationFrame(updateScrollUi);
+    }
+
+    function enforceReadableTypeFloor() {
+        readableTypeFrameRequested = false;
+        const adjusted = Array.from(document.querySelectorAll(".minimum-font-size"));
+        adjusted.forEach((element) => element.classList.remove("minimum-font-size"));
+
+        const undersized = Array.from(document.querySelectorAll("body *")).filter((element) => {
+            if (element.closest('[aria-hidden="true"], .visually-hidden, svg, script, style')) return false;
+            if (!element.getClientRects().length) return false;
+            const hasDirectText = Array.from(element.childNodes).some(
+                (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim()
+            );
+            return hasDirectText && Number.parseFloat(window.getComputedStyle(element).fontSize) < 16;
+        });
+        undersized.forEach((element) => element.classList.add("minimum-font-size"));
+    }
+
+    function requestReadableTypeFloor() {
+        if (readableTypeFrameRequested) return;
+        readableTypeFrameRequested = true;
+        window.requestAnimationFrame(enforceReadableTypeFloor);
     }
 
     function focusableElements(container) {
@@ -39,13 +99,50 @@
 
     function setPageInert(value) {
         if (headerInner) headerInner.inert = value;
+        if (hoverMenu) hoverMenu.inert = value;
+        if (pageSubNavigation) pageSubNavigation.inert = value;
         if (main) main.inert = value;
         if (footer) footer.inert = value;
         if (mobileActionBar) mobileActionBar.inert = value;
     }
 
+    function clearHoverCloseTimer() {
+        if (!hoverCloseTimer) return;
+        window.clearTimeout(hoverCloseTimer);
+        hoverCloseTimer = null;
+    }
+
+    function setHoveredMenuSection(key) {
+        desktopNavLinks.forEach((link) => {
+            link.classList.toggle("is-menu-target", link.dataset.nav === key);
+            link.setAttribute("aria-expanded", String(link.dataset.nav === key && !hoverMenu?.hidden));
+        });
+        hoverSections.forEach((section) => {
+            section.classList.toggle("is-hovered", section.dataset.hoverSection === key);
+        });
+    }
+
+    function openHoverMenu(key) {
+        if (!hoverMenu || !header || !desktopHoverNavigation.matches || !key) return;
+        if (!menu?.hidden) closeMenu({ restoreFocus: false });
+        clearHoverCloseTimer();
+        hoverMenu.hidden = false;
+        header.classList.add("is-hover-open");
+        setHoveredMenuSection(key);
+    }
+
+    function closeHoverMenu() {
+        if (!hoverMenu || hoverMenu.hidden) return;
+        clearHoverCloseTimer();
+        hoverMenu.hidden = true;
+        header?.classList.remove("is-hover-open");
+        setHoveredMenuSection(null);
+    }
+
     function openMenu() {
         if (!menu || !menuToggle || !menuBackdrop || !header) return;
+        if (!menu.hidden) return;
+        closeHoverMenu();
         menuReturnFocus = document.activeElement;
         menu.hidden = false;
         menuBackdrop.hidden = false;
@@ -66,10 +163,31 @@
         document.body.classList.remove("menu-open");
         header.classList.remove("is-menu-open");
         setPageInert(false);
-        if (options.restoreFocus !== false) {
+        const restoreFocus = options.restoreFocus ?? true;
+        if (restoreFocus) {
             const target = menuReturnFocus instanceof HTMLElement ? menuReturnFocus : menuToggle;
             target.focus();
         }
+        menuReturnFocus = null;
+    }
+
+    function scheduleHoverMenuClose() {
+        if (!hoverMenu || hoverMenu.hidden) return;
+        clearHoverCloseTimer();
+        hoverCloseTimer = window.setTimeout(closeHoverMenu, 180);
+    }
+
+    function closeHoverMenuAfterFocusLeaves() {
+        window.requestAnimationFrame(() => {
+            if (!hoverMenu || hoverMenu.hidden) return;
+            const activeElement = document.activeElement;
+            if (
+                headerInner?.contains(activeElement)
+                || pageSubNavigation?.contains(activeElement)
+                || hoverMenu.contains(activeElement)
+            ) return;
+            closeHoverMenu();
+        });
     }
 
     function trapMenuFocus(event) {
@@ -94,13 +212,14 @@
     function setActiveNavigation() {
         const page = document.body.dataset.page;
         if (!page) return;
-        document.querySelectorAll(`.desktop-nav [data-nav="${page}"], .mobile-navigation a[href="/${page}/"]`).forEach((link) => {
+        document.querySelectorAll(`.desktop-nav [data-nav="${page}"], .full-navigation a[href="/${page}/"]`).forEach((link) => {
             link.setAttribute("aria-current", "page");
         });
     }
 
     function handleNavigationViewport(event) {
-        if (event.matches) closeMenu({ restoreFocus: false });
+        closeMenu({ restoreFocus: false });
+        closeHoverMenu();
     }
 
     function initProductGallery() {
@@ -208,9 +327,37 @@
     menuClose?.addEventListener("click", () => closeMenu());
     menuBackdrop?.addEventListener("click", () => closeMenu());
     menu?.addEventListener("keydown", trapMenuFocus);
+    headerInner?.addEventListener("pointerenter", clearHoverCloseTimer);
+    headerInner?.addEventListener("pointerleave", scheduleHoverMenuClose);
+    headerInner?.addEventListener("focusout", closeHoverMenuAfterFocusLeaves);
+    headerInner?.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeHoverMenu();
+    });
+    pageSubNavigation?.addEventListener("pointerenter", clearHoverCloseTimer);
+    pageSubNavigation?.addEventListener("pointerleave", scheduleHoverMenuClose);
+    pageSubNavigation?.addEventListener("focusout", closeHoverMenuAfterFocusLeaves);
+    hoverMenu?.addEventListener("pointerenter", clearHoverCloseTimer);
+    hoverMenu?.addEventListener("pointerleave", scheduleHoverMenuClose);
+    hoverMenu?.addEventListener("focusout", closeHoverMenuAfterFocusLeaves);
+    hoverMenu?.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeHoverMenu();
+    });
+    desktopNavLinks.forEach((link) => {
+        const openLinkedMenu = () => {
+            if (!desktopHoverNavigation.matches) return;
+            openHoverMenu(link.dataset.nav);
+        };
+        link.addEventListener("pointerenter", openLinkedMenu);
+        link.addEventListener("focus", openLinkedMenu);
+    });
+    hoverMenu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeHoverMenu));
     menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMenu({ restoreFocus: false })));
     window.addEventListener("scroll", requestScrollUiUpdate, { passive: true });
-    window.addEventListener("resize", requestScrollUiUpdate, { passive: true });
+    window.addEventListener("resize", () => {
+        requestScrollUiUpdate();
+        requestReadableTypeFloor();
+    }, { passive: true });
+    document.addEventListener("init:languagechange", requestReadableTypeFloor);
     desktopNavigation.addEventListener?.("change", handleNavigationViewport);
     document.querySelectorAll("[data-current-year]").forEach((element) => {
         element.textContent = String(new Date().getFullYear());
@@ -220,5 +367,6 @@
     initProductGallery();
     initLightbox();
     initReveals();
+    enforceReadableTypeFloor();
     updateScrollUi();
 })();

@@ -16,7 +16,7 @@ DEFAULT_OUTPUT_DIR = ROOT_DIR / ".render-static"
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from site_config import MOBILE_NAV_ITEMS, NAV_ITEMS, PAGES, SITE, asset_url  # noqa: E402
+from site_config import MENU_GROUPS, PAGES, SITE, asset_url  # noqa: E402
 
 
 def create_environment() -> Environment:
@@ -28,8 +28,7 @@ def create_environment() -> Environment:
     )
     environment.globals.update(
         asset_url=asset_url,
-        nav_items=NAV_ITEMS,
-        mobile_nav_items=MOBILE_NAV_ITEMS,
+        menu_groups=MENU_GROUPS,
         site=SITE,
     )
     return environment

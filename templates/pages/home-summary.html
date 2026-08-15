@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {% include "partials/organization-jsonld.html" %},
+            {
+                "@type": "WebSite",
+                "@id": "https://initgroup.kr/#website",
+                "url": "https://initgroup.kr/",
+                "name": "인아이티",
+                "inLanguage": "ko-KR",
+                "publisher": { "@id": "https://initgroup.kr/#organization" }
+            }
+        ]
+    }
+    </script>
+{% endblock %}
+
+{% block main %}
+        <section class="hero summary-hero" aria-labelledby="heroTitle">
+            <div class="summary-hero-grid shell">
+                <div class="summary-hero-copy">
+                    <p class="eyebrow"><i></i> 데이터 전문기업 · 2013년 설립</p>
+                    <h1 id="heroTitle">통계·데이터 분석과<br><em>업무 시스템을</em><br>설계하고 운영합니다.</h1>
+                    <p class="summary-hero-lead">인아이티는 통계 컨설팅, 데이터 품질 관리, AI 분석과 업무 시스템 구축·운영을 수행하는 데이터 전문기업입니다.</p>
+                    <div class="summary-hero-actions">
+                        <a class="button button-primary" href="/services/">서비스 안내 <span aria-hidden="true">→</span></a>
+                        <a class="button button-secondary" href="/contact/">문의하기 <span aria-hidden="true">↗</span></a>
+                    </div>
+                </div>
+
+                <aside class="hero-expertise" aria-label="인아이티 핵심 전문 분야">
+                    <div class="hero-expertise-head">
+                        <p><span>INIT</span> DATA INTELLIGENCE</p>
+                        <strong>SINCE 2013</strong>
+                    </div>
+                    <p class="hero-expertise-lead">통계적 전문성과 데이터 기술을 연결해 분석 결과가 실제 업무에서 지속적으로 활용되는 구조를 만듭니다.</p>
+                    <div class="hero-expertise-grid">
+                        <a href="/services/#consulting"><span>01</span><div><small>STATISTICS</small><strong>통계 컨설팅</strong><p>조사·통계 설계와 활용 전략</p></div><i aria-hidden="true">↗</i></a>
+                        <a href="/services/#quality"><span>02</span><div><small>DATA QUALITY</small><strong>데이터 품질</strong><p>품질 기준과 운영 이력 관리</p></div><i aria-hidden="true">↗</i></a>
+                        <a href="/services/#analytics"><span>03</span><div><small>AI &amp; ANALYTICS</small><strong>AI·통계 분석</strong><p>설명 가능한 분석과 예측 모델</p></div><i aria-hidden="true">↗</i></a>
+                        <a href="/services/#engineering"><span>04</span><div><small>SYSTEM</small><strong>시스템 구축·운영</strong><p>분석 업무의 시스템 구현과 운영</p></div><i aria-hidden="true">↗</i></a>
+                    </div>
+                    <div class="hero-expertise-foot">
+                        <span><strong>2013</strong> 설립</span>
+                        <span><strong>4</strong> 전문 분야</span>
+                        <a href="/company/">회사 소개 <i aria-hidden="true">→</i></a>
+                    </div>
+                </aside>
+            </div>
+
+        </section>
+
+        <section id="capabilities" class="home-section capability-summary" aria-labelledby="capabilityTitle">
+            <div class="shell">
+                <div class="home-section-heading reveal">
+                    <div class="home-section-index" aria-hidden="true"><span>01</span><i></i></div>
+                    <div><p class="eyebrow"><i></i> 서비스</p><h2 id="capabilityTitle">주요 서비스</h2></div>
+                    <p>통계 컨설팅과 데이터 품질 관리부터 AI 분석, 업무 시스템 구축·운영까지 네 분야를 제공합니다.</p>
+                </div>
+
+                <div class="capability-summary-grid">
+                    <a class="capability-summary-card reveal" href="/services/#consulting">
+                        <span class="summary-card-index">01</span>
+                        <div class="summary-card-symbol summary-card-symbol--strategy" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <h3>데이터 전략·<br>통계 컨설팅</h3>
+                        <p>통계 설계, 활용 전략과 수요예측을 업무 목적에 맞게 정의합니다.</p>
+                        <strong>자세히 보기 <i aria-hidden="true">↗</i></strong>
+                    </a>
+                    <a class="capability-summary-card reveal" href="/services/#quality">
+                        <span class="summary-card-index">02</span>
+                        <div class="summary-card-symbol summary-card-symbol--quality" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <h3>데이터 엔지니어링·<br>품질</h3>
+                        <p>흩어진 데이터를 통합하고 품질 규칙과 변경 이력이 남는 구조를 만듭니다.</p>
+                        <strong>자세히 보기 <i aria-hidden="true">↗</i></strong>
+                    </a>
+                    <a class="capability-summary-card reveal" href="/services/#analytics">
+                        <span class="summary-card-index">03</span>
+                        <div class="summary-card-symbol summary-card-symbol--analytics" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <h3>AI·통계<br>분석</h3>
+                        <p>패턴과 관계를 설명하고 예측 모델과 시각적 인사이트로 전환합니다.</p>
+                        <strong>자세히 보기 <i aria-hidden="true">↗</i></strong>
+                    </a>
+                    <a class="capability-summary-card reveal" href="/services/#engineering">
+                        <span class="summary-card-index">04</span>
+                        <div class="summary-card-symbol summary-card-symbol--system" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <h3>의사결정 시스템<br>구축·운영</h3>
+                        <p>분석 결과를 업무 화면으로 구현하고 안정적인 운영 체계로 연결합니다.</p>
+                        <strong>자세히 보기 <i aria-hidden="true">↗</i></strong>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="home-section solution-summary" aria-labelledby="solutionTitle">
+            <div class="shell">
+                <div class="home-section-heading home-section-heading--dark reveal">
+                    <div class="home-section-index" aria-hidden="true"><span>02</span><i></i></div>
+                    <div><p class="eyebrow eyebrow-light"><i></i> 솔루션</p><h2 id="solutionTitle">제품 및 플랫폼</h2></div>
+                    <p>데이터 품질 관리 제품 인뎁스와 수집·분석·시각화 플랫폼 인법스를 제공합니다.</p>
+                </div>
+
+                <div class="solution-summary-grid">
+                    <article class="solution-summary-card solution-summary-card--indeps reveal">
+                        <div class="solution-summary-copy">
+                            <span>DATA QUALITY PLATFORM</span>
+                            <h3><span class="ko-brand-name">인뎁스</span> <b>IN-DEPS</b></h3>
+                            <p>데이터 구조와 관계를 분석해 품질 규칙을 발굴하고, 전문가 검토와 실행 이력을 하나의 흐름으로 관리합니다.</p>
+                            <ul><li>자동 규칙 발굴</li><li>전문가 검토</li><li>실행 이력 관리</li></ul>
+                            <a href="/solutions/data-editing-system/">제품 전체 보기 <span aria-hidden="true">→</span></a>
+                        </div>
+                        <div class="solution-summary-media">
+                            <img src="/assets/images/reference/data-editing-system/flow-designer_kor.png" data-i18n-image-base="/assets/images/reference/data-editing-system/flow-designer" alt="컬럼 분석부터 규칙 발굴과 위반 탐지를 연결한 인뎁스 실행 흐름 화면" width="1920" height="949" loading="lazy" decoding="async">
+                        </div>
+                    </article>
+
+                    <article class="solution-summary-card solution-summary-card--inbaps reveal">
+                        <div class="solution-summary-copy">
+                            <span>BIG DATA PLATFORM</span>
+                            <h3><span class="ko-brand-name">인법스</span> <b>IN-BAPS</b></h3>
+                            <p>서로 다른 소스의 데이터를 모으고 분석한 뒤, 업무 목적에 맞는 시각화 화면으로 전달합니다.</p>
+                            <a href="/solutions/inbups/">플랫폼 전체 보기 <span aria-hidden="true">→</span></a>
+                        </div>
+                        <ol class="inbaps-summary-flow" aria-label="인법스 플랫폼 구성">
+                            <li><span>C</span><div><strong>Collect</strong><p>API·웹·SNS 수집</p></div></li>
+                            <li><span>R</span><div><strong>Analyze</strong><p>통계·텍스트·관계 분석</p></div></li>
+                            <li><span>V</span><div><strong>Visualize</strong><p>차트·BI·업무 화면</p></div></li>
+                        </ol>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="home-section experience-summary" aria-labelledby="experienceTitle">
+            <div class="shell">
+                <div class="home-section-heading reveal">
+                    <div class="home-section-index" aria-hidden="true"><span>03</span><i></i></div>
+                    <div><p class="eyebrow"><i></i> 프로젝트</p><h2 id="experienceTitle">주요 프로젝트 분야</h2></div>
+                    <p>국가통계, 금융 데이터, 산업·수요예측 등 공개 가능한 범위의 수행 분야를 정리했습니다.</p>
+                </div>
+
+                <div class="experience-summary-grid">
+                    <a class="experience-summary-card reveal" href="/projects/#casesTitle">
+                        <span>국가통계</span><strong>01</strong>
+                        <h3>분리된 통계 생산 과정을<br>표준 흐름으로 연결</h3>
+                        <p>수집·검증·생산·서비스 단계를 하나의 운영 구조에서 관리합니다.</p>
+                        <i aria-hidden="true">↗</i>
+                    </a>
+                    <a class="experience-summary-card reveal" href="/projects/#casesTitle">
+                        <span>금융 데이터</span><strong>02</strong>
+                        <h3>특이 신호와 검토 근거를<br>한 화면에서 확인</h3>
+                        <p>이상 패턴과 원인, 관련 데이터를 담당자가 함께 검토하도록 지원합니다.</p>
+                        <i aria-hidden="true">↗</i>
+                    </a>
+                    <a class="experience-summary-card reveal" href="/projects/#casesTitle">
+                        <span>산업·수요예측</span><strong>03</strong>
+                        <h3>예측값과 변화의 이유를<br>함께 읽는 분석</h3>
+                        <p>시장 지표와 내부 데이터를 연결해 다음 행동에 필요한 신호를 제공합니다.</p>
+                        <i aria-hidden="true">↗</i>
+                    </a>
+                </div>
+                <a class="home-section-link" href="/projects/">프로젝트 전체 보기 <span aria-hidden="true">→</span></a>
+            </div>
+        </section>
+
+        <section id="insights" class="home-section insight-summary" aria-labelledby="insightTitle">
+            <div class="shell">
+                <div class="home-section-heading reveal">
+                    <div class="home-section-index" aria-hidden="true"><span>04</span><i></i></div>
+                    <div><p class="eyebrow"><i></i> 자료</p><h2 id="insightTitle">데이터 운영 자료</h2></div>
+                    <p>데이터 품질 규칙, 전문가 검토와 분석 이력 관리에 관한 실무 내용을 제공합니다.</p>
+                </div>
+
+                <div class="insight-summary-grid">
+                    <a href="/insights/data-quality-rules/" class="insight-summary-card reveal"><span>DATA QUALITY</span><h3>데이터 품질은 전처리가 아니라 운영 체계입니다</h3><p>규칙의 근거와 담당자의 판단, 변경 이력이 다음 실행에도 이어져야 하는 이유.</p><strong>7 MIN <i aria-hidden="true">↗</i></strong></a>
+                    <a href="/insights/human-in-the-loop/" class="insight-summary-card reveal"><span>RESPONSIBLE AI</span><h3>자동화의 마지막 판단을 전문가에게 남기는 설계</h3><p>후보 제안과 최종 책임을 분리하는 Human-in-the-loop 업무 흐름.</p><strong>5 MIN <i aria-hidden="true">↗</i></strong></a>
+                    <a href="/insights/reproducible-analysis/" class="insight-summary-card reveal"><span>OPERATIONS</span><h3>재현 가능한 분석을 만드는 Run 단위 이력</h3><p>데이터 계약부터 실행 조건과 결과까지 끊기지 않게 연결하는 방법.</p><strong>6 MIN <i aria-hidden="true">↗</i></strong></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="home-contact" aria-labelledby="contactTitle">
+            <div class="shell home-contact-inner reveal">
+                <div><p class="eyebrow eyebrow-light"><i></i> 문의</p><h2 id="contactTitle">프로젝트 문의</h2></div>
+                <div><p>현재 데이터 환경, 해결하려는 문제와 필요한 일정을 알려주시면 검토 가능한 서비스 범위를 안내합니다.</p><a class="button button-light" href="/contact/">문의 방법 보기 <span aria-hidden="true">↗</span></a></div>
+            </div>
+        </section>
+{% endblock %}

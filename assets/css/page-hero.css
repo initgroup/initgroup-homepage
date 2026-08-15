@@ -6,7 +6,7 @@
     min-height: 2.75rem;
     margin: 0 0 1.25rem;
     color: var(--muted);
-    font-size: 0.72rem;
+    font-size: 1rem;
     font-weight: 680;
 }
 
@@ -54,8 +54,8 @@
 .corp-hero.primary-page-hero,
 .sol-page-hero.primary-page-hero,
 .editorial-hero.primary-page-hero {
-    min-height: max(53rem, 90svh);
-    padding: calc(var(--header-height) + var(--primary-hero-top-space)) 0 var(--primary-hero-bottom-space);
+    min-height: max(46rem, 78svh);
+    padding: calc(var(--site-chrome-height) + var(--primary-hero-top-space)) 0 var(--primary-hero-bottom-space);
 }
 
 .corp-hero.primary-page-hero { display: block; }
@@ -74,7 +74,7 @@
     max-width: 16ch;
     margin-bottom: 1.6rem;
     font-weight: 790;
-    letter-spacing: -0.068em;
+    letter-spacing: -0.052em;
 }
 
 @media (max-width: 50rem) {

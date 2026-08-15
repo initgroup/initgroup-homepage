@@ -12,8 +12,8 @@
 .contact-cta h2,
 .corp-career-contact h2,
 .corp-contact-final h2 {
-    font-size: var(--primary-hero-title-size);
-    line-height: 1.1;
+    font-size: var(--section-title-size);
+    line-height: 1.16;
 }
 
 @media (max-width: 50rem) {
@@ -29,6 +29,6 @@
     .contact-cta h2,
     .corp-career-contact h2,
     .corp-contact-final h2 {
-        line-height: 1.08;
+        line-height: 1.14;
     }
 }

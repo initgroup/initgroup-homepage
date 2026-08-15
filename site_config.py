@@ -41,33 +41,104 @@ SITE = SiteInformation(
 SITE_URL = SITE.url
 
 ASSET_VERSIONS = {
-    "css/site.css": "20260803.4",
-    "css/page-hero.css": "20260803.3",
-    "css/page-headings.css": "20260803.1",
-    "css/i18n.css": "20260803.1",
-    "css/corporate.css": "20260803.3",
-    "css/editorial.css": "20260803.3",
-    "css/legal.css": "20260801.9",
-    "css/solutions.css": "20260803.3",
+    "css/site.css": "20260814.10",
+    "css/page-hero.css": "20260814.2",
+    "css/page-headings.css": "20260814.2",
+    "css/i18n.css": "20260814.1",
+    "css/corporate.css": "20260814.2",
+    "css/editorial.css": "20260814.2",
+    "css/legal.css": "20260814.1",
+    "css/solutions.css": "20260814.1",
     "js/boot.js": "20260801.2",
     "js/i18n.js": "20260803.2",
-    "js/site.js": "20260803.1",
+    "js/site.js": "20260814.9",
     "i18n/config.json": "20260803.2",
-    "i18n/ko.json": "20260803.3",
-    "i18n/en.json": "20260803.3",
+    "i18n/ko.json": "20260814.6",
+    "i18n/en.json": "20260814.6",
 }
 
-NAV_ITEMS = (
-    ("company", "/company/", "회사"),
-    ("services", "/services/", "서비스"),
-    ("solutions", "/solutions/", "솔루션"),
-    ("projects", "/projects/", "프로젝트"),
-    ("insights", "/insights/", "인사이트"),
-    ("careers", "/careers/", "채용"),
+@dataclass(frozen=True, slots=True)
+class NavigationItem:
+    label: str
+    href: str
+
+
+@dataclass(frozen=True, slots=True)
+class NavigationGroup:
+    key: str
+    label: str
+    href: str
+    items: tuple[NavigationItem, ...]
+
+
+MENU_GROUPS = (
+    NavigationGroup(
+        "company",
+        "회사",
+        "/company/",
+        (
+            NavigationItem("회사 소개", "/company/"),
+            NavigationItem("미션·원칙", "/company/#missionTitle"),
+            NavigationItem("수행 체계", "/company/#teamTitle"),
+            NavigationItem("연혁·인증", "/company/#historyTitle"),
+        ),
+    ),
+    NavigationGroup(
+        "services",
+        "서비스",
+        "/services/",
+        (
+            NavigationItem("서비스 전체", "/services/"),
+            NavigationItem("데이터 전략·통계 컨설팅", "/services/#consulting"),
+            NavigationItem("데이터 엔지니어링·품질", "/services/#quality"),
+            NavigationItem("AI·통계 분석", "/services/#analytics"),
+            NavigationItem("의사결정 시스템 구축·운영", "/services/#engineering"),
+        ),
+    ),
+    NavigationGroup(
+        "solutions",
+        "솔루션",
+        "/solutions/",
+        (
+            NavigationItem("솔루션 전체", "/solutions/"),
+            NavigationItem("인뎁스 IN-DEPS", "/solutions/data-editing-system/"),
+            NavigationItem("인법스 IN-BAPS", "/solutions/inbups/"),
+        ),
+    ),
+    NavigationGroup(
+        "projects",
+        "프로젝트",
+        "/projects/",
+        (
+            NavigationItem("프로젝트 개요", "/projects/"),
+            NavigationItem("대표 프로젝트", "/projects/#casesTitle"),
+            NavigationItem("분야별 경험", "/projects/#sectorsTitle"),
+            NavigationItem("수행 방식", "/projects/#methodTitle"),
+        ),
+    ),
+    NavigationGroup(
+        "insights",
+        "인사이트",
+        "/insights/",
+        (
+            NavigationItem("인사이트 전체", "/insights/"),
+            NavigationItem("데이터 품질 운영", "/insights/data-quality-rules/"),
+            NavigationItem("Human-in-the-loop", "/insights/human-in-the-loop/"),
+            NavigationItem("재현 가능한 분석", "/insights/reproducible-analysis/"),
+        ),
+    ),
+    NavigationGroup(
+        "careers",
+        "채용",
+        "/careers/",
+        (
+            NavigationItem("채용 안내", "/careers/"),
+            NavigationItem("일하는 방식", "/careers/#cultureTitle"),
+            NavigationItem("직무 분야", "/careers/#roleTitle"),
+            NavigationItem("성장 방식", "/careers/#growthTitle"),
+        ),
+    ),
 )
-
-MOBILE_NAV_ITEMS = NAV_ITEMS
-
 
 @dataclass(frozen=True, slots=True)
 class MobileAction:
@@ -119,7 +190,7 @@ PAGES = (
         og_description="통계적 전문성으로 현장 문제를 정의하고, 데이터 품질·AI 분석·업무 시스템을 설계·구축·운영합니다.",
         mobile_actions=(
             MobileAction("/services/", "역량 보기"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(
@@ -134,7 +205,7 @@ PAGES = (
         section_css="css/corporate.css",
         mobile_actions=(
             MobileAction("/services/", "서비스 보기"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(
@@ -149,7 +220,7 @@ PAGES = (
         section_css="css/corporate.css",
         mobile_actions=(
             MobileAction("/projects/", "프로젝트 보기"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(
@@ -165,7 +236,7 @@ PAGES = (
         body_class="solutions-page solution-hub-page",
         mobile_actions=(
             MobileAction("#portfolioTitle", "제품 비교"),
-            MobileAction("/contact/", "도입 상담", arrow=True),
+            MobileAction("/contact/", "도입 문의", arrow=True),
         ),
     ),
     Page(
@@ -183,7 +254,7 @@ PAGES = (
         body_class="solutions-page data-editing-page",
         mobile_actions=(
             MobileAction("#productScreensTitle", "실제 화면"),
-            MobileAction("/contact/", "도입 상담", arrow=True),
+            MobileAction("/contact/", "도입 문의", arrow=True),
         ),
     ),
     Page(
@@ -200,7 +271,7 @@ PAGES = (
         body_class="solutions-page inbups-page",
         mobile_actions=(
             MobileAction("#inbupsModules", "모듈 보기"),
-            MobileAction("/contact/", "적용 상담", arrow=True),
+            MobileAction("/contact/", "적용 문의", arrow=True),
         ),
     ),
     Page(
@@ -216,7 +287,7 @@ PAGES = (
         main_class="editorial-main",
         mobile_actions=(
             MobileAction("/insights/", "실무 인사이트"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(
@@ -232,7 +303,7 @@ PAGES = (
         main_class="editorial-main",
         mobile_actions=(
             MobileAction("/projects/", "프로젝트 보기"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(
@@ -249,7 +320,7 @@ PAGES = (
         main_class="editorial-main",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(
@@ -266,7 +337,7 @@ PAGES = (
         main_class="editorial-main",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(
@@ -283,7 +354,7 @@ PAGES = (
         main_class="editorial-main",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(
@@ -338,7 +409,7 @@ PAGES = (
         robots="noindex,nofollow",
         mobile_actions=(
             MobileAction("/solutions/", "솔루션 보기"),
-            MobileAction("/contact/", "과제 상담", arrow=True),
+            MobileAction("/contact/", "문의하기", arrow=True),
         ),
     ),
     Page(

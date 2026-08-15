@@ -68,18 +68,50 @@ function intersection(a, b) {
         const screenshot = path.join(outputDir, `${viewport.name}.png`);
         await page.screenshot({ path: screenshot, fullPage: true });
         const focusScreenshots = {};
+        if (viewport.name === 'desktop-1440') {
+            await page.locator('.desktop-nav [data-nav="services"]').hover();
+            await page.waitForFunction(() => !document.querySelector('[data-hover-menu]').hidden);
+            await page.waitForFunction(() => document.querySelectorAll('[data-hover-section] li a').length === 24);
+            await page.locator('[data-hover-section="services"] a[href="/services/#quality"]').hover();
+            const hoverMenuScreenshot = path.join(outputDir, `${viewport.name}-hover-menu.png`);
+            await page.screenshot({ path: hoverMenuScreenshot, fullPage: false });
+            focusScreenshots.hoverMenu = hoverMenuScreenshot;
+            await page.locator('[data-hover-section="services"] a[href="/services/#quality"]').click();
+            await page.waitForURL('**/services/#quality');
+            await page.waitForLoadState('networkidle');
+            await page.goto(baseUrl, { waitUntil: 'networkidle' });
+            await page.mouse.move(10, viewport.height - 10);
+            await page.waitForFunction(() => document.querySelector('[data-hover-menu]').hidden);
+        }
         if (viewport.name === 'desktop-1440' || viewport.name === 'mobile-390') {
+            await page.locator('[data-menu-toggle]').click();
+            await page.waitForFunction(() => !document.querySelector('[data-mobile-menu]').hidden);
+            await page.waitForFunction(() => {
+                const sections = [...document.querySelectorAll('[data-menu-section]')];
+                return sections.length > 0 && sections.every((section) => Number.parseFloat(getComputedStyle(section).opacity) > 0.9);
+            });
+            const menuScreenshot = path.join(outputDir, `${viewport.name}-menu.png`);
+            await page.screenshot({ path: menuScreenshot, fullPage: false });
+            focusScreenshots.menu = menuScreenshot;
+            await page.locator('[data-menu-close]').click();
             for (const [name, selector] of Object.entries({
-                hero: '.hero',
-                decision: '.thesis-section',
-                product: '.product-section',
-                principles: '.principles-section'
+                hero: '.summary-hero',
+                capabilities: '.capability-summary',
+                solutions: '.solution-summary',
+                experience: '.experience-summary'
             })) {
                 const target = page.locator(selector);
                 const targetScreenshot = path.join(outputDir, `${viewport.name}-${name}.png`);
                 await target.screenshot({ path: targetScreenshot });
                 focusScreenshots[name] = targetScreenshot;
             }
+            await page.locator('[data-language="en"]').click();
+            await page.waitForFunction(() => document.documentElement.lang === 'en');
+            const englishScreenshot = path.join(outputDir, `${viewport.name}-english.png`);
+            await page.screenshot({ path: englishScreenshot, fullPage: true });
+            focusScreenshots.english = englishScreenshot;
+            await page.locator('[data-language="ko"]').click();
+            await page.waitForFunction(() => document.documentElement.lang === 'ko');
         }
 
         const metrics = await page.evaluate(() => {
@@ -175,6 +207,24 @@ function intersection(a, b) {
                 documentHeight: document.documentElement.scrollHeight,
                 h1: document.querySelector('h1')?.innerText || '',
                 mainSections: document.querySelectorAll('main > section').length,
+                persistentSubmenu: Boolean(document.querySelector('[data-page-context]')),
+                activeTopNavigation: document.querySelector('.desktop-nav [aria-current="page"]')?.textContent.trim() || '',
+                hoverMenuInitiallyHidden: document.querySelector('[data-hover-menu]')?.hidden ?? true,
+                fullMenuInitiallyHidden: document.querySelector('[data-mobile-menu]')?.hidden ?? true,
+                largestText: [...document.querySelectorAll('body *')]
+                    .filter((element) => {
+                        if (element.closest('[aria-hidden="true"]')) return false;
+                        if (!element.getClientRects().length) return false;
+                        return [...element.childNodes].some((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+                    })
+                    .map((element) => ({
+                        tag: element.tagName.toLowerCase(),
+                        className: String(element.className || '').slice(0, 100),
+                        text: element.textContent.trim().replace(/\s+/g, ' ').slice(0, 80),
+                        fontSize: Number.parseFloat(getComputedStyle(element).fontSize)
+                    }))
+                    .sort((left, right) => right.fontSize - left.fontSize)
+                    .slice(0, 10),
                 contactCards: [...document.querySelectorAll('.corp-contact-card-grid article')].map((card) => {
                     const index = card.querySelector(':scope > span');
                     const label = card.querySelector(':scope > small');
@@ -198,7 +248,21 @@ function intersection(a, b) {
                     src: image.currentSrc || image.src,
                     complete: image.complete,
                     naturalWidth: image.naturalWidth
-                })).filter((image) => !image.complete || image.naturalWidth === 0)
+                })).filter((image) => !image.complete || image.naturalWidth === 0),
+                smallText: [...document.querySelectorAll('body *')]
+                    .filter((element) => {
+                        if (element.closest('[aria-hidden="true"]')) return false;
+                        if (!element.getClientRects().length) return false;
+                        return [...element.childNodes].some((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+                    })
+                    .map((element) => ({
+                        tag: element.tagName.toLowerCase(),
+                        className: String(element.className || '').slice(0, 100),
+                        text: element.textContent.trim().replace(/\s+/g, ' ').slice(0, 80),
+                        fontSize: Number.parseFloat(getComputedStyle(element).fontSize)
+                    }))
+                    .filter((item) => item.fontSize < 16)
+                    .slice(0, 40)
             }));
             siteResults.push({ name, route, url, viewport, status: response?.status(), screenshot, focusScreenshot, consoleErrors, requestFailures, metrics });
             await context.close();

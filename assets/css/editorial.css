@@ -9,7 +9,7 @@
 
 .editorial-main section[id],
 .article-body section[id] {
-    scroll-margin-top: calc(var(--header-height) + 1.5rem);
+    scroll-margin-top: calc(var(--site-chrome-height) + 1.5rem);
 }
 
 .breadcrumbs {
@@ -44,7 +44,7 @@
 
 .editorial-hero {
     position: relative;
-    padding: calc(var(--header-height) + clamp(3rem, 7vw, 6.5rem)) 0 clamp(4.5rem, 8vw, 7rem);
+    padding: calc(var(--site-chrome-height) + clamp(3rem, 6vw, 5.5rem)) 0 clamp(4.5rem, 7vw, 6rem);
     overflow: hidden;
     background:
         linear-gradient(90deg, rgba(36, 87, 214, 0.055) 1px, transparent 1px) 0 0 / 8rem 100%,
@@ -75,10 +75,10 @@
 .editorial-hero-copy h1 {
     max-width: 16ch;
     margin-bottom: 1.5rem;
-    font-size: clamp(3rem, 5.2vw, 5.5rem);
+    font-size: clamp(2.85rem, 3.45vw, 3.75rem);
     font-weight: 790;
     line-height: 1.06;
-    letter-spacing: -0.07em;
+    letter-spacing: -0.052em;
 }
 
 .editorial-hero-copy h1 em {
@@ -196,7 +196,7 @@
 .editorial-heading h2 {
     max-width: 18ch;
     margin-bottom: 0;
-    font-size: clamp(2.15rem, 4.2vw, 4rem);
+    font-size: clamp(2.1rem, 3.2vw, 3.25rem);
     line-height: 1.12;
     letter-spacing: -0.06em;
 }
@@ -487,7 +487,7 @@
 .insight-feature h2 {
     max-width: 19ch;
     margin: auto 0 1rem;
-    font-size: clamp(2.25rem, 4.2vw, 4rem);
+    font-size: clamp(2.15rem, 3.2vw, 3.25rem);
     line-height: 1.12;
 }
 
@@ -551,7 +551,7 @@
 
 .article-teaser-index {
     color: #a8b1bf;
-    font: 500 clamp(2.5rem, 5vw, 4.5rem) ui-monospace, "Cascadia Code", monospace;
+    font: 500 clamp(2.35rem, 4vw, 3.4rem) ui-monospace, "Cascadia Code", monospace;
 }
 
 .article-teaser h2,
@@ -620,7 +620,7 @@
 
 .article-hero-copy h1 {
     max-width: 18ch;
-    font-size: clamp(2.8rem, 5vw, 5.1rem);
+    font-size: clamp(2.75rem, 3.5vw, 3.75rem);
 }
 
 .article-deck {
@@ -724,7 +724,7 @@
 
 .article-toc {
     position: sticky;
-    top: calc(var(--header-height) + 2rem);
+    top: calc(var(--site-chrome-height) + 2rem);
     padding-top: 1rem;
     border-top: 2px solid var(--ink);
 }
@@ -788,7 +788,7 @@
 .article-body h2 {
     max-width: 20ch;
     margin-bottom: 1.5rem;
-    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    font-size: clamp(2rem, 3vw, 2.8rem);
     line-height: 1.2;
     letter-spacing: -0.06em;
 }
@@ -1122,7 +1122,7 @@
 
 @media (max-width: 50rem) {
     .editorial-hero {
-        padding: calc(var(--header-height) + 2.5rem) 0 4rem;
+        padding: calc(var(--site-chrome-height) + 2.5rem) 0 4rem;
         background: linear-gradient(180deg, #fafbfc, var(--paper));
     }
 
@@ -1144,7 +1144,7 @@
     .article-hero-copy h1 {
         max-width: none;
         margin-bottom: 1.2rem;
-        font-size: clamp(2.45rem, 11vw, 3.45rem);
+        font-size: clamp(2.35rem, 9.5vw, 2.85rem);
         line-height: 1.08;
     }
 
@@ -1187,7 +1187,7 @@
 
     .editorial-heading h2 {
         max-width: none;
-        font-size: clamp(2rem, 9.7vw, 2.9rem);
+        font-size: clamp(2rem, 8.5vw, 2.55rem);
     }
 
     .editorial-heading > p {
@@ -1302,7 +1302,7 @@
     .insight-feature h2 {
         max-width: none;
         margin-top: 4rem;
-        font-size: clamp(2rem, 9.5vw, 2.8rem);
+        font-size: clamp(2rem, 8.5vw, 2.55rem);
     }
 
     .article-teaser {
@@ -1390,7 +1390,7 @@
 
     .article-body h2 {
         max-width: none;
-        font-size: clamp(1.9rem, 9vw, 2.65rem);
+        font-size: clamp(1.9rem, 8vw, 2.4rem);
     }
 
     .article-body p,

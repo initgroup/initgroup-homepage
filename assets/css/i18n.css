@@ -9,13 +9,13 @@
 }
 
 .language-switcher button {
-    min-height: 2rem;
+    min-height: 2.75rem;
     padding: 0.35rem 0.62rem;
     color: var(--muted);
     border-radius: 999px;
     background: transparent;
     cursor: pointer;
-    font-size: 0.6rem;
+    font-size: 1rem;
     font-weight: 760;
     letter-spacing: 0.02em;
 }
@@ -32,11 +32,11 @@
 }
 
 @media (max-width: 72rem) {
-    .language-switcher button { min-height: 2.1rem; }
+    .language-switcher button { min-height: 2.75rem; }
 }
 
 @media (max-width: 28rem) {
-    .language-switcher button { padding-inline: 0.48rem; font-size: 0.56rem; }
+    .language-switcher button { padding-inline: 0.48rem; font-size: 1rem; }
 }
 
 @media print {
