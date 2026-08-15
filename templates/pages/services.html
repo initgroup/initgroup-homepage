@@ -38,22 +38,19 @@
 {% endblock %}
 
 {% block main %}
-<section class="corp-hero corp-services-hero primary-page-hero" aria-labelledby="servicesHeroTitle">
-            <div class="shell primary-page-hero-inner">
-                <div class="corp-hero-grid">
-                <div class="corp-hero-copy reveal">
+<section class="menu-family-hero menu-family-hero--services primary-page-hero" aria-labelledby="servicesHeroTitle">
+            <div class="shell primary-page-hero-inner menu-family-hero-inner">
+                <div class="menu-family-hero-copy reveal">
                     <p class="eyebrow"><i></i> 서비스</p>
                     <h1 id="servicesHeroTitle">통계 컨설팅부터<br><em>시스템 구축·운영까지</em></h1>
                     <p class="corp-hero-lead">데이터 전략·통계, 데이터 엔지니어링·품질, AI·통계 분석, 의사결정 시스템 구축·운영의 네 분야로 구성됩니다.</p>
                     <a class="button button-primary" href="/contact/">문의 방법 보기 <span aria-hidden="true">↗</span></a>
-                </div>
-                <div class="corp-service-orbit reveal" aria-label="인아이티 서비스 연결 구조">
-                    <div class="corp-orbit-core"><small>ONE TEAM</small><strong>DATA TO<br>DECISION</strong></div>
-                    <span class="corp-orbit-item orbit-item-one"><i>01</i>전략</span>
-                    <span class="corp-orbit-item orbit-item-two"><i>02</i>품질</span>
-                    <span class="corp-orbit-item orbit-item-three"><i>03</i>분석</span>
-                    <span class="corp-orbit-item orbit-item-four"><i>04</i>운영</span>
-                </div>
+                    <ol class="menu-family-hero-flow" aria-label="인아이티 서비스 연결 구조">
+                        <li><span>01</span><strong>전략</strong></li>
+                        <li><span>02</span><strong>품질</strong></li>
+                        <li><span>03</span><strong>분석</strong></li>
+                        <li><span>04</span><strong>운영</strong></li>
+                    </ol>
                 </div>
             </div>
         </section>
@@ -67,45 +64,9 @@
             </div>
         </nav>
 
-        <section class="corp-section corp-service-detail-section" aria-labelledby="serviceDetailTitle">
-            <div class="shell">
-                <div class="corp-heading corp-heading-split reveal">
-                    <div><p class="eyebrow"><i></i> FOUR CAPABILITIES</p><h2 id="serviceDetailTitle">필요한 기술보다<br>필요한 변화를 먼저 봅니다.</h2></div>
-                    <p>각 서비스는 독립적으로 시작할 수 있지만, 데이터와 모델, 화면과 운영 기준이 끊기지 않도록 처음부터 다음 단계를 함께 고려합니다.</p>
-                </div>
-
-                <div class="corp-service-stack">
-                    <article id="consulting" class="corp-service-block reveal">
-                        <div class="corp-service-index"><span>01</span><small>DATA STRATEGY</small></div>
-                        <div class="corp-service-body"><h3>데이터 전략·통계 컨설팅</h3><p>업무 목표와 데이터 환경을 진단하고 실행 가능한 통계 방법론과 데이터 활용 로드맵을 설계합니다.</p><ul><li>데이터·AI 활용 전략과 ISP</li><li>국가통계·수요예측 방법론</li><li>데이터 기반 행정과 공동활용 체계</li><li>분석 역량 강화와 실무 교육</li></ul></div>
-                        <dl class="corp-service-output"><dt>DELIVERABLE</dt><dd>현황 진단</dd><dd>방법론·로드맵</dd><dd>단계별 실행 범위</dd></dl>
-                    </article>
-
-                    <article id="quality" class="corp-service-block reveal">
-                        <div class="corp-service-index"><span>02</span><small>DATA QUALITY</small></div>
-                        <div class="corp-service-body"><h3>데이터 엔지니어링·품질</h3><p>흩어진 데이터를 분석 가능한 구조로 통합하고, 담당자가 확인할 수 있는 품질 기준과 변경 이력을 만듭니다.</p><ul><li>정형·비정형 데이터 수집과 통합</li><li>DW·Data Mart와 메타데이터</li><li>프로파일링·관계 분석·품질 규칙</li><li>원본 보존과 데이터 편집 이력</li></ul></div>
-                        <dl class="corp-service-output"><dt>DELIVERABLE</dt><dd>데이터 모델</dd><dd>품질 기준·규칙</dd><dd>재현 가능한 파이프라인</dd></dl>
-                    </article>
-
-                    <article id="analytics" class="corp-service-block reveal">
-                        <div class="corp-service-index"><span>03</span><small>AI &amp; STATISTICS</small></div>
-                        <div class="corp-service-body"><h3>AI·통계 분석</h3><p>통계적 해석과 머신러닝을 결합해 패턴과 관계, 미래의 신호를 찾고 결과의 한계까지 함께 설명합니다.</p><ul><li>기초·고급 통계와 데이터 마이닝</li><li>예측 모델·시계열·수요예측</li><li>텍스트·관계·이상 패턴 분석</li><li>SAS·R·Python 기반 분석</li></ul></div>
-                        <dl class="corp-service-output"><dt>DELIVERABLE</dt><dd>분석 모델</dd><dd>검증 지표·근거</dd><dd>업무 적용 시나리오</dd></dl>
-                    </article>
-
-                    <article id="engineering" class="corp-service-block reveal">
-                        <span id="operations" class="corp-anchor-alias" aria-hidden="true"></span>
-                        <div class="corp-service-index"><span>04</span><small>SYSTEM &amp; OPERATION</small></div>
-                        <div class="corp-service-body"><h3>의사결정 시스템 구축·운영</h3><p>분석 결과를 사용자가 발견하고 검토하며 실행할 수 있는 화면과 업무 시스템으로 구현하고 안정적으로 개선합니다.</p><ul><li>통계·분석 엔진과 업무 포털</li><li>대시보드·맞춤형 리포트</li><li>권한·모니터링·변경관리</li><li>공공·금융·산업 시스템 운영</li></ul></div>
-                        <dl class="corp-service-output"><dt>DELIVERABLE</dt><dd>업무 시스템</dd><dd>사용자 의사결정 화면</dd><dd>운영·고도화 체계</dd></dl>
-                    </article>
-                </div>
-            </div>
-        </section>
-
         <section class="corp-section corp-delivery-section" aria-labelledby="deliveryMethodTitle">
             <div class="shell">
-                <div class="corp-heading reveal"><p class="eyebrow eyebrow-light"><i></i> DELIVERY METHOD</p><h2 id="deliveryMethodTitle">보고서로 끝나지 않는<br>네 단계의 수행 방식.</h2></div>
+                <div class="corp-heading reveal"><p class="eyebrow eyebrow-light"><i></i> 공통 수행 방식</p><h2 id="deliveryMethodTitle">네 서비스를 관통하는<br>하나의 수행 원칙.</h2><p>아래 단계는 04 서비스의 연속 내용이 아니라, 01~04 모든 서비스에 공통으로 적용하는 프로젝트 수행 방식입니다.</p></div>
                 <ol class="corp-delivery-steps">
                     <li class="reveal"><span>01</span><small>DISCOVER</small><h3>현장 언어로 정의</h3><p>사용자의 업무, 판단 기준과 데이터 제약을 확인합니다.</p></li>
                     <li class="reveal"><span>02</span><small>DESIGN</small><h3>근거를 설계</h3><p>방법론, 데이터 구조와 검증 기준을 함께 정합니다.</p></li>
@@ -123,6 +84,58 @@
                     <a class="reveal" href="/projects/"><small>FINANCE</small><strong>금융</strong><span>이상 신호 · 검토 근거 · 분석 이력</span><i aria-hidden="true">↗</i></a>
                     <a class="reveal" href="/projects/"><small>MANUFACTURING</small><strong>제조·산업</strong><span>수요 변화 · 품질 신호 · 예측 운영</span><i aria-hidden="true">↗</i></a>
                     <a class="reveal" href="/projects/"><small>RESEARCH / POLICY</small><strong>연구·정책</strong><span>분석 수요 · 지표 · 데이터 활용</span><i aria-hidden="true">↗</i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="corp-section corp-service-detail-section" aria-labelledby="serviceDetailTitle">
+            <div class="shell">
+                <div class="corp-heading corp-heading-split reveal">
+                    <div><p class="eyebrow"><i></i> FOUR CAPABILITIES</p><h2 id="serviceDetailTitle">필요한 기술보다<br>필요한 변화를 먼저 봅니다.</h2></div>
+                    <p>각 서비스는 독립적으로 시작할 수 있지만, 데이터와 모델, 화면과 운영 기준이 끊기지 않도록 처음부터 다음 단계를 함께 고려합니다.</p>
+                </div>
+
+                <div class="corp-service-stack">
+                    <article id="consulting" class="corp-service-block reveal" aria-labelledby="consultingTitle">
+                        <div class="corp-service-index"><span>01</span><small>DATA STRATEGY</small></div>
+                        <div class="corp-service-body"><h3 id="consultingTitle">데이터 전략·통계 컨설팅</h3><p>업무 목표와 데이터 환경을 진단하고 실행 가능한 통계 방법론과 데이터 활용 로드맵을 설계합니다.</p><ul><li>데이터·AI 활용 전략과 ISP</li><li>국가통계·수요예측 방법론</li><li>데이터 기반 행정과 공동활용 체계</li><li>분석 역량 강화와 실무 교육</li></ul></div>
+                        <dl class="corp-service-output"><dt>주요 산출물</dt><dd>현황 진단</dd><dd>방법론·로드맵</dd><dd>단계별 실행 범위</dd></dl>
+                        <div class="corp-service-practice">
+                            <div class="corp-service-practice-intro"><span>WORKING MODEL</span><h4>현황 진단에서 실행 로드맵까지</h4><p>방법론을 제안하는 데서 멈추지 않고, 실제 업무에서 누가 어떤 기준으로 실행할지까지 구체화합니다.</p><div class="corp-service-start"><strong>이런 상황에서 시작합니다</strong><ul><li>조직마다 지표 정의와 해석이 다를 때</li><li>분석 과제의 우선순위와 실행 범위를 정해야 할 때</li></ul></div></div>
+                            <ol class="corp-service-flow"><li><span>01</span><strong>업무 질문 정리</strong><p>의사결정 목적과 결과 이용자를 기준으로 해결해야 할 질문을 정의합니다.</p></li><li><span>02</span><strong>데이터·지표 진단</strong><p>활용 가능한 자료와 지표 정의, 누락된 근거와 제약 조건을 확인합니다.</p></li><li><span>03</span><strong>방법론 설계·검증</strong><p>통계 방법과 가정, 품질 기준을 설계하고 적용 가능성을 검토합니다.</p></li><li><span>04</span><strong>실행 계획 수립</strong><p>단계별 범위와 역할, 교육·이관 항목을 실행 로드맵으로 정리합니다.</p></li></ol>
+                        </div>
+                    </article>
+
+                    <article id="quality" class="corp-service-block reveal" aria-labelledby="qualityTitle">
+                        <div class="corp-service-index"><span>02</span><small>DATA QUALITY</small></div>
+                        <div class="corp-service-body"><h3 id="qualityTitle">데이터 엔지니어링·품질</h3><p>흩어진 데이터를 분석 가능한 구조로 통합하고, 담당자가 확인할 수 있는 품질 기준과 변경 이력을 만듭니다.</p><ul><li>정형·비정형 데이터 수집과 통합</li><li>DW·Data Mart와 메타데이터</li><li>프로파일링·관계 분석·품질 규칙</li><li>원본 보존과 데이터 편집 이력</li></ul></div>
+                        <dl class="corp-service-output"><dt>주요 산출물</dt><dd>데이터 모델</dd><dd>품질 기준·규칙</dd><dd>재현 가능한 파이프라인</dd></dl>
+                        <div class="corp-service-practice">
+                            <div class="corp-service-practice-intro"><span>WORKING MODEL</span><h4>데이터 흐름과 품질 책임을 함께 설계</h4><p>수집·통합 기술뿐 아니라 오류를 누가 판단하고 변경 근거를 어떻게 남길지까지 하나의 운영 구조로 연결합니다.</p><div class="corp-service-start"><strong>이런 상황에서 시작합니다</strong><ul><li>원천별 코드와 스키마가 서로 연결되지 않을 때</li><li>오류 수정의 근거와 변경 이력이 남지 않을 때</li></ul></div></div>
+                            <ol class="corp-service-flow"><li><span>01</span><strong>원천·프로파일 확인</strong><p>데이터 구조와 분포, 코드 체계와 반복되는 이상 패턴을 파악합니다.</p></li><li><span>02</span><strong>모델·통합 설계</strong><p>업무 의미를 유지하면서 원천을 연결할 표준 모델과 변환 흐름을 설계합니다.</p></li><li><span>03</span><strong>규칙·검토 체계</strong><p>품질 규칙과 예외, 담당자 검토와 승인 절차를 함께 정의합니다.</p></li><li><span>04</span><strong>이력·운영 연결</strong><p>원본과 변경 결과, 실행 기록을 연결해 반복 가능한 파이프라인으로 운영합니다.</p></li></ol>
+                        </div>
+                    </article>
+
+                    <article id="analytics" class="corp-service-block reveal" aria-labelledby="analyticsTitle">
+                        <div class="corp-service-index"><span>03</span><small>AI &amp; STATISTICS</small></div>
+                        <div class="corp-service-body"><h3 id="analyticsTitle">AI·통계 분석</h3><p>통계적 해석과 머신러닝을 결합해 패턴과 관계, 미래의 신호를 찾고 결과의 한계까지 함께 설명합니다.</p><ul><li>기초·고급 통계와 데이터 마이닝</li><li>예측 모델·시계열·수요예측</li><li>텍스트·관계·이상 패턴 분석</li><li>SAS·R·Python 기반 분석</li></ul></div>
+                        <dl class="corp-service-output"><dt>주요 산출물</dt><dd>분석 모델</dd><dd>검증 지표·근거</dd><dd>업무 적용 시나리오</dd></dl>
+                        <div class="corp-service-practice">
+                            <div class="corp-service-practice-intro"><span>WORKING MODEL</span><h4>모델 성능과 판단 근거를 함께 검증</h4><p>정확도 하나만 비교하지 않고 데이터 대표성, 기준 모델과 오류 영향, 현장 해석 가능성을 함께 확인합니다.</p><div class="corp-service-start"><strong>이런 상황에서 시작합니다</strong><ul><li>예측 정확도 외의 검증 기준이 필요할 때</li><li>분석 결과를 현업이 설명하고 활용해야 할 때</li></ul></div></div>
+                            <ol class="corp-service-flow"><li><span>01</span><strong>문제·가설 정의</strong><p>예측하거나 설명할 대상과 판단 시점, 잘못된 결과의 영향을 정리합니다.</p></li><li><span>02</span><strong>데이터·기준 모델</strong><p>표본과 변수의 대표성을 확인하고 비교 가능한 기준선을 만듭니다.</p></li><li><span>03</span><strong>모델링·검증</strong><p>통계·AI 방법을 적용하고 분할 검증과 오류 분석으로 안정성을 확인합니다.</p></li><li><span>04</span><strong>해석·적용 설계</strong><p>결과의 근거와 한계를 설명하고 업무 적용 및 전문가 검토 방식을 정합니다.</p></li></ol>
+                        </div>
+                    </article>
+
+                    <article id="engineering" class="corp-service-block reveal" aria-labelledby="engineeringTitle">
+                        <span id="operations" class="corp-anchor-alias" aria-hidden="true"></span>
+                        <div class="corp-service-index"><span>04</span><small>SYSTEM &amp; OPERATION</small></div>
+                        <div class="corp-service-body"><h3 id="engineeringTitle">의사결정 시스템 구축·운영</h3><p>분석 결과를 사용자가 발견하고 검토하며 실행할 수 있는 화면과 업무 시스템으로 구현하고 안정적으로 개선합니다.</p><ul><li>통계·분석 엔진과 업무 포털</li><li>대시보드·맞춤형 리포트</li><li>권한·모니터링·변경관리</li><li>공공·금융·산업 시스템 운영</li></ul></div>
+                        <dl class="corp-service-output"><dt>주요 산출물</dt><dd>업무 시스템</dd><dd>사용자 의사결정 화면</dd><dd>운영·고도화 체계</dd></dl>
+                        <div class="corp-service-practice">
+                            <div class="corp-service-practice-intro"><span>WORKING MODEL</span><h4>화면 구현 이후의 운영까지 연결</h4><p>분석 결과를 보여주는 데서 끝내지 않고, 사용자의 판단과 승인·실행·피드백이 이어지는 업무 시스템으로 구현합니다.</p><div class="corp-service-start"><strong>이런 상황에서 시작합니다</strong><ul><li>분석 결과가 보고서나 파일에서 멈출 때</li><li>권한·이력·모니터링을 함께 설계해야 할 때</li></ul></div></div>
+                            <ol class="corp-service-flow"><li><span>01</span><strong>사용자 판단 정의</strong><p>사용자가 확인할 신호와 근거, 다음에 수행할 업무 행동을 정리합니다.</p></li><li><span>02</span><strong>화면·흐름 구현</strong><p>대시보드와 검토 화면, 승인과 업무 연계를 실제 사용 흐름으로 구현합니다.</p></li><li><span>03</span><strong>권한·이력 설계</strong><p>역할별 접근 권한과 변경·실행 기록, 예외 처리 방식을 연결합니다.</p></li><li><span>04</span><strong>모니터링·개선</strong><p>시스템 상태와 이용 흐름을 확인하고 현장 피드백을 고도화에 반영합니다.</p></li></ol>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>

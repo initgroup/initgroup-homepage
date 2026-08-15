@@ -28,7 +28,7 @@
 .legal-copy .legal-note strong { display: block; margin-bottom: 0.35rem; color: #9b3f16; }
 
 .error-page { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; background: #07152f; color: #fff; }
-.error-page .site-header { background: rgba(7, 21, 47, 0.9); }
+.error-page .site-header { background: rgba(255, 255, 255, 0.98); }
 .error-main { display: grid; place-items: center; padding: clamp(9rem, 18vw, 13rem) 0 5rem; overflow: hidden; }
 .error-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(18rem, 1.2fr); align-items: center; gap: clamp(3rem, 8vw, 8rem); }
 .error-code { position: relative; color: #d8e8fb; font-size: clamp(7rem, 16vw, 13rem); font-weight: 850; line-height: 0.8; letter-spacing: -0.08em; }

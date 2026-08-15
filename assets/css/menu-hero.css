@@ -1,0 +1,316 @@
+/* Page-family hero system. Reference assets are copied into production paths. */
+
+.menu-family-hero {
+    --family-accent: #2457d6;
+    --family-ink: #0b1730;
+    --family-muted: #4f6078;
+    --family-image: none;
+    --family-overlay: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.96) 34%, rgba(255, 255, 255, 0.36) 58%, rgba(255, 255, 255, 0) 78%);
+    position: relative;
+    min-height: max(42rem, 82svh);
+    padding: 0 !important;
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--family-ink);
+    background: #f7f9fc;
+}
+
+.menu-family-hero::before,
+.menu-family-hero::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+}
+
+.menu-family-hero::before {
+    z-index: -2;
+    background-image: var(--family-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: scale(1.002);
+}
+
+.menu-family-hero::after {
+    z-index: -1;
+    background: var(--family-overlay);
+}
+
+.menu-family-hero-inner {
+    display: flex;
+    min-height: inherit;
+    align-items: center;
+    padding-block: calc(var(--site-chrome-height) + clamp(3.25rem, 6vw, 5.5rem)) clamp(4.5rem, 7vw, 6.5rem);
+}
+
+.menu-family-hero-copy {
+    width: min(100%, 43rem);
+}
+
+.menu-family-hero .eyebrow {
+    margin-bottom: 1.35rem;
+    color: var(--family-accent);
+}
+
+.menu-family-hero h1 {
+    max-width: 15ch;
+    margin: 0 0 1.5rem;
+    color: var(--family-ink);
+    font-size: clamp(2.85rem, 4.15vw, 3.75rem);
+    font-weight: 790;
+    line-height: 1.08;
+    letter-spacing: -0.055em;
+    word-break: keep-all;
+}
+
+.menu-family-hero h1 em {
+    color: var(--family-accent);
+    font-style: normal;
+}
+
+.menu-family-hero-copy > p:not(.eyebrow, .sol-hero-note) {
+    max-width: 40rem;
+    margin: 0 0 1.9rem;
+    color: var(--family-muted);
+    font-size: clamp(1rem, 1.25vw, 1.15rem);
+    line-height: 1.78;
+    word-break: keep-all;
+}
+
+.menu-family-hero .button-primary {
+    background: var(--family-accent);
+    box-shadow: 0 1rem 2.6rem color-mix(in srgb, var(--family-accent), transparent 76%);
+}
+
+.menu-family-hero .button-primary:hover { background: color-mix(in srgb, var(--family-accent), #071225 14%); }
+
+.menu-family-hero-meta {
+    display: flex;
+    max-width: 41rem;
+    margin: 2.8rem 0 0;
+    padding: 1.15rem 0 0;
+    border-top: 1px solid color-mix(in srgb, var(--family-accent), transparent 68%);
+    gap: clamp(1.4rem, 3vw, 3.2rem);
+}
+
+.menu-family-hero-meta > div { min-width: 0; }
+.menu-family-hero-meta dt,
+.menu-family-hero-meta dd { margin: 0; }
+.menu-family-hero-meta dt {
+    margin-bottom: 0.35rem;
+    color: var(--family-accent);
+    font-size: 1rem;
+    font-weight: 820;
+    letter-spacing: 0.075em;
+    text-transform: uppercase;
+}
+.menu-family-hero-meta dd {
+    color: var(--family-ink);
+    font-size: 1rem;
+    font-weight: 720;
+    line-height: 1.45;
+}
+
+.menu-family-hero-flow {
+    display: grid;
+    max-width: 40rem;
+    margin: 2.8rem 0 0;
+    padding: 1rem 0 0;
+    border-top: 1px solid rgba(36, 87, 214, 0.24);
+    list-style: none;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.menu-family-hero-flow li { display: grid; padding-right: 1rem; gap: 0.2rem; }
+.menu-family-hero-flow span { color: var(--family-accent); font-size: 1rem; font-weight: 820; }
+.menu-family-hero-flow strong { color: var(--family-ink); font-size: 1rem; }
+
+.menu-family-hero-tags {
+    display: flex;
+    margin: 2.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.menu-family-hero-tags li {
+    padding: 0.65rem 0.95rem;
+    color: #24416f;
+    border: 1px solid rgba(36, 87, 214, 0.18);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 0.6rem 1.7rem rgba(38, 62, 116, 0.07);
+    font-size: 1rem;
+    font-weight: 720;
+    backdrop-filter: blur(10px);
+}
+
+.menu-family-hero--company {
+    --family-accent: #087a67;
+    --family-muted: #425c5a;
+    --family-image: url("/assets/images/menu-heroes/company-hero-desktop-v2.png");
+    --family-overlay: linear-gradient(90deg, rgba(250, 254, 253, 0.995) 0%, rgba(250, 254, 253, 0.94) 36%, rgba(242, 252, 250, 0.38) 58%, rgba(235, 249, 246, 0.03) 77%);
+}
+
+.menu-family-hero--services {
+    --family-accent: #2457d6;
+    --family-image: url("/assets/images/menu-heroes/services-hero-desktop-v2.png");
+    --family-overlay: linear-gradient(90deg, rgba(251, 253, 255, 0.995) 0%, rgba(251, 253, 255, 0.94) 36%, rgba(244, 248, 255, 0.32) 59%, rgba(238, 245, 255, 0.02) 78%);
+}
+
+.menu-family-hero--solutions {
+    --family-accent: #18c9e8;
+    --family-ink: #fff;
+    --family-muted: #c3d5eb;
+    --family-image: url("/assets/images/menu-heroes/solutions-hero-desktop-v2.png");
+    --family-overlay: linear-gradient(90deg, rgba(3, 18, 40, 0.99) 0%, rgba(3, 18, 40, 0.92) 37%, rgba(3, 18, 40, 0.34) 62%, rgba(3, 18, 40, 0.04) 80%);
+}
+
+.menu-family-hero--solutions .button-secondary {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.06);
+}
+.menu-family-hero--solutions .button-primary { color: #020f24; }
+.menu-family-hero--solutions .sol-hero-note { color: rgba(255, 255, 255, 0.72); }
+.menu-family-hero--solutions .menu-family-hero-meta dd { color: #eefaff; }
+
+.menu-family-hero--projects {
+    --family-accent: #6547e8;
+    --family-muted: #554d6f;
+    --family-image: url("/assets/images/menu-heroes/projects-hero-desktop-v2.png");
+    --family-overlay: linear-gradient(90deg, rgba(253, 252, 255, 0.995) 0%, rgba(253, 252, 255, 0.95) 36%, rgba(247, 245, 255, 0.31) 59%, rgba(239, 234, 255, 0.02) 78%);
+}
+
+.menu-family-hero-meta--project {
+    padding-left: 1rem;
+    border-top: 0;
+    border-left: 3px solid var(--family-accent);
+}
+
+.menu-family-hero--insights {
+    --family-accent: #087a67;
+    --family-muted: #4a574f;
+    --family-image: url("/assets/images/menu-heroes/insights-hero-desktop-v2.png");
+    --family-overlay: linear-gradient(90deg, rgba(252, 251, 246, 0.995) 0%, rgba(252, 251, 246, 0.96) 37%, rgba(249, 248, 242, 0.34) 60%, rgba(237, 247, 241, 0.03) 79%);
+}
+
+.menu-family-hero--insights h1 { font-family: var(--font-display); font-weight: 780; }
+.menu-family-hero-meta--editorial { display: grid; max-width: 30rem; gap: 0; }
+.menu-family-hero-meta--editorial > div {
+    display: grid;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(11, 23, 48, 0.14);
+    grid-template-columns: 5rem 1fr;
+}
+.menu-family-hero-meta--editorial dt { margin: 0; }
+
+.menu-family-hero--careers {
+    --family-accent: #2457d6;
+    --family-muted: #49546a;
+    --family-image: url("/assets/images/menu-heroes/careers-hero-desktop-v2.png");
+    --family-overlay: linear-gradient(90deg, rgba(249, 250, 255, 0.995) 0%, rgba(249, 250, 255, 0.95) 36%, rgba(246, 247, 255, 0.34) 59%, rgba(255, 242, 235, 0.03) 79%);
+}
+
+/* The same visual language continues into actual solution and insight detail pages. */
+body.solutions-page .sol-page-hero:not(.primary-page-hero) {
+    background:
+        linear-gradient(90deg, rgba(3, 18, 40, 0.985) 0%, rgba(3, 18, 40, 0.88) 43%, rgba(3, 18, 40, 0.5) 100%),
+        url("/assets/images/menu-heroes/solutions-hero-desktop-v2.png") center / cover no-repeat;
+}
+
+body[data-page="insights"] .article-hero {
+    background:
+        linear-gradient(90deg, rgba(252, 251, 246, 0.99), rgba(252, 251, 246, 0.91) 58%, rgba(237, 247, 241, 0.62)),
+        url("/assets/images/menu-heroes/insights-hero-desktop-v2.png") center / cover no-repeat;
+}
+
+body[data-page="insights"] .article-summary-band {
+    color: #0b1730;
+    border-block: 1px solid #d9e3dc;
+    background: #f5f8f3;
+}
+
+body[data-page="insights"] .article-summary > header,
+body[data-page="insights"] .article-summary > div {
+    border-color: rgba(11, 23, 48, 0.14);
+}
+
+body[data-page="insights"] .article-summary > header span,
+body[data-page="insights"] .article-summary strong {
+    color: #087a67;
+}
+
+body[data-page="insights"] .article-summary p {
+    color: #34483e;
+}
+
+body[data-page="insights"] .article-summary > div {
+    background: rgba(255, 255, 255, 0.52);
+}
+
+@media (max-width: 72rem) {
+    .menu-family-hero { min-height: 44rem; }
+    .menu-family-hero-inner { padding-top: calc(var(--site-chrome-height) + 3rem); }
+}
+
+@media (max-width: 50rem) {
+    .menu-family-hero {
+        min-height: 50rem !important;
+        background: #f7f9fc;
+    }
+
+    .menu-family-hero::before {
+        background-position: 66% bottom;
+        background-size: auto 100%;
+    }
+
+    .menu-family-hero::after {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.995) 0%, rgba(255, 255, 255, 0.96) 56%, rgba(255, 255, 255, 0.78) 76%, rgba(255, 255, 255, 0.24) 100%);
+    }
+
+    .menu-family-hero--company::after { background: linear-gradient(180deg, rgba(250, 254, 253, 0.995) 0%, rgba(250, 254, 253, 0.96) 58%, rgba(242, 252, 250, 0.76) 78%, rgba(235, 249, 246, 0.2) 100%); }
+    .menu-family-hero--solutions::after { background: linear-gradient(180deg, rgba(3, 18, 40, 0.995) 0%, rgba(3, 18, 40, 0.96) 58%, rgba(3, 18, 40, 0.78) 78%, rgba(3, 18, 40, 0.28) 100%); }
+    .menu-family-hero--projects::after { background: linear-gradient(180deg, rgba(253, 252, 255, 0.995) 0%, rgba(253, 252, 255, 0.96) 58%, rgba(247, 245, 255, 0.76) 78%, rgba(239, 234, 255, 0.2) 100%); }
+    .menu-family-hero--insights::after { background: linear-gradient(180deg, rgba(252, 251, 246, 0.995) 0%, rgba(252, 251, 246, 0.96) 58%, rgba(249, 248, 242, 0.76) 78%, rgba(237, 247, 241, 0.2) 100%); }
+    .menu-family-hero--careers::after { background: linear-gradient(180deg, rgba(249, 250, 255, 0.995) 0%, rgba(249, 250, 255, 0.96) 58%, rgba(246, 247, 255, 0.76) 78%, rgba(255, 242, 235, 0.2) 100%); }
+
+    .menu-family-hero-inner {
+        align-items: flex-start;
+        padding: calc(var(--site-chrome-height) + 2.5rem) 0 15rem;
+    }
+
+    .menu-family-hero h1 { max-width: none; font-size: clamp(2.35rem, 10.2vw, 3rem); }
+    .menu-family-hero-copy > p:not(.eyebrow, .sol-hero-note) { line-height: 1.7; }
+    .menu-family-hero-meta { margin-top: 2rem; flex-wrap: wrap; gap: 1rem 1.5rem; }
+    .menu-family-hero-flow { margin-top: 2rem; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+    .menu-family-hero-meta--editorial { display: grid; }
+    .menu-family-hero--insights h1 { font-family: var(--font-sans); font-weight: 790; }
+
+    body.solutions-page .sol-page-hero:not(.primary-page-hero) {
+        background:
+            linear-gradient(180deg, rgba(3, 18, 40, 0.99) 0%, rgba(3, 18, 40, 0.92) 62%, rgba(3, 18, 40, 0.74) 100%),
+            url("/assets/images/menu-heroes/solutions-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
+    }
+
+    body[data-page="insights"] .article-hero {
+        background:
+            linear-gradient(180deg, rgba(252, 251, 246, 0.99), rgba(252, 251, 246, 0.92) 72%, rgba(237, 247, 241, 0.72)),
+            url("/assets/images/menu-heroes/insights-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .menu-family-hero::before { animation: menu-family-hero-drift 18s ease-in-out infinite alternate; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu-family-hero::before { animation: none; transform: none; }
+}
+
+@keyframes menu-family-hero-drift {
+    from { transform: scale(1.002) translate3d(0, 0, 0); }
+    to { transform: scale(1.025) translate3d(-0.4rem, -0.2rem, 0); }
+}

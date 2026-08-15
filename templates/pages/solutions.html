@@ -10,11 +10,12 @@
                 "@id": "https://initgroup.kr/solutions/#page",
                 "url": "https://initgroup.kr/solutions/",
                 "name": "인아이티 데이터 솔루션",
-                "description": "데이터 품질과 빅데이터 수집·분석·시각화를 지원하는 인아이티 솔루션",
+                "description": "데이터 품질, 빅데이터 활용과 설문 운영을 지원하는 인아이티 솔루션",
                 "isPartOf": { "@id": "https://initgroup.kr/#website" },
                 "about": [
                     { "@id": "https://initgroup.kr/solutions/data-editing-system/#software" },
-                    { "@id": "https://initgroup.kr/solutions/inbups/#software" }
+                    { "@id": "https://initgroup.kr/solutions/inbups/#software" },
+                    { "@id": "https://initgroup.kr/solutions/in-surveyone/#software" }
                 ]
             },
             {
@@ -30,75 +31,70 @@
 {% endblock %}
 
 {% block main %}
-<section class="sol-page-hero primary-page-hero" aria-labelledby="solutionHubTitle">
-            <div class="shell primary-page-hero-inner">
-                <div class="sol-hero-grid">
-                    <div class="sol-hero-copy">
-                        <p class="eyebrow"><i></i> 제품 및 플랫폼</p>
-                        <h1 id="solutionHubTitle">데이터 품질 제품과<br><em>빅데이터 플랫폼</em></h1>
-                        <p>데이터 구조와 품질을 설명 가능한 규칙으로 관리하는 제품부터, 서로 다른 소스를 수집·분석·시각화하는 플랫폼까지 데이터 활용의 앞단과 뒷단을 연결합니다.</p>
+<section class="menu-family-hero menu-family-hero--solutions primary-page-hero" aria-labelledby="solutionHubTitle">
+            <div class="shell primary-page-hero-inner menu-family-hero-inner">
+                    <div class="menu-family-hero-copy">
+                        <p class="eyebrow"><i></i> 솔루션</p>
+                        <h1 id="solutionHubTitle">데이터 품질부터<br><em>조사 운영까지.</em></h1>
+                        <p>품질 규칙과 검토 이력, 수집·분석·시각화, 설문 설계·배포·응답·보고서를 각 업무 목적에 맞는 제품과 플랫폼으로 제공합니다.</p>
                         <div class="sol-hero-actions">
-                            <a class="button button-primary" href="/solutions/data-editing-system/">대표 제품 보기 <span aria-hidden="true">↗</span></a>
+                            <a class="button button-primary" href="#portfolioTitle">제품 비교하기 <span aria-hidden="true">↓</span></a>
                             <a class="button button-secondary" href="/contact/">도입 범위 상담하기</a>
                         </div>
                         <p class="sol-hero-note"><i aria-hidden="true"></i> 실제 제품 화면과 업무 흐름을 기준으로 소개합니다.</p>
+                        <dl class="menu-family-hero-meta menu-family-hero-meta--solution" aria-label="인아이티 솔루션 포트폴리오 구조">
+                            <div><dt>Data Quality</dt><dd>인뎁스 IN-DEPS</dd></div>
+                            <div><dt>Data Platform</dt><dd>인법스 IN-BAPS</dd></div>
+                            <div><dt>Survey Ops</dt><dd>인서베이원 inSurveyOne</dd></div>
+                        </dl>
                     </div>
-
-                    <div class="sol-architecture reveal" aria-label="인아이티 솔루션 포트폴리오 구조">
-                        <div class="sol-architecture-head"><span>INIT / SOLUTION MAP</span><small>DATA → EVIDENCE → DECISION</small></div>
-                        <div class="sol-architecture-flow">
-                            <article class="sol-architecture-card">
-                                <span>FLAGSHIP / DATA QUALITY</span>
-                                <h2><span class="sol-architecture-ko-name">인뎁스<br></span>IN-DEPS</h2>
-                                <p>구조·관계·규칙·검토·운영을 하나의 품질 흐름으로</p>
-                                <ul><li>설명 가능한 규칙</li><li>전문가 최종 검토</li><li>실행·변경 이력</li></ul>
-                            </article>
-                            <div class="sol-architecture-link" aria-hidden="true"><span>CONNECTED</span><i></i></div>
-                            <article class="sol-architecture-card">
-                                <span>PLATFORM / DATA JOURNEY</span>
-                                <h2>인법스<br>IN-BAPS</h2>
-                                <p>정형·비정형 데이터의 수집부터 분석과 시각화까지</p>
-                                <ul><li>C-BAP · Collect</li><li>R-BAP · Analyze</li><li>V-BAP · Visualize</li></ul>
-                            </article>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <section class="section" aria-labelledby="portfolioTitle">
+        <section class="section sol-portfolio-section" aria-labelledby="portfolioTitle">
             <div class="shell">
                 <div class="sol-section-heading reveal">
-                    <div><p class="eyebrow"><i></i> TWO PRODUCTS, ONE PRINCIPLE</p><h2 id="portfolioTitle">기능이 아니라<br>이어지는 업무 흐름.</h2></div>
-                    <p>두 솔루션은 적용 범위가 다르지만, 결과의 근거를 남기고 다음 업무로 연결한다는 같은 원칙으로 설계됩니다.</p>
+                    <div><p class="eyebrow"><i></i> PRODUCT PORTFOLIO</p><h2 id="portfolioTitle">서로 다른 업무를 위한<br>세 가지 제품.</h2></div>
+                    <p>데이터 품질, 데이터 활용과 설문 운영은 필요한 절차와 사용자가 다릅니다. 각 제품의 실제 업무 흐름과 화면을 기준으로 적용 범위를 확인할 수 있습니다.</p>
                 </div>
 
                 <div class="sol-product-cards">
-                    <a class="sol-product-card reveal" href="/solutions/data-editing-system/">
-                        <div class="sol-product-card-top"><span>01 / FLAGSHIP PRODUCT</span><i aria-hidden="true">↗</i></div>
+                    <a class="sol-product-card sol-product-card--indeps reveal" href="/solutions/data-editing-system/">
+                        <div class="sol-product-card-top"><span>DATA QUALITY PLATFORM</span><i aria-hidden="true">↗</i></div>
                         <h3>인뎁스 IN-DEPS</h3>
                         <p><strong class="sol-product-fullname" lang="en">INIT-Data Editing Platform System</strong>데이터의 구조와 관계를 분석해 품질 규칙 후보를 발견하고, 담당자의 검토와 운영 반영까지 추적합니다.</p>
-                        <div class="sol-product-card-visual sol-rule-summary" aria-hidden="true">
-                            <div class="sol-rule-summary-head"><span>DISCOVERED RULES</span><b>RUN 0248 · PASS</b></div>
-                            <div class="sol-rule-summary-flow"><span>PROFILE</span><i></i><span>RELATION</span><i></i><strong>RULE</strong><i></i><span>REVIEW</span></div>
-                            <div class="sol-rule-summary-grid">
-                                <div><small>CATEGORICAL</small><b>IF <em>지역=도시</em></b><strong>THEN <em>유형=1</em></strong><span>confidence 98.6%</span></div>
-                                <div><small>CONTINUOUS</small><b>A = B + C</b><strong>R² 0.9976</strong><span>RMSE 8.66 · 300 rows</span></div>
-                            </div>
-                        </div>
+                        <figure class="sol-product-evidence sol-product-evidence--indeps">
+                            <div class="sol-product-window-bar"><span>FLOW DESIGNER</span><b>실제 제품 화면</b></div>
+                            <div class="sol-product-window-viewport"><img src="/assets/images/reference/data-editing-system/flow-designer_kor.png" data-i18n-image-base="/assets/images/reference/data-editing-system/flow-designer" alt="컬럼 유형 분석부터 자동 규칙 발굴과 규칙 위반 탐지를 연결한 인뎁스 Flow 설계 화면" width="1920" height="949" loading="lazy" decoding="async"></div>
+                            <figcaption><strong>규칙 발굴 실행 흐름</strong><span>분석 · 규칙 후보 · 검토 · 실행</span></figcaption>
+                        </figure>
                         <span class="sol-card-link">실제 화면과 7단계 업무 흐름 보기 <span aria-hidden="true">→</span></span>
                     </a>
 
-                    <a class="sol-product-card reveal" href="/solutions/inbups/">
-                        <div class="sol-product-card-top"><span>02 / BIG DATA PLATFORM</span><i aria-hidden="true">↗</i></div>
+                    <a class="sol-product-card sol-product-card--inbaps reveal" href="/solutions/inbups/">
+                        <div class="sol-product-card-top"><span>BIG DATA PLATFORM</span><i aria-hidden="true">↗</i></div>
                         <h3>인법스 IN-BAPS</h3>
                         <p><strong class="sol-product-fullname" lang="en">INIT-Bigdata Analysis Platform System</strong>C-BAP으로 데이터를 수집하고, R-BAP 분석을 거쳐 V-BAP 시각화로 업무 목적에 맞게 전달합니다.</p>
-                        <div class="sol-product-card-visual sol-mini-pipeline" aria-hidden="true">
-                            <div><span>COLLECT</span><strong>C-BAP</strong><small>API · SNS · WEB</small></div><i>→</i>
-                            <div><span>ANALYZE</span><strong>R-BAP</strong><small>TEXT · RELATION · STAT</small></div><i>→</i>
-                            <div><span>VISUALIZE</span><strong>V-BAP</strong><small>CHART · BI · R</small></div>
+                        <div class="sol-product-evidence sol-product-evidence--inbaps" aria-label="인법스 수집·분석·시각화 구성 자료">
+                            <figure><div><img src="/assets/images/reference/in-baps/c-bap-collection.png" alt="Open API, SNS와 웹 데이터를 수집하는 C-BAP 소개 자료" width="1067" height="749" loading="lazy" decoding="async"></div><figcaption><strong>C-BAP</strong><span>수집</span></figcaption></figure>
+                            <i aria-hidden="true">→</i>
+                            <figure><div><img src="/assets/images/reference/in-baps/r-bap-analysis.png" alt="통계와 빅데이터 분석을 결합하는 R-BAP 소개 자료" width="1056" height="615" loading="lazy" decoding="async"></div><figcaption><strong>R-BAP</strong><span>분석</span></figcaption></figure>
+                            <i aria-hidden="true">→</i>
+                            <figure><div><img src="/assets/images/reference/in-baps/v-bap-visualization.png" alt="차트와 BI, R 시각화를 제공하는 V-BAP 소개 자료" width="1055" height="807" loading="lazy" decoding="async"></div><figcaption><strong>V-BAP</strong><span>시각화</span></figcaption></figure>
                         </div>
                         <span class="sol-card-link">수집·분석·시각화 파이프라인 보기 <span aria-hidden="true">→</span></span>
+                    </a>
+
+                    <a class="sol-product-card sol-product-card--surveyone reveal" href="/solutions/in-surveyone/">
+                        <div class="sol-product-card-top"><span>SURVEY OPERATIONS PLATFORM</span><i aria-hidden="true">↗</i></div>
+                        <h3>인서베이원 inSurveyOne</h3>
+                        <p><strong class="sol-product-fullname" lang="en">One-Stop Survey Integrated Platform</strong>문항과 템플릿, 대상자와 배포 준비, 응답 데이터와 결과 보고서를 하나의 작업공간에서 연결합니다.</p>
+                        <figure class="sol-product-evidence sol-product-evidence--surveyone">
+                            <div class="sol-product-window-bar"><span>SURVEY OPERATIONS</span><b>공개용 데모 화면</b></div>
+                            <div class="sol-product-window-viewport"><img src="/assets/images/product/in-surveyone/dashboard-public-demo_kor.png" data-i18n-image-base="/assets/images/product/in-surveyone/dashboard-public-demo" alt="개인정보를 제거한 인서베이원 설문 운영 대시보드 데모 화면" width="1792" height="1024" loading="lazy" decoding="async"></div>
+                            <figcaption><strong>설문 운영 작업공간</strong><span>설계 · 배포 · 응답 · 보고서</span></figcaption>
+                        </figure>
+                        <span class="sol-card-link">설문 운영 기능과 화면 보기 <span aria-hidden="true">→</span></span>
                     </a>
                 </div>
             </div>
@@ -107,21 +103,21 @@
         <section class="section sol-path-section" aria-labelledby="solutionPathTitle">
             <div class="shell">
                 <div class="sol-section-heading reveal">
-                    <div><p class="eyebrow eyebrow-light"><i></i> FROM DATA TO OPERATION</p><h2 id="solutionPathTitle">데이터가 판단이 되는<br>세 가지 조건.</h2></div>
-                    <p>분석 결과만 전달하지 않습니다. 데이터의 상태, 결과가 만들어진 이유와 운영 이력을 함께 관리합니다.</p>
+                    <div><p class="eyebrow eyebrow-light"><i></i> FROM PURPOSE TO OPERATION</p><h2 id="solutionPathTitle">제품보다 먼저 확인할<br>세 가지 운영 조건.</h2></div>
+                    <p>세 제품을 하나로 묶어 설명하지 않습니다. 해결할 목적과 참여자, 반복 운영에 필요한 기록을 먼저 확인해 알맞은 범위를 정합니다.</p>
                 </div>
                 <ol class="sol-path-list">
-                    <li class="reveal"><span>01 / UNDERSTAND</span><strong>구조와 관계를 먼저 이해</strong><p>유형·분포·연결 구조를 확인해 분석 전에 데이터의 상태와 한계를 드러냅니다.</p></li>
-                    <li class="reveal"><span>02 / EXPLAIN</span><strong>판단 가능한 근거로 변환</strong><p>조건·수식·지표 또는 분석 방법을 남겨 담당자가 결과의 이유를 검토할 수 있게 합니다.</p></li>
-                    <li class="reveal"><span>03 / OPERATE</span><strong>반복 가능한 업무로 연결</strong><p>입력과 결과, 검토와 변경 이력을 연결해 같은 기준을 다음 실행에도 적용합니다.</p></li>
+                    <li class="reveal"><span>01 / DEFINE</span><strong>목적과 기준을 먼저 정의</strong><p>품질 검토, 데이터 활용 또는 조사 운영에서 무엇을 결정하고 어떤 결과를 남길지 확인합니다.</p></li>
+                    <li class="reveal"><span>02 / CONNECT</span><strong>데이터·사람·절차를 연결</strong><p>입력 데이터와 담당자, 검토·배포·분석 절차가 끊기지 않도록 필요한 접점을 구성합니다.</p></li>
+                    <li class="reveal"><span>03 / OPERATE</span><strong>권한·이력·결과를 운영</strong><p>누가 무엇을 수행했고 어떤 결과가 만들어졌는지 다음 실행에서도 확인할 수 있게 관리합니다.</p></li>
                 </ol>
             </div>
         </section>
 
-        <section class="contact-cta" aria-labelledby="solutionContactTitle">
+        <section class="contact-cta contact-cta--solution-bridge" aria-labelledby="solutionContactTitle">
             <div class="shell contact-cta-inner reveal">
                 <div><p class="eyebrow eyebrow-light"><i></i> SOLUTION CONVERSATION</p><h2 id="solutionContactTitle">현재 데이터와 업무에<br>맞는 시작점을 찾으세요.</h2></div>
-                <div><p>데이터 소스, 검증 절차와 원하는 운영 범위를 알려주시면 제품 적용과 구축 범위를 함께 정리하겠습니다.</p><a class="button button-light" href="/contact/">솔루션 도입 상담하기 <span aria-hidden="true">↗</span></a></div>
+                <div><p>데이터 소스, 검증·조사 절차와 원하는 운영 범위를 알려주시면 제품 적용과 구축 범위를 함께 정리하겠습니다.</p><a class="button button-primary" href="/contact/">솔루션 도입 상담하기 <span aria-hidden="true">↗</span></a></div>
             </div>
         </section>
 {% endblock %}

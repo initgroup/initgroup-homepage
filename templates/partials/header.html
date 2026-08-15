@@ -15,7 +15,7 @@
                     <button type="button" data-language="en" aria-pressed="false">English</button>
                 </div>
                 <a class="header-contact" href="/contact/"{% if page.nav_key in ('contact', 'privacy') %} aria-current="page"{% endif %}>문의</a>
-{% if not page.compact_chrome %}                <button class="menu-toggle" type="button" aria-label="전체 메뉴 열기" aria-controls="siteNavigation" aria-expanded="false" data-menu-toggle>
+{% if not page.compact_chrome %}                <button class="menu-toggle" type="button" aria-label="전체 메뉴 열기" aria-controls="hoverNavigation siteNavigation" aria-expanded="false" data-menu-toggle>
                     <span class="menu-toggle-label">전체 메뉴</span>
                     <span class="menu-toggle-icon" aria-hidden="true"><i></i><i></i><i></i></span>
                 </button>
@@ -24,25 +24,49 @@
 
 {% set current_navigation = namespace(group=none) %}
 {% for group in menu_groups %}{% if group.key == page.nav_key %}{% set current_navigation.group = group %}{% endif %}{% endfor %}
-{% if current_navigation.group %}        <div class="page-sub-navigation" data-page-sub-navigation>
+{% set detail_navigation = namespace(item=none) %}
+{% if current_navigation.group %}{% for item in current_navigation.group.items %}{% if page.route in item.active_routes %}{% set detail_navigation.item = item %}{% endif %}{% endfor %}{% endif %}
+{% if current_navigation.group %}        <div class="page-sub-navigation" data-page-sub-navigation data-navigation-mode="{{ current_navigation.group.mode }}">
             <div class="page-sub-navigation-inner shell">
-                <a class="page-sub-navigation-root" href="{{ current_navigation.group.href }}">{{ current_navigation.group.label }}</a>
+                <a class="page-sub-navigation-root" href="{{ current_navigation.group.href }}"><strong>{{ current_navigation.group.label }}</strong></a>
                 <nav class="page-sub-navigation-links" aria-label="{{ current_navigation.group.label }} 하위 메뉴">
-{% for item in current_navigation.group.items %}                    <a href="{{ item.href }}" data-page-sub-link{% if item.href == page.route %} class="is-current" aria-current="page"{% endif %}>{{ item.label }}</a>
+{% for item in current_navigation.group.items %}                    <a href="{{ item.href }}" data-page-sub-link data-navigation-item="{{ 'overview' if loop.first else 'product' }}" data-link-mode="{{ 'section' if '#' in item.href else 'page' }}"{% if item.href == page.route or page.route in item.active_routes %} class="is-current" aria-current="page"{% endif %}>{{ item.label }}</a>
 {% endfor %}                </nav>
             </div>
         </div>
 {% elif not page.compact_chrome %}        <div class="page-sub-navigation page-sub-navigation--empty" data-page-sub-navigation aria-hidden="true"></div>
 {% endif %}
+{% if detail_navigation.item %}        <div class="insight-detail-navigation" data-detail-navigation>
+            <div class="insight-detail-navigation-inner shell">
+                <div class="insight-detail-navigation-actions">
+                    <button type="button" data-history-back data-history-fallback="{{ detail_navigation.item.href }}" aria-label="이전 페이지로 돌아가기" title="이전 페이지로 돌아가기">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 6-6 6 6 6"></path></svg>
+                        <span>이전</span>
+                    </button>
+                    <a href="{{ detail_navigation.item.href }}" aria-label="상위 인사이트 섹션으로 돌아가기" title="상위 인사이트 섹션으로 돌아가기">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M8 6h10v10"></path></svg>
+                        <span>상위</span>
+                    </a>
+                </div>
+                <nav class="insight-detail-location" aria-label="현재 상세 페이지 위치">
+                    <a href="/insights/">인사이트</a>
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"></path></svg>
+                    <a href="{{ detail_navigation.item.href }}">{{ detail_navigation.item.label }}</a>
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"></path></svg>
+                    <strong aria-current="page">{{ page.title | replace(" | 인아이티", "") }}</strong>
+                </nav>
+            </div>
+        </div>
+{% endif %}
 {% if not page.compact_chrome %}        <div id="hoverNavigation" class="hover-navigation" data-hover-menu hidden>
             <div class="hover-navigation-inner shell">
-{% for group in menu_groups %}                <section data-hover-section="{{ group.key }}">
+{% for group in menu_groups %}                <section data-hover-section="{{ group.key }}" data-navigation-mode="{{ group.mode }}"{% if page.nav_key == group.key %} class="is-current"{% endif %}>
                     <a class="hover-navigation-root" href="{{ group.href }}">
                         <span>{{ "%02d" | format(loop.index) }}</span>
                         <strong>{{ group.label }}</strong>
                     </a>
                     <ul>
-{% for item in group.items %}                        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+{% for item in group.items %}                        <li><a href="{{ item.href }}" data-navigation-item="{{ 'overview' if loop.first else 'product' }}" data-link-mode="{{ 'section' if '#' in item.href else 'page' }}"{% if item.href == page.route or page.route in item.active_routes %} class="is-current" aria-current="page"{% endif %}>{{ item.label }}</a></li>
 {% endfor %}                    </ul>
                 </section>
 {% endfor %}            </div>
@@ -65,10 +89,10 @@
                 </div>
 
                 <nav class="site-map-grid" aria-label="전체 메뉴">
-{% for group in menu_groups %}                    <section data-menu-section="{{ group.key }}"{% if page.nav_key == group.key %} class="is-current"{% endif %}>
+{% for group in menu_groups %}                    <section data-menu-section="{{ group.key }}" data-navigation-mode="{{ group.mode }}"{% if page.nav_key == group.key %} class="is-current"{% endif %}>
                         <a class="site-map-root" href="{{ group.href }}"><span>{{ "%02d" | format(loop.index) }}</span><strong>{{ group.label }}</strong></a>
                         <ul>
-{% for item in group.items %}                            <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+{% for item in group.items %}                            <li><a href="{{ item.href }}" data-navigation-item="{{ 'overview' if loop.first else 'product' }}" data-link-mode="{{ 'section' if '#' in item.href else 'page' }}"{% if item.href == page.route or page.route in item.active_routes %} class="is-current" aria-current="page"{% endif %}>{{ item.label }}</a></li>
 {% endfor %}                        </ul>
                     </section>
 {% endfor %}                </nav>

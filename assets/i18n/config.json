@@ -2,8 +2,8 @@
   "defaultLanguage": "ko",
   "storageKey": "init-language",
   "catalogs": {
-    "ko": "ko.json",
-    "en": "en.json"
+    "ko": "ko.json?v=20260815.13",
+    "en": "en.json?v=20260815.13"
   },
   "languages": [
     {

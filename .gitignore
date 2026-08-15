@@ -29,3 +29,6 @@ coverage/
 htmlcov/
 screenshots/
 prompt/
+
+# Local product references may contain personal or operational data.
+assets/images/reference/in-surveyone/

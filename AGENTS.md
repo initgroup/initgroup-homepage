@@ -65,9 +65,12 @@
 ```powershell
 .\scripts\setup-venv.ps1
 .\scripts\validate.ps1
-.\scripts\serve.ps1
+.\scripts\serve.ps1 -Port 8200
 ```
 
+- 이 프로젝트의 로컬 홈페이지 포트는 항상 `8200`으로 유지합니다. Codex의 미리보기, 브라우저 확인, Playwright·시각 회귀 검증 URL도 `http://127.0.0.1:8200/`을 사용하고 8201·8203 같은 대체 포트를 임의로 만들지 않습니다.
+- 서버 재시작이 필요하면 실행 전에 사용자에게 먼저 확인하고, 현재 요청에서 명시적으로 승인받은 경우에만 `.\scripts\serve.ps1 -Port 8200 -Restart`를 실행합니다.
+- 8200을 다른 프로세스가 점유했거나 권한 문제로 재시작할 수 없으면 정확한 점유 프로세스를 확인하고 사용자에게 알립니다.
 - Python 명령은 시스템 `python`보다 `.\venv\Scripts\python.exe`를 우선 사용합니다.
 - `venv/`는 생성 결과물이므로 직접 수정하거나 커밋하지 않습니다.
 - `scripts\backup-source.ps1 -Mode Working`은 미커밋 파일까지 백업합니다.

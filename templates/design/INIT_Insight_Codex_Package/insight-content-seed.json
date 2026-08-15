@@ -1,0 +1,157 @@
+[
+  {
+    "id": "insight-001",
+    "slug": "what-is-data-editing",
+    "category": "data-statistics",
+    "categoryLabel": "Data & Statistics",
+    "title": "데이터 에디팅이란?",
+    "summary": "수집된 데이터의 오류와 불일치를 확인하고 품질을 높이는 데이터 에디팅의 개념과 업무 흐름을 설명합니다.",
+    "publishedAt": "2026-08-01",
+    "readingTime": 6,
+    "featured": false,
+    "tags": [
+      "Data Editing",
+      "Data Quality"
+    ]
+  },
+  {
+    "id": "insight-002",
+    "slug": "why-data-quality-management-matters",
+    "category": "data-statistics",
+    "categoryLabel": "Data & Statistics",
+    "title": "데이터 품질관리가 필요한 이유",
+    "summary": "데이터 활용의 출발점인 정확성, 일관성, 완전성과 품질관리 체계의 중요성을 살펴봅니다.",
+    "publishedAt": "2026-08-03",
+    "readingTime": 7,
+    "featured": false,
+    "tags": [
+      "Data Quality",
+      "Governance"
+    ]
+  },
+  {
+    "id": "insight-003",
+    "slug": "rule-based-vs-ai-data-validation",
+    "category": "research",
+    "categoryLabel": "Research & Lab",
+    "title": "규칙 기반 내검과 AI 기반 내검의 차이",
+    "summary": "전통적인 규칙 기반 검증과 데이터에서 패턴을 발견하는 AI 기반 내검 방식을 비교합니다.",
+    "publishedAt": "2026-08-05",
+    "readingTime": 9,
+    "featured": true,
+    "tags": [
+      "AI",
+      "Data Validation",
+      "Machine Learning"
+    ]
+  },
+  {
+    "id": "insight-004",
+    "slug": "graphrag-vs-rag",
+    "category": "technology",
+    "categoryLabel": "Technology Insight",
+    "title": "GraphRAG는 기존 RAG와 무엇이 다른가",
+    "summary": "문서 검색 중심 RAG와 지식 관계를 함께 활용하는 GraphRAG의 구조와 적용 차이를 살펴봅니다.",
+    "publishedAt": "2026-08-06",
+    "readingTime": 8,
+    "featured": false,
+    "tags": [
+      "RAG",
+      "GraphRAG",
+      "LLM"
+    ]
+  },
+  {
+    "id": "insight-005",
+    "slug": "generative-ai-public-data",
+    "category": "technology",
+    "categoryLabel": "Technology Insight",
+    "title": "생성형 AI와 공공데이터 활용",
+    "summary": "공공데이터를 생성형 AI와 연결할 때 필요한 검색, 근거제시, 보안, 운영 관점을 정리합니다.",
+    "publishedAt": "2026-08-08",
+    "readingTime": 7,
+    "featured": false,
+    "tags": [
+      "Generative AI",
+      "Public Data"
+    ]
+  },
+  {
+    "id": "insight-006",
+    "slug": "sampling-and-stratification-basics",
+    "category": "data-statistics",
+    "categoryLabel": "Data & Statistics",
+    "title": "표본설계와 층화추출의 기본 개념",
+    "summary": "대표성 있는 표본을 설계하기 위한 층화, 배분, 추출의 핵심 개념을 이해하기 쉽게 정리합니다.",
+    "publishedAt": "2026-08-09",
+    "readingTime": 10,
+    "featured": false,
+    "tags": [
+      "Sampling",
+      "Stratification",
+      "Statistics"
+    ]
+  },
+  {
+    "id": "insight-007",
+    "slug": "why-data-profiling",
+    "category": "data-statistics",
+    "categoryLabel": "Data & Statistics",
+    "title": "데이터 프로파일링이 필요한 이유",
+    "summary": "분석과 품질관리 전에 데이터 구조, 분포, 결측, 중복, 이상 패턴을 파악해야 하는 이유를 설명합니다.",
+    "publishedAt": "2026-08-10",
+    "readingTime": 6,
+    "featured": false,
+    "tags": [
+      "Profiling",
+      "Data Quality"
+    ]
+  },
+  {
+    "id": "insight-008",
+    "slug": "ai-anomaly-detection",
+    "category": "research",
+    "categoryLabel": "Research & Lab",
+    "title": "AI 기반 이상치 탐지",
+    "summary": "통계적 방법과 머신러닝을 활용해 정상 패턴에서 벗어난 데이터를 탐지하는 접근법을 소개합니다.",
+    "publishedAt": "2026-08-11",
+    "readingTime": 8,
+    "featured": false,
+    "tags": [
+      "Anomaly Detection",
+      "AI",
+      "ML"
+    ]
+  },
+  {
+    "id": "insight-009",
+    "slug": "oracle-database-analytics",
+    "category": "technology",
+    "categoryLabel": "Technology Insight",
+    "title": "Oracle Database 기반 데이터 분석",
+    "summary": "데이터 이동을 최소화하면서 Oracle 환경에서 분석과 머신러닝을 연결하는 구성 방식을 살펴봅니다.",
+    "publishedAt": "2026-08-12",
+    "readingTime": 9,
+    "featured": false,
+    "tags": [
+      "Oracle",
+      "Analytics",
+      "Database"
+    ]
+  },
+  {
+    "id": "insight-010",
+    "slug": "building-data-quality-platform",
+    "category": "case-study",
+    "categoryLabel": "Case Study",
+    "title": "데이터 품질 플랫폼 구축 방법",
+    "summary": "수집, 프로파일링, 규칙관리, 검증, 이력관리, 시각화를 하나의 운영 흐름으로 연결하는 구축 관점을 정리합니다.",
+    "publishedAt": "2026-08-13",
+    "readingTime": 11,
+    "featured": false,
+    "tags": [
+      "Data Quality Platform",
+      "Architecture"
+    ]
+  }
+]

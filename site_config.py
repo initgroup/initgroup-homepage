@@ -41,26 +41,28 @@ SITE = SiteInformation(
 SITE_URL = SITE.url
 
 ASSET_VERSIONS = {
-    "css/site.css": "20260814.10",
+    "css/site.css": "20260815.17",
     "css/page-hero.css": "20260814.2",
     "css/page-headings.css": "20260814.2",
-    "css/i18n.css": "20260814.1",
-    "css/corporate.css": "20260814.2",
-    "css/editorial.css": "20260814.2",
-    "css/legal.css": "20260814.1",
-    "css/solutions.css": "20260814.1",
+    "css/menu-hero.css": "20260815.5",
+    "css/i18n.css": "20260815.2",
+    "css/corporate.css": "20260815.5",
+    "css/editorial.css": "20260815.8",
+    "css/legal.css": "20260815.2",
+    "css/solutions.css": "20260815.10",
     "js/boot.js": "20260801.2",
     "js/i18n.js": "20260803.2",
-    "js/site.js": "20260814.9",
-    "i18n/config.json": "20260803.2",
-    "i18n/ko.json": "20260814.6",
-    "i18n/en.json": "20260814.6",
+    "js/site.js": "20260815.6",
+    "i18n/config.json": "20260815.13",
+    "i18n/ko.json": "20260815.13",
+    "i18n/en.json": "20260815.13",
 }
 
 @dataclass(frozen=True, slots=True)
 class NavigationItem:
     label: str
     href: str
+    active_routes: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -69,6 +71,7 @@ class NavigationGroup:
     label: str
     href: str
     items: tuple[NavigationItem, ...]
+    mode: str = "sections"
 
 
 MENU_GROUPS = (
@@ -88,7 +91,7 @@ MENU_GROUPS = (
         "서비스",
         "/services/",
         (
-            NavigationItem("서비스 전체", "/services/"),
+            NavigationItem("서비스 개요", "/services/"),
             NavigationItem("데이터 전략·통계 컨설팅", "/services/#consulting"),
             NavigationItem("데이터 엔지니어링·품질", "/services/#quality"),
             NavigationItem("AI·통계 분석", "/services/#analytics"),
@@ -100,10 +103,12 @@ MENU_GROUPS = (
         "솔루션",
         "/solutions/",
         (
-            NavigationItem("솔루션 전체", "/solutions/"),
+            NavigationItem("솔루션 개요", "/solutions/"),
             NavigationItem("인뎁스 IN-DEPS", "/solutions/data-editing-system/"),
             NavigationItem("인법스 IN-BAPS", "/solutions/inbups/"),
+            NavigationItem("인서베이원 inSurveyOne", "/solutions/in-surveyone/"),
         ),
+        "pages",
     ),
     NavigationGroup(
         "projects",
@@ -121,10 +126,11 @@ MENU_GROUPS = (
         "인사이트",
         "/insights/",
         (
-            NavigationItem("인사이트 전체", "/insights/"),
-            NavigationItem("데이터 품질 운영", "/insights/data-quality-rules/"),
-            NavigationItem("Human-in-the-loop", "/insights/human-in-the-loop/"),
-            NavigationItem("재현 가능한 분석", "/insights/reproducible-analysis/"),
+            NavigationItem("인사이트 개요", "/insights/"),
+            NavigationItem("기술·AI", "/insights/#technologyInsight"),
+            NavigationItem("데이터·통계", "/insights/#dataStatisticsInsight", ("/insights/data-quality-rules/",)),
+            NavigationItem("연구·검증", "/insights/#researchLabInsight", ("/insights/human-in-the-loop/",)),
+            NavigationItem("현장 적용", "/insights/#appliedInsight", ("/insights/reproducible-analysis/",)),
         ),
     ),
     NavigationGroup(
@@ -184,7 +190,7 @@ PAGES = (
         route="/",
         output_path="index.html",
         title="인아이티 | AI·통계·데이터 품질 전문기업",
-        description="인아이티는 데이터의 신뢰를 설계하고 AI의 판단을 운영으로 연결합니다. 국가통계·공공·금융·산업 데이터 컨설팅, 분석 시스템 구축과 데이터 품질 솔루션을 제공합니다.",
+        description="인아이티는 데이터의 신뢰를 설계하고 AI의 판단을 운영으로 연결합니다. 통계·데이터 컨설팅, 분석 시스템, 데이터 품질·빅데이터·설문 운영 솔루션을 제공합니다.",
         nav_key="home",
         og_title="인아이티 | 데이터의 맥락을 읽고, 판단이 작동하는 시스템",
         og_description="통계적 전문성으로 현장 문제를 정의하고, 데이터 품질·AI 분석·업무 시스템을 설계·구축·운영합니다.",
@@ -227,11 +233,11 @@ PAGES = (
         key="solutions",
         route="/solutions/",
         output_path="solutions/index.html",
-        title="데이터 품질·빅데이터 솔루션 | 인아이티",
-        description="설명 가능한 데이터 품질 플랫폼 인뎁스 IN-DEPS와 수집·분석·시각화를 연결하는 인법스 빅데이터 플랫폼을 소개합니다.",
+        title="데이터 품질·빅데이터·설문 운영 솔루션 | 인아이티",
+        description="데이터 품질 플랫폼 인뎁스 IN-DEPS, 수집·분석·시각화 플랫폼 인법스 IN-BAPS, 통합 설문 운영 플랫폼 인서베이원 inSurveyOne을 소개합니다.",
         nav_key="solutions",
-        og_title="데이터 품질·빅데이터 솔루션 | 인아이티",
-        og_description="데이터를 이해하고 근거를 만들며 운영까지 연결하는 인아이티의 솔루션입니다.",
+        og_title="데이터 품질·빅데이터·설문 운영 솔루션 | 인아이티",
+        og_description="데이터 품질, 데이터 활용과 설문 운영을 각각의 업무 흐름으로 연결하는 인아이티의 세 가지 솔루션입니다.",
         section_css="css/solutions.css",
         body_class="solutions-page solution-hub-page",
         mobile_actions=(
@@ -275,6 +281,25 @@ PAGES = (
         ),
     ),
     Page(
+        key="in-surveyone",
+        route="/solutions/in-surveyone/",
+        output_path="solutions/in-surveyone/index.html",
+        title="인서베이원 inSurveyOne | 통합 설문 운영 플랫폼",
+        description="문항 설계와 템플릿, 대상자와 배포 준비, 응답 데이터와 결과 보고서를 하나의 작업공간에서 연결하는 인서베이원 inSurveyOne을 소개합니다.",
+        nav_key="solutions",
+        og_title="인서베이원 inSurveyOne | 인아이티",
+        og_description="설문 설계부터 배포, 응답 데이터와 보고서까지 하나의 운영 흐름으로 연결합니다.",
+        og_type="product",
+        og_image=f"{SITE_URL}/assets/images/product/in-surveyone/dashboard-public-demo_kor.png",
+        og_image_alt="개인정보를 제거한 인서베이원 설문 운영 대시보드 데모 화면",
+        section_css="css/solutions.css",
+        body_class="solutions-page surveyone-page",
+        mobile_actions=(
+            MobileAction("#surveyOperations", "운영 흐름"),
+            MobileAction("/contact/", "도입 문의", arrow=True),
+        ),
+    ),
+    Page(
         key="projects",
         route="/projects/",
         output_path="projects/index.html",
@@ -294,11 +319,11 @@ PAGES = (
         key="insights",
         route="/insights/",
         output_path="insights/index.html",
-        title="AI·통계·데이터 품질 인사이트 | 인아이티",
-        description="데이터 품질 규칙, Human-in-the-loop, 재현 가능한 분석처럼 AI와 통계를 실제 운영에 적용할 때 필요한 인아이티의 실무 관점을 읽어보세요.",
+        title="AI·데이터·통계 기술 인사이트 | 인아이티",
+        description="기술·AI, 데이터·통계, 연구·검증과 현장 적용을 아우르는 인아이티의 기술 저널과 실무 가이드를 읽어보세요.",
         nav_key="insights",
-        og_title="AI·통계·데이터 품질 인사이트 | 인아이티",
-        og_description="유행하는 기술보다 신뢰 가능한 데이터와 설명 가능한 운영 방법을 이야기합니다.",
+        og_title="AI·데이터·통계 기술 인사이트 | 인아이티",
+        og_description="프로젝트와 연구 과정에서 축적한 데이터·통계·AI 기술과 운영 경험을 실무의 언어로 공유합니다.",
         section_css="css/editorial.css",
         main_class="editorial-main",
         mobile_actions=(
@@ -317,6 +342,7 @@ PAGES = (
         og_description="규칙의 근거, 담당자의 판단과 변경 이력이 다음 실행에도 이어져야 하는 이유.",
         og_type="article",
         section_css="css/editorial.css",
+        body_class="insight-article-page",
         main_class="editorial-main",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),
@@ -334,6 +360,7 @@ PAGES = (
         og_description="AI는 후보와 근거를 제시하고, 최종 책임은 업무 담당자의 검토 절차에 연결합니다.",
         og_type="article",
         section_css="css/editorial.css",
+        body_class="insight-article-page",
         main_class="editorial-main",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),
@@ -344,13 +371,14 @@ PAGES = (
         key="reproducible-analysis",
         route="/insights/reproducible-analysis/",
         output_path="insights/reproducible-analysis/index.html",
-        title="재현 가능한 분석은 Run 단위 이력에서 시작됩니다 | 인아이티",
-        description="입력 데이터, 실행 조건, 코드·규칙·모델 버전과 결과를 Run 단위로 연결해 분석을 재현 가능한 운영 자산으로 만드는 방법을 소개합니다.",
+        title="재현 가능한 분석을 만드는 실행 이력 | 인아이티",
+        description="입력 데이터, 실행 조건, 코드·규칙·모델 버전과 결과를 하나의 실행 이력으로 연결해 다시 실행하고 비교할 수 있는 운영 방법을 소개합니다.",
         nav_key="insights",
-        og_title="재현 가능한 분석은 Run 단위 이력에서 시작됩니다",
+        og_title="재현 가능한 분석을 만드는 실행 이력",
         og_description="데이터 계약부터 실행 조건과 결과까지 끊기지 않게 연결하는 방법.",
         og_type="article",
         section_css="css/editorial.css",
+        body_class="insight-article-page",
         main_class="editorial-main",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),

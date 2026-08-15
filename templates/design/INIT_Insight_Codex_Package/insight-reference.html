@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>INIT Insight Reference</title>
+<style>
+:root{
+  --navy:#07172e; --text:#0a1730; --muted:#5c6d87;
+  --line:#dbe4f0; --bg:#f6f9fc; --cyan:#28d6c4; --blue:#1d5de8;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;color:var(--text);background:var(--bg)}
+.wrap{max-width:1240px;margin:auto;padding:0 32px}
+.hero{min-height:520px;display:flex;align-items:center;position:relative;overflow:hidden;background:
+radial-gradient(circle at 82% 30%,rgba(40,214,196,.11),transparent 22%),
+linear-gradient(110deg,#f8fbfe 0%,#f8fbfe 58%,#eef6fb 100%)}
+.hero:after{content:"";position:absolute;right:-5%;top:7%;width:42%;height:88%;background:
+radial-gradient(circle at 65% 35%,rgba(29,93,232,.15),transparent 18%),
+repeating-linear-gradient(0deg,rgba(29,93,232,.05) 0 1px,transparent 1px 36px),
+repeating-linear-gradient(90deg,rgba(29,93,232,.05) 0 1px,transparent 1px 36px);
+opacity:.7}
+.eyebrow{font-weight:800;color:#1851c8;letter-spacing:.05em}
+h1{font-size:64px;line-height:1.03;margin:24px 0;letter-spacing:-.05em}
+.hero p{max-width:570px;color:var(--muted);font-size:18px;line-height:1.75}
+.taxonomy{margin-top:28px;font-size:14px;font-weight:700;color:#24577d}
+.featured{padding:96px 0}
+.featured-card{display:grid;grid-template-columns:1.08fr .92fr;min-height:420px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.featured-copy{padding:56px 54px 56px 0}
+.kicker{font-size:13px;font-weight:800;letter-spacing:.1em;color:#0e8e87}
+h2{font-size:43px;line-height:1.14;letter-spacing:-.04em;margin:18px 0}
+.copy{font-size:17px;line-height:1.8;color:var(--muted)}
+.link{display:inline-block;margin-top:24px;font-weight:800}
+.visual{margin:32px 0;background:
+radial-gradient(circle at 65% 45%,rgba(40,214,196,.5),transparent 13%),
+radial-gradient(circle at 42% 56%,rgba(29,93,232,.32),transparent 18%),
+linear-gradient(135deg,#07172e,#0e2c55);position:relative;overflow:hidden}
+.visual:after{content:"";position:absolute;inset:0;background:
+repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 34px),
+repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 34px)}
+.filters{display:flex;gap:28px;border-bottom:1px solid var(--line);padding-bottom:16px;font-weight:700;font-size:14px}
+.filters .active{color:#0a8f87}
+.grid{padding:48px 0 100px;display:grid;grid-template-columns:repeat(3,1fr);gap:42px 28px}
+.article .thumb{height:210px;background:linear-gradient(135deg,#eaf2fb,#dff7f4);border:1px solid #e2eaf3}
+.article .cat{margin-top:20px;font-size:12px;font-weight:800;color:#0b948a;letter-spacing:.08em}
+.article h3{font-size:25px;line-height:1.25;margin:10px 0 8px;letter-spacing:-.035em}
+.article p{font-size:14px;line-height:1.65;color:var(--muted)}
+.meta{margin-top:16px;font-size:12px;color:#8390a3}
+.cta{background:#07172e;color:white;padding:88px 0}
+.cta .row{display:flex;justify-content:space-between;align-items:end;gap:40px}
+.cta h2{margin:10px 0 0;max-width:650px}
+.cta p{color:#aebbd0;max-width:420px;line-height:1.7}
+.btn{background:white;color:#07172e;padding:14px 20px;border-radius:4px;font-weight:800;text-decoration:none;white-space:nowrap}
+@media(max-width:800px){
+  .wrap{padding:0 20px}.hero{min-height:440px}h1{font-size:43px}
+  .featured-card{grid-template-columns:1fr}.featured-copy{padding-right:0}.visual{height:260px}
+  .filters{overflow:auto;white-space:nowrap}.grid{grid-template-columns:1fr}
+  .cta .row{display:block}.btn{display:inline-block;margin-top:24px}
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">05 &nbsp; ── &nbsp; INSIGHT</div>
+    <h1>데이터와 기술을<br>더 깊이 이해합니다.</h1>
+    <p>INIT가 프로젝트와 연구 과정에서 축적한 데이터·통계·AI 기술과 경험을 공유합니다.</p>
+    <div class="taxonomy">Technology · Data & Statistics · Research · Case Study</div>
+  </div>
+</section>
+
+<main class="wrap">
+<section class="featured">
+  <div class="featured-card">
+    <div class="featured-copy">
+      <div class="kicker">FEATURED INSIGHT · AI · DATA QUALITY</div>
+      <h2>규칙 기반 데이터 내검에서<br>AI 기반 데이터 품질 관리로</h2>
+      <div class="copy">기존 업무 규칙과 실제 데이터에서 패턴을 발견하고 설명 가능한 품질 규칙으로 전환하는 방법을 살펴봅니다.</div>
+      <span class="link">Read Insight →</span>
+    </div>
+    <div class="visual"></div>
+  </div>
+</section>
+
+<nav class="filters">
+  <span class="active">All</span><span>Technology</span><span>Data & Statistics</span><span>Research & Lab</span><span>Case Study</span>
+</nav>
+
+<section class="grid">
+  <article class="article"><div class="thumb"></div><div class="cat">TECHNOLOGY</div><h3>GraphRAG는 기존 RAG와 무엇이 다른가</h3><p>문서 검색 중심 RAG와 지식 관계를 함께 활용하는 GraphRAG의 구조를 비교합니다.</p><div class="meta">2026.08.06 · 8 min</div></article>
+  <article class="article"><div class="thumb"></div><div class="cat">DATA & STATISTICS</div><h3>데이터 품질관리가 필요한 이유</h3><p>정확성, 일관성, 완전성을 중심으로 데이터 품질관리 체계의 필요성을 살펴봅니다.</p><div class="meta">2026.08.03 · 7 min</div></article>
+  <article class="article"><div class="thumb"></div><div class="cat">RESEARCH & LAB</div><h3>AI 기반 이상치 탐지</h3><p>통계와 머신러닝을 활용해 정상 패턴에서 벗어난 데이터를 탐지하는 접근법입니다.</p><div class="meta">2026.08.11 · 8 min</div></article>
+</section>
+</main>
+
+<section class="cta">
+  <div class="wrap row">
+    <div><div class="kicker">FROM INSIGHT TO SOLUTION</div><h2>데이터에 대한 이해를<br>실제 업무 시스템으로 연결하세요.</h2></div>
+    <div><p>현재 데이터와 업무 환경에 맞는 분석·품질관리·AI 적용 방법을 함께 검토합니다.</p><a class="btn" href="#">솔루션 문의하기 →</a></div>
+  </div>
+</section>
+</body>
+</html>

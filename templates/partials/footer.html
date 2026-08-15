@@ -3,9 +3,20 @@
 {% else %}        <div class="shell footer-main">
             <div class="footer-brand"><a href="/"><img src="/assets/images/brand/init-logo.png" alt="iNIT"></a><p>2013년 설립된 통계·데이터 분석 및<br>업무 시스템 전문기업입니다.</p></div>
             <div class="footer-links">
-                <div><strong>회사</strong><a href="/company/">회사소개</a><a href="/assets/downloads/init-company-introduction.pdf" download="INIT_회사소개서.pdf">회사소개서 다운로드</a><a href="/projects/">프로젝트</a><a href="/careers/">채용</a><a href="/privacy/">개인정보 안내</a></div>
-                <div><strong>서비스</strong><a href="/services/">서비스</a><a href="/solutions/">솔루션</a><a href="/insights/">인사이트</a></div>
-                <div><strong>연락처</strong><a href="mailto:{{ site.email }}">{{ site.email }}</a><a href="tel:{{ site.phone_href }}">{{ site.phone_display }}</a><span>{{ site.street_address_line_1 }}<br>{{ site.street_address_line_2 }}</span></div>
+                <div>
+                    <strong>회사</strong>
+                    <div class="footer-company-item">
+                        <a href="/company/">회사소개</a>
+                        <a class="footer-company-download" href="/assets/downloads/init-company-introduction.pdf" download="INIT_회사소개서.pdf" aria-label="회사소개서 다운로드" title="회사소개서 다운로드">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10m0 0 4-4m-4 4-4-4M5 16v3h14v-3"></path></svg>
+                        </a>
+                    </div>
+                    <a href="/projects/">프로젝트</a>
+                    <a href="/careers/">채용</a>
+                    <a href="/privacy/">개인정보 안내</a>
+                </div>
+                <div><strong>사업 영역</strong><a href="/services/">서비스 개요</a><a href="/solutions/">솔루션</a><a href="/insights/">인사이트</a></div>
+                <div class="footer-contact"><strong>연락처</strong><a href="mailto:{{ site.email }}">{{ site.email }}</a><a href="tel:{{ site.phone_href }}">{{ site.phone_display }}</a><address class="footer-address"><span>{{ site.street_address_line_1 }}</span><span>{{ site.street_address_line_2 }}</span></address></div>
             </div>
         </div>
         <div class="shell footer-bottom"><span>© <b data-current-year>2026</b> INIT. All rights reserved.</span><span>통계 · 데이터 품질 · AI 분석 · 업무 시스템</span></div>

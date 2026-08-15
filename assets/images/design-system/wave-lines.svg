@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480" fill="none">
+  <defs>
+    <linearGradient id="line" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D67F6" stop-opacity="0"/>
+      <stop offset=".25" stop-color="#2D67F6" stop-opacity=".55"/>
+      <stop offset=".6" stop-color="#18C9FF" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#23D4C6" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur stdDeviation="2.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g stroke="url(#line)" stroke-width="1.1" opacity=".65">
+    <path d="M0 278C140 124 242 389 391 230C530 82 631 346 772 224C856 151 922 149 1000 193"/>
+    <path d="M0 295C145 143 245 409 400 246C539 100 641 363 781 241C867 168 930 169 1000 211" opacity=".82"/>
+    <path d="M0 312C151 161 251 428 410 264C550 119 650 382 790 259C876 187 938 187 1000 229" opacity=".66"/>
+    <path d="M0 329C156 180 256 446 419 282C560 138 660 398 799 278C886 206 946 205 1000 247" opacity=".52"/>
+    <path d="M0 346C162 199 261 464 429 300C571 156 670 416 809 296C896 224 954 224 1000 265" opacity=".4"/>
+  </g>
+  <g fill="#18C9FF" filter="url(#glow)">
+    <circle cx="391" cy="230" r="2.4"/><circle cx="631" cy="346" r="2.2"/><circle cx="772" cy="224" r="2.3"/>
+  </g>
+</svg>

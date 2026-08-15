@@ -6,7 +6,7 @@
 
 - 공통 Jinja 템플릿을 FastAPI가 렌더링하는 MPA 구조
 - 외부 UI 프레임워크나 Node.js 없이 Python만 사용하는 템플릿 빌드
-- 실제 인뎁스 IN-DEPS 화면 중심의 제품 증명
+- 인뎁스 IN-DEPS·인법스 IN-BAPS·인서베이원 inSurveyOne의 제품별 가치와 실제 화면 중심의 제품 증명
 - 360px부터 설계한 모바일 적응형 내비게이션·갤러리·프로젝트 카드
 - JavaScript 없이도 본문과 링크를 사용할 수 있는 progressive enhancement
 - `prefers-reduced-motion`, 키보드 메뉴, dialog와 skip link 지원
@@ -42,6 +42,7 @@ scripts/i18n_catalog.py        템플릿 문구와 언어 사전 동기화·검�
 /solutions/
 /solutions/data-editing-system/
 /solutions/inbups/
+/solutions/in-surveyone/
 /projects/
 /insights/
 /insights/data-quality-rules/
@@ -83,10 +84,16 @@ PowerShell에서 다음 명령을 실행합니다.
 
 ```powershell
 .\scripts\setup-venv.ps1
-.\scripts\serve.ps1
+.\scripts\serve.ps1 -Port 8200
 ```
 
-기본 주소는 `http://127.0.0.1:8200/`입니다. 검증은 다음 명령으로 실행합니다.
+로컬 실행 주소는 항상 `http://127.0.0.1:8200/`으로 유지합니다. 개발 중 미리보기와 Playwright 검증도 다른 임시 포트를 만들지 않고 8200을 사용하며, 이전 소스의 서버가 남아 있으면 다음 명령으로 같은 포트의 홈페이지 서버를 재시작합니다.
+
+```powershell
+.\scripts\serve.ps1 -Port 8200 -Restart
+```
+
+서로 다른 포트에 이전 서버와 최신 서버가 동시에 실행되면 브라우저가 오래된 화면을 계속 표시한 것처럼 보일 수 있으므로, 이 프로젝트의 로컬 URL·문서·검증 명령은 모두 8200을 기준으로 합니다. 검증은 다음 명령으로 실행합니다.
 
 이 홈페이지는 `uvicorn main:app`으로 실행합니다. 새 명령창을 열어 서버를 계속 표시하려면 `scripts\start-homepage.cmd`를 실행합니다. 일반 실행은 8200번에서 이미 홈페이지가 실행 중이면 중복 서버를 만들지 않고 현재 주소를 안내합니다. VS Code의 `Ctrl+Shift+B` 작업은 이 프로젝트의 `venv\Scripts\python.exe`로 Uvicorn을 직접 실행하므로, 작업 터미널이 서버 프로세스와 함께 계속 유지됩니다.
 
@@ -174,3 +181,5 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 - `/privacy/` 검토본의 개인정보 보호책임자, 문의 정보·접속 로그 보유 기간, 호스팅 처리위탁·국외 이전 여부와 법률 검토
 
 제품 이미지는 직원명·권한·DB·스키마 같은 운영 식별자가 없는 공개 후보 화면만 `assets/images/product/`에 포함합니다. 남아 있는 규칙 ID·컬럼명·예시 지표 역시 데이터 소유자의 공개 승인을 받은 뒤 배포하며, 원본 운영 캡처를 추가할 때도 같은 기준으로 먼저 검수해야 합니다.
+
+인서베이원 원본 검토 자료는 `assets/images/reference/in-surveyone/`에만 두고 `.gitignore`로 Git 기반 배포 소스에서 제외합니다. 개발 서버는 `assets/` 전체를 정적으로 제공하므로 개인정보나 운영 정보가 남은 원본이 있는 상태에서 로컬 서버를 외부에 공개하지 않습니다. 홈페이지에는 비식별 처리와 공개 승인을 마친 결과물만 `assets/images/product/in-surveyone/`에 복사해 사용합니다.
