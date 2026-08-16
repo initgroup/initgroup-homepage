@@ -2,6 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from insight_reports import (
+    INSIGHT_CATEGORIES,
+    INSIGHT_CATEGORIES_BY_KEY,
+    INSIGHT_REPORTS,
+    INSIGHT_REPORTS_BY_ID,
+    reports_for_category,
+)
+
 
 @dataclass(frozen=True, slots=True)
 class SiteInformation:
@@ -47,15 +55,15 @@ ASSET_VERSIONS = {
     "css/menu-hero.css": "20260815.5",
     "css/i18n.css": "20260815.2",
     "css/corporate.css": "20260815.5",
-    "css/editorial.css": "20260815.8",
+    "css/editorial.css": "20260816.4",
     "css/legal.css": "20260815.2",
     "css/solutions.css": "20260815.10",
     "js/boot.js": "20260801.2",
     "js/i18n.js": "20260803.2",
     "js/site.js": "20260815.6",
     "i18n/config.json": "20260815.13",
-    "i18n/ko.json": "20260815.13",
-    "i18n/en.json": "20260815.13",
+    "i18n/ko.json": "20260816.1",
+    "i18n/en.json": "20260816.1",
 }
 
 @dataclass(frozen=True, slots=True)
@@ -127,10 +135,30 @@ MENU_GROUPS = (
         "/insights/",
         (
             NavigationItem("인사이트 개요", "/insights/"),
-            NavigationItem("기술·AI", "/insights/#technologyInsight"),
-            NavigationItem("데이터·통계", "/insights/#dataStatisticsInsight", ("/insights/data-quality-rules/",)),
-            NavigationItem("연구·검증", "/insights/#researchLabInsight", ("/insights/human-in-the-loop/",)),
-            NavigationItem("현장 적용", "/insights/#appliedInsight", ("/insights/reproducible-analysis/",)),
+            NavigationItem(
+                "기술·AI",
+                "/insights/#technologyInsight",
+                tuple(report.public_route for report in INSIGHT_REPORTS if report.category_key == "technology")
+                + ("/insights/technology-ai/",),
+            ),
+            NavigationItem(
+                "데이터·통계",
+                "/insights/#dataStatisticsInsight",
+                tuple(report.public_route for report in INSIGHT_REPORTS if report.category_key == "data-statistics")
+                + ("/insights/data-statistics/",),
+            ),
+            NavigationItem(
+                "연구·검증",
+                "/insights/#researchLabInsight",
+                tuple(report.public_route for report in INSIGHT_REPORTS if report.category_key == "research-lab")
+                + ("/insights/research-lab/",),
+            ),
+            NavigationItem(
+                "현장 적용",
+                "/insights/#appliedInsight",
+                tuple(report.public_route for report in INSIGHT_REPORTS if report.category_key == "applied")
+                + ("/insights/applied/",),
+            ),
         ),
     ),
     NavigationGroup(
@@ -174,6 +202,9 @@ class Page:
     robots: str | None = None
     mobile_actions: tuple[MobileAction, ...] = ()
     compact_chrome: bool = False
+    template_name: str | None = None
+    insight_category_key: str | None = None
+    insight_report_id: str | None = None
 
     @property
     def canonical(self) -> str:
@@ -181,7 +212,7 @@ class Page:
 
     @property
     def template(self) -> str:
-        return self.output_path
+        return self.template_name or self.output_path
 
 
 PAGES = (
@@ -333,8 +364,8 @@ PAGES = (
     ),
     Page(
         key="data-quality-rules",
-        route="/insights/data-quality-rules/",
-        output_path="insights/data-quality-rules/index.html",
+        route="/insights/reports/20260801_01/",
+        output_path="insights/reports/20260801_01/index.html",
         title="데이터 품질은 전처리가 아니라 운영 체계입니다 | 인아이티",
         description="데이터 품질 규칙을 일회성 정제가 아닌 제안·검토·실행·개선의 운영 수명주기로 설계하는 방법과 실무 점검표를 소개합니다.",
         nav_key="insights",
@@ -344,6 +375,8 @@ PAGES = (
         section_css="css/editorial.css",
         body_class="insight-article-page",
         main_class="editorial-main",
+        template_name=INSIGHT_REPORTS_BY_ID["20260801_01"].page_template,
+        insight_report_id="20260801_01",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),
             MobileAction("/contact/", "문의하기", arrow=True),
@@ -351,8 +384,8 @@ PAGES = (
     ),
     Page(
         key="human-in-the-loop",
-        route="/insights/human-in-the-loop/",
-        output_path="insights/human-in-the-loop/index.html",
+        route="/insights/reports/20260801_02/",
+        output_path="insights/reports/20260801_02/index.html",
         title="자동화의 마지막 판단을 전문가에게 남기는 설계 | 인아이티",
         description="AI의 후보 제안과 업무 담당자의 최종 책임을 분리하고, 근거·검토·결정·이력을 연결하는 Human-in-the-loop 업무 설계 방법을 소개합니다.",
         nav_key="insights",
@@ -362,6 +395,8 @@ PAGES = (
         section_css="css/editorial.css",
         body_class="insight-article-page",
         main_class="editorial-main",
+        template_name=INSIGHT_REPORTS_BY_ID["20260801_02"].page_template,
+        insight_report_id="20260801_02",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),
             MobileAction("/contact/", "문의하기", arrow=True),
@@ -369,8 +404,8 @@ PAGES = (
     ),
     Page(
         key="reproducible-analysis",
-        route="/insights/reproducible-analysis/",
-        output_path="insights/reproducible-analysis/index.html",
+        route="/insights/reports/20260801_03/",
+        output_path="insights/reports/20260801_03/index.html",
         title="재현 가능한 분석을 만드는 실행 이력 | 인아이티",
         description="입력 데이터, 실행 조건, 코드·규칙·모델 버전과 결과를 하나의 실행 이력으로 연결해 다시 실행하고 비교할 수 있는 운영 방법을 소개합니다.",
         nav_key="insights",
@@ -380,6 +415,8 @@ PAGES = (
         section_css="css/editorial.css",
         body_class="insight-article-page",
         main_class="editorial-main",
+        template_name=INSIGHT_REPORTS_BY_ID["20260801_03"].page_template,
+        insight_report_id="20260801_03",
         mobile_actions=(
             MobileAction("/insights/", "글 목록"),
             MobileAction("/contact/", "문의하기", arrow=True),
@@ -457,6 +494,56 @@ PAGES = (
     ),
 )
 
+INSIGHT_CATEGORY_PAGES = tuple(
+    Page(
+        key=f"insight-category-{category.key}",
+        route=category.archive_route,
+        output_path=category.archive_route.strip("/") + "/index.html",
+        title=f"{category.label} 리포트 아카이브 | 인아이티",
+        description=category.description,
+        nav_key="insights",
+        og_title=f"{category.label} 리포트 아카이브 | 인아이티",
+        og_description=category.description,
+        section_css="css/editorial.css",
+        body_class="insight-article-page",
+        main_class="editorial-main",
+        template_name="pages/insight-category.html",
+        insight_category_key=category.key,
+        mobile_actions=(
+            MobileAction("/insights/", "인사이트 개요"),
+            MobileAction("/contact/", "문의하기", arrow=True),
+        ),
+    )
+    for category in INSIGHT_CATEGORIES
+)
+
+INSIGHT_REPORT_PAGES = tuple(
+    Page(
+        key=report.page_key,
+        route=report.public_route,
+        output_path=report.output_path,
+        title=f"{report.title} | 인아이티",
+        description=report.description,
+        nav_key="insights",
+        og_title=report.title,
+        og_description=report.description,
+        og_type="article",
+        section_css="css/editorial.css",
+        body_class="insight-article-page",
+        main_class="editorial-main",
+        template_name=report.page_template or "pages/insight-report.html",
+        insight_report_id=report.report_id,
+        mobile_actions=(
+            MobileAction("/insights/", "글 목록"),
+            MobileAction("/contact/", "문의하기", arrow=True),
+        ),
+    )
+    for report in INSIGHT_REPORTS
+    if report.content_template
+)
+
+PAGES = PAGES + INSIGHT_CATEGORY_PAGES + INSIGHT_REPORT_PAGES
+
 PAGES_BY_KEY = {page.key: page for page in PAGES}
 PAGES_BY_OUTPUT = {page.output_path: page for page in PAGES}
 
@@ -476,6 +563,26 @@ def page_for_request(requested_path: str) -> Page | None:
     else:
         output_path = f"{output_path}/index.html"
     return PAGES_BY_OUTPUT.get(output_path)
+
+
+def page_template_context(page: Page) -> dict[str, object]:
+    context: dict[str, object] = {"page": page}
+    if page.insight_category_key:
+        category = INSIGHT_CATEGORIES_BY_KEY[page.insight_category_key]
+        context.update(category=category, reports=reports_for_category(category.key))
+    if page.insight_report_id:
+        report = INSIGHT_REPORTS_BY_ID[page.insight_report_id]
+        category = INSIGHT_CATEGORIES_BY_KEY[report.category_key]
+        context.update(
+            report=report,
+            category=category,
+            related_reports=tuple(
+                INSIGHT_REPORTS_BY_ID[report_id]
+                for report_id in report.related_ids
+                if report_id in INSIGHT_REPORTS_BY_ID
+            ),
+        )
+    return context
 
 
 def asset_url(path: str) -> str:

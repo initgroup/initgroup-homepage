@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {% include "partials/organization-jsonld.html" %},
+            {
+                "@type": "BreadcrumbList",
+                "@id": "{{ page.canonical }}#breadcrumb",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "홈", "item": "{{ site.url }}/" },
+                    { "@type": "ListItem", "position": 2, "name": "인사이트", "item": "{{ site.url }}/insights/" },
+                    { "@type": "ListItem", "position": 3, "name": "{{ category.label }}", "item": "{{ site.url }}{{ category.archive_route }}" },
+                    { "@type": "ListItem", "position": 4, "name": {{ report.title | tojson }}, "item": "{{ page.canonical }}" }
+                ]
+            },
+            {
+                "@type": "Article",
+                "@id": "{{ page.canonical }}#article",
+                "mainEntityOfPage": "{{ page.canonical }}",
+                "headline": {{ report.title | tojson }},
+                "description": {{ report.description | tojson }},
+                "datePublished": "{{ report.published_at }}",
+                "dateModified": "{{ report.published_at }}",
+                "inLanguage": "ko-KR",
+                "author": { "@id": "{{ site.url }}/#organization" },
+                "publisher": { "@id": "{{ site.url }}/#organization" },
+                "articleSection": {{ category.label | tojson }},
+                "breadcrumb": { "@id": "{{ page.canonical }}#breadcrumb" }
+            }
+        ]
+    }
+</script>
+{% endblock %}
+
+{% block main %}
+<article>
+    <header class="editorial-hero article-hero insight-report-hero">
+        <div class="shell">
+            <div class="editorial-hero-grid article-hero-grid">
+                <div class="editorial-hero-copy article-hero-copy">
+                    <p class="eyebrow"><i></i> {{ category.label_en }}</p>
+                    <p class="insight-report-code">REPORT / {{ report.report_id }}</p>
+                    <h1>{{ report.title }}</h1>
+                    <p class="article-deck">{{ report.description }}</p>
+                    <ul class="article-byline" aria-label="문서 정보">
+                        <li>인아이티 인사이트</li>
+                        <li><time datetime="{{ report.published_at }}">{{ report.published_display }}</time></li>
+                        <li>{{ category.label }}</li>
+                        <li>{{ report.reading_time }}</li>
+                    </ul>
+                </div>
+                <aside class="editorial-hero-aside article-hero-aside" aria-label="글의 핵심 주장">
+                    <span>ONE SENTENCE</span>
+                    <p>{{ report.one_sentence }}</p>
+                </aside>
+            </div>
+        </div>
+    </header>
+
+    <section class="article-summary-band" aria-labelledby="summaryTitle">
+        <div class="shell article-summary">
+            <header><span id="summaryTitle">먼저 읽기</span></header>
+{% for point in report.summary_points %}            <div><strong>{{ "%02d" | format(loop.index) }}</strong><p>{{ point }}</p></div>
+{% endfor %}        </div>
+    </section>
+
+    <section class="article-section">
+        <div class="article-shell article-layout">
+            <nav class="article-toc" aria-label="이 글의 목차">
+                <strong>CONTENTS</strong>
+                <ol>
+{% for anchor, label in report.toc %}                    <li><a href="#{{ anchor }}">{{ label }}</a></li>
+{% endfor %}                </ol>
+            </nav>
+            <div class="article-body">
+{% include report.content_template %}
+                <aside class="article-conclusion" aria-labelledby="conclusionTitle">
+                    <p class="eyebrow eyebrow-light"><i></i> FINAL THOUGHT</p>
+                    <h2 id="conclusionTitle">{{ report.conclusion_title }}</h2>
+                    <p>{{ report.conclusion }}</p>
+                    <a class="button button-light" href="/contact/">인사이트 과제 상담하기 <span aria-hidden="true">↗</span></a>
+                </aside>
+            </div>
+        </div>
+    </section>
+</article>
+
+<section class="related-section" aria-labelledby="relatedTitle">
+    <div class="article-shell">
+        <div class="related-heading">
+            <h2 id="relatedTitle">함께 읽으면 좋은 리포트</h2>
+            <a href="{{ category.archive_route }}">{{ category.label }} 아카이브 보기 →</a>
+        </div>
+        <div class="related-grid">
+{% for related in related_reports %}            <a class="related-card" href="{{ related.public_route }}">
+                <span>{{ related.kicker }} · REPORT / {{ related.report_id }}</span>
+                <h3>{{ related.title }}</h3>
+            </a>
+{% endfor %}        </div>
+    </div>
+</section>
+{% endblock %}

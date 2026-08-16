@@ -13,7 +13,9 @@ from site_config import (
     SITE,
     asset_url,
     page_for_request,
+    page_template_context,
 )
+from insight_reports import INSIGHT_LEGACY_REDIRECTS
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -77,7 +79,7 @@ def render_page(request: Request, requested_path: str, *, status_code: int = 200
     return templates.TemplateResponse(
         request=request,
         name=page.template,
-        context={"page": page},
+        context=page_template_context(page),
         status_code=status_code,
     )
 
@@ -105,6 +107,14 @@ def resolve_public_page(requested_path: str) -> Path | None:
 async def public_pages(requested_path: str, request: Request) -> Response:
     if requested_path.startswith("api/"):
         return JSONResponse({"detail": "Not Found"}, status_code=404)
+
+    legacy_path = requested_path.strip("/")
+    if legacy_path.endswith("/index.html"):
+        legacy_path = legacy_path[: -len("/index.html")]
+    legacy_redirect = INSIGHT_LEGACY_REDIRECTS.get(f"/{legacy_path}/")
+    if legacy_redirect:
+        query = f"?{request.url.query}" if request.url.query else ""
+        return RedirectResponse(f"{legacy_redirect}{query}", status_code=308)
 
     page = resolve_public_page(requested_path)
     if page is None:

@@ -16,7 +16,7 @@ DEFAULT_OUTPUT_DIR = ROOT_DIR / ".render-static"
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from site_config import MENU_GROUPS, PAGES, SITE, asset_url  # noqa: E402
+from site_config import MENU_GROUPS, PAGES, SITE, asset_url, page_template_context  # noqa: E402
 
 
 def create_environment() -> Environment:
@@ -44,7 +44,7 @@ def render_pages() -> dict[str, str]:
             raise RuntimeError(f"invalid public output: {page.output_path}")
         if page.output_path in rendered:
             raise RuntimeError(f"duplicate public output: {page.output_path}")
-        rendered[page.output_path] = template.render(page=page)
+        rendered[page.output_path] = template.render(**page_template_context(page))
     return rendered
 
 
