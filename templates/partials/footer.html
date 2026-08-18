@@ -1,5 +1,5 @@
     <footer class="site-footer">
-{% if page.compact_chrome %}        <div class="shell footer-bottom"><span>© <b data-current-year>2026</b> INIT. All rights reserved.</span><a href="/privacy/">개인정보 안내</a></div>
+{% if page.compact_chrome %}        <div class="shell footer-bottom"><span>© <b data-current-year>2026</b> INIT. All rights reserved.</span><div class="footer-bottom-links"><a href="/privacy/">개인정보 안내</a><a class="footer-members-link" href="https://initgroup-members.onrender.com/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>직원전용</span></a></div></div>
 {% else %}        <div class="shell footer-main">
             <div class="footer-brand"><a href="/"><img src="/assets/images/brand/init-logo.png" alt="iNIT"></a><p>2013년 설립된 통계·데이터 분석 및<br>업무 시스템 전문기업입니다.</p></div>
             <div class="footer-links">
@@ -19,5 +19,5 @@
                 <div class="footer-contact"><strong>연락처</strong><a href="mailto:{{ site.email }}">{{ site.email }}</a><a href="tel:{{ site.phone_href }}">{{ site.phone_display }}</a><address class="footer-address"><span>{{ site.street_address_line_1 }}</span><span>{{ site.street_address_line_2 }}</span></address></div>
             </div>
         </div>
-        <div class="shell footer-bottom"><span>© <b data-current-year>2026</b> INIT. All rights reserved.</span><span>통계 · 데이터 품질 · AI 분석 · 업무 시스템</span></div>
+        <div class="shell footer-bottom"><span>© <b data-current-year>2026</b> INIT. All rights reserved.</span><div class="footer-bottom-links"><span>통계 · 데이터 품질 · AI 분석 · 업무 시스템</span><a class="footer-members-link" href="https://initgroup-members.onrender.com/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>직원전용</span></a></div></div>
 {% endif %}    </footer>
