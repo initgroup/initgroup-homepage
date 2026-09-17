@@ -338,7 +338,7 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
     animation: hover-navigation-slide 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hover-navigation-inner { display: grid; padding-block: 1.2rem 1.5rem; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.hover-navigation-inner { display: grid; padding-block: 1.2rem 1.5rem; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .hover-navigation section { min-width: 0; padding: 0.3rem clamp(0.8rem, 1.35vw, 1.35rem) 0.7rem; border-left: 1px solid var(--line); transition: background 160ms ease, box-shadow 160ms ease; }
 .hover-navigation section.is-current { background: linear-gradient(180deg, rgba(36, 87, 214, 0.045), rgba(36, 87, 214, 0.008)); box-shadow: inset 0 2px 0 rgba(36, 87, 214, 0.42); }
 .hover-navigation section.is-hovered { background: linear-gradient(180deg, rgba(36, 87, 214, 0.09), rgba(36, 87, 214, 0.018)); box-shadow: inset 0 3px 0 var(--brand); }
@@ -1208,19 +1208,34 @@ body:not([data-page="home"]) main > section[class*="-role-section"] {
 .summary-hero-scroll i::before { position: absolute; top: 0.3rem; left: 50%; width: 2px; height: 0.4rem; border-radius: 999px; background: currentColor; content: ""; transform: translateX(-50%); }
 .summary-hero-scroll:hover { color: var(--brand); }
 
-.summary-hero-signature {
-    align-self: start;
+/* Four illustrated capabilities sit within the existing hero image. */
+.hero-capability-visual {
+    width: 100%;
+    max-width: 35rem;
     justify-self: end;
-    width: min(100%, 15rem);
-    margin-top: clamp(2rem, 6vw, 5rem);
-    padding-right: 0.5rem;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
     color: #fff;
-    text-align: right;
-    text-shadow: 0 2px 18px rgba(4, 19, 46, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 1.5rem;
+    background: linear-gradient(140deg, rgba(10, 35, 77, 0.94), rgba(10, 42, 81, 0.86));
+    box-shadow: 0 1.5rem 4rem rgba(7, 28, 64, 0.22);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
 }
-.summary-hero-signature p { margin-bottom: 1.25rem; font-size: clamp(1.35rem, 1.7vw, 1.65rem); font-weight: 630; line-height: 1.46; letter-spacing: -0.035em; }
-.summary-hero-signature i { display: block; width: 3.25rem; height: 1px; margin: 0 0 1rem auto; background: rgba(255, 255, 255, 0.8); }
-.summary-hero-signature span { font-size: 1rem; font-weight: 720; letter-spacing: 0.12em; }
+.hero-capability-heading { display: flex; align-items: center; margin-bottom: 1.35rem; gap: 1rem; }
+.hero-capability-heading > span { color: #a9c9ff; font-size: 0.8rem; font-weight: 750; letter-spacing: 0.16em; }
+.hero-capability-heading > i { height: 1px; background: rgba(169, 201, 255, 0.28); flex: 1; }
+.hero-expertise-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.hero-expertise-item { position: relative; display: flex; min-width: 0; min-height: 11.5rem; padding: 1.2rem; border: 1px solid rgba(173, 208, 255, 0.25); border-radius: 0.9rem; background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03)); flex-direction: column; transition: background 180ms ease, border-color 180ms ease; }
+.hero-expertise-item:hover { border-color: #9cc5ff; background: rgba(139, 187, 255, 0.18); }
+.hero-expertise-icon { display: grid; width: 3.7rem; height: 3.7rem; margin-bottom: 1.2rem; color: #a9c9ff; border-radius: 1rem; background: rgba(106, 163, 255, 0.14); place-items: center; }
+.hero-expertise-icon svg { width: 2.65rem; height: 2.65rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.hero-expertise-item:nth-child(2) .hero-expertise-icon { color: #7de6d1; background: rgba(88, 226, 198, 0.12); }
+.hero-expertise-item:nth-child(3) .hero-expertise-icon { color: #cbb8ff; background: rgba(166, 135, 255, 0.16); }
+.hero-expertise-item:nth-child(4) .hero-expertise-icon { color: #a5e3ff; background: rgba(111, 206, 245, 0.12); }
+.hero-expertise-item small { margin-top: auto; color: #b5c9e7; font-size: 0.65rem; font-weight: 650; letter-spacing: 0.065em; }
+.hero-expertise-item strong { margin-top: 0.4rem; font-size: clamp(1rem, 1.4vw, 1.3rem); line-height: 1.4; overflow-wrap: anywhere; }
+.hero-expertise-arrow { position: absolute; top: 1rem; right: 1rem; color: #b5c9e7; }
 
 .home-service-rail { position: relative; z-index: 3; border-block: 1px solid #dbe3ee; background: rgba(255, 255, 255, 0.97); box-shadow: 0 0.75rem 2.5rem rgba(10, 28, 54, 0.045); }
 .home-service-rail-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -1362,8 +1377,9 @@ html[lang="en"] .home-company-metrics dd { line-height: 1.3; white-space: normal
 .summary-card-visual--system > svg > rect:first-child { fill: #fff; }
 .capability-summary-card h3 { margin-bottom: 0.8rem; font-size: clamp(1.5rem, 2.15vw, 2rem); line-height: 1.22; }
 .capability-summary-card p { margin-bottom: 1.5rem; color: var(--muted); font-size: 1rem; line-height: 1.7; }
-.capability-summary-card > strong { display: flex; justify-content: space-between; margin-top: auto; padding-top: 1rem; color: var(--capability-accent); border-top: 1px solid var(--line); font-size: 1rem; }
-.capability-summary-card > strong i { font-style: normal; }
+.service-solution-links { display: grid; margin-top: auto; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+.service-solution-links a { display: flex; align-items: center; justify-content: space-between; min-height: 2.75rem; padding-block: 0.45rem; color: var(--capability-accent); font-size: 1rem; font-weight: 750; gap: 0.75rem; }
+.service-solution-links a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 
 .solution-summary-grid { display: grid; align-items: stretch; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 1.5vw, 1.4rem); }
 .solution-summary-card { --solution-accent: #57dfca; display: flex; min-width: 0; min-height: 48rem; overflow: hidden; border: 1px solid rgba(136, 190, 230, 0.27); border-top: 3px solid var(--solution-accent); border-radius: 1.35rem; flex-direction: column; background: rgba(3, 20, 46, 0.91); box-shadow: 0 1.8rem 4.5rem rgba(0, 7, 21, 0.28); }
@@ -1406,7 +1422,8 @@ html[lang="en"] .ko-brand-name { display: none; }
 .experience-summary-card:hover { box-shadow: 0 1.75rem 4rem rgba(16, 35, 66, 0.2); transform: translateY(-0.35rem); }
 .experience-summary-card > span { color: var(--mint); font-size: 1rem; font-weight: 800; }
 .experience-summary-card > strong { margin-top: 0.5rem; color: rgba(255, 255, 255, 0.62); font-size: clamp(2.8rem, 4vw, 3.75rem); line-height: 1; }
-.experience-summary-card h3 { margin: auto 0 1rem; font-size: clamp(1.5rem, 2.35vw, 2.15rem); line-height: 1.3; }
+.experience-summary-card h3 { margin: auto 0 1rem; padding-top: 1.75rem; font-size: clamp(1.5rem, 2.35vw, 2.15rem); line-height: 1.3; }
+.experience-summary-card h3 small { display: inline-block; margin-top: 0.65rem; font-size: 0.65em; font-weight: 650; line-height: 1.55; }
 .experience-summary-card p { margin-bottom: 0; color: rgba(255, 255, 255, 0.7); font-size: 1rem; line-height: 1.7; }
 .experience-summary-card > i { margin-top: 1.5rem; color: var(--mint); font-size: 1.2rem; font-style: normal; }
 .home-section-link { display: flex; align-items: center; justify-content: space-between; width: min(100%, 23rem); min-height: 4rem; margin: 2rem 0 0 auto; padding: 0.7rem 1rem; color: var(--brand-strong); border-bottom: 2px solid var(--brand); font-size: 1rem; font-weight: 780; }
@@ -1443,8 +1460,7 @@ html[lang="en"] .ko-brand-name { display: none; }
     .site-map-layout { grid-template-columns: 1fr; }
     .site-map-intro { display: none; }
     .site-map-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 0; }
-    .summary-hero-grid { grid-template-columns: minmax(28rem, 0.9fr) minmax(17rem, 0.45fr); gap: 1rem; }
-    .summary-hero-signature { display: none; }
+    .summary-hero-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
     .home-service-rail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .home-service-rail a:nth-child(3) { border-left: 0; border-top: 1px solid #e1e7ef; }
     .home-service-rail a:nth-child(4) { border-top: 1px solid #e1e7ef; }
@@ -1470,7 +1486,8 @@ html[lang="en"] .ko-brand-name { display: none; }
 @media (max-width: 64rem) {
     .summary-hero-art { background-position: 60% center; }
     .summary-hero.hero::before { background: linear-gradient(90deg, rgba(255, 255, 255, 0.99) 0%, rgba(255, 255, 255, 0.93) 46%, rgba(255, 255, 255, 0.38) 70%, rgba(4, 19, 46, 0.05) 100%); }
-    .summary-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+    .summary-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+    .hero-capability-visual { justify-self: start; }
     .summary-hero-copy { max-width: 37rem; }
     .experience-summary-grid { grid-template-columns: 1fr 1fr; }
     .experience-summary-card:last-child { grid-column: 1 / -1; }
@@ -1505,9 +1522,12 @@ html[lang="en"] .ko-brand-name { display: none; }
     .site-map-root { min-height: 3.8rem; }
     .site-map-grid li a { min-height: 2.75rem; }
     .summary-hero.hero { min-height: auto; }
-    .summary-hero-art { top: auto; height: 22rem; background-position: 68% center; }
+    .summary-hero-art { top: auto; height: 30rem; background-position: 68% center; }
     .summary-hero.hero::before { inset: var(--site-chrome-height) 0 0; background: linear-gradient(180deg, #fff 0%, #fff 47%, rgba(255, 255, 255, 0.92) 59%, rgba(255, 255, 255, 0.08) 82%, transparent 100%); }
-    .summary-hero-grid { width: calc(100% - 2rem); min-height: 0; padding-block: 3.5rem 22rem; }
+    .summary-hero-grid { width: calc(100% - 2rem); min-height: 0; padding-block: 3.5rem 3rem; }
+    .hero-capability-visual { padding: 1rem; border-radius: 1.15rem; }
+    .hero-expertise-item { min-height: 10.5rem; padding: 1rem 0.75rem; }
+    .hero-expertise-icon { width: 3.2rem; height: 3.2rem; }
     .summary-hero-copy { max-width: none; }
     .summary-hero-copy .eyebrow { margin-bottom: 1.25rem; letter-spacing: 0.075em; }
     .summary-hero-copy h1 { max-width: none; font-size: clamp(2.35rem, 9.8vw, 2.85rem); line-height: 1.13; word-break: keep-all; overflow-wrap: normal; }
