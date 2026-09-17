@@ -37,10 +37,10 @@
                         <li>의사결정 시스템 구축·운영</li>
                     </ul>
                     <div class="hero-actions">
-                        <a class="button button-primary" href="/services/">인아이티의 역량 보기 <span aria-hidden="true">→</span></a>
-                        <a class="button button-secondary" href="/projects/">수행 프로젝트 보기</a>
+                        <a class="button button-primary" href="{{ page_url('services/') }}">인아이티의 역량 보기 <span aria-hidden="true">→</span></a>
+                        <a class="button button-secondary" href="{{ page_url('projects/') }}">수행 프로젝트 보기</a>
                     </div>
-                    <a class="hero-text-link" href="/contact/">현재의 데이터·AI 과제부터 함께 정리하기 <span aria-hidden="true">↗</span></a>
+                    <a class="hero-text-link" href="{{ page_url('contact/') }}">현재의 데이터·AI 과제부터 함께 정리하기 <span aria-hidden="true">↗</span></a>
                 </div>
 
                 <div class="hero-insight" aria-label="인아이티 기업 역량 요약">
@@ -174,11 +174,11 @@
                         <span>FROM DATA PROFILE TO OPERATION</span>
                         <h3>데이터의 신뢰를 설계하고,<br>AI의 판단을 운영으로 연결합니다.</h3>
                         <p>첫 화면에서 소개하던 핵심 제품 흐름은 이곳에서 더 구체적으로 확인할 수 있습니다. 데이터를 이해하고 규칙을 발굴한 뒤 전문가 검토와 운영 이력까지 연결합니다.</p>
-                        <a href="/solutions/data-editing-system/">인뎁스 IN-DEPS 전체 보기 <span aria-hidden="true">→</span></a>
+                        <a href="{{ page_url('solutions/data-editing-system/') }}">인뎁스 IN-DEPS 전체 보기 <span aria-hidden="true">→</span></a>
                     </div>
                     <div class="product-overview-screen">
                         <div class="product-overview-bar"><span><i></i><i></i><i></i></span><strong>인뎁스 IN-DEPS</strong><small>INIT-DATA EDITING PLATFORM SYSTEM</small></div>
-                        <div class="product-overview-image"><img src="/assets/images/product/login-overview.png" alt="Profile, Discover, Validate, Execute 흐름과 핵심 원칙을 소개하는 인뎁스 IN-DEPS 제품 개요 화면" width="1060" height="559" loading="lazy" decoding="async"></div>
+                        <div class="product-overview-image"><img src="{{ page_url('assets/images/product/login-overview.png') }}" alt="Profile, Discover, Validate, Execute 흐름과 핵심 원칙을 소개하는 인뎁스 IN-DEPS 제품 개요 화면" width="1060" height="559" loading="lazy" decoding="async"></div>
                         <div class="product-overview-flow" aria-label="제품 핵심 업무 흐름">
                             <span><i>01</i><b>Profile</b><small>구조·유형</small></span>
                             <span><i>02</i><b>Relation</b><small>관계 분석</small></span>
@@ -191,22 +191,22 @@
 
                 <div class="product-proof reveal" data-product-gallery>
                     <div class="product-proof-tabs" role="tablist" aria-label="제품 화면 선택">
-                        <button type="button" role="tab" aria-selected="true" aria-controls="productPanel" id="productTabOverview" data-product-tab data-image="/assets/images/reference/data-editing-system/flow-designer_kor.png" data-i18n-image-base="/assets/images/reference/data-editing-system/flow-designer" data-alt="컬럼 유형, 관계 분석, 자동 규칙 발굴과 위반 탐지를 연결한 Flow 설계 화면" data-kicker="CONTROLLED FLOW" data-title="분석부터 위반 탐지까지 한 Flow로" data-description="유형 분석, 관계 분석, 규칙 발굴과 위반 탐지를 연결하고 같은 조건으로 검증·실행합니다."><span>01</span>실행 Flow</button>
-                        <button type="button" role="tab" aria-selected="false" aria-controls="productPanel" id="productTabPortfolio" data-product-tab data-image="/assets/images/reference/data-editing-system/categorical-rules_kor.png" data-i18n-image-base="/assets/images/reference/data-editing-system/categorical-rules" data-alt="IF 조건과 THEN 결과, 지지도·신뢰도·향상도를 비교하는 범주형 규칙 후보 화면" data-kicker="CATEGORICAL RULE" data-title="IF–THEN 규칙과 예외를 비교" data-description="조건 조합과 결과 범주, 신뢰도·향상도와 실제 예외 행을 함께 확인해 후보를 좁힙니다."><span>02</span>범주형 규칙</button>
-                        <button type="button" role="tab" aria-selected="false" aria-controls="productPanel" id="productTabEvidence" data-product-tab data-image="/assets/images/reference/data-editing-system/continuous-rule-detail_kor.png" data-i18n-image-base="/assets/images/reference/data-editing-system/continuous-rule-detail" data-alt="A=B+C 형태의 수식과 검증 지표, 산점도를 보여주는 연속형 규칙 상세 화면" data-kicker="CONTINUOUS RULE" data-title="A=B+C 수식과 관측값으로 검증" data-description="입력·결과 변수와 계수, R²·RMSE와 관측값 분포를 함께 확인해 적용 가능성을 판단합니다."><span>03</span>연속형 규칙</button>
+                        <button type="button" role="tab" aria-selected="true" aria-controls="productPanel" id="productTabOverview" data-product-tab data-image="{{ page_url('assets/images/reference/data-editing-system/flow-designer_kor.png') }}" data-i18n-image-base="{{ page_url('assets/images/reference/data-editing-system/flow-designer') }}" data-alt="컬럼 유형, 관계 분석, 자동 규칙 발굴과 위반 탐지를 연결한 Flow 설계 화면" data-kicker="CONTROLLED FLOW" data-title="분석부터 위반 탐지까지 한 Flow로" data-description="유형 분석, 관계 분석, 규칙 발굴과 위반 탐지를 연결하고 같은 조건으로 검증·실행합니다."><span>01</span>실행 Flow</button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="productPanel" id="productTabPortfolio" data-product-tab data-image="{{ page_url('assets/images/reference/data-editing-system/categorical-rules_kor.png') }}" data-i18n-image-base="{{ page_url('assets/images/reference/data-editing-system/categorical-rules') }}" data-alt="IF 조건과 THEN 결과, 지지도·신뢰도·향상도를 비교하는 범주형 규칙 후보 화면" data-kicker="CATEGORICAL RULE" data-title="IF–THEN 규칙과 예외를 비교" data-description="조건 조합과 결과 범주, 신뢰도·향상도와 실제 예외 행을 함께 확인해 후보를 좁힙니다."><span>02</span>범주형 규칙</button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="productPanel" id="productTabEvidence" data-product-tab data-image="{{ page_url('assets/images/reference/data-editing-system/continuous-rule-detail_kor.png') }}" data-i18n-image-base="{{ page_url('assets/images/reference/data-editing-system/continuous-rule-detail') }}" data-alt="A=B+C 형태의 수식과 검증 지표, 산점도를 보여주는 연속형 규칙 상세 화면" data-kicker="CONTINUOUS RULE" data-title="A=B+C 수식과 관측값으로 검증" data-description="입력·결과 변수와 계수, R²·RMSE와 관측값 분포를 함께 확인해 적용 가능성을 판단합니다."><span>03</span>연속형 규칙</button>
                     </div>
 
                     <div id="productPanel" class="product-proof-panel" role="tabpanel" aria-labelledby="productTabOverview" tabindex="0">
                         <div class="product-proof-screen">
                             <div class="product-screen-chrome"><span><i></i><i></i><i></i></span><b>Actual product interface</b><button type="button" data-lightbox-open aria-label="현재 제품 화면 크게 보기">크게 보기 ↗</button></div>
-                            <div class="product-proof-image" role="region" aria-label="선택한 제품 화면 미리보기"><img src="/assets/images/reference/data-editing-system/flow-designer_kor.png" data-i18n-image-base="/assets/images/reference/data-editing-system/flow-designer" alt="컬럼 유형, 관계 분석, 자동 규칙 발굴과 위반 탐지를 연결한 Flow 설계 화면" width="1920" height="949" loading="lazy" decoding="async" data-product-image></div>
+                            <div class="product-proof-image" role="region" aria-label="선택한 제품 화면 미리보기"><img src="{{ page_url('assets/images/reference/data-editing-system/flow-designer_kor.png') }}" data-i18n-image-base="{{ page_url('assets/images/reference/data-editing-system/flow-designer') }}" alt="컬럼 유형, 관계 분석, 자동 규칙 발굴과 위반 탐지를 연결한 Flow 설계 화면" width="1920" height="949" loading="lazy" decoding="async" data-product-image></div>
                         </div>
                         <div class="product-proof-copy">
                             <span data-product-kicker>CONTROLLED FLOW</span>
                             <h3 data-product-title>분석부터 위반 탐지까지 한 Flow로</h3>
                             <p data-product-description>유형 분석, 관계 분석, 규칙 발굴과 위반 탐지를 연결하고 같은 조건으로 검증·실행합니다.</p>
                             <ul><li>원본을 보존한 편집본</li><li>담당자의 최종 검토</li><li>실행 단위별 이력</li></ul>
-                            <a href="/solutions/data-editing-system/">제품 기능과 화면 전체 보기 <span aria-hidden="true">→</span></a>
+                            <a href="{{ page_url('solutions/data-editing-system/') }}">제품 기능과 화면 전체 보기 <span aria-hidden="true">→</span></a>
                         </div>
                     </div>
                 </div>
@@ -217,7 +217,7 @@
             <div class="shell">
                 <div class="section-heading section-heading-split reveal">
                     <div><p class="eyebrow"><i></i> IN-BAPS DATA PLATFORM</p><h2 id="heritageTitle">데이터를 모으는 순간부터<br>결정하는 화면까지.</h2></div>
-                    <div class="heritage-heading-copy"><p>인법스는 서로 다른 소스의 데이터를 수집하고, 통계·텍스트·관계 분석으로 해석한 뒤 업무 목적에 맞는 화면으로 전달하는 데이터 활용 플랫폼입니다.</p><a href="/solutions/inbups/">인법스 플랫폼 상세 보기 <span aria-hidden="true">→</span></a></div>
+                    <div class="heritage-heading-copy"><p>인법스는 서로 다른 소스의 데이터를 수집하고, 통계·텍스트·관계 분석으로 해석한 뒤 업무 목적에 맞는 화면으로 전달하는 데이터 활용 플랫폼입니다.</p><a href="{{ page_url('solutions/inbups/') }}">인법스 플랫폼 상세 보기 <span aria-hidden="true">→</span></a></div>
                 </div>
                 <div class="bap-flow">
                     <article class="bap-card bap-collect reveal">
@@ -269,16 +269,16 @@
                 </div>
 
                 <div class="service-list">
-                    <a href="/services/#consulting" class="reveal">
+                    <a href="{{ page_url('services/#consulting') }}" class="reveal">
                         <span>01</span><small>CONSULTING</small><h3>데이터 전략·통계 컨설팅</h3><p>통계 설계, 데이터 활용 전략과 수요예측을 업무 목적에 맞게 정의합니다.</p><i aria-hidden="true">↗</i>
                     </a>
-                    <a href="/services/#quality" class="reveal">
+                    <a href="{{ page_url('services/#quality') }}" class="reveal">
                         <span>02</span><small>DATA QUALITY</small><h3>데이터 엔지니어링·품질</h3><p>흩어진 데이터를 통합하고 품질 규칙과 변경 이력이 남는 구조를 만듭니다.</p><i aria-hidden="true">↗</i>
                     </a>
-                    <a href="/services/#analytics" class="reveal">
+                    <a href="{{ page_url('services/#analytics') }}" class="reveal">
                         <span>03</span><small>AI &amp; STATISTICS</small><h3>AI·통계 분석</h3><p>패턴과 관계를 설명하고 예측 모델과 시각적 인사이트로 전환합니다.</p><i aria-hidden="true">↗</i>
                     </a>
-                    <a href="/services/#engineering" class="reveal">
+                    <a href="{{ page_url('services/#engineering') }}" class="reveal">
                         <span>04</span><small>SYSTEM &amp; OPERATION</small><h3>의사결정 시스템 구축·운영</h3><p>분석 결과를 업무 화면으로 구현하고 안정적인 운영 체계로 연결합니다.</p><i aria-hidden="true">↗</i>
                     </a>
                 </div>
@@ -290,7 +290,7 @@
                 <div class="section-heading projects-heading reveal">
                     <p class="eyebrow eyebrow-light"><i></i> SELECTED EXPERIENCE</p>
                     <h2 id="projectsTitle">복잡한 데이터가 있는 현장에서<br>운영되는 변화를 만들었습니다.</h2>
-                    <a href="/projects/">프로젝트 전체 보기 <span aria-hidden="true">→</span></a>
+                    <a href="{{ page_url('projects/') }}">프로젝트 전체 보기 <span aria-hidden="true">→</span></a>
                 </div>
 
                 <div class="project-stories" aria-label="대표 프로젝트 사례">
@@ -343,12 +343,12 @@
             <div class="shell">
                 <div class="section-heading insight-heading reveal">
                     <div><p class="eyebrow"><i></i> 인사이트</p><h2 id="insightTitle">기술을 현장에 적용하는<br>실질적인 관점.</h2></div>
-                    <a href="/insights/">인사이트 개요 보기 <span aria-hidden="true">→</span></a>
+                    <a href="{{ page_url('insights/') }}">인사이트 개요 보기 <span aria-hidden="true">→</span></a>
                 </div>
                 <div class="insight-grid">
-                    <a href="/insights/reports/20260801_01/" class="insight-card insight-card-featured reveal"><span>데이터·통계</span><h3>데이터 품질은 전처리가 아니라 운영 체계입니다</h3><p>규칙의 근거, 담당자의 판단과 변경 이력이 다음 실행에도 이어져야 하는 이유.</p><i aria-hidden="true">상세 글 읽기 ↗</i></a>
-                    <a href="/insights/reports/20260801_02/" class="insight-card reveal"><span>연구·검증</span><h3>자동화의 마지막 판단을 전문가에게 남기는 설계</h3><p>후보 제안과 최종 책임을 분리하는 Human-in-the-loop 업무 흐름.</p><i aria-hidden="true">상세 글 읽기 ↗</i></a>
-                    <a href="/insights/reports/20260801_03/" class="insight-card reveal"><span>현장 적용</span><h3>재현 가능한 분석을 만드는 실행 이력</h3><p>데이터 계약부터 실행 조건과 결과까지 연결해 다시 실행하고 비교하는 방법.</p><i aria-hidden="true">상세 글 읽기 ↗</i></a>
+                    <a href="{{ page_url('insights/reports/20260801_01/') }}" class="insight-card insight-card-featured reveal"><span>데이터·통계</span><h3>데이터 품질은 전처리가 아니라 운영 체계입니다</h3><p>규칙의 근거, 담당자의 판단과 변경 이력이 다음 실행에도 이어져야 하는 이유.</p><i aria-hidden="true">상세 글 읽기 ↗</i></a>
+                    <a href="{{ page_url('insights/reports/20260801_02/') }}" class="insight-card reveal"><span>연구·검증</span><h3>자동화의 마지막 판단을 전문가에게 남기는 설계</h3><p>후보 제안과 최종 책임을 분리하는 Human-in-the-loop 업무 흐름.</p><i aria-hidden="true">상세 글 읽기 ↗</i></a>
+                    <a href="{{ page_url('insights/reports/20260801_03/') }}" class="insight-card reveal"><span>현장 적용</span><h3>재현 가능한 분석을 만드는 실행 이력</h3><p>데이터 계약부터 실행 조건과 결과까지 연결해 다시 실행하고 비교하는 방법.</p><i aria-hidden="true">상세 글 읽기 ↗</i></a>
                 </div>
             </div>
         </section>
@@ -356,7 +356,7 @@
         <section class="contact-cta" aria-labelledby="contactTitle">
             <div class="shell contact-cta-inner reveal">
                 <div><p class="eyebrow eyebrow-light"><i></i> START WITH THE PROBLEM</p><h2 id="contactTitle">데이터 품질이나<br>AI·통계 시스템 과제가 있으신가요?</h2></div>
-                <div><p>현재 환경과 해결하려는 문제를 알려주시면 진단부터 구축 범위까지 현실적인 시작점을 함께 정리하겠습니다.</p><a class="button button-light" href="/contact/">프로젝트 상담하기 <span aria-hidden="true">↗</span></a></div>
+                <div><p>현재 환경과 해결하려는 문제를 알려주시면 진단부터 구축 범위까지 현실적인 시작점을 함께 정리하겠습니다.</p><a class="button button-light" href="{{ page_url('contact/') }}">프로젝트 상담하기 <span aria-hidden="true">↗</span></a></div>
             </div>
         </section>
 {% endblock %}
@@ -364,6 +364,6 @@
 {% block after_body %}
 <dialog class="image-lightbox" data-lightbox aria-labelledby="lightboxTitle">
         <div class="lightbox-head"><div><span>ACTUAL PRODUCT INTERFACE</span><h2 id="lightboxTitle" data-lightbox-title>인뎁스 IN-DEPS</h2></div><button type="button" aria-label="제품 화면 닫기" data-lightbox-close>닫기</button></div>
-        <div class="lightbox-image"><img src="/assets/images/product/login-overview.png" alt="확대된 인뎁스 IN-DEPS 제품 화면" data-lightbox-image></div>
+        <div class="lightbox-image"><img src="{{ page_url('assets/images/product/login-overview.png') }}" alt="확대된 인뎁스 IN-DEPS 제품 화면" data-lightbox-image></div>
     </dialog>
 {% endblock %}

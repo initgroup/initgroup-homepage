@@ -1,1 +1,393 @@
-{% extends "pages/solutions.html" %}
+<!doctype html>
+<!-- 정적 HTML 원본입니다. 이 파일을 직접 수정하세요. -->
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f8">
+    <meta name="color-scheme" content="light">
+    <title>데이터 품질·빅데이터·설문 운영 솔루션 | 인아이티</title>
+    <meta name="description" content="데이터 품질 플랫폼 인뎁스 IN-DEPS, 수집·분석·시각화 플랫폼 인법스 IN-BAPS, 통합 설문 운영 플랫폼 인서베이원 inSurveyOne을 소개합니다.">
+    <link rel="canonical" href="https://initgroup.kr/solutions/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="인아이티">
+    <meta property="og:title" content="데이터 품질·빅데이터·설문 운영 솔루션 | 인아이티">
+    <meta property="og:description" content="데이터 품질, 데이터 활용과 설문 운영을 각각의 업무 흐름으로 연결하는 인아이티의 세 가지 솔루션입니다.">
+    <meta property="og:url" content="https://initgroup.kr/solutions/">
+    <link rel="icon" href="../assets/images/brand/favicon.svg" type="image/svg+xml">
+    <script src="../assets/js/boot.js?v=20260801.2"></script>
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260917.1">
+    <link rel="stylesheet" href="../assets/css/solutions.css?v=20260917.1">
+    <link rel="stylesheet" href="../assets/css/page-hero.css?v=20260814.2">
+    <link rel="stylesheet" href="../assets/css/page-headings.css?v=20260814.2">
+    <link rel="stylesheet" href="../assets/css/menu-hero.css?v=20260917.1">
+    <link rel="stylesheet" href="../assets/css/i18n.css?v=20260815.2">
+    <script src="../assets/js/i18n.js?v=20260803.2" data-i18n-config="../assets/i18n/config.json?v=20260815.13" defer></script>
+    <script src="../assets/js/site.js?v=20260917.1" defer></script>
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "CollectionPage",
+                "@id": "https://initgroup.kr/solutions/#page",
+                "url": "https://initgroup.kr/solutions/",
+                "name": "인아이티 데이터 솔루션",
+                "description": "데이터 품질, 빅데이터 활용과 설문 운영을 지원하는 인아이티 솔루션",
+                "isPartOf": { "@id": "https://initgroup.kr/#website" },
+                "about": [
+                    { "@id": "https://initgroup.kr/solutions/data-editing-system/#software" },
+                    { "@id": "https://initgroup.kr/solutions/inbups/#software" },
+                    { "@id": "https://initgroup.kr/solutions/in-surveyone/#software" }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://initgroup.kr/" },
+                    { "@type": "ListItem", "position": 2, "name": "솔루션", "item": "https://initgroup.kr/solutions/" }
+                ]
+            }
+        ]
+    }
+    </script>
+
+</head>
+<body class="solutions-page solution-hub-page" data-page="solutions" data-page-key="solutions">
+    <a class="skip-link" href="#mainContent">본문으로 바로가기</a>
+    <div class="scroll-progress" aria-hidden="true"><i data-scroll-progress></i></div>
+
+    <header class="site-header" data-site-header>
+        <div class="header-inner">
+            <a class="brand" href="../index.html" aria-label="인아이티 홈">
+                <img src="../assets/images/brand/init-logo.png" alt="iNIT">
+                <span>Data Intelligence</span>
+            </a>
+
+            <nav class="desktop-nav" aria-label="주요 메뉴" data-desktop-nav>
+                <a href="../company/index.html" data-nav="company" aria-controls="hoverNavigation" aria-haspopup="true" aria-expanded="false">회사</a>
+                <a href="../services/index.html" data-nav="services" aria-controls="hoverNavigation" aria-haspopup="true" aria-expanded="false">서비스</a>
+                <a href="index.html" data-nav="solutions" aria-controls="hoverNavigation" aria-haspopup="true" aria-expanded="false" aria-current="page">솔루션</a>
+                <a href="../projects/index.html" data-nav="projects" aria-controls="hoverNavigation" aria-haspopup="true" aria-expanded="false">프로젝트</a>
+                <a href="../insights/index.html" data-nav="insights" aria-controls="hoverNavigation" aria-haspopup="true" aria-expanded="false">인사이트</a>
+                <a href="../careers/index.html" data-nav="careers" aria-controls="hoverNavigation" aria-haspopup="true" aria-expanded="false">채용</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-switcher" role="group" aria-label="언어 선택" data-language-switcher>
+                    <button type="button" data-language="ko" aria-pressed="true">Korea</button>
+                    <button type="button" data-language="en" aria-pressed="false">English</button>
+                </div>
+                <a class="header-contact" href="../contact/index.html">문의</a>
+                <button class="menu-toggle" type="button" aria-label="전체 메뉴 열기" aria-controls="hoverNavigation siteNavigation" aria-expanded="false" data-menu-toggle>
+                    <span class="menu-toggle-label">전체 메뉴</span>
+                    <span class="menu-toggle-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="page-sub-navigation" data-page-sub-navigation data-navigation-mode="pages">
+            <div class="page-sub-navigation-inner shell">
+                <a class="page-sub-navigation-root" href="index.html"><strong>솔루션</strong></a>
+                <nav class="page-sub-navigation-links" aria-label="솔루션 하위 메뉴">
+                    <a href="index.html" data-page-sub-link data-navigation-item="overview" data-link-mode="page" class="is-current" aria-current="page">솔루션 개요</a>
+                    <a href="data-editing-system/index.html" data-page-sub-link data-navigation-item="product" data-link-mode="page">인뎁스 IN-DEPS</a>
+                    <a href="inbups/index.html" data-page-sub-link data-navigation-item="product" data-link-mode="page">인법스 IN-BAPS</a>
+                    <a href="in-surveyone/index.html" data-page-sub-link data-navigation-item="product" data-link-mode="page">인서베이원 inSurveyOne</a>
+                </nav>
+            </div>
+        </div>
+
+
+        <div id="hoverNavigation" class="hover-navigation" data-hover-menu hidden>
+            <div class="hover-navigation-inner shell">
+                <section data-hover-section="company" data-navigation-mode="sections">
+                    <a class="hover-navigation-root" href="../company/index.html">
+                        <span>01</span>
+                        <strong>회사</strong>
+                    </a>
+                    <ul>
+                        <li><a href="../company/index.html" data-navigation-item="overview" data-link-mode="page">회사 소개</a></li>
+                        <li><a href="../company/index.html#missionTitle" data-navigation-item="product" data-link-mode="section">미션·원칙</a></li>
+                        <li><a href="../company/index.html#teamTitle" data-navigation-item="product" data-link-mode="section">수행 체계</a></li>
+                        <li><a href="../company/index.html#historyTitle" data-navigation-item="product" data-link-mode="section">연혁·인증</a></li>
+                    </ul>
+                </section>
+                <section data-hover-section="services" data-navigation-mode="sections">
+                    <a class="hover-navigation-root" href="../services/index.html">
+                        <span>02</span>
+                        <strong>서비스</strong>
+                    </a>
+                    <ul>
+                        <li><a href="../services/index.html" data-navigation-item="overview" data-link-mode="page">서비스 개요</a></li>
+                        <li><a href="../services/index.html#consulting" data-navigation-item="product" data-link-mode="section">데이터 전략·통계 컨설팅</a></li>
+                        <li><a href="../services/index.html#quality" data-navigation-item="product" data-link-mode="section">데이터 엔지니어링·품질</a></li>
+                        <li><a href="../services/index.html#analytics" data-navigation-item="product" data-link-mode="section">AI·통계 분석</a></li>
+                        <li><a href="../services/index.html#engineering" data-navigation-item="product" data-link-mode="section">의사결정 시스템 구축·운영</a></li>
+                    </ul>
+                </section>
+                <section data-hover-section="solutions" data-navigation-mode="pages" class="is-current">
+                    <a class="hover-navigation-root" href="index.html">
+                        <span>03</span>
+                        <strong>솔루션</strong>
+                    </a>
+                    <ul>
+                        <li><a href="index.html" data-navigation-item="overview" data-link-mode="page" class="is-current" aria-current="page">솔루션 개요</a></li>
+                        <li><a href="data-editing-system/index.html" data-navigation-item="product" data-link-mode="page">인뎁스 IN-DEPS</a></li>
+                        <li><a href="inbups/index.html" data-navigation-item="product" data-link-mode="page">인법스 IN-BAPS</a></li>
+                        <li><a href="in-surveyone/index.html" data-navigation-item="product" data-link-mode="page">인서베이원 inSurveyOne</a></li>
+                    </ul>
+                </section>
+                <section data-hover-section="projects" data-navigation-mode="sections">
+                    <a class="hover-navigation-root" href="../projects/index.html">
+                        <span>04</span>
+                        <strong>프로젝트</strong>
+                    </a>
+                    <ul>
+                        <li><a href="../projects/index.html" data-navigation-item="overview" data-link-mode="page">프로젝트 개요</a></li>
+                        <li><a href="../projects/index.html#casesTitle" data-navigation-item="product" data-link-mode="section">대표 프로젝트</a></li>
+                        <li><a href="../projects/index.html#sectorsTitle" data-navigation-item="product" data-link-mode="section">분야별 경험</a></li>
+                        <li><a href="../projects/index.html#methodTitle" data-navigation-item="product" data-link-mode="section">수행 방식</a></li>
+                    </ul>
+                </section>
+                <section data-hover-section="insights" data-navigation-mode="sections">
+                    <a class="hover-navigation-root" href="../insights/index.html">
+                        <span>05</span>
+                        <strong>인사이트</strong>
+                    </a>
+                    <ul>
+                        <li><a href="../insights/index.html" data-navigation-item="overview" data-link-mode="page">인사이트 개요</a></li>
+                        <li><a href="../insights/index.html#technologyInsight" data-navigation-item="product" data-link-mode="section">기술·AI</a></li>
+                        <li><a href="../insights/index.html#dataStatisticsInsight" data-navigation-item="product" data-link-mode="section">데이터·통계</a></li>
+                        <li><a href="../insights/index.html#researchLabInsight" data-navigation-item="product" data-link-mode="section">연구·검증</a></li>
+                        <li><a href="../insights/index.html#appliedInsight" data-navigation-item="product" data-link-mode="section">현장 적용</a></li>
+                    </ul>
+                </section>
+                <section data-hover-section="careers" data-navigation-mode="sections">
+                    <a class="hover-navigation-root" href="../careers/index.html">
+                        <span>06</span>
+                        <strong>채용</strong>
+                    </a>
+                    <ul>
+                        <li><a href="../careers/index.html" data-navigation-item="overview" data-link-mode="page">채용 안내</a></li>
+                        <li><a href="../careers/index.html#cultureTitle" data-navigation-item="product" data-link-mode="section">일하는 방식</a></li>
+                        <li><a href="../careers/index.html#roleTitle" data-navigation-item="product" data-link-mode="section">직무 분야</a></li>
+                        <li><a href="../careers/index.html#growthTitle" data-navigation-item="product" data-link-mode="section">성장 방식</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <div id="siteNavigation" class="full-navigation" data-mobile-menu hidden>
+            <div class="mobile-navigation-head shell">
+                <div>
+                    <span>INIT / ALL MENU</span>
+                    <strong>전체 메뉴를 한 화면에서 확인하세요.</strong>
+                </div>
+                <button type="button" aria-label="전체 메뉴 닫기" data-menu-close>닫기 <i aria-hidden="true">×</i></button>
+            </div>
+
+            <div class="site-map-layout shell">
+                <div class="site-map-intro">
+                    <p>DATA INTELLIGENCE</p>
+                    <strong>통계·데이터 분석과<br>업무 시스템 전문기업.</strong>
+                    <a href="../contact/index.html">프로젝트·제품 문의 <span aria-hidden="true">↗</span></a>
+                </div>
+
+                <nav class="site-map-grid" aria-label="전체 메뉴">
+                    <section data-menu-section="company" data-navigation-mode="sections">
+                        <a class="site-map-root" href="../company/index.html"><span>01</span><strong>회사</strong></a>
+                        <ul>
+                            <li><a href="../company/index.html" data-navigation-item="overview" data-link-mode="page">회사 소개</a></li>
+                            <li><a href="../company/index.html#missionTitle" data-navigation-item="product" data-link-mode="section">미션·원칙</a></li>
+                            <li><a href="../company/index.html#teamTitle" data-navigation-item="product" data-link-mode="section">수행 체계</a></li>
+                            <li><a href="../company/index.html#historyTitle" data-navigation-item="product" data-link-mode="section">연혁·인증</a></li>
+                        </ul>
+                    </section>
+                    <section data-menu-section="services" data-navigation-mode="sections">
+                        <a class="site-map-root" href="../services/index.html"><span>02</span><strong>서비스</strong></a>
+                        <ul>
+                            <li><a href="../services/index.html" data-navigation-item="overview" data-link-mode="page">서비스 개요</a></li>
+                            <li><a href="../services/index.html#consulting" data-navigation-item="product" data-link-mode="section">데이터 전략·통계 컨설팅</a></li>
+                            <li><a href="../services/index.html#quality" data-navigation-item="product" data-link-mode="section">데이터 엔지니어링·품질</a></li>
+                            <li><a href="../services/index.html#analytics" data-navigation-item="product" data-link-mode="section">AI·통계 분석</a></li>
+                            <li><a href="../services/index.html#engineering" data-navigation-item="product" data-link-mode="section">의사결정 시스템 구축·운영</a></li>
+                        </ul>
+                    </section>
+                    <section data-menu-section="solutions" data-navigation-mode="pages" class="is-current">
+                        <a class="site-map-root" href="index.html"><span>03</span><strong>솔루션</strong></a>
+                        <ul>
+                            <li><a href="index.html" data-navigation-item="overview" data-link-mode="page" class="is-current" aria-current="page">솔루션 개요</a></li>
+                            <li><a href="data-editing-system/index.html" data-navigation-item="product" data-link-mode="page">인뎁스 IN-DEPS</a></li>
+                            <li><a href="inbups/index.html" data-navigation-item="product" data-link-mode="page">인법스 IN-BAPS</a></li>
+                            <li><a href="in-surveyone/index.html" data-navigation-item="product" data-link-mode="page">인서베이원 inSurveyOne</a></li>
+                        </ul>
+                    </section>
+                    <section data-menu-section="projects" data-navigation-mode="sections">
+                        <a class="site-map-root" href="../projects/index.html"><span>04</span><strong>프로젝트</strong></a>
+                        <ul>
+                            <li><a href="../projects/index.html" data-navigation-item="overview" data-link-mode="page">프로젝트 개요</a></li>
+                            <li><a href="../projects/index.html#casesTitle" data-navigation-item="product" data-link-mode="section">대표 프로젝트</a></li>
+                            <li><a href="../projects/index.html#sectorsTitle" data-navigation-item="product" data-link-mode="section">분야별 경험</a></li>
+                            <li><a href="../projects/index.html#methodTitle" data-navigation-item="product" data-link-mode="section">수행 방식</a></li>
+                        </ul>
+                    </section>
+                    <section data-menu-section="insights" data-navigation-mode="sections">
+                        <a class="site-map-root" href="../insights/index.html"><span>05</span><strong>인사이트</strong></a>
+                        <ul>
+                            <li><a href="../insights/index.html" data-navigation-item="overview" data-link-mode="page">인사이트 개요</a></li>
+                            <li><a href="../insights/index.html#technologyInsight" data-navigation-item="product" data-link-mode="section">기술·AI</a></li>
+                            <li><a href="../insights/index.html#dataStatisticsInsight" data-navigation-item="product" data-link-mode="section">데이터·통계</a></li>
+                            <li><a href="../insights/index.html#researchLabInsight" data-navigation-item="product" data-link-mode="section">연구·검증</a></li>
+                            <li><a href="../insights/index.html#appliedInsight" data-navigation-item="product" data-link-mode="section">현장 적용</a></li>
+                        </ul>
+                    </section>
+                    <section data-menu-section="careers" data-navigation-mode="sections">
+                        <a class="site-map-root" href="../careers/index.html"><span>06</span><strong>채용</strong></a>
+                        <ul>
+                            <li><a href="../careers/index.html" data-navigation-item="overview" data-link-mode="page">채용 안내</a></li>
+                            <li><a href="../careers/index.html#cultureTitle" data-navigation-item="product" data-link-mode="section">일하는 방식</a></li>
+                            <li><a href="../careers/index.html#roleTitle" data-navigation-item="product" data-link-mode="section">직무 분야</a></li>
+                            <li><a href="../careers/index.html#growthTitle" data-navigation-item="product" data-link-mode="section">성장 방식</a></li>
+                        </ul>
+                    </section>
+                </nav>
+            </div>
+        </div>
+        <button class="menu-backdrop" type="button" aria-label="전체 메뉴 닫기" data-menu-backdrop hidden></button>
+    </header>
+
+
+    <main id="mainContent">
+
+<section class="menu-family-hero menu-family-hero--solutions primary-page-hero" aria-labelledby="solutionHubTitle">
+            <div class="shell primary-page-hero-inner menu-family-hero-inner">
+                    <div class="menu-family-hero-copy">
+                        <p class="eyebrow"><i></i> 솔루션</p>
+                        <h1 id="solutionHubTitle">데이터 품질부터<br><em>조사 운영까지.</em></h1>
+                        <p>품질 규칙과 검토 이력, 수집·분석·시각화, 설문 설계·배포·응답·보고서를 각 업무 목적에 맞는 제품과 플랫폼으로 제공합니다.</p>
+                        <div class="sol-hero-actions">
+                            <a class="button button-primary" href="#portfolioTitle">제품 비교하기 <span aria-hidden="true">↓</span></a>
+                            <a class="button button-secondary" href="../contact/index.html">도입 범위 상담하기</a>
+                        </div>
+                        <p class="sol-hero-note"><i aria-hidden="true"></i> 실제 제품 화면과 업무 흐름을 기준으로 소개합니다.</p>
+                        <dl class="menu-family-hero-meta menu-family-hero-meta--solution" aria-label="인아이티 솔루션 포트폴리오 구조">
+                            <div><dt>Data Quality</dt><dd>인뎁스 IN-DEPS</dd></div>
+                            <div><dt>Data Platform</dt><dd>인법스 IN-BAPS</dd></div>
+                            <div><dt>Survey Ops</dt><dd>인서베이원 inSurveyOne</dd></div>
+                        </dl>
+                    </div>
+            </div>
+        </section>
+
+        <section class="section sol-portfolio-section" aria-labelledby="portfolioTitle">
+            <div class="shell">
+                <div class="sol-section-heading reveal">
+                    <div><p class="eyebrow"><i></i> PRODUCT PORTFOLIO</p><h2 id="portfolioTitle">서로 다른 업무를 위한<br>세 가지 제품.</h2></div>
+                    <p>데이터 품질, 데이터 활용과 설문 운영은 필요한 절차와 사용자가 다릅니다. 각 제품의 실제 업무 흐름과 화면을 기준으로 적용 범위를 확인할 수 있습니다.</p>
+                </div>
+
+                <div class="sol-product-cards">
+                    <a class="sol-product-card sol-product-card--indeps reveal" href="data-editing-system/index.html">
+                        <div class="sol-product-card-top"><span>DATA QUALITY PLATFORM</span><i aria-hidden="true">↗</i></div>
+                        <h3>인뎁스 IN-DEPS</h3>
+                        <p><strong class="sol-product-fullname" lang="en">INIT-Data Editing Platform System</strong>데이터의 구조와 관계를 분석해 품질 규칙 후보를 발견하고, 담당자의 검토와 운영 반영까지 추적합니다.</p>
+                        <figure class="sol-product-evidence sol-product-evidence--indeps">
+                            <div class="sol-product-window-bar"><span>FLOW DESIGNER</span><b>실제 제품 화면</b></div>
+                            <div class="sol-product-window-viewport"><img src="../assets/images/reference/data-editing-system/flow-designer_kor.png" data-i18n-image-base="../assets/images/reference/data-editing-system/flow-designer" alt="컬럼 유형 분석부터 자동 규칙 발굴과 규칙 위반 탐지를 연결한 인뎁스 Flow 설계 화면" width="1920" height="949" loading="lazy" decoding="async"></div>
+                            <figcaption><strong>규칙 발굴 실행 흐름</strong><span>분석 · 규칙 후보 · 검토 · 실행</span></figcaption>
+                        </figure>
+                        <span class="sol-card-link">실제 화면과 7단계 업무 흐름 보기 <span aria-hidden="true">→</span></span>
+                    </a>
+
+                    <a class="sol-product-card sol-product-card--inbaps reveal" href="inbups/index.html">
+                        <div class="sol-product-card-top"><span>BIG DATA PLATFORM</span><i aria-hidden="true">↗</i></div>
+                        <h3>인법스 IN-BAPS</h3>
+                        <p><strong class="sol-product-fullname" lang="en">INIT-Bigdata Analysis Platform System</strong>C-BAP으로 데이터를 수집하고, R-BAP 분석을 거쳐 V-BAP 시각화로 업무 목적에 맞게 전달합니다.</p>
+                        <div class="sol-product-evidence sol-product-evidence--inbaps" aria-label="인법스 수집·분석·시각화 구성 자료">
+                            <figure><div><img src="../assets/images/reference/in-baps/c-bap-collection.png" alt="Open API, SNS와 웹 데이터를 수집하는 C-BAP 소개 자료" width="1067" height="749" loading="lazy" decoding="async"></div><figcaption><strong>C-BAP</strong><span>수집</span></figcaption></figure>
+                            <i aria-hidden="true">→</i>
+                            <figure><div><img src="../assets/images/reference/in-baps/r-bap-analysis.png" alt="통계와 빅데이터 분석을 결합하는 R-BAP 소개 자료" width="1056" height="615" loading="lazy" decoding="async"></div><figcaption><strong>R-BAP</strong><span>분석</span></figcaption></figure>
+                            <i aria-hidden="true">→</i>
+                            <figure><div><img src="../assets/images/reference/in-baps/v-bap-visualization.png" alt="차트와 BI, R 시각화를 제공하는 V-BAP 소개 자료" width="1055" height="807" loading="lazy" decoding="async"></div><figcaption><strong>V-BAP</strong><span>시각화</span></figcaption></figure>
+                        </div>
+                        <span class="sol-card-link">수집·분석·시각화 파이프라인 보기 <span aria-hidden="true">→</span></span>
+                    </a>
+
+                    <a class="sol-product-card sol-product-card--surveyone reveal" href="in-surveyone/index.html">
+                        <div class="sol-product-card-top"><span>SURVEY OPERATIONS PLATFORM</span><i aria-hidden="true">↗</i></div>
+                        <h3>인서베이원 inSurveyOne</h3>
+                        <p><strong class="sol-product-fullname" lang="en">One-Stop Survey Integrated Platform</strong>문항과 템플릿, 대상자와 배포 준비, 응답 데이터와 결과 보고서를 하나의 작업공간에서 연결합니다.</p>
+                        <figure class="sol-product-evidence sol-product-evidence--surveyone">
+                            <div class="sol-product-window-bar"><span>SURVEY OPERATIONS</span><b>공개용 데모 화면</b></div>
+                            <div class="sol-product-window-viewport"><img src="../assets/images/product/in-surveyone/dashboard-public-demo_kor.png" data-i18n-image-base="../assets/images/product/in-surveyone/dashboard-public-demo" alt="개인정보를 제거한 인서베이원 설문 운영 대시보드 데모 화면" width="1792" height="1024" loading="lazy" decoding="async"></div>
+                            <figcaption><strong>설문 운영 작업공간</strong><span>설계 · 배포 · 응답 · 보고서</span></figcaption>
+                        </figure>
+                        <span class="sol-card-link">설문 운영 기능과 화면 보기 <span aria-hidden="true">→</span></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section sol-path-section" aria-labelledby="solutionPathTitle">
+            <div class="shell">
+                <div class="sol-section-heading reveal">
+                    <div><p class="eyebrow eyebrow-light"><i></i> FROM PURPOSE TO OPERATION</p><h2 id="solutionPathTitle">제품보다 먼저 확인할<br>세 가지 운영 조건.</h2></div>
+                    <p>세 제품을 하나로 묶어 설명하지 않습니다. 해결할 목적과 참여자, 반복 운영에 필요한 기록을 먼저 확인해 알맞은 범위를 정합니다.</p>
+                </div>
+                <ol class="sol-path-list">
+                    <li class="reveal"><span>01 / DEFINE</span><strong>목적과 기준을 먼저 정의</strong><p>품질 검토, 데이터 활용 또는 조사 운영에서 무엇을 결정하고 어떤 결과를 남길지 확인합니다.</p></li>
+                    <li class="reveal"><span>02 / CONNECT</span><strong>데이터·사람·절차를 연결</strong><p>입력 데이터와 담당자, 검토·배포·분석 절차가 끊기지 않도록 필요한 접점을 구성합니다.</p></li>
+                    <li class="reveal"><span>03 / OPERATE</span><strong>권한·이력·결과를 운영</strong><p>누가 무엇을 수행했고 어떤 결과가 만들어졌는지 다음 실행에서도 확인할 수 있게 관리합니다.</p></li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="contact-cta contact-cta--solution-bridge" aria-labelledby="solutionContactTitle">
+            <div class="shell contact-cta-inner reveal">
+                <div><p class="eyebrow eyebrow-light"><i></i> SOLUTION CONVERSATION</p><h2 id="solutionContactTitle">현재 데이터와 업무에<br>맞는 시작점을 찾으세요.</h2></div>
+                <div><p>데이터 소스, 검증·조사 절차와 원하는 운영 범위를 알려주시면 제품 적용과 구축 범위를 함께 정리하겠습니다.</p><a class="button button-primary" href="../contact/index.html">솔루션 도입 상담하기 <span aria-hidden="true">↗</span></a></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="shell footer-main">
+            <div class="footer-brand"><a href="../index.html"><img src="../assets/images/brand/init-logo.png" alt="iNIT"></a><p>2013년 설립된 통계·데이터 분석 및<br>업무 시스템 전문기업입니다.</p></div>
+            <div class="footer-links">
+                <div>
+                    <strong>회사</strong>
+                    <div class="footer-company-item">
+                        <a href="../company/index.html">회사소개</a>
+                        <a class="footer-company-download" href="../assets/downloads/init-company-introduction.pdf" download="INIT_회사소개서.pdf" aria-label="회사소개서 다운로드" title="회사소개서 다운로드">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10m0 0 4-4m-4 4-4-4M5 16v3h14v-3"></path></svg>
+                        </a>
+                    </div>
+                    <a href="../projects/index.html">프로젝트</a>
+                    <a href="../careers/index.html">채용</a>
+                    <a href="../privacy/index.html">개인정보 안내</a>
+                </div>
+                <div><strong>사업 영역</strong><a href="../services/index.html">서비스 개요</a><a href="index.html">솔루션</a><a href="../insights/index.html">인사이트</a></div>
+                <div class="footer-contact"><strong>연락처</strong><a href="mailto:support@initgroup.kr">support@initgroup.kr</a><a href="tel:+827087859647">070-8785-9647</a><address class="footer-address"><span>대전광역시 대덕구 대화로 120</span><span>가온비즈타워 1024호</span></address></div>
+            </div>
+        </div>
+        <div class="shell footer-bottom"><span>© <b data-current-year>2026</b> INIT. All rights reserved.</span><div class="footer-bottom-links"><span>통계 · 데이터 품질 · AI 분석 · 업무 시스템</span><a class="footer-members-link" href="https://initgroup-members.onrender.com/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>직원전용</span></a></div></div>
+    </footer>
+
+
+    <div class="mobile-action-bar" aria-label="빠른 이동">
+        <a href="#portfolioTitle">제품 비교</a>
+        <a href="../contact/index.html">도입 문의 <span aria-hidden="true">↗</span></a>
+    </div>
+
+
+
+</body>
+</html>

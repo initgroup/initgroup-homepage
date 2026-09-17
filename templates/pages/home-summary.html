@@ -28,8 +28,8 @@
                     <h1 id="heroTitle">통계·데이터 분석과<br><em>업무 시스템을</em><br>설계하고 운영합니다.</h1>
                     <p class="summary-hero-lead">인아이티는 통계 컨설팅, 데이터 품질 관리, AI 분석과 조사·업무 시스템 구축·운영을 수행하는 데이터 전문기업입니다.</p>
                     <div class="summary-hero-actions">
-                        <a class="button button-primary" href="/services/">서비스 안내 <span aria-hidden="true">→</span></a>
-                        <a class="button button-secondary" href="/contact/">문의하기 <span aria-hidden="true">↗</span></a>
+                        <a class="button button-primary" href="{{ page_url('services/') }}">서비스 안내 <span aria-hidden="true">→</span></a>
+                        <a class="button button-secondary" href="{{ page_url('contact/') }}">문의하기 <span aria-hidden="true">↗</span></a>
                     </div>
                     <a class="summary-hero-scroll" href="#capabilities"><i aria-hidden="true"></i><span>SCROLL DOWN</span></a>
                 </div>
@@ -44,19 +44,19 @@
 
         <nav class="home-service-rail" aria-label="핵심 서비스 바로가기">
             <div class="home-service-rail-grid shell">
-                <a href="/services/#consulting">
+                <a href="{{ page_url('services/#consulting') }}">
                     <span class="home-service-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 31V21h6v10M17 31V14h6v17M26 31V8h6v23M6 31h28"/></svg></span>
                     <span><strong>통계 컨설팅</strong><small>조사·통계 설계와 활용 전략</small></span><i aria-hidden="true">→</i>
                 </a>
-                <a href="/services/#quality">
+                <a href="{{ page_url('services/#quality') }}">
                     <span class="home-service-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="10" rx="11" ry="5"/><path d="M9 10v10c0 2.8 4.9 5 11 5s11-2.2 11-5V10M9 20v10c0 2.8 4.9 5 11 5s11-2.2 11-5V20"/></svg></span>
                     <span><strong>데이터 품질</strong><small>품질 기준과 운영 이력 관리</small></span><i aria-hidden="true">→</i>
                 </a>
-                <a href="/services/#analytics">
+                <a href="{{ page_url('services/#analytics') }}">
                     <span class="home-service-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="4"/><circle cx="9" cy="13" r="3"/><circle cx="31" cy="11" r="3"/><circle cx="31" cy="29" r="3"/><circle cx="9" cy="30" r="3"/><path d="m12 14 5 4m6-1 5-4m0 14-5-5m-6 1-5 5"/></svg></span>
                     <span><strong>AI &amp; ANALYTICS</strong><small>설명 가능한 분석과 예측 모델</small></span><i aria-hidden="true">→</i>
                 </a>
-                <a href="/services/#engineering">
+                <a href="{{ page_url('services/#engineering') }}">
                     <span class="home-service-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="7" y="8" width="26" height="19" rx="2"/><path d="M13 33h14M20 27v6M12 14h7v7h-7zM23 14h5M23 19h5"/></svg></span>
                     <span><strong>시스템 구축·운영</strong><small>분석 업무의 시스템 구현과 운영</small></span><i aria-hidden="true">→</i>
                 </a>
@@ -65,14 +65,14 @@
 
         <section class="home-company-strip" aria-label="회사 요약">
             <div class="home-company-strip-inner shell">
-                <div class="home-company-brand"><img src="/assets/images/brand/init-logo.png" alt="iNIT" width="3048" height="861"><span>DATA INTELLIGENCE</span></div>
+                <div class="home-company-brand"><img src="{{ page_url('assets/images/brand/init-logo.png') }}" alt="iNIT" width="3048" height="861"><span>DATA INTELLIGENCE</span></div>
                 <div class="home-company-copy"><strong>데이터와 사람, 더 나은 판단을 연결합니다.</strong><p>문제 정의부터 분석과 시스템 운영까지 하나의 흐름으로 함께합니다.</p></div>
                 <dl class="home-company-metrics">
                     <div><dt>2013</dt><dd>설립 연도</dd></div>
                     <div><dt>4</dt><dd>전문 분야</dd></div>
                     <div><dt>3</dt><dd>제품·플랫폼</dd></div>
                 </dl>
-                <a href="/company/">회사 소개 <span aria-hidden="true">→</span></a>
+                <a href="{{ page_url('company/') }}">회사 소개 <span aria-hidden="true">→</span></a>
             </div>
         </section>
 
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="capability-summary-grid">
-                    <a class="capability-summary-card capability-summary-card--strategy reveal" href="/services/#consulting">
+                    <a class="capability-summary-card capability-summary-card--strategy reveal" href="{{ page_url('services/#consulting') }}">
                         <span class="summary-card-index"><small>SERVICE</small>01</span>
                         <div class="summary-card-visual summary-card-visual--strategy" aria-hidden="true">
                             <svg viewBox="0 0 320 160" focusable="false">
@@ -102,7 +102,7 @@
                         <p>통계 설계, 활용 전략과 수요예측을 업무 목적에 맞게 정의합니다.</p>
                         <strong>컨설팅 범위 보기 <i aria-hidden="true">↗</i></strong>
                     </a>
-                    <a class="capability-summary-card capability-summary-card--quality reveal" href="/services/#quality">
+                    <a class="capability-summary-card capability-summary-card--quality reveal" href="{{ page_url('services/#quality') }}">
                         <span class="summary-card-index"><small>SERVICE</small>02</span>
                         <div class="summary-card-visual summary-card-visual--quality" aria-hidden="true">
                             <svg viewBox="0 0 320 160" focusable="false">
@@ -117,7 +117,7 @@
                         <p>흩어진 데이터를 통합하고 품질 규칙과 변경 이력이 남는 구조를 만듭니다.</p>
                         <strong>품질 업무 보기 <i aria-hidden="true">↗</i></strong>
                     </a>
-                    <a class="capability-summary-card capability-summary-card--analytics reveal" href="/services/#analytics">
+                    <a class="capability-summary-card capability-summary-card--analytics reveal" href="{{ page_url('services/#analytics') }}">
                         <span class="summary-card-index"><small>SERVICE</small>03</span>
                         <div class="summary-card-visual summary-card-visual--analytics" aria-hidden="true">
                             <svg viewBox="0 0 320 160" focusable="false">
@@ -131,7 +131,7 @@
                         <p>패턴과 관계를 설명하고 예측 모델과 시각적 인사이트로 전환합니다.</p>
                         <strong>분석 방법 보기 <i aria-hidden="true">↗</i></strong>
                     </a>
-                    <a class="capability-summary-card capability-summary-card--system reveal" href="/services/#engineering">
+                    <a class="capability-summary-card capability-summary-card--system reveal" href="{{ page_url('services/#engineering') }}">
                         <span class="summary-card-index"><small>SERVICE</small>04</span>
                         <div class="summary-card-visual summary-card-visual--system" aria-hidden="true">
                             <svg viewBox="0 0 320 160" focusable="false">
@@ -163,11 +163,11 @@
                             <h3><span class="ko-brand-name">인뎁스</span> <b>IN-DEPS</b></h3>
                             <p>데이터 구조와 관계를 분석해 품질 규칙을 발굴하고, 전문가 검토와 실행 이력을 하나의 흐름으로 관리합니다.</p>
                             <ul><li>자동 규칙 발굴</li><li>전문가 검토</li><li>실행 이력 관리</li></ul>
-                            <a href="/solutions/data-editing-system/">인뎁스 상세 보기 <span aria-hidden="true">→</span></a>
+                            <a href="{{ page_url('solutions/data-editing-system/') }}">인뎁스 상세 보기 <span aria-hidden="true">→</span></a>
                         </div>
                         <figure class="solution-summary-media">
                             <div class="solution-window-bar" aria-hidden="true"><span>IN-DEPS / FLOW DESIGNER</span><i></i></div>
-                            <div class="solution-window-viewport"><img src="/assets/images/reference/data-editing-system/flow-designer_kor.png" data-i18n-image-base="/assets/images/reference/data-editing-system/flow-designer" alt="컬럼 분석부터 규칙 발굴과 위반 탐지를 연결한 인뎁스 실행 흐름 화면" width="1920" height="949" loading="lazy" decoding="async"></div>
+                            <div class="solution-window-viewport"><img src="{{ page_url('assets/images/reference/data-editing-system/flow-designer_kor.png') }}" data-i18n-image-base="{{ page_url('assets/images/reference/data-editing-system/flow-designer') }}" alt="컬럼 분석부터 규칙 발굴과 위반 탐지를 연결한 인뎁스 실행 흐름 화면" width="1920" height="949" loading="lazy" decoding="async"></div>
                             <figcaption>실제 Flow 설계 화면</figcaption>
                         </figure>
                     </article>
@@ -178,12 +178,12 @@
                             <h3><span class="ko-brand-name">인법스</span> <b>IN-BAPS</b></h3>
                             <p>서로 다른 소스의 데이터를 모으고 분석한 뒤, 업무 목적에 맞는 시각화 화면으로 전달합니다.</p>
                             <ul><li>데이터 수집</li><li>통계·텍스트 분석</li><li>업무 시각화</li></ul>
-                            <a href="/solutions/inbups/">인법스 상세 보기 <span aria-hidden="true">→</span></a>
+                            <a href="{{ page_url('solutions/inbups/') }}">인법스 상세 보기 <span aria-hidden="true">→</span></a>
                         </div>
                         <ol class="inbaps-summary-flow" aria-label="인법스 플랫폼 구성">
-                            <li><figure><img src="/assets/images/reference/in-baps/c-bap-collection.png" alt="Open API, SNS와 웹 데이터를 수집하는 C-BAP 소개 자료" width="1067" height="749" loading="lazy" decoding="async"></figure><span>C</span><div><strong>Collect</strong><p>API·웹·SNS 수집</p></div></li>
-                            <li><figure><img src="/assets/images/reference/in-baps/r-bap-analysis.png" alt="통계와 빅데이터 분석을 결합하는 R-BAP 소개 자료" width="1056" height="615" loading="lazy" decoding="async"></figure><span>R</span><div><strong>Analyze</strong><p>통계·텍스트·관계 분석</p></div></li>
-                            <li><figure><img src="/assets/images/reference/in-baps/v-bap-visualization.png" alt="차트와 BI, R 시각화를 제공하는 V-BAP 소개 자료" width="1055" height="807" loading="lazy" decoding="async"></figure><span>V</span><div><strong>Visualize</strong><p>차트·BI·업무 화면</p></div></li>
+                            <li><figure><img src="{{ page_url('assets/images/reference/in-baps/c-bap-collection.png') }}" alt="Open API, SNS와 웹 데이터를 수집하는 C-BAP 소개 자료" width="1067" height="749" loading="lazy" decoding="async"></figure><span>C</span><div><strong>Collect</strong><p>API·웹·SNS 수집</p></div></li>
+                            <li><figure><img src="{{ page_url('assets/images/reference/in-baps/r-bap-analysis.png') }}" alt="통계와 빅데이터 분석을 결합하는 R-BAP 소개 자료" width="1056" height="615" loading="lazy" decoding="async"></figure><span>R</span><div><strong>Analyze</strong><p>통계·텍스트·관계 분석</p></div></li>
+                            <li><figure><img src="{{ page_url('assets/images/reference/in-baps/v-bap-visualization.png') }}" alt="차트와 BI, R 시각화를 제공하는 V-BAP 소개 자료" width="1055" height="807" loading="lazy" decoding="async"></figure><span>V</span><div><strong>Visualize</strong><p>차트·BI·업무 화면</p></div></li>
                         </ol>
                     </article>
 
@@ -193,11 +193,11 @@
                             <h3><span class="ko-brand-name">인서베이원</span> <b>inSurveyOne</b></h3>
                             <p>문항 설계부터 배포 대상과 안내, 응답 확인과 맞춤 보고서까지 조사 운영 전 과정을 연결합니다.</p>
                             <ul><li>설문 설계</li><li>배포·안내</li><li>응답·보고서</li></ul>
-                            <a href="/solutions/in-surveyone/">인서베이원 상세 보기 <span aria-hidden="true">→</span></a>
+                            <a href="{{ page_url('solutions/in-surveyone/') }}">인서베이원 상세 보기 <span aria-hidden="true">→</span></a>
                         </div>
                         <figure class="solution-summary-media solution-summary-media--surveyone">
                             <div class="solution-window-bar" aria-hidden="true"><span>inSurveyOne / DASHBOARD</span><i></i></div>
-                            <div class="solution-window-viewport"><img src="/assets/images/product/in-surveyone/dashboard-public-demo_kor.png" data-i18n-image-base="/assets/images/product/in-surveyone/dashboard-public-demo" alt="개인정보를 제거한 인서베이원 설문 운영 대시보드 데모 화면" width="1792" height="1024" loading="lazy" decoding="async"></div>
+                            <div class="solution-window-viewport"><img src="{{ page_url('assets/images/product/in-surveyone/dashboard-public-demo_kor.png') }}" data-i18n-image-base="{{ page_url('assets/images/product/in-surveyone/dashboard-public-demo') }}" alt="개인정보를 제거한 인서베이원 설문 운영 대시보드 데모 화면" width="1792" height="1024" loading="lazy" decoding="async"></div>
                             <figcaption>설계·배포·응답·보고서를 잇는 운영 화면</figcaption>
                         </figure>
                     </article>
@@ -213,26 +213,26 @@
                 </div>
 
                 <div class="experience-summary-grid">
-                    <a class="experience-summary-card reveal" href="/projects/#casesTitle">
+                    <a class="experience-summary-card reveal" href="{{ page_url('projects/#casesTitle') }}">
                         <span>국가통계</span><strong>01</strong>
                         <h3>분리된 통계 생산 과정을<br>표준 흐름으로 연결</h3>
                         <p>수집·검증·생산·서비스 단계를 하나의 운영 구조에서 관리합니다.</p>
                         <i aria-hidden="true">↗</i>
                     </a>
-                    <a class="experience-summary-card reveal" href="/projects/#casesTitle">
+                    <a class="experience-summary-card reveal" href="{{ page_url('projects/#casesTitle') }}">
                         <span>금융 데이터</span><strong>02</strong>
                         <h3>특이 신호와 검토 근거를<br>한 화면에서 확인</h3>
                         <p>이상 패턴과 원인, 관련 데이터를 담당자가 함께 검토하도록 지원합니다.</p>
                         <i aria-hidden="true">↗</i>
                     </a>
-                    <a class="experience-summary-card reveal" href="/projects/#casesTitle">
+                    <a class="experience-summary-card reveal" href="{{ page_url('projects/#casesTitle') }}">
                         <span>산업·수요예측</span><strong>03</strong>
                         <h3>예측값과 변화의 이유를<br>함께 읽는 분석</h3>
                         <p>시장 지표와 내부 데이터를 연결해 다음 행동에 필요한 신호를 제공합니다.</p>
                         <i aria-hidden="true">↗</i>
                     </a>
                 </div>
-                <a class="home-section-link" href="/projects/">프로젝트 전체 보기 <span aria-hidden="true">→</span></a>
+                <a class="home-section-link" href="{{ page_url('projects/') }}">프로젝트 전체 보기 <span aria-hidden="true">→</span></a>
             </div>
         </section>
 
@@ -244,25 +244,25 @@
                 </div>
 
                 <div class="home-insight-editorial">
-                    <a href="/insights/reports/20260801_01/" class="home-insight-featured reveal">
+                    <a href="{{ page_url('insights/reports/20260801_01/') }}" class="home-insight-featured reveal">
                         <span>주요 글 · 데이터·통계</span>
                         <h3>데이터 품질은 전처리가 아니라 운영 체계입니다</h3>
                         <p>규칙의 근거와 담당자의 판단, 변경 이력이 다음 실행에도 이어지는 품질 운영의 구조를 살펴봅니다.</p>
                         <strong>상세 글 읽기 <i aria-hidden="true">↗</i></strong>
                     </a>
                     <div class="home-insight-list">
-                        <a href="/insights/reports/20260801_02/" class="reveal"><span>연구·검증</span><h3>자동화의 마지막 판단을 전문가에게 남기는 설계</h3><p>후보 제안과 최종 책임을 분리하는 Human-in-the-loop 업무 흐름.</p><strong>상세 글 읽기 <i aria-hidden="true">↗</i></strong></a>
-                        <a href="/insights/reports/20260801_03/" class="reveal"><span>현장 적용</span><h3>재현 가능한 분석을 만드는 실행 이력</h3><p>입력과 실행 조건, 버전과 결과를 연결해 다시 실행하고 비교하는 방법.</p><strong>상세 글 읽기 <i aria-hidden="true">↗</i></strong></a>
+                        <a href="{{ page_url('insights/reports/20260801_02/') }}" class="reveal"><span>연구·검증</span><h3>자동화의 마지막 판단을 전문가에게 남기는 설계</h3><p>후보 제안과 최종 책임을 분리하는 Human-in-the-loop 업무 흐름.</p><strong>상세 글 읽기 <i aria-hidden="true">↗</i></strong></a>
+                        <a href="{{ page_url('insights/reports/20260801_03/') }}" class="reveal"><span>현장 적용</span><h3>재현 가능한 분석을 만드는 실행 이력</h3><p>입력과 실행 조건, 버전과 결과를 연결해 다시 실행하고 비교하는 방법.</p><strong>상세 글 읽기 <i aria-hidden="true">↗</i></strong></a>
                     </div>
                 </div>
-                <a class="home-section-link" href="/insights/">인사이트 개요 보기 <span aria-hidden="true">→</span></a>
+                <a class="home-section-link" href="{{ page_url('insights/') }}">인사이트 개요 보기 <span aria-hidden="true">→</span></a>
             </div>
         </section>
 
         <section class="home-contact" aria-labelledby="contactTitle">
             <div class="shell home-contact-inner reveal">
                 <div><p class="eyebrow eyebrow-light"><i></i> 문의</p><h2 id="contactTitle">프로젝트 문의</h2></div>
-                <div><p>현재 데이터 환경, 해결하려는 문제와 필요한 일정을 알려주시면 검토 가능한 서비스 범위를 안내합니다.</p><a class="button button-light" href="/contact/">문의 방법 보기 <span aria-hidden="true">↗</span></a></div>
+                <div><p>현재 데이터 환경, 해결하려는 문제와 필요한 일정을 알려주시면 검토 가능한 서비스 범위를 안내합니다.</p><a class="button button-light" href="{{ page_url('contact/') }}">문의 방법 보기 <span aria-hidden="true">↗</span></a></div>
             </div>
         </section>
 {% endblock %}

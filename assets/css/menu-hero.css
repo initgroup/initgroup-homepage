@@ -150,13 +150,13 @@
 .menu-family-hero--company {
     --family-accent: #087a67;
     --family-muted: #425c5a;
-    --family-image: url("/assets/images/menu-heroes/company-hero-desktop-v2.png");
+    --family-image: url("../images/menu-heroes/company-hero-desktop-v2.png");
     --family-overlay: linear-gradient(90deg, rgba(250, 254, 253, 0.995) 0%, rgba(250, 254, 253, 0.94) 36%, rgba(242, 252, 250, 0.38) 58%, rgba(235, 249, 246, 0.03) 77%);
 }
 
 .menu-family-hero--services {
     --family-accent: #2457d6;
-    --family-image: url("/assets/images/menu-heroes/services-hero-desktop-v2.png");
+    --family-image: url("../images/menu-heroes/services-hero-desktop-v2.png");
     --family-overlay: linear-gradient(90deg, rgba(251, 253, 255, 0.995) 0%, rgba(251, 253, 255, 0.94) 36%, rgba(244, 248, 255, 0.32) 59%, rgba(238, 245, 255, 0.02) 78%);
 }
 
@@ -164,7 +164,7 @@
     --family-accent: #18c9e8;
     --family-ink: #fff;
     --family-muted: #c3d5eb;
-    --family-image: url("/assets/images/menu-heroes/solutions-hero-desktop-v2.png");
+    --family-image: url("../images/menu-heroes/solutions-hero-desktop-v2.png");
     --family-overlay: linear-gradient(90deg, rgba(3, 18, 40, 0.99) 0%, rgba(3, 18, 40, 0.92) 37%, rgba(3, 18, 40, 0.34) 62%, rgba(3, 18, 40, 0.04) 80%);
 }
 
@@ -180,7 +180,7 @@
 .menu-family-hero--projects {
     --family-accent: #6547e8;
     --family-muted: #554d6f;
-    --family-image: url("/assets/images/menu-heroes/projects-hero-desktop-v2.png");
+    --family-image: url("../images/menu-heroes/projects-hero-desktop-v2.png");
     --family-overlay: linear-gradient(90deg, rgba(253, 252, 255, 0.995) 0%, rgba(253, 252, 255, 0.95) 36%, rgba(247, 245, 255, 0.31) 59%, rgba(239, 234, 255, 0.02) 78%);
 }
 
@@ -193,7 +193,7 @@
 .menu-family-hero--insights {
     --family-accent: #087a67;
     --family-muted: #4a574f;
-    --family-image: url("/assets/images/menu-heroes/insights-hero-desktop-v2.png");
+    --family-image: url("../images/menu-heroes/insights-hero-desktop-v2.png");
     --family-overlay: linear-gradient(90deg, rgba(252, 251, 246, 0.995) 0%, rgba(252, 251, 246, 0.96) 37%, rgba(249, 248, 242, 0.34) 60%, rgba(237, 247, 241, 0.03) 79%);
 }
 
@@ -210,7 +210,7 @@
 .menu-family-hero--careers {
     --family-accent: #2457d6;
     --family-muted: #49546a;
-    --family-image: url("/assets/images/menu-heroes/careers-hero-desktop-v2.png");
+    --family-image: url("../images/menu-heroes/careers-hero-desktop-v2.png");
     --family-overlay: linear-gradient(90deg, rgba(249, 250, 255, 0.995) 0%, rgba(249, 250, 255, 0.95) 36%, rgba(246, 247, 255, 0.34) 59%, rgba(255, 242, 235, 0.03) 79%);
 }
 
@@ -218,13 +218,13 @@
 body.solutions-page .sol-page-hero:not(.primary-page-hero) {
     background:
         linear-gradient(90deg, rgba(3, 18, 40, 0.985) 0%, rgba(3, 18, 40, 0.88) 43%, rgba(3, 18, 40, 0.5) 100%),
-        url("/assets/images/menu-heroes/solutions-hero-desktop-v2.png") center / cover no-repeat;
+        url("../images/menu-heroes/solutions-hero-desktop-v2.png") center / cover no-repeat;
 }
 
 body[data-page="insights"] .article-hero {
     background:
         linear-gradient(90deg, rgba(252, 251, 246, 0.99), rgba(252, 251, 246, 0.91) 58%, rgba(237, 247, 241, 0.62)),
-        url("/assets/images/menu-heroes/insights-hero-desktop-v2.png") center / cover no-repeat;
+        url("../images/menu-heroes/insights-hero-desktop-v2.png") center / cover no-repeat;
 }
 
 body[data-page="insights"] .article-summary-band {
@@ -292,13 +292,13 @@ body[data-page="insights"] .article-summary > div {
     body.solutions-page .sol-page-hero:not(.primary-page-hero) {
         background:
             linear-gradient(180deg, rgba(3, 18, 40, 0.99) 0%, rgba(3, 18, 40, 0.92) 62%, rgba(3, 18, 40, 0.74) 100%),
-            url("/assets/images/menu-heroes/solutions-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
+            url("../images/menu-heroes/solutions-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
     }
 
     body[data-page="insights"] .article-hero {
         background:
             linear-gradient(180deg, rgba(252, 251, 246, 0.99), rgba(252, 251, 246, 0.92) 72%, rgba(237, 247, 241, 0.72)),
-            url("/assets/images/menu-heroes/insights-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
+            url("../images/menu-heroes/insights-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
     }
 }
 

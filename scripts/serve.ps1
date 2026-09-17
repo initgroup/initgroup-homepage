@@ -1,104 +1,95 @@
 [CmdletBinding()]
 param(
-    [ValidateRange(1024, 65535)]
-    [int]$Port = 8200,
-    [switch]$Restart
+    [ValidateSet(8200)][int]$Port = 8200,
+    [switch]$Restart,
+    [switch]$PreviewSubdirectory
 )
 
 $ErrorActionPreference = 'Stop'
-. (Join-Path $PSScriptRoot 'codex-utf8.ps1')
-
-$siteRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-$venvPython = Join-Path $siteRoot 'venv\Scripts\python.exe'
-
-if (-not (Test-Path -LiteralPath $venvPython -PathType Leaf)) {
-    Write-Host 'INIT Homepage venv was not found. Creating it now.' -ForegroundColor Yellow
-    & (Join-Path $PSScriptRoot 'setup-venv.ps1')
-    if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath $venvPython -PathType Leaf)) {
-        throw 'INIT Homepage venv setup failed.'
-    }
-}
-
+$siteRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $siteUrl = "http://127.0.0.1:$Port/"
+$manifest = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'static-files.json') | ConvertFrom-Json
+$files = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+foreach ($entry in $manifest) { $null = $files.Add($entry) }
+$existing = $null
+try { $existing = Invoke-WebRequest -Uri $siteUrl -UseBasicParsing -TimeoutSec 2 } catch { }
+if ($existing -and $existing.Headers['X-INIT-Static-Server']) {
+    if (-not $Restart) { Write-Host "Static homepage is already running: $siteUrl"; return }
+    $serverProcessId = [int]$existing.Headers['X-INIT-Static-Server']
+    $process = Get-CimInstance Win32_Process -Filter "ProcessId = $serverProcessId"
+    if (-not $process -or $process.Name -notmatch '^powershell(.exe)?$' -or $process.CommandLine -notlike "*$PSScriptRoot*serve.ps1*") {
+        throw 'The existing server could not be verified. Stop it manually.'
+    }
+    Stop-Process -Id $serverProcessId -ErrorAction Stop
+    Start-Sleep -Milliseconds 300
+}
+$occupied = @(netstat.exe -ano -p tcp | Select-String -Pattern (':{0}\s+.*LISTENING\s+\d+$' -f $Port))
+if ($occupied.Count) {
+    $owners = @($occupied | ForEach-Object { [int](($_.ToString().Trim() -split '\s+')[-1]) } | Sort-Object -Unique)
+    $descriptions = foreach ($owner in $owners) {
+        $process = Get-Process -Id $owner -ErrorAction SilentlyContinue
+        "PID $owner ($($process.ProcessName))"
+    }
+    throw "Port $Port is occupied by $($descriptions -join ', '). Stop the existing server before starting the static preview."
+}
 
-function Get-HomepageListenerProcessId {
-    $listenerRows = @(& netstat.exe -ano -p tcp | Select-String -Pattern (':{0}\s+.*LISTENING\s+\d+$' -f $Port))
-    $processIds = @(
-        foreach ($listenerRow in $listenerRows) {
-            $columns = $listenerRow.ToString().Trim() -split '\s+'
-            if ($columns.Count -ge 5 -and $columns[1] -eq "127.0.0.1:$Port") {
-                [int]$columns[-1]
+$mime = @{
+    '.html' = 'text/html; charset=utf-8'; '.css' = 'text/css; charset=utf-8';
+    '.js' = 'text/javascript; charset=utf-8'; '.json' = 'application/json; charset=utf-8';
+    '.txt' = 'text/plain; charset=utf-8'; '.xml' = 'application/xml; charset=utf-8';
+    '.svg' = 'image/svg+xml'; '.png' = 'image/png'; '.jpg' = 'image/jpeg'; '.jpeg' = 'image/jpeg';
+    '.webp' = 'image/webp'; '.ico' = 'image/x-icon'; '.pdf' = 'application/pdf'
+}
+$listener = [Net.HttpListener]::new()
+$listener.Prefixes.Add($siteUrl)
+try {
+    $listener.Start()
+    Write-Host "INIT static homepage: $siteUrl"
+    Write-Host 'Python/PHP/Node are not used. Press Ctrl+C to stop.'
+    while ($listener.IsListening) {
+        $context = $listener.GetContext()
+        $response = $context.Response
+        try {
+            $response.Headers['X-INIT-Static-Server'] = [string]$PID
+            $response.Headers['X-Content-Type-Options'] = 'nosniff'
+            $response.Headers['X-Frame-Options'] = 'DENY'
+            $response.Headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+            $response.Headers['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()'
+            $response.Headers['Content-Security-Policy'] = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'"
+            $response.Headers['Cache-Control'] = 'no-cache'
+            $request = $context.Request
+            if ($request.HttpMethod -notin @('GET', 'HEAD')) {
+                $response.StatusCode = 405
+                $response.Headers['Allow'] = 'GET, HEAD'
+                continue
             }
-        }
-    ) | Sort-Object -Unique
-
-    if ($processIds.Count -eq 1) { return $processIds[0] }
-    if ($processIds.Count -gt 1) { throw "Multiple processes are listening on 127.0.0.1:$Port. Stop them manually before restarting." }
-    return $null
-}
-
-$existingResponse = $null
-$existingHealthResponse = $null
-try {
-    $existingResponse = Invoke-WebRequest -Uri $siteUrl -UseBasicParsing -TimeoutSec 2
-} catch {
-    $existingResponse = $null
-}
-try {
-    $existingHealthResponse = Invoke-WebRequest -Uri "${siteUrl}healthz" -UseBasicParsing -TimeoutSec 2
-} catch {
-    $existingHealthResponse = $null
-}
-
-if ($existingResponse) {
-    if ($existingHealthResponse -and $existingHealthResponse.Content -match '"service"\s*:\s*"initgroup-homepage"') {
-        if (-not $Restart) {
-            Write-Host "INIT Homepage is already running: $siteUrl" -ForegroundColor Green
-            return
-        }
-
-        $listenerProcessId = Get-HomepageListenerProcessId
-        if (-not $listenerProcessId) {
-            throw "The existing homepage responded on port $Port, but its listener process could not be identified."
-        }
-
-        $listenerProcess = Get-Process -Id $listenerProcessId -ErrorAction Stop
-        if ($listenerProcess.ProcessName -notlike 'python*') {
-            throw "Port $Port is serving the homepage from unexpected process '$($listenerProcess.ProcessName)' (PID $listenerProcessId). Stop it manually."
-        }
-
-        Write-Host "Restarting existing INIT Homepage server (PID $listenerProcessId)." -ForegroundColor Yellow
-        Stop-Process -Id $listenerProcessId -ErrorAction Stop
-        $releaseDeadline = (Get-Date).AddSeconds(5)
-        do {
-            Start-Sleep -Milliseconds 100
-            $remainingListener = Get-HomepageListenerProcessId
-        } while ($remainingListener -and (Get-Date) -lt $releaseDeadline)
-
-        if ($remainingListener) {
-            throw "Port $Port was not released after stopping PID $listenerProcessId."
-        }
+            $relative = [Uri]::UnescapeDataString($request.Url.AbsolutePath).TrimStart('/')
+            if ($relative -match '(^|/)\.\.(/|$)|\\|:') { $response.StatusCode = 404; continue }
+            # A second mount exercises subdirectory hosting using the same public files.
+            if ($PreviewSubdirectory -and $relative.StartsWith('preview/')) { $relative = $relative.Substring('preview/'.Length) }
+            if (-not $relative -or $relative.EndsWith('/')) { $relative += 'index.html' }
+            if (-not $files.Contains($relative) -or $relative -eq '.htaccess') {
+                if ($files.Contains($relative + '/index.html')) {
+                    $response.StatusCode = 308
+                    $response.RedirectLocation = $request.Url.AbsolutePath + '/' + $request.Url.Query
+                } else {
+                    $response.StatusCode = 404
+                    $response.ContentType = 'text/plain; charset=utf-8'
+                    $bytes = [Text.Encoding]::UTF8.GetBytes('404 - Page not found')
+                    $response.ContentLength64 = $bytes.Length
+                    if ($request.HttpMethod -eq 'GET') { $response.OutputStream.Write($bytes, 0, $bytes.Length) }
+                }
+                continue
+            }
+            $path = [IO.Path]::GetFullPath((Join-Path $siteRoot $relative))
+            if (-not $path.StartsWith($siteRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { $response.StatusCode = 404; continue }
+            $extension = [IO.Path]::GetExtension($path).ToLowerInvariant()
+            $response.ContentType = if ($mime.ContainsKey($extension)) { $mime[$extension] } else { 'application/octet-stream' }
+            $bytes = [IO.File]::ReadAllBytes($path)
+            $response.ContentLength64 = $bytes.Length
+            if ($request.HttpMethod -eq 'GET') { $response.OutputStream.Write($bytes, 0, $bytes.Length) }
+        } catch {
+            Write-Warning $_.Exception.Message
+        } finally { $response.Close() }
     }
-    else {
-        throw "Port $Port is already used by another project. Stop that process or run .\scripts\serve.ps1 -Port <another-port>."
-    }
-}
-
-Write-Host 'INIT Homepage FastAPI application' -ForegroundColor DarkGray
-Write-Host "INIT Homepage: $siteUrl" -ForegroundColor Green
-Write-Host 'Press Ctrl+C to stop the local server.' -ForegroundColor DarkGray
-Push-Location $siteRoot
-try {
-    & $venvPython -u -m uvicorn main:app --host 127.0.0.1 --port $Port
-}
-finally {
-    Pop-Location
-}
-$serverExitCode = $LASTEXITCODE
-if ($serverExitCode -eq -1) {
-    Write-Host 'INIT Homepage server stopped for a local restart.' -ForegroundColor DarkGray
-    return
-}
-if ($serverExitCode -ne 0) {
-    throw "INIT Homepage server exited with code $serverExitCode."
-}
+} finally { $listener.Close() }

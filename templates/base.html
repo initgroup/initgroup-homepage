@@ -19,7 +19,7 @@
 {% if page.og_image %}    <meta property="og:image" content="{{ page.og_image }}">
 {% endif %}{% if page.og_image_alt %}    <meta property="og:image:alt" content="{{ page.og_image_alt }}">
 {% endif %}{% endif %}{% if page.twitter_card %}    <meta name="twitter:card" content="{{ page.twitter_card }}">
-{% endif %}    <link rel="icon" href="/assets/images/brand/favicon.svg" type="image/svg+xml">
+{% endif %}    <link rel="icon" href="{{ page_url('assets/images/brand/favicon.svg') }}" type="image/svg+xml">
     <script src="{{ asset_url('js/boot.js') }}"></script>
     <link rel="stylesheet" href="{{ asset_url('css/site.css') }}">
 {% if page.section_css %}    <link rel="stylesheet" href="{{ asset_url(page.section_css) }}">

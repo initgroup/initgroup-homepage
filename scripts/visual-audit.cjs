@@ -2,7 +2,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const playwrightModule = process.env.PLAYWRIGHT_MODULE || 'D:/work/Playwright/node_modules/playwright';
+const playwrightModule = process.env.PLAYWRIGHT_MODULE || 'playwright';
 const { chromium } = require(playwrightModule);
 
 const baseUrl = process.env.VISUAL_AUDIT_URL || 'http://127.0.0.1:8200/';
@@ -86,12 +86,12 @@ function intersection(a, b) {
                 const section = document.querySelector('[data-hover-section="projects"]');
                 return !menu.hidden && section.classList.contains('is-hovered');
             });
-            await page.locator('[data-hover-section="services"] a[href="/services/#quality"]').hover();
+            await page.locator('[data-hover-section="services"] a[href$="services/index.html#quality"]').hover();
             const hoverMenuScreenshot = path.join(outputDir, `${viewport.name}-hover-menu.png`);
             await page.screenshot({ path: hoverMenuScreenshot, fullPage: false });
             focusScreenshots.hoverMenu = hoverMenuScreenshot;
-            await page.locator('[data-hover-section="services"] a[href="/services/#quality"]').click();
-            await page.waitForURL('**/services/#quality');
+            await page.locator('[data-hover-section="services"] a[href$="services/index.html#quality"]').click();
+            await page.waitForURL('**/services/index.html#quality');
             await page.waitForLoadState('networkidle');
             await page.waitForFunction(() => document.querySelector('[data-hover-menu]').hidden);
             await page.goto(baseUrl, { waitUntil: 'networkidle' });
@@ -217,7 +217,7 @@ function intersection(a, b) {
                 if (message.type() === 'error') consoleErrors.push(message.text());
             });
             page.on('requestfailed', (request) => requestFailures.push(`${request.method()} ${request.url()}`));
-            const url = new URL(route, baseUrl).toString();
+            const url = new URL(route.replace(/^\//, ""), baseUrl).toString();
             const response = await page.goto(url, { waitUntil: 'networkidle' });
             await page.locator('img[loading="lazy"]').evaluateAll((images) => images.forEach((image) => { image.loading = 'eager'; }));
             await page.waitForLoadState('networkidle');

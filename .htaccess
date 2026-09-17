@@ -1,0 +1,17 @@
+# Portable static hosting: no Python, PHP, database or application routing.
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+Options -Indexes
+ErrorDocument 404 default
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'"
+    Header set Cache-Control "no-cache"
+    <FilesMatch "\.(css|js|json|png|jpe?g|webp|svg|ico|pdf)$">
+        Header set Cache-Control "public, max-age=3600, must-revalidate"
+    </FilesMatch>
+</IfModule>

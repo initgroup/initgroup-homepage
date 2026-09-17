@@ -1,20 +1,24 @@
+# OS metadata and logs
 .DS_Store
 Thumbs.db
 Desktop.ini
 *.log
-.tmp/
-.render-static/
 
-# Python virtual environments and caches
-venv/
-.venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
+# Static deployment packages and local verification output
+/dist/
+/.render-static/
+/.tmp/
+/artifacts/
+/screenshots/
 
-# Local configuration and secrets
+# Local-only command reference
+/LOCAL-COMMANDS.md
+
+# Optional local environments: absent now, keep private if recreated
+/venv/
+/.venv/
+
+# Secrets: protected even when no such files currently exist
 .env
 .env.*
 !.env.example
@@ -23,12 +27,5 @@ __pycache__/
 secrets/
 .secrets/
 
-# Local validation and editor output
-test-results/
-coverage/
-htmlcov/
-screenshots/
-prompt/
-
-# Local product references may contain personal or operational data.
-assets/images/reference/in-surveyone/
+# Unpublished product references
+/assets/images/reference/in-surveyone/

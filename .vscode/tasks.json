@@ -2,62 +2,116 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "INIT Homepage: Setup Venv",
-            "type": "process",
-            "command": "powershell",
-            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\setup-venv.ps1"],
-            "options": { "cwd": "${workspaceFolder}" },
-            "problemMatcher": []
-        },
-        {
             "label": "INIT Homepage: Run Server",
             "type": "process",
             "command": "powershell",
-            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\serve.ps1", "-Restart"],
-            "options": { "cwd": "${workspaceFolder}" },
-            "group": { "kind": "build", "isDefault": true },
-            "runOptions": { "instanceLimit": 1 },
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\serve.ps1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "runOptions": {
+                "instanceLimit": 1
+            },
             "problemMatcher": [],
-            "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "showReuseMessage": true }
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": false,
+                "showReuseMessage": true
+            }
         },
         {
-            "label": "INIT Homepage: Build Static Pages",
+            "label": "INIT Homepage: Package Cafe24 Static",
             "type": "process",
-            "command": "${workspaceFolder}\\venv\\Scripts\\python.exe",
-            "args": ["${workspaceFolder}\\scripts\\build_site.py"],
-            "options": { "cwd": "${workspaceFolder}" },
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\package-static.ps1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "problemMatcher": []
         },
         {
             "label": "INIT Homepage: Validate",
             "type": "process",
             "command": "powershell",
-            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\validate.ps1"],
-            "options": { "cwd": "${workspaceFolder}" },
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\validate.ps1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "problemMatcher": []
         },
         {
             "label": "INIT Homepage: Backup Working Source",
             "type": "process",
             "command": "powershell",
-            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\backup-source.ps1", "-Mode", "Working"],
-            "options": { "cwd": "${workspaceFolder}" },
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\backup-source.ps1",
+                "-Mode",
+                "Working"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "problemMatcher": []
         },
         {
             "label": "INIT Homepage: Backup Git Source",
             "type": "process",
             "command": "powershell",
-            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\backup-source.ps1", "-Mode", "Git"],
-            "options": { "cwd": "${workspaceFolder}" },
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\backup-source.ps1",
+                "-Mode",
+                "Git"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "problemMatcher": []
         },
         {
             "label": "INIT Homepage: Commit & Push (Manual Task)",
             "type": "process",
             "command": "powershell",
-            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\git-publish-main.ps1"],
-            "options": { "cwd": "${workspaceFolder}" },
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\git-publish-main.ps1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "problemMatcher": []
         }
     ]

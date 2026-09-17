@@ -44,7 +44,7 @@
                         <p class="eyebrow"><i></i> 빅데이터 플랫폼</p>
                         <h1 id="inbupsTitle">인법스 IN-BAPS<br><em>빅데이터 플랫폼</em></h1>
                         <p>서로 다른 형태의 데이터를 소스 특성에 맞게 모으고, 통계와 비정형 분석으로 의미를 발견해, 사용자가 판단할 수 있는 화면으로 전달합니다.</p>
-                        <div class="sol-hero-actions"><a class="button button-primary" href="#inbupsModules">구성 모듈 보기 <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="/contact/">적용 문의</a></div>
+                        <div class="sol-hero-actions"><a class="button button-primary" href="#inbupsModules">구성 모듈 보기 <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="{{ page_url('contact/') }}">적용 문의</a></div>
                         <p class="sol-hero-note"><i aria-hidden="true"></i> C-BAP · R-BAP · V-BAP을 하나의 활용 파이프라인으로 구성합니다.</p>
                     </div>
 
@@ -108,9 +108,9 @@
                 <div class="ib-reference-block reveal" aria-labelledby="inbapsReferenceTitle">
                     <div class="ib-reference-heading"><span>PRODUCT REFERENCE</span><div><h3 id="inbapsReferenceTitle">C-BAP·R-BAP·V-BAP 원본 소개 자료</h3><p>기존 제품 자료의 기능 범위를 현재 홈페이지의 수집–분석–시각화 흐름에 맞춰 재구성했습니다.</p></div></div>
                     <div class="ib-reference-gallery">
-                        <figure><div><img src="/assets/images/reference/in-baps/c-bap-collection.png" alt="Open API, SNS와 Web Crawling으로 정형·비정형 데이터를 수집하는 C-BAP 소개 자료" width="1067" height="749" loading="lazy" decoding="async"></div><figcaption><span>01 / COLLECT</span><strong>C-BAP 수집 채널</strong><small>Open API · SNS · Web Crawling</small></figcaption></figure>
-                        <figure><div><img src="/assets/images/reference/in-baps/r-bap-analysis.png" alt="R Package, 빅데이터 분석과 통계 분석을 결합하는 R-BAP 소개 자료" width="1056" height="615" loading="lazy" decoding="async"></div><figcaption><span>02 / ANALYZE</span><strong>R-BAP 하이브리드 분석</strong><small>Text · Relation · Statistical Analysis</small></figcaption></figure>
-                        <figure><div><img src="/assets/images/reference/in-baps/v-bap-visualization.png" alt="Web Chart, BI 도구와 R 시각화를 활용하는 V-BAP 소개 자료" width="1055" height="807" loading="lazy" decoding="async"></div><figcaption><span>03 / VISUALIZE</span><strong>V-BAP 결과 시각화</strong><small>Web Chart · BI · R Visualization</small></figcaption></figure>
+                        <figure><div><img src="{{ page_url('assets/images/reference/in-baps/c-bap-collection.png') }}" alt="Open API, SNS와 Web Crawling으로 정형·비정형 데이터를 수집하는 C-BAP 소개 자료" width="1067" height="749" loading="lazy" decoding="async"></div><figcaption><span>01 / COLLECT</span><strong>C-BAP 수집 채널</strong><small>Open API · SNS · Web Crawling</small></figcaption></figure>
+                        <figure><div><img src="{{ page_url('assets/images/reference/in-baps/r-bap-analysis.png') }}" alt="R Package, 빅데이터 분석과 통계 분석을 결합하는 R-BAP 소개 자료" width="1056" height="615" loading="lazy" decoding="async"></div><figcaption><span>02 / ANALYZE</span><strong>R-BAP 하이브리드 분석</strong><small>Text · Relation · Statistical Analysis</small></figcaption></figure>
+                        <figure><div><img src="{{ page_url('assets/images/reference/in-baps/v-bap-visualization.png') }}" alt="Web Chart, BI 도구와 R 시각화를 활용하는 V-BAP 소개 자료" width="1055" height="807" loading="lazy" decoding="async"></div><figcaption><span>03 / VISUALIZE</span><strong>V-BAP 결과 시각화</strong><small>Web Chart · BI · R Visualization</small></figcaption></figure>
                     </div>
                 </div>
 
@@ -133,6 +133,6 @@
         </section>
 
         <section class="contact-cta" aria-labelledby="inbupsContactTitle">
-            <div class="shell contact-cta-inner reveal"><div><p class="eyebrow eyebrow-light"><i></i> PLATFORM CONVERSATION</p><h2 id="inbupsContactTitle">어떤 데이터를 모으고,<br>어떤 판단에 쓸 것인가요?</h2></div><div><p>데이터 소스, 분석 질문과 최종 사용자 환경을 알려주시면 필요한 수집·분석·시각화 범위를 함께 구성하겠습니다.</p><a class="button button-light" href="/contact/">인법스 적용 상담하기 <span aria-hidden="true">↗</span></a></div></div>
+            <div class="shell contact-cta-inner reveal"><div><p class="eyebrow eyebrow-light"><i></i> PLATFORM CONVERSATION</p><h2 id="inbupsContactTitle">어떤 데이터를 모으고,<br>어떤 판단에 쓸 것인가요?</h2></div><div><p>데이터 소스, 분석 질문과 최종 사용자 환경을 알려주시면 필요한 수집·분석·시각화 범위를 함께 구성하겠습니다.</p><a class="button button-light" href="{{ page_url('contact/') }}">인법스 적용 상담하기 <span aria-hidden="true">↗</span></a></div></div>
         </section>
 {% endblock %}

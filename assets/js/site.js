@@ -1,6 +1,8 @@
 (function() {
     "use strict";
 
+    const siteRootUrl = new URL("../../", document.currentScript.src);
+    const normalizedPath = (path) => path.replace(/index\.html$/, "");
     const header = document.querySelector("[data-site-header]");
     const progress = document.querySelector("[data-scroll-progress]");
     const menu = document.querySelector("[data-mobile-menu]");
@@ -65,18 +67,18 @@
 
     function updatePageSubNavigation() {
         if (!pageSubLinks.length) return;
-        const currentPath = window.location.pathname;
+        const currentPath = normalizedPath(window.location.pathname);
         const localTargets = pageSubLinks.map((link) => {
             const url = new URL(link.href, document.baseURI);
-            const target = url.pathname === currentPath && url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
+            const target = normalizedPath(url.pathname) === currentPath && url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
             return { link, url, target };
         });
-        if (!localTargets.some(({ url }) => url.pathname === currentPath)) {
+        if (!localTargets.some(({ url }) => normalizedPath(url.pathname) === currentPath)) {
             syncCurrentNavigation(activePageSubLink);
             revealActivePageSubLink(activePageSubLink);
             return;
         }
-        let activeLink = localTargets.find(({ url }) => url.pathname === currentPath && !url.hash)?.link || null;
+        let activeLink = localTargets.find(({ url }) => normalizedPath(url.pathname) === currentPath && !url.hash)?.link || null;
         const threshold = Math.max(
             (pageSubNavigation?.getBoundingClientRect().bottom || 0) + 80,
             window.innerHeight * 0.48
@@ -84,7 +86,7 @@
         localTargets.forEach(({ link, target }) => {
             if (target && target.getBoundingClientRect().top <= threshold) activeLink = link;
         });
-        if (!activeLink) activeLink = localTargets.find(({ url }) => url.pathname === currentPath)?.link || null;
+        if (!activeLink) activeLink = localTargets.find(({ url }) => normalizedPath(url.pathname) === currentPath)?.link || null;
         if (activeLink === activePageSubLink) {
             syncCurrentNavigation(activeLink);
             revealActivePageSubLink(activeLink);
@@ -184,7 +186,7 @@
         ];
         links.forEach((link) => {
             const url = new URL(link.href, document.baseURI);
-            const isCurrent = url.pathname === currentUrl.pathname && url.hash === currentUrl.hash;
+            const isCurrent = normalizedPath(url.pathname) === normalizedPath(currentUrl.pathname) && url.hash === currentUrl.hash;
             link.classList.toggle("is-current", isCurrent);
             if (isCurrent) link.setAttribute("aria-current", "page");
             else link.removeAttribute("aria-current");
@@ -310,7 +312,7 @@
     function setActiveNavigation() {
         const page = document.body.dataset.page;
         if (!page) return;
-        document.querySelectorAll(`.desktop-nav [data-nav="${page}"], .full-navigation a[href="/${page}/"]`).forEach((link) => {
+        document.querySelectorAll(`.desktop-nav [data-nav="${page}"]`).forEach((link) => {
             link.setAttribute("aria-current", "page");
         });
         syncCurrentNavigation();
@@ -489,7 +491,7 @@
     menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMenu({ restoreFocus: false })));
     historyBackButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            const fallback = button.dataset.historyFallback || "/insights/";
+            const fallback = button.dataset.historyFallback || new URL("insights/index.html", siteRootUrl).href;
             let sameOriginReferrer = false;
             try {
                 sameOriginReferrer = Boolean(document.referrer)

@@ -38,11 +38,11 @@
                 <p class="insight-journal-index"><span>{{ category.index }}</span> ALL REPORTS</p>
                 <h2 id="archiveListTitle">축적되는 기준을<br>계속 읽을 수 있습니다.</h2>
             </div>
-            <a class="insight-section-archive" href="/insights/#{{ category.section_id }}">{{ category.label }} 개요로 돌아가기 <span aria-hidden="true">↗</span></a>
+            <a class="insight-section-archive" href="{{ page_url('insights/') }}#{{ category.section_id }}">{{ category.label }} 개요로 돌아가기 <span aria-hidden="true">↗</span></a>
         </header>
         <div class="insight-report-list">
 {% for report in reports %}            <article class="insight-report-list-item">
-                <a href="{{ report.public_route }}">
+                <a href="{{ page_url(report.public_route) }}">
                     <span class="insight-report-list-code">REPORT / {{ report.report_id }}</span>
                     <span class="insight-report-list-kicker">{{ report.kicker }}</span>
                     <h3>{{ report.title }}</h3>

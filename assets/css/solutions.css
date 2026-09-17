@@ -49,8 +49,8 @@
     color: #fff;
     isolation: isolate;
     background:
-        url("/assets/images/design-system/wave-lines.svg") right bottom / min(70rem, 72vw) auto no-repeat,
-        url("/assets/images/design-system/grid-dark.svg"),
+        url("../images/design-system/wave-lines.svg") right bottom / min(70rem, 72vw) auto no-repeat,
+        url("../images/design-system/grid-dark.svg"),
         radial-gradient(circle at 86% 14%, rgba(24, 201, 255, 0.18), transparent 30rem),
         linear-gradient(135deg, #020f24 0%, #041a38 58%, #072d5c 100%);
 }
@@ -312,7 +312,7 @@ html[lang="en"] .sol-architecture-ko-name {
     z-index: -1;
     background-image:
         linear-gradient(90deg, rgba(249, 252, 255, 0.91), rgba(245, 250, 255, 0.77), rgba(238, 246, 255, 0.69)),
-        url("/assets/images/section-backgrounds/solutions-portfolio-light.png");
+        url("../images/section-backgrounds/solutions-portfolio-light.png");
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
@@ -623,7 +623,7 @@ html[lang="en"] .sol-architecture-ko-name {
     z-index: -1;
     background-image:
         linear-gradient(180deg, rgba(2, 15, 36, 0.96) 0%, rgba(3, 20, 47, 0.82) 52%, rgba(2, 15, 36, 0.95) 100%),
-        url("/assets/images/section-backgrounds/solutions-operating-path-dark.png");
+        url("../images/section-backgrounds/solutions-operating-path-dark.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

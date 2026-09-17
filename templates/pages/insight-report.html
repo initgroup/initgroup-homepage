@@ -81,7 +81,7 @@
                     <p class="eyebrow eyebrow-light"><i></i> FINAL THOUGHT</p>
                     <h2 id="conclusionTitle">{{ report.conclusion_title }}</h2>
                     <p>{{ report.conclusion }}</p>
-                    <a class="button button-light" href="/contact/">인사이트 과제 상담하기 <span aria-hidden="true">↗</span></a>
+                    <a class="button button-light" href="{{ page_url('contact/') }}">인사이트 과제 상담하기 <span aria-hidden="true">↗</span></a>
                 </aside>
             </div>
         </div>
@@ -92,10 +92,10 @@
     <div class="article-shell">
         <div class="related-heading">
             <h2 id="relatedTitle">함께 읽으면 좋은 리포트</h2>
-            <a href="{{ category.archive_route }}">{{ category.label }} 아카이브 보기 →</a>
+            <a href="{{ page_url(category.archive_route) }}">{{ category.label }} 아카이브 보기 →</a>
         </div>
         <div class="related-grid">
-{% for related in related_reports %}            <a class="related-card" href="{{ related.public_route }}">
+{% for related in related_reports %}            <a class="related-card" href="{{ page_url(related.public_route) }}">
                 <span>{{ related.kicker }} · REPORT / {{ related.report_id }}</span>
                 <h3>{{ related.title }}</h3>
             </a>

@@ -3,49 +3,22 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 output_dir="$repo_root/.render-static"
-
 if [[ -L "$output_dir" ]]; then
-    echo "Refusing to replace a symbolic-link output directory: $output_dir" >&2
+    echo "Refusing symbolic-link output directory" >&2
     exit 1
 fi
-
-case "$output_dir" in
-    "$repo_root/.render-static") ;;
-    *)
-        echo "Unexpected Render output directory: $output_dir" >&2
-        exit 1
-        ;;
-esac
-
-public_directories=(
-    assets
-)
-
-public_files=(
-    robots.txt
-    sitemap.xml
-)
-
-for entry in "${public_directories[@]}" "${public_files[@]}"; do
-    if [[ ! -e "$repo_root/$entry" ]]; then
-        echo "Required public source is missing: $entry" >&2
-        exit 1
-    fi
-done
-
-if [[ -d "$output_dir" ]]; then
-    rm -rf -- "$output_dir"
-fi
+# Fixed generated directory; never remove a caller-supplied path.
+if [[ -d "$output_dir" ]]; then rm -rf -- "$output_dir"; fi
 mkdir -p -- "$output_dir"
-
-for directory in "${public_directories[@]}"; do
-    cp -R -- "$repo_root/$directory" "$output_dir/$directory"
+# The generated manifest contains only simple ASCII relative file names.
+mapfile -t public_files < <(sed -n 's/^  "\([A-Za-z0-9_./-]*\)",\{0,1\}$/\1/p' "$repo_root/static-files.json")
+if (( ${#public_files[@]} == 0 )); then echo "Empty public manifest" >&2; exit 1; fi
+for entry in "${public_files[@]}"; do
+    case "$entry" in
+        /*|*..*|assets/images/reference/in-surveyone/*) echo "Invalid public file: $entry" >&2; exit 1 ;;
+    esac
+    [[ -f "$repo_root/$entry" ]] || { echo "Missing public file: $entry" >&2; exit 1; }
+    mkdir -p -- "$(dirname "$output_dir/$entry")"
+    cp -- "$repo_root/$entry" "$output_dir/$entry"
 done
-
-for file in "${public_files[@]}"; do
-    cp -- "$repo_root/$file" "$output_dir/$file"
-done
-
-python "$repo_root/scripts/build_site.py" --output-dir "$output_dir"
-
-echo "Render static output prepared: $output_dir"
+echo "Static output prepared without Python: $output_dir"

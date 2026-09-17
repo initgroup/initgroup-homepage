@@ -1,10 +1,7 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:system",
-    "python.defaultInterpreterPath": "${workspaceFolder}\\venv\\Scripts\\python.exe",
-    "python.terminal.activateEnvironment": true,
-    "terminal.integrated.defaultProfile.windows": "PowerShell (venv)",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.automationProfile.windows": {
-        "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "path": "powershell.exe",
         "args": [
             "-NoProfile",
             "-ExecutionPolicy",
@@ -12,14 +9,14 @@
         ]
     },
     "terminal.integrated.profiles.windows": {
-        "PowerShell (venv)": {
+        "PowerShell": {
             "source": "PowerShell",
             "args": [
                 "-NoExit",
                 "-ExecutionPolicy",
                 "Bypass",
                 "-Command",
-                "& '${workspaceFolder}\\venv\\Scripts\\Activate.ps1'; . '${workspaceFolder}\\scripts\\codex-utf8.ps1'"
+                ". '${workspaceFolder}\\scripts\\codex-utf8.ps1'"
             ]
         }
     },

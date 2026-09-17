@@ -1,116 +1,65 @@
 # INIT Homepage
 
-인아이티 기업 홈페이지 전용 FastAPI 웹 프로젝트입니다. 기존 `init-webbase-system`의 관리자·고객 포털과 분리되어 있으며, 현재 HTML MPA를 Python이 서비스하고 향후 게시판 API와 데이터 저장 계층을 독립적으로 확장할 수 있습니다.
+인아이티 기업 홈페이지의 정적 HTML MPA 프로젝트입니다. 카페24 UTF-8 (PHP 8.4, MariaDB 10.x) 호스팅에 완성된 파일을 업로드하면 동작합니다. 홈페이지 운영·로컬 미리보기·검증·업로드 패키징에는 Python, PHP 실행, DB, Node.js 또는 npm이 필요하지 않습니다.
 
-## 구성 원칙
-
-- 공통 Jinja 템플릿을 FastAPI가 렌더링하는 MPA 구조
-- 외부 UI 프레임워크나 Node.js 없이 Python만 사용하는 템플릿 빌드
-- 인뎁스 IN-DEPS·인법스 IN-BAPS·인서베이원 inSurveyOne의 제품별 가치와 실제 화면 중심의 제품 증명
-- 360px부터 설계한 모바일 적응형 내비게이션·갤러리·프로젝트 카드
-- JavaScript 없이도 본문과 링크를 사용할 수 있는 progressive enhancement
-- `prefers-reduced-motion`, 키보드 메뉴, dialog와 skip link 지원
-
-## 템플릿과 공통 자산 구조
-
-```text
-site_config.py                  회사 기본정보, URL, SEO 메타데이터, CSS와 모바일 액션
-templates/base.html            공통 head, CSS·JavaScript 로딩과 문서 골격
-templates/partials/            헤더, 내비게이션, 푸터, 모바일 빠른 이동
-templates/pages/               페이지별 본문과 JSON-LD
-assets/css/site.css            전 페이지 공통 스타일
-assets/css/{section}.css       corporate, editorial, legal, solutions 영역 스타일
-assets/css/i18n.css            공통 언어 선택 UI
-assets/js/boot.js              초기 문서 상태 설정
-assets/js/i18n.js              JSON 언어 사전 로딩, 전환과 선택 상태 유지
-assets/js/site.js              메뉴, 스크롤, 갤러리, 라이트박스 등 공통 동작
-assets/i18n/config.json         기본 언어, 지원 언어, 저장 키와 사전 경로
-assets/i18n/{ko,en}.json        한국어·영어 key/value 언어 사전
-assets/downloads/              공개 다운로드 자료
-scripts/build_site.py          정적 배포 HTML을 .render-static/에 생성
-scripts/i18n_catalog.py        템플릿 문구와 언어 사전 동기화·검증
-```
-
-루트와 각 공개 디렉터리의 `index.html`은 해당 `templates/pages/*.html`을 상속하는 한 줄짜리 진입 템플릿입니다. 공통 UI는 `templates/base.html`과 `templates/partials/`, 페이지 본문은 `templates/pages/`, 페이지 제목·canonical·OG·연결 CSS는 `site_config.py`에서 수정합니다. 따라서 공통 CSS·JavaScript 버전이나 푸터를 바꿔도 각 `index.html`을 수정하지 않습니다.
-
-## 주요 경로
-
-```text
-/
-/company/
-/services/
-/solutions/
-/solutions/data-editing-system/
-/solutions/inbups/
-/solutions/in-surveyone/
-/projects/
-/insights/
-/insights/data-quality-rules/
-/insights/human-in-the-loop/
-/insights/reproducible-analysis/
-/careers/
-/contact/
-/privacy/
-```
-
-공통 CSS와 JavaScript는 `assets/`에 있으며 현재 공개 페이지는 기존 시스템 DB, API, 세션 또는 환경변수에 의존하지 않습니다. Python 진입점은 `main.py`이고 향후 서버 기능은 `/api/` 경로에 추가합니다.
-
-## 한국어·영어 지원
-
-언어 지원은 DB, 세션, 언어별 HTML 또는 언어별 JavaScript를 만들지 않는 정적 JSON 방식입니다. 기본 언어는 한국어(`ko`)이며 공통 헤더의 `Korea`, `English` 버튼으로 전환합니다. 선택값은 `assets/i18n/config.json`의 `storageKey`에 따라 브라우저 `localStorage`에 저장되고, 현재 페이지에서는 `window.INIT_LANGUAGE`와 `window.INIT_I18N`으로 공유됩니다. 따라서 다른 메뉴로 이동해도 이전 언어가 유지됩니다.
-
-HTML은 한국어를 progressive-enhancement 원문으로 한 번만 유지합니다. `assets/js/i18n.js`가 `ko.json`의 값을 현재 DOM 문구와 연결하고, 선택된 언어 사전의 같은 key 값으로 본문, 메뉴, 버튼, 메타 설명과 접근성 속성을 교체합니다. 이미지의 대체 설명도 언어 사전으로 관리합니다.
-
-언어별 제품 캡처는 같은 폴더에서 `파일명_kor.png`, `파일명_eng.png` 쌍으로 관리하고, HTML에는 한국어 `src`와 확장자를 제외한 `data-i18n-image-base`만 선언합니다. 공통 로더는 `config.json`의 `imageSuffix`를 읽어 현재 언어의 캡처로 자동 교체합니다. 언어와 무관한 로고·도형·캡처는 접미사 없이 두고 `data-i18n-image-base`를 선언하지 않습니다. 새 언어별 캡처를 연결하면 `scripts/validate.ps1`이 두 파일의 존재를 함께 확인합니다.
-
-새 문구나 기존 한국어 문구를 변경할 때는 다음 순서를 지킵니다.
+## 카페24 업로드
 
 ```powershell
-.\venv\Scripts\python.exe .\scripts\i18n_catalog.py --sync
-```
-
-동기화 후 `assets/i18n/en.json`에 새 key의 자연스러운 영어 값을 작성합니다. `ko.json`의 key는 한국어 원문에서 결정적으로 생성되므로 HTML에 별도의 key 속성을 반복해서 추가할 필요가 없습니다. 영어 값이 비어 있거나 한국어로 남아 있거나 두 사전의 key가 다르면 검증이 실패합니다.
-
-```powershell
-.\venv\Scripts\python.exe .\scripts\i18n_catalog.py --check
 .\scripts\validate.ps1
+.\scripts\package-static.ps1
 ```
 
-메뉴 열기·닫기처럼 JavaScript가 실행 중 새로 만드는 문구는 HTML 문구를 하드코딩하지 않고 `window.INIT_I18N.t("key")`로 가져옵니다. 지원 언어, 기본 언어와 저장 키를 변경할 때는 `assets/i18n/config.json`만 수정합니다.
+`dist/site/` **안의 내용 전체**를 카페24 계정의 웹 공개 디렉터리에 업로드합니다. 또는 `dist/cafe24-static.zip`을 압축 해제해 같은 내용을 업로드합니다. 루트 `index.html`, 각 메뉴의 `index.html`, `assets/`, `robots.txt`, `sitemap.xml`, `.htaccess`가 포함됩니다. `dist`나 `site` 폴더 자체가 아니라 그 안의 내용을 옮깁니다. 기존 기본 시작 파일이 있다면 호스팅에서 `index.html`이 시작 문서로 선택되는지 확인합니다.
 
-## 로컬 실행
+`scripts/`, `.git/`, 디자인 참고 자료 및 운영 캡처 원본은 업로드 대상이 아닙니다. 패키지는 `static-files.json`의 공개 파일만 복사합니다. 이 목록에는 페이지, CSS 배경, 언어별 이미지와 공유용 이미지가 등록되어 있습니다. 공개 파일을 추가하거나 삭제할 때 이 목록도 함께 수정합니다.
 
-PowerShell에서 다음 명령을 실행합니다.
+모든 내부 링크·이미지·CSS·JS·다국어 JSON은 문서 또는 CSS 파일 위치를 기준으로 한 상대경로입니다. 예를 들어 솔루션 상세 페이지는 `../../assets/`를 사용하므로 도메인의 루트뿐 아니라 하위 디렉터리에서도 동작합니다. canonical, OG·JSON-LD, sitemap의 공개 URL과 외부 사이트·메일·전화 링크는 각 형식에 맞게 유지합니다. 운영 도메인이나 공개 기준 경로가 바뀌면 검색·공유 메타데이터도 함께 갱신합니다.
+
+`.htaccess`는 UTF-8, `index.html`, 디렉터리 목록 차단, 기존 보안 헤더와 캐시 정책을 설정합니다. 존재하지 않는 URL은 호스팅의 기본 HTTP 404로 응답하며, 홈으로 보내는 rewrite는 없습니다. `404.html`은 직접 열 수 있는 안내 페이지입니다. 하위 경로 오류를 이 파일로 내부 rewrite하면 상대 자산 경로가 달라지므로 기본 오류 응답을 사용합니다. 설정 기준은 [Apache DirectoryIndex](https://httpd.apache.org/docs/2.4/mod/mod_dir.html#directoryindex)와 [ErrorDocument](https://httpd.apache.org/docs/2.4/mod/core.html#errordocument)를 참고합니다.
+
+## 로컬 미리보기와 검증
 
 ```powershell
-.\scripts\setup-venv.ps1
 .\scripts\serve.ps1 -Port 8200
-```
-
-로컬 실행 주소는 항상 `http://127.0.0.1:8200/`으로 유지합니다. 개발 중 미리보기와 Playwright 검증도 다른 임시 포트를 만들지 않고 8200을 사용하며, 이전 소스의 서버가 남아 있으면 다음 명령으로 같은 포트의 홈페이지 서버를 재시작합니다.
-
-```powershell
-.\scripts\serve.ps1 -Port 8200 -Restart
-```
-
-서로 다른 포트에 이전 서버와 최신 서버가 동시에 실행되면 브라우저가 오래된 화면을 계속 표시한 것처럼 보일 수 있으므로, 이 프로젝트의 로컬 URL·문서·검증 명령은 모두 8200을 기준으로 합니다. 검증은 다음 명령으로 실행합니다.
-
-이 홈페이지는 `uvicorn main:app`으로 실행합니다. 새 명령창을 열어 서버를 계속 표시하려면 `scripts\start-homepage.cmd`를 실행합니다. 일반 실행은 8200번에서 이미 홈페이지가 실행 중이면 중복 서버를 만들지 않고 현재 주소를 안내합니다. VS Code의 `Ctrl+Shift+B` 작업은 이 프로젝트의 `venv\Scripts\python.exe`로 Uvicorn을 직접 실행하므로, 작업 터미널이 서버 프로세스와 함께 계속 유지됩니다.
-
-FastAPI는 진입 템플릿을 직접 렌더링하므로 페이지 수정 후 별도의 HTML 생성 과정이 필요하지 않습니다. 정적 호스팅 결과가 필요할 때만 `.render-static/`에 완성 HTML을 생성합니다. `--check`는 파일을 만들지 않고 전체 템플릿을 렌더링해 계약을 확인합니다.
-
-```powershell
-.\venv\Scripts\python.exe .\scripts\build_site.py
-.\venv\Scripts\python.exe .\scripts\build_site.py --check
-```
-
-```powershell
 .\scripts\validate.ps1
 ```
 
-새 페이지는 `templates/pages/`에 본문 템플릿을 만들고 공개 경로의 `index.html`에서 해당 템플릿을 상속한 뒤, `site_config.py`의 `PAGES`에 URL, 출력 경로와 SEO 정보를 등록합니다. 그 다음 `sitemap.xml`, 내비게이션, 404와 내부 링크를 함께 확인합니다.
+`http://127.0.0.1:8200/`에서 PowerShell의 정적 파일 서버로 확인합니다. VS Code 기본 빌드 작업이나 `scripts/start-homepage.cmd`도 같은 서버를 실행하며 Python을 시작하지 않습니다. 이미 실행 중인 서버는 자동으로 재시작하지 않습니다. 포트 점유 시 프로세스를 확인하며, 사용자가 재시작을 명시한 경우에만 `-Restart`를 사용합니다. 하위 디렉터리를 함께 검증하려면 `-PreviewSubdirectory`로 시작한 뒤 `http://127.0.0.1:8200/preview/`를 확인합니다.
 
-VS Code에서는 `INIT Homepage: Setup Venv`, `Build Static Pages`, `Run Server`, `Validate`, `Backup`, `Commit & Push` 작업을 사용할 수 있습니다. 저장소 루트의 `AGENTS.md`는 Codex가 이 작업공간을 열 때 프로젝트 지침으로 자동 인식합니다.
+검증은 완성 HTML의 문서 계약, 템플릿 미해석 여부, 상대 링크·앵커·CSS 자산·언어 이미지 쌍, sitemap, 언어 사전의 key·번역 누락을 검사합니다. Node가 이미 설치되어 있으면 JavaScript 구문 검사도 추가합니다. 로컬 파일 더블클릭(`file://`)은 브라우저가 JSON 로딩을 제한할 수 있으므로 HTTP 미리보기로 확인합니다.
+
+Playwright가 설치된 개발 환경에서는 `node scripts/static-smoke.cjs`로 실제 브라우저 회귀 검증을 실행할 수 있습니다. 먼저 `serve.ps1 -PreviewSubdirectory`로 서버를 시작합니다. Playwright가 별도 위치에 있으면 `PLAYWRIGHT_MODULE` 환경변수로 지정합니다. 이 도구와 Node는 운영·일반 검증에 필요하지 않습니다.
+
+## 정적 소스 편집
+
+공개 디렉터리의 `index.html`과 `404.html`을 직접 수정합니다. 별도 템플릿 렌더링이나 빌드 단계가 없으며, 공통 메뉴·헤더·푸터를 바꾸면 해당 HTML들에 같은 변경을 반영합니다.
+
+- 스타일과 브라우저 동작: `assets/css/`, `assets/js/`
+- 언어 사전: `assets/i18n/ko.json`, `en.json`, `config.json`
+- 배포할 파일 목록: `static-files.json`
+- 검증·미리보기·패키징: `scripts/validate.ps1`, `serve.ps1`, `package-static.ps1`
+- 이전 HTML 템플릿과 디자인 자료: `templates/` (보존용이며 운영·편집 도구에서 사용하지 않음)
+
+새 페이지나 이미지를 추가하면 `static-files.json`에도 경로를 추가하고 내비게이션·sitemap·canonical·내부 링크를 확인합니다. 링크와 자산은 현재 HTML 또는 CSS 파일 위치를 기준으로 한 상대경로로 작성합니다.
+
+화면 문구를 추가할 때 한국어와 영어 사전에 같은 고유 key를 추가합니다. 한국어 문구를 변경할 때는 해당 key의 한국어 값과 영어 번역을 함께 수정합니다. 번역 key는 기존 항목을 재사용하거나 충돌하지 않는 이름으로 정합니다. 검증 후 패키지를 갱신합니다.
+
+```powershell
+.\scripts\validate.ps1
+.\scripts\package-static.ps1
+```
+
+인사이트 카테고리 4개와 보고서 9개는 모두 정적 파일입니다. 예전 보고서 주소 3개에도 같은 내용이 있으며 canonical은 번호형 주소를 가리킵니다. 보고서를 수정하면 예전 주소의 사본도 함께 수정합니다. 상세 편집 규칙은 `content/insights/README.md`에 있습니다.
+
+## 한국어·영어와 브라우저 기능
+
+기본 언어는 한국어입니다. `assets/js/i18n.js`가 `assets/i18n/config.json`, `ko.json`, `en.json`을 로드해 본문·접근성 속성·메타데이터와 제품 이미지를 전환합니다. 선택 언어는 `localStorage`에 저장하고 `window.INIT_LANGUAGE`와 `window.INIT_I18N`으로 공유합니다. 서버 API·세션·DB를 사용하지 않습니다.
+
+언어별 캡처는 `_kor.png`, `_eng.png` 쌍으로 관리하고 `data-i18n-image-base`도 현재 페이지 기준 상대경로를 사용합니다. 실행 중 생성하는 문구는 `window.INIT_I18N.t("key")`를 사용합니다. 키보드 메뉴·갤러리·라이트박스·skip link·`prefers-reduced-motion`을 유지하며, JavaScript 없이도 한국어 본문과 링크를 이용할 수 있습니다.
+
+## 선택적 Render 정적 호스팅
+
+카페24에는 Render 설정이 필요 없습니다. 다른 호스팅에서도 사용할 수 있도록 `render.yaml`은 별도 Static Site 구성으로 전환했습니다. `bash scripts/build-render-static.sh`는 완성된 공개 파일만 `.render-static/`에 복사하며 Python을 실행하지 않습니다. 기존 Render Python 서비스는 자동 전환되지 않으며 실제 배포 작업도 수행하지 않습니다. 구성은 [Render Static Site 설정](https://render.com/docs/blueprint-spec#static-sites)을 따릅니다.
 
 ## Git·백업 자동화
 
@@ -120,7 +69,7 @@ VS Code에서는 `INIT Homepage: Setup Venv`, `Build Static Pages`, `Run Server`
 .\scripts\git-publish-main.ps1
 ```
 
-Codex가 소스를 수정한 직후에는 자동으로 stage, commit 또는 push하지 않으며 변경 파일은 VS Code에 `M`으로 남습니다. 사용자가 `git-publish-main.ps1` 명령이나 `Commit & Push` 작업을 직접 실행하면 그 실행 자체를 명시적인 커밋 지시로 간주하여, 전체 변경을 검증한 뒤 stage·commit·pull --rebase·push합니다. 기본 커밋 메시지는 일련번호로 생성되며 `-Message "메시지"`로 직접 지정할 수 있습니다. `-DryRun` 옵션은 변경 없이 점검만 수행합니다.
+Codex가 소스를 수정한 직후에는 자동으로 stage, commit 또는 push하지 않으며 변경 파일은 VS Code에 `M`으로 남습니다. 사용자가 `git-publish-main.ps1` 명령이나 `Commit & Push` 작업을 직접 실행하면 그 실행 자체를 명시적인 커밋 지시로 간주하여, 원격을 확인하고 전체 변경을 stage한 뒤 검증·commit·pull --rebase·push합니다. 기본 커밋 메시지는 일련번호로 생성되며 `-MessagePrefix "접두사"`로 접두사를 지정할 수 있습니다. `-Message`와 `-DryRun` 옵션은 없으므로 변경 없이 점검하려면 `git status`와 `git diff`를 사용합니다.
 
 별도 창에서 실행 결과와 오류를 계속 확인하려면 `scripts\publish-homepage.cmd`를 실행합니다. 일반 PowerShell 터미널에서는 새 `powershell -File` 프로세스를 만들지 말고 위의 `.\scripts\git-publish-main.ps1` 명령을 직접 사용합니다.
 
@@ -131,45 +80,7 @@ Codex가 소스를 수정한 직후에는 자동으로 stage, commit 또는 push
 .\scripts\backup-source.ps1 -Mode Git
 ```
 
-`Working`은 미커밋 파일을 포함하되 Git 메타데이터·venv·비밀 파일을 제외합니다. `Git`은 커밋된 소스와 복구용 `repository.bundle`을 만듭니다.
-
-## 배포
-
-FastAPI는 승인된 페이지 디렉터리와 `assets/`만 공개하며 저장소의 스크립트·문서·Git 파일은 서비스하지 않습니다. 현재 자산 파일명은 content hash를 포함하지 않으므로 `assets/`에는 재검증 가능한 짧은 캐시를 사용합니다. 장기 immutable 캐시는 배포 시 파일명을 fingerprint하는 경우에만 적용합니다.
-
-### Render
-
-이 프로젝트는 FastAPI 애플리케이션이며 Render의 Python `Web Service`에서 실행합니다. 저장소 루트의 `render.yaml`은 같은 설정을 Blueprint로 관리합니다.
-
-Render Dashboard에서 권장하는 구성은 다음과 같습니다.
-
-- Service Type: `Web Service`
-- Repository: `initgroup/initgroup-homepage`
-- Branch: `main`
-- Runtime: `Python 3`
-- Build Command: `pip install -r requirements.txt && python scripts/build_site.py --check && python scripts/i18n_catalog.py --check`
-- Start Command: `python -m uvicorn main:app --host 0.0.0.0 --port $PORT`
-- Health Check Path: `/healthz`
-
-Render 빌드는 모든 진입 템플릿이 정상적으로 렌더링되는지 확인하고, FastAPI가 요청 시 완성 HTML을 반환합니다. 실행 파일 탐색 문제를 피하려면 Start Command는 `python -m uvicorn main:app --host 0.0.0.0 --port $PORT`를 사용합니다. 배포 후 `/healthz`가 HTTP 200과 `{"status":"ok"}`를 반환하는지 확인합니다. 별도 정적 호스팅 결과는 `scripts/build-render-static.sh`로 생성합니다.
-
-기존 고객 포털을 계속 운영할 경우 홈페이지와 포털의 호스트를 분리하는 구성이 안전합니다.
-
-- `https://initgroup.kr` — 이 FastAPI 홈페이지
-- `https://portal.initgroup.kr` — 기존 FastAPI 고객 포털
-
-실제 전환 전에는 DNS, 포털 URL, CORS·쿠키 범위와 기존 URL redirect 정책을 별도로 확인해야 합니다. `404.html`은 호스팅의 custom error document로 연결하고, 존재하지 않는 경로에 파일 내용만 200으로 반환하지 않도록 실제 HTTP 404 상태를 설정합니다. 기존 홈페이지 URL은 대응되는 새 경로로 301 매핑합니다.
-
-권장 응답 헤더는 운영 호스트에서 설정합니다.
-
-```text
-Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'
-Referrer-Policy: strict-origin-when-cross-origin
-X-Content-Type-Options: nosniff
-Permissions-Policy: camera=(), microphone=(), geolocation=()
-```
-
-`Strict-Transport-Security`는 HTTPS와 모든 하위 도메인 준비가 끝난 뒤 적용합니다. CSP 적용을 위해 실행 JavaScript는 모두 자체 호스팅 외부 파일로 분리되어 있습니다.
+`Working`은 미커밋 파일을 포함하되 Git 메타데이터·생성 결과물·비밀 파일을 제외합니다. `Git`은 커밋된 소스와 복구용 `repository.bundle`을 만듭니다.
 
 ## 배포 전 확인
 
@@ -182,4 +93,4 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 제품 이미지는 직원명·권한·DB·스키마 같은 운영 식별자가 없는 공개 후보 화면만 `assets/images/product/`에 포함합니다. 남아 있는 규칙 ID·컬럼명·예시 지표 역시 데이터 소유자의 공개 승인을 받은 뒤 배포하며, 원본 운영 캡처를 추가할 때도 같은 기준으로 먼저 검수해야 합니다.
 
-인서베이원 원본 검토 자료는 `assets/images/reference/in-surveyone/`에만 두고 `.gitignore`로 Git 기반 배포 소스에서 제외합니다. 개발 서버는 `assets/` 전체를 정적으로 제공하므로 개인정보나 운영 정보가 남은 원본이 있는 상태에서 로컬 서버를 외부에 공개하지 않습니다. 홈페이지에는 비식별 처리와 공개 승인을 마친 결과물만 `assets/images/product/in-surveyone/`에 복사해 사용합니다.
+인서베이원 원본 검토 자료는 `assets/images/reference/in-surveyone/`에만 두고 `.gitignore`로 Git 기반 배포 소스에서 제외합니다. 미리보기와 업로드 패키지는 `static-files.json`에 등록된 공개 파일만 제공합니다. 운영 캡처 원본은 이 목록에 추가하지 않습니다. 홈페이지에는 비식별 처리와 공개 승인을 마친 결과물만 `assets/images/product/in-surveyone/`에 복사해 사용합니다.
