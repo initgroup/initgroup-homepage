@@ -315,18 +315,18 @@ body[data-page="projects"] .outcome-band {
 
 .project-case {
     display: grid;
-    padding: clamp(3.2rem, 6vw, 5.5rem) 0;
+    padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 2.5vw, 2.5rem);
     border-bottom: 1px solid var(--line);
     grid-template-columns: clamp(10rem, 16vw, 13rem) minmax(0, 1fr);
-    gap: clamp(2.5rem, 6vw, 6.5rem);
+    gap: clamp(1.5rem, 3vw, 3rem);
 }
 
 body[data-page="projects"] .project-case {
-    background: linear-gradient(90deg, rgba(101, 71, 232, 0.045), transparent 23%);
+    background: linear-gradient(90deg, #f3f7fb, #fff 40%);
 }
 
 body[data-page="projects"] .project-case:nth-child(even) {
-    background: linear-gradient(90deg, rgba(242, 180, 91, 0.055), transparent 23%);
+    background: linear-gradient(90deg, #f5f8fa, #fff 40%);
 }
 
 .project-case-index {

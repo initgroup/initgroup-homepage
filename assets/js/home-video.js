@@ -7,6 +7,7 @@
 
     const video = dialog.querySelector("video");
     const error = dialog.querySelector("[data-promo-error]");
+    const fallback = dialog.querySelector(".promo-video-fallback");
     const expand = dialog.querySelector("[data-promo-expand]");
     const surface = dialog.querySelector("[data-promo-surface]");
     const promo = trigger.closest(".hero-promo");
@@ -108,20 +109,41 @@
         document.body.classList.remove("promo-video-open");
     }
 
+    function loadFilm(autoplay) {
+        const currentSession = ++session;
+        error.hidden = true;
+        video.pause();
+        video.src = trigger.href;
+        if (!autoplay) return;
+        video.play().catch(() => {
+            if (dialog.open && currentSession === session && video.error) error.hidden = false;
+        });
+    }
+
+    function syncFilmSource() {
+        const language = window.INIT_I18N?.getLanguage() || window.INIT_LANGUAGE || "ko";
+        const source = language === "en" ? trigger.dataset.promoSrcEn : trigger.dataset.promoSrcKo;
+        trigger.setAttribute("href", source);
+        fallback.setAttribute("href", source);
+        // Updating the links does not fetch the film until the viewer opens it.
+        if (dialog.open && video.src !== trigger.href) loadFilm(!video.paused);
+    }
+
+    function syncLanguage() {
+        syncFilmSource();
+        syncLabels();
+    }
+
     trigger.addEventListener("click", (event) => {
         if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
         if (dialog.open) return;
-        const currentSession = ++session;
-        error.hidden = true;
+        syncFilmSource();
         dialog.showModal();
         document.body.classList.add("promo-video-open");
         syncPreview();
         // Load the original film, with sound and controls, only on this explicit action.
-        video.src = trigger.href;
-        video.play().catch(() => {
-            if (dialog.open && currentSession === session && video.error) error.hidden = false;
-        });
+        loadFilm(true);
     });
 
     async function closeDialog() {
@@ -143,8 +165,9 @@
         syncLabels();
     });
     document.addEventListener("fullscreenchange", syncLabels);
-    document.addEventListener("init:languagechange", syncLabels);
-    window.INIT_I18N?.ready.then(syncLabels);
+    document.addEventListener("init:languagechange", syncLanguage);
+    window.INIT_I18N?.ready.then(syncLanguage);
+    syncFilmSource();
     dialog.querySelector("[data-promo-close]").addEventListener("click", closeDialog);
     dialog.addEventListener("close", () => {
         stopVideo();

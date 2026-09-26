@@ -505,9 +505,9 @@ body[data-page="careers"] main {
 
 .corp-culture-section { background: var(--paper-warm); }
 .corp-culture-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
-.corp-culture-list li { display: grid; align-items: center; min-height: 10rem; padding: 1.5rem 0; border-bottom: 1px solid var(--line); grid-template-columns: 6rem minmax(0, 1fr); gap: clamp(2rem, 7vw, 7rem); }
+.corp-culture-list li { display: grid; align-items: center; min-height: 10rem; padding: 1.75rem clamp(1.25rem, 2.5vw, 2.25rem); border-bottom: 1px solid var(--line); grid-template-columns: 3.5rem minmax(0, 1fr); gap: clamp(1.25rem, 3vw, 3rem); }
 .corp-culture-list li > span { color: var(--brand); font: 400 clamp(1.8rem, 3vw, 2.7rem) ui-monospace, "Cascadia Code", monospace; }
-.corp-culture-list li > div { display: grid; align-items: center; grid-template-columns: minmax(9rem, 0.3fr) minmax(18rem, 0.65fr) minmax(20rem, 1fr); gap: clamp(1.5rem, 5vw, 5rem); }
+.corp-culture-list li > div { display: grid; align-items: center; grid-template-columns: minmax(8rem, 0.42fr) minmax(0, 0.9fr) minmax(0, 1fr); gap: clamp(1.25rem, 2.5vw, 2.5rem); }
 .corp-culture-list small { color: var(--brand); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em; }
 .corp-culture-list h3, .corp-culture-list p { margin: 0; }
 .corp-culture-list h3 { font-size: clamp(1.25rem, 2vw, 1.7rem); }
@@ -621,7 +621,8 @@ body[data-page="careers"] main {
     .corp-service-block { grid-template-columns: 7rem minmax(0, 1fr); }
     .corp-service-output { display: grid; align-self: auto; grid-column: 2; grid-template-columns: repeat(3, 1fr); gap: 0 1rem; }
     .corp-service-output dt { grid-column: 1 / -1; }
-    .corp-culture-list li > div { grid-template-columns: 9rem minmax(15rem, 0.8fr) minmax(18rem, 1fr); }
+    .corp-culture-list li > div { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); gap: 0.65rem 1.5rem; }
+    .corp-culture-list small { grid-column: 1 / -1; }
 }
 
 @media (max-width: 50rem) {
@@ -710,7 +711,7 @@ body[data-page="careers"] main {
     .corp-signal-note { position: static; display: grid; min-height: 3.5rem; padding: 0.6rem; border-radius: 0.55rem; place-items: center; box-shadow: none; text-align: center; }
     .signal-note-three { grid-column: 1 / -1; }
 
-    .corp-culture-list li { display: grid; min-height: 0; padding: 1.5rem 0; grid-template-columns: 2.3rem minmax(0, 1fr); gap: 0.8rem; }
+    .corp-culture-list li { display: grid; min-height: 0; padding: 1.5rem 1.25rem; grid-template-columns: 2.3rem minmax(0, 1fr); gap: 0.8rem; }
     .corp-culture-list li > span { font-size: 1rem; }
     .corp-culture-list li > div { display: block; }
     .corp-culture-list h3 { margin-top: 0.35rem; font-size: 1.35rem; }

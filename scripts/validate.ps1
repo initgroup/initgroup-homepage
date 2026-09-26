@@ -72,7 +72,7 @@ foreach ($file in $htmlContents.Keys) {
     }
 }
 
-$cssFiles = @(Get-ChildItem -LiteralPath (Join-Path $siteRoot 'assets/css') -File -Filter '*.css')
+$cssFiles = @($manifest | Where-Object { $_.EndsWith('.css') } | ForEach-Object { Get-Item -LiteralPath (Join-Path $siteRoot $_) })
 foreach ($file in $cssFiles) {
     $content = Get-Content -Raw -Encoding UTF8 -LiteralPath $file.FullName
     if ([regex]::Matches($content, '\{').Count -ne [regex]::Matches($content, '\}').Count) { $errors.Add("$($file.Name) : CSS brace mismatch") }
@@ -104,7 +104,7 @@ foreach ($url in $sitemap.urlset.url) {
 
 $node = Get-Command node -ErrorAction SilentlyContinue
 if ($node) {
-    foreach ($file in Get-ChildItem -LiteralPath (Join-Path $siteRoot 'assets/js') -File -Filter '*.js') {
+    foreach ($file in @($manifest | Where-Object { $_.EndsWith('.js') } | ForEach-Object { Get-Item -LiteralPath (Join-Path $siteRoot $_) })) {
         & $node.Source --check $file.FullName
         if ($LASTEXITCODE -ne 0) { $errors.Add("$($file.Name) : JavaScript syntax error") }
     }

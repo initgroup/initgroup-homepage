@@ -828,7 +828,7 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
 
 .site-footer { padding-top: clamp(4rem, 7vw, 6rem); color: #fff; background: #040e1d; }
 .footer-main { display: grid; padding-bottom: 4rem; grid-template-columns: minmax(15rem, 0.68fr) minmax(36rem, 1.32fr); gap: clamp(3rem, 6vw, 6rem); }
-.footer-brand img { width: 7rem; height: auto; aspect-ratio: 3048 / 861; filter: brightness(0) invert(1); }
+.footer-brand img { width: 7rem; height: auto; aspect-ratio: 3048 / 861; filter: none; }
 .footer-brand p { margin-top: 1.5rem; color: rgba(255, 255, 255, 0.66); font-size: 1rem; }
 .footer-links { display: grid; grid-template-columns: minmax(8.5rem, 0.75fr) minmax(9.5rem, 0.8fr) minmax(16rem, 1.45fr); gap: clamp(1rem, 2vw, 2rem); }
 .footer-links strong, .footer-links a, .footer-links span { display: block; }
@@ -1428,7 +1428,7 @@ html[lang="en"] .ko-brand-name { display: none; }
 .inbaps-summary-flow { display: grid; min-height: 20rem; margin: auto 1.25rem 1.25rem; padding: 0; list-style: none; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 0.55rem; }
 .inbaps-summary-flow li { display: grid; align-items: center; min-height: 5.25rem; padding: 0.65rem; border: 1px solid rgba(118, 183, 232, 0.24); border-radius: 0.9rem; background: rgba(255, 255, 255, 0.055); grid-template-columns: 4.35rem 2.75rem minmax(0, 1fr); gap: 0.65rem; }
 .inbaps-summary-flow figure { width: 100%; height: 3.65rem; margin: 0; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 0.6rem; background: #fff; }
-.inbaps-summary-flow img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.inbaps-summary-flow img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .inbaps-summary-flow li > span { display: grid; width: 2.75rem; height: 2.75rem; color: #03152f; border-radius: 0.75rem; background: var(--solution-accent); place-items: center; font-size: 1.15rem; font-weight: 850; }
 .inbaps-summary-flow strong { display: block; font-size: 1.2rem; }
 .inbaps-summary-flow p { margin: 0.15rem 0 0; color: rgba(255, 255, 255, 0.7); font-size: 1rem; }

@@ -1,0 +1,98 @@
+[
+  {
+    "asset": "company.webp",
+    "source": "film_v13/office.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 202890,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "services.webp",
+    "source": "film_v13/statistics_lab.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 186804,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "solutions.webp",
+    "source": "generated_images/exec-0ca1db34-b0a7-4d1f-970b-c7c72859c7ff.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 117432,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "projects.webp",
+    "source": "generated_images/exec-53d10430-cf2f-498e-bf02-6b2c75bc459a.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 242498,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "careers.webp",
+    "source": "film_v13/learning.png",
+    "width": 1672,
+    "height": 940,
+    "bytes": 160424,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "team.webp",
+    "source": "film_v13/making.png",
+    "width": 1672,
+    "height": 940,
+    "bytes": 134638,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "growth.webp",
+    "source": "film_v13/leisure.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 223304,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "research.webp",
+    "source": "film_v13/research.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 147236,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "home.webp",
+    "source": "homepage_redesign/site/assets/images/home/home-data-hub-hero-v1.png",
+    "width": 1920,
+    "height": 800,
+    "bytes": 194708,
+    "kind": "concept image; not actual company premises or staff"
+  },
+  {
+    "asset": "gaon-tower.webp",
+    "source": "user attachment 3.jpg",
+    "kind": "user-provided architectural rendering of Gaon Biz Tower, headquarters tenant building",
+    "width": 1000,
+    "height": 560,
+    "bytes": 143864
+  },
+  {
+    "asset": "gaon-rooftop.webp",
+    "source": "user attachment 2.jpg",
+    "kind": "user-provided architectural rendering of Gaon Biz Tower, headquarters tenant building",
+    "width": 1000,
+    "height": 560,
+    "bytes": 211582
+  },
+  {
+    "asset": "gaon-plaza.webp",
+    "source": "user attachment 1.jpg",
+    "kind": "user-provided architectural rendering of Gaon Biz Tower, headquarters tenant building",
+    "width": 1000,
+    "height": 560,
+    "bytes": 181358
+  }
+]
