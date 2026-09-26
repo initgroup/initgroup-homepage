@@ -1547,5 +1547,18 @@
   "refresh.company.credential.7.title": "Venture business status",
   "refresh.company.credential.7.desc": "Recognized in the innovative-growth category",
   "refresh.company.credential.8.desc": "Recognized by the Korea Industrial Technology Association",
-  "refresh.company.credentials.source": "These dates record certifications and selections listed in the 2026 company introduction. Current validity is confirmed against the latest supporting documents."
+  "refresh.company.credentials.source": "These dates record certifications and selections listed in the 2026 company introduction. Current validity is confirmed against the latest supporting documents.",
+  "home.promo.watch": "Watch the INIT brand film",
+  "home.promo.poster": "Blue particles flowing across a data landscape",
+  "home.promo.title": "INIT brand film",
+  "home.promo.unsupported": "Your browser does not support video playback.",
+  "home.promo.error": "The video could not be played. Please open it using the link below.",
+  "home.promo.open": "Open video in a new tab",
+  "home.promo.cta": "Watch video",
+  "home.promo.story.lead": "Technology, with",
+  "home.promo.story.focus": "people at its heart.",
+  "home.promo.preview.pause": "Pause preview",
+  "home.promo.preview.play": "Play preview",
+  "home.promo.fullscreen.enter": "Full screen",
+  "home.promo.fullscreen.exit": "Exit full screen"
 }

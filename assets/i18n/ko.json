@@ -1547,5 +1547,18 @@
   "refresh.company.credential.7.title": "벤처기업 확인",
   "refresh.company.credential.7.desc": "혁신성장유형 벤처기업 확인",
   "refresh.company.credential.8.desc": "한국산업기술진흥협회 인정",
-  "refresh.company.credentials.source": "2026년 회사소개서에 기재된 취득·선정 이력입니다. 현재 유효 범위는 최신 증빙을 기준으로 안내합니다."
+  "refresh.company.credentials.source": "2026년 회사소개서에 기재된 취득·선정 이력입니다. 현재 유효 범위는 최신 증빙을 기준으로 안내합니다.",
+  "home.promo.watch": "인아이티 홍보영상 보기",
+  "home.promo.poster": "푸른 빛의 데이터 입자가 흐르는 장면",
+  "home.promo.title": "인아이티 홍보영상",
+  "home.promo.unsupported": "이 브라우저에서는 동영상 재생을 지원하지 않습니다.",
+  "home.promo.error": "영상을 재생할 수 없습니다. 아래 링크로 영상을 열어 주세요.",
+  "home.promo.open": "영상 새 창에서 열기",
+  "home.promo.cta": "홍보영상 보기",
+  "home.promo.story.lead": "기술이 향하는 곳은,",
+  "home.promo.story.focus": "사람입니다.",
+  "home.promo.preview.pause": "미리보기 일시정지",
+  "home.promo.preview.play": "미리보기 재생",
+  "home.promo.fullscreen.enter": "전체화면",
+  "home.promo.fullscreen.exit": "전체화면 종료"
 }
