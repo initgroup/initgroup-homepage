@@ -41,8 +41,8 @@ Assert-Equal $homeResponse.Revision $expectedRevision 'Running server revision (
 Assert-Equal $homeResponse.AcceptRanges 'bytes' 'Range support'
 Assert-Equal $homeResponse.Body.Length 0 'HEAD body'
 
-$moviePath = '/assets/videos/initgroup-promo.mp4'
-$movieFile = Join-Path $siteRoot 'assets/videos/initgroup-promo.mp4'
+$moviePath = '/assets/videos/initgroup-promo_kor.mp4'
+$movieFile = Join-Path $siteRoot 'assets/videos/initgroup-promo_kor.mp4'
 $movieLength = (Get-Item -LiteralPath $movieFile).Length
 $range = Get-TestResponse $moviePath 'GET' 65000 135000
 Assert-Equal $range.Status 206 'Partial video status'
@@ -83,8 +83,8 @@ for ($i = 0; $i -lt 12; $i++) {
     # The next request verifies that the server survived the reset.
     Assert-Equal (Get-TestResponse '/' 'HEAD').Status 200 "Server survived disconnect $i"
 }
-$thumb = Get-TestResponse '/assets/videos/initgroup-promo-thumbnail_ko.jpg'
-$expected = [IO.File]::ReadAllBytes((Join-Path $siteRoot 'assets/videos/initgroup-promo-thumbnail_ko.jpg'))
-Assert-Equal $thumb.Status 200 'Thumbnail after disconnects'
-Assert-Equal ([Convert]::ToBase64String($thumb.Body)) ([Convert]::ToBase64String($expected)) 'Complete thumbnail bytes'
+$poster = Get-TestResponse '/assets/images/home/initgroup-promo-poster.jpg'
+$expected = [IO.File]::ReadAllBytes((Join-Path $siteRoot 'assets/images/home/initgroup-promo-poster.jpg'))
+Assert-Equal $poster.Status 200 'Poster after disconnects'
+Assert-Equal ([Convert]::ToBase64String($poster.Body)) ([Convert]::ToBase64String($expected)) 'Complete poster bytes'
 Write-Host "HTTP server tests OK: revision $expectedRevision, 206/416/HEAD, exact bytes, 404/405 and 12 mid-transfer TCP resets."

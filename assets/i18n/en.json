@@ -1716,5 +1716,9 @@
   "design.labels.culture.01": "DEEP DIVE",
   "design.labels.culture.02": "EVIDENCE FIRST",
   "design.labels.culture.03": "ONE TEAM",
-  "design.labels.culture.04": "SHARE & GROW"
+  "design.labels.culture.04": "SHARE & GROW",
+  "home.hero.expertise": "Statistics & big data.",
+  "home.hero.technology": "Artificial intelligence.",
+  "home.hero.value": "Creating new value.",
+  "home.hero.introduction": "INIT brings together statistical expertise, big data analytics and artificial intelligence to uncover meaning in data. By understanding people and the challenges they face, we build technology that supports better decisions and meaningful change."
 }

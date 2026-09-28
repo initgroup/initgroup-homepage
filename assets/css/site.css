@@ -1200,7 +1200,7 @@ body:not([data-page="home"]) main > section[class*="-role-section"] {
 }
 
 .summary-hero-copy h1 em { color: var(--brand); font-style: normal; }
-.summary-hero-lead { max-width: 35rem; margin-bottom: 2rem; color: #40506a; font-size: clamp(1rem, 1.1vw, 1.12rem); line-height: 1.76; }
+.summary-hero-lead { max-width: 35rem; margin-bottom: 2rem; color: #40506a; font-size: clamp(1rem, 1.1vw, 1.12rem); line-height: 1.76; word-break: keep-all; }
 .summary-hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .summary-hero-actions .button { min-width: 10.2rem; }
 .summary-hero-scroll { display: inline-grid; align-items: center; margin-top: 2.15rem; color: #57708f; grid-template-columns: 1.2rem auto; font-size: 1rem; font-weight: 680; letter-spacing: 0.08em; gap: 0.7rem; }
