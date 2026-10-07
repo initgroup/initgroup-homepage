@@ -112,6 +112,15 @@
     line-height: 1.45;
 }
 
+/* Longer editorial copy must grow naturally at every viewport. */
+.menu-family-hero-copy > .corp-company-detail { font-size: 1rem; line-height: 1.8; }
+.menu-family-hero-copy > .menu-family-hero-flow-title { margin: 2rem 0 0; font-weight: 750; }
+.menu-family-hero-flow-title + .menu-family-hero-flow { margin-top: 1rem; }
+.menu-family-hero-features { display: grid; margin: 0 0 1.9rem; padding-left: 1.25rem; color: var(--family-muted); font-size: 1rem; line-height: 1.8; gap: 0.65rem; }
+.menu-family-hero--company .menu-family-hero-meta { flex-wrap: wrap; row-gap: 1rem; }
+.menu-family-hero--company .menu-family-hero-meta > div:last-child { flex-basis: 100%; }
+.menu-family-hero--services .menu-family-hero-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+
 .menu-family-hero-flow {
     display: grid;
     max-width: 40rem;
@@ -313,4 +322,9 @@ body[data-page="insights"] .article-summary > div {
 @keyframes menu-family-hero-drift {
     from { transform: scale(1.002) translate3d(0, 0, 0); }
     to { transform: scale(1.025) translate3d(-0.4rem, -0.2rem, 0); }
+}
+
+/* Give the solution overview room for its preferred Korean phrases. */
+@media (min-width: 50.01rem) {
+    html[lang="ko"] .solution-hub-page .menu-family-hero-copy { width: min(62%, 52rem); }
 }

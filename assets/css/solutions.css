@@ -614,7 +614,14 @@ html[lang="en"] .sol-architecture-ko-name {
     content: "";
 }
 
+.sol-path-section .sol-section-heading {
+    display: block;
+    margin-bottom: clamp(2rem, 3vw, 3rem);
+}
+
 .sol-path-section .sol-section-heading > p {
+    max-width: 52rem;
+    margin: 1.4rem 0 0;
     color: rgba(255, 255, 255, 0.76);
 }
 

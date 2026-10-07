@@ -1188,7 +1188,7 @@ body:not([data-page="home"]) main > section[class*="-role-section"] {
     gap: clamp(2rem, 5vw, 6rem);
 }
 
-.summary-hero-copy { max-width: 39rem; }
+.summary-hero-copy { width: min(60vw, 56rem); max-width: 56rem; }
 .summary-hero-copy .eyebrow { margin-bottom: 1.6rem; color: #2f65cf; font-size: 1rem; font-weight: 720; letter-spacing: 0.105em; }
 .summary-hero-copy h1 {
     max-width: 14ch;
@@ -1346,8 +1346,11 @@ html[lang="en"] .home-company-metrics dd { line-height: 1.3; white-space: normal
     --capability-accent: #2457d6;
     --capability-soft: #eaf1ff;
     position: relative;
-    display: flex;
-    min-height: 31rem;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    row-gap: 0;
+    min-height: 0;
     padding: clamp(1.5rem, 2.3vw, 2.25rem);
     overflow: hidden;
     border: 1px solid rgba(89, 117, 157, 0.24);
@@ -1394,9 +1397,9 @@ html[lang="en"] .home-company-metrics dd { line-height: 1.3; white-space: normal
 .solution-summary-card--inbaps { --solution-accent: #58b9ff; }
 .solution-summary-card--surveyone { --solution-accent: #a69aff; }
 .solution-summary-card--surveyone .solution-summary-media { background: linear-gradient(135deg, rgba(166, 154, 255, 0.08), rgba(88, 185, 255, 0.025)); }
-.solution-summary-copy { display: flex; min-width: 0; height: 32.6rem; min-height: 32.6rem; padding: clamp(1.75rem, 2.5vw, 2.6rem); flex: 0 0 auto; flex-direction: column; }
+.solution-summary-copy { display: flex; min-width: 0; height: auto; min-height: 32.6rem; padding: clamp(1.75rem, 2.5vw, 2.6rem); flex: 1 0 auto; flex-direction: column; }
 .solution-summary-copy > span { color: var(--solution-accent); font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; }
-.solution-summary-copy h3 { display: flex; align-items: flex-end; min-height: 5.25rem; margin: 0.8rem 0 1.1rem; font-size: clamp(1.8rem, 1.8vw, 2.15rem); line-height: 1.14; }
+.solution-summary-copy h3 { display: flex; flex-wrap: wrap; align-items: baseline; align-content: start; column-gap: 0.25em; row-gap: 0.1em; min-height: 0; margin: 1.1rem 0 1.1rem; font-size: clamp(1.8rem, 1.8vw, 2.15rem); line-height: 1.14; }
 .solution-summary-copy h3 b { color: var(--solution-accent); font-weight: inherit; white-space: nowrap; }
 html[lang="en"] .ko-brand-name { display: none; }
 .solution-summary-copy p { min-height: 6.9rem; margin: 0; color: rgba(255, 255, 255, 0.76); font-size: 1rem; line-height: 1.75; }
@@ -1464,6 +1467,15 @@ html[lang="en"] .ko-brand-name { display: none; }
 .home-contact h2 { max-width: 18ch; margin: 0; font-size: clamp(2.35rem, 3.6vw, 3.4rem); line-height: 1.16; }
 .home-contact-inner > div:last-child p { color: rgba(255, 255, 255, 0.78); font-size: 1rem; line-height: 1.75; }
 
+/* Product copy shares five content rows across the desktop lineup. */
+@media (min-width: 72.01rem) {
+    .solution-summary-card { display: grid; min-height: 0; grid-template-rows: subgrid; grid-row: span 6; row-gap: 0; }
+    .solution-summary-copy { display: grid; min-height: 0; flex: none; grid-template-rows: subgrid; grid-row: span 5; row-gap: 0; }
+    .solution-summary-copy > p { min-height: 0; }
+    .solution-summary-copy > ul { align-items: flex-start; align-content: start; }
+    .solution-summary-copy > a { margin-top: 0; }
+}
+
 @media (max-width: 72rem) {
     .site-map-layout { grid-template-columns: 1fr; }
     .site-map-intro { display: none; }
@@ -1496,7 +1508,7 @@ html[lang="en"] .ko-brand-name { display: none; }
     .summary-hero.hero::before { background: linear-gradient(90deg, rgba(255, 255, 255, 0.99) 0%, rgba(255, 255, 255, 0.93) 46%, rgba(255, 255, 255, 0.38) 70%, rgba(4, 19, 46, 0.05) 100%); }
     .summary-hero-grid { padding-bottom: 2rem; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
     .hero-promo { position: relative; right: auto; bottom: auto; max-width: 25rem; justify-self: end; }
-    .summary-hero-copy { max-width: 37rem; }
+    .summary-hero-copy { width: 100%; max-width: 56rem; }
     .experience-summary-grid { grid-template-columns: 1fr 1fr; }
     .experience-summary-card:last-child { grid-column: 1 / -1; }
     .experience-summary-card { min-height: 24rem; }

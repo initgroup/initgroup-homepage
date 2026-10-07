@@ -21,40 +21,13 @@
     const mobileActionBar = document.querySelector(".mobile-action-bar");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const desktopNavigation = window.matchMedia("(min-width: 72.01rem)");
-    const desktopHoverNavigation = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 72.01rem)");
     const desktopNavLinks = Array.from(document.querySelectorAll(".desktop-nav [data-nav]"));
-    const navigationHoverGuardKey = "init:navigation-hover-guard";
     let menuReturnFocus = null;
-    let hoverCloseTimer = null;
     let hoverMenuPinned = false;
     let hoverReturnFocus = null;
-    let navigationHoverGuarded = consumeNavigationHoverGuard();
     let activePageSubLink = pageSubLinks.find((link) => link.classList.contains("is-current")) || null;
     let frameRequested = false;
     let readableTypeFrameRequested = false;
-
-    function consumeNavigationHoverGuard() {
-        try {
-            const guarded = window.sessionStorage.getItem(navigationHoverGuardKey) === "1";
-            if (guarded) window.sessionStorage.removeItem(navigationHoverGuardKey);
-            return guarded;
-        } catch (_error) {
-            return false;
-        }
-    }
-
-    function guardNavigationHoverForNextPage() {
-        navigationHoverGuarded = true;
-        try {
-            window.sessionStorage.setItem(navigationHoverGuardKey, "1");
-        } catch (_error) {
-            // Navigation still works when storage access is unavailable.
-        }
-    }
-
-    function releaseNavigationHoverGuard() {
-        navigationHoverGuarded = false;
-    }
 
     function updateScrollUi() {
         frameRequested = false;
@@ -167,12 +140,6 @@
         if (mobileActionBar) mobileActionBar.inert = value;
     }
 
-    function clearHoverCloseTimer() {
-        if (!hoverCloseTimer) return;
-        window.clearTimeout(hoverCloseTimer);
-        hoverCloseTimer = null;
-    }
-
     function syncCurrentNavigation(activeLink = activePageSubLink) {
         const pageKey = document.body.dataset.page;
         hoverSections.forEach((section) => {
@@ -196,9 +163,6 @@
     function setHoveredMenuSection(key) {
         desktopNavLinks.forEach((link) => {
             link.classList.toggle("is-menu-target", link.dataset.nav === key);
-            link.setAttribute("aria-expanded", String(
-                !hoverMenuPinned && link.dataset.nav === key && !hoverMenu?.hidden
-            ));
         });
         hoverSections.forEach((section) => {
             section.classList.toggle("is-hovered", section.dataset.hoverSection === key);
@@ -208,7 +172,6 @@
     function openHoverMenu(key, options = {}) {
         if (!hoverMenu || !header || !desktopNavigation.matches) return;
         if (!menu?.hidden) closeMenu({ restoreFocus: false });
-        clearHoverCloseTimer();
         if (options.pinned !== undefined) hoverMenuPinned = options.pinned;
         if (options.returnFocus instanceof HTMLElement) hoverReturnFocus = options.returnFocus;
         hoverMenu.hidden = false;
@@ -227,7 +190,6 @@
 
     function closeHoverMenu(options = {}) {
         if (!hoverMenu || (hoverMenuPinned && !options.force)) return;
-        clearHoverCloseTimer();
         hoverMenu.hidden = true;
         hoverMenuPinned = false;
         header?.classList.remove("is-hover-open");
@@ -269,12 +231,6 @@
             target.focus();
         }
         menuReturnFocus = null;
-    }
-
-    function scheduleHoverMenuClose() {
-        if (!hoverMenu || hoverMenu.hidden || hoverMenuPinned) return;
-        clearHoverCloseTimer();
-        hoverCloseTimer = window.setTimeout(() => closeHoverMenu({ force: true }), 320);
     }
 
     function closeHoverMenuAfterFocusLeaves() {
@@ -437,51 +393,20 @@
     menuClose?.addEventListener("click", () => closeMenu());
     menuBackdrop?.addEventListener("click", () => closeMenu());
     menu?.addEventListener("keydown", trapMenuFocus);
-    headerInner?.addEventListener("pointerenter", clearHoverCloseTimer);
     headerInner?.addEventListener("focusout", closeHoverMenuAfterFocusLeaves);
     headerInner?.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeHoverMenu({ force: true, restoreFocus: true });
     });
-    header?.addEventListener("pointerleave", () => {
-        releaseNavigationHoverGuard();
-        scheduleHoverMenuClose();
-    });
-    pageSubNavigation?.addEventListener("pointerenter", clearHoverCloseTimer);
-    pageSubNavigation?.addEventListener("pointerleave", scheduleHoverMenuClose);
     pageSubNavigation?.addEventListener("focusout", closeHoverMenuAfterFocusLeaves);
-    hoverMenu?.addEventListener("pointerenter", clearHoverCloseTimer);
-    hoverMenu?.addEventListener("pointerleave", scheduleHoverMenuClose);
     hoverMenu?.addEventListener("focusout", closeHoverMenuAfterFocusLeaves);
     hoverMenu?.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeHoverMenu({ force: true, restoreFocus: true });
     });
     desktopNavLinks.forEach((link) => {
-        const openLinkedMenu = () => {
-            if (!desktopHoverNavigation.matches || navigationHoverGuarded) return;
-            openHoverMenu(link.dataset.nav);
-        };
-        link.addEventListener("pointerenter", openLinkedMenu);
-        link.addEventListener("focus", () => {
-            if (!desktopNavigation.matches) return;
-            openHoverMenu(link.dataset.nav, { returnFocus: link });
-        });
-        link.addEventListener("click", (event) => {
-            const url = new URL(link.href, document.baseURI);
-            const isPrimaryPointerNavigation = event.detail > 0
-                && event.button === 0
-                && !event.ctrlKey
-                && !event.metaKey
-                && !event.shiftKey
-                && !event.altKey;
-            if (isPrimaryPointerNavigation && url.origin === window.location.origin) {
-                guardNavigationHoverForNextPage();
-            }
-            closeHoverMenu({ force: true });
-        });
+        link.addEventListener("click", () => closeHoverMenu({ force: true }));
     });
     hoverSections.forEach((section) => {
         section.addEventListener("pointerenter", () => {
-            clearHoverCloseTimer();
             setHoveredMenuSection(section.dataset.hoverSection);
         });
     });
@@ -507,9 +432,6 @@
         if (hoverMenu?.hidden || header?.contains(event.target)) return;
         closeHoverMenu({ force: true });
     });
-    document.addEventListener("pointermove", (event) => {
-        if (navigationHoverGuarded && !header?.contains(event.target)) releaseNavigationHoverGuard();
-    }, { passive: true });
     window.addEventListener("scroll", requestScrollUiUpdate, { passive: true });
     window.addEventListener("resize", () => {
         requestScrollUiUpdate();

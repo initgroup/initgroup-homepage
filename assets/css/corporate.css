@@ -243,7 +243,7 @@ body[data-page="careers"] main {
     gap: 1rem;
 }
 
-.corp-vision-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.corp-vision-grid { align-items: stretch; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 .corp-principle-grid article {
     position: relative;
@@ -274,6 +274,9 @@ body[data-page="careers"] main {
 .corp-principle-grid small { display: block; margin-top: auto; color: var(--brand-strong); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em; }
 .corp-principle-grid h3 { margin: 0.45rem 0 0.8rem; font-size: clamp(1.35rem, 2vw, 1.8rem); }
 .corp-principle-grid p { margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.75; }
+
+.corp-vision-grid article { display: grid; min-height: 0; grid-template-rows: subgrid; grid-row: span 4; row-gap: 0; }
+.corp-vision-grid small { margin-top: 1.8rem; }
 
 @media (min-width: 50.01rem) {
     body[data-page="company"] .corp-principle-grid:not(.corp-vision-grid) article:nth-child(2) {
@@ -438,6 +441,10 @@ body[data-page="careers"] main {
 .corp-service-practice-intro > span { color: var(--service-accent); font-size: 1rem; font-weight: 800; letter-spacing: 0.075em; }
 .corp-service-practice-intro h4 { max-width: 19ch; margin: 1rem 0 0.85rem; font-size: clamp(1.5rem, 2.25vw, 2rem); line-height: 1.25; }
 .corp-service-practice-intro > p { margin: 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.75; }
+.corp-validation-criteria { display: grid; margin: 1.25rem 0 0; padding-left: 1.2rem; color: var(--ink-soft); gap: 0.75rem; font-size: 1rem; line-height: 1.75; }
+#engineering .corp-service-body ul { grid-template-columns: minmax(0, 1fr); }
+.corp-delivery-steps .corp-delivery-lead { margin-bottom: 0.7rem; font-weight: 700; }
+
 .corp-service-start { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid color-mix(in srgb, var(--service-accent) 18%, #d9e3f0); }
 .corp-service-start > strong { color: var(--service-accent); font-size: 1rem; }
 .corp-service-start ul { display: grid; margin: 0.8rem 0 0; padding: 0; list-style: none; gap: 0.55rem; }
@@ -450,13 +457,14 @@ body[data-page="careers"] main {
 .corp-service-flow p { margin: 0.5rem 0 0; color: var(--muted); font-size: 1rem; line-height: 1.65; }
 
 .corp-delivery-section { color: #fff; background: radial-gradient(circle at 90% 10%, rgba(78, 215, 189, 0.11), transparent 25rem), var(--navy-deep); }
-.corp-delivery-section .corp-heading h2 { color: #fff; }
+.corp-delivery-section .corp-heading h2 { max-width: 30ch; color: #fff; }
 .corp-delivery-section .corp-heading > p { max-width: 46rem; color: rgba(255, 255, 255, 0.68); font-size: 1rem; line-height: 1.75; }
 .corp-delivery-steps { display: grid; margin: 0; padding: 0; list-style: none; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
-.corp-delivery-steps li { display: flex; min-height: 20rem; padding: 1.8rem; border: 1px solid var(--line-dark); border-radius: 0.9rem; background: rgba(255, 255, 255, 0.035); flex-direction: column; }
+.corp-delivery-steps li { display: grid; grid-template-rows: subgrid; grid-row: span 5; row-gap: 0; min-height: 0; padding: 1.8rem 1rem; border: 1px solid var(--line-dark); border-radius: 0.9rem; background: rgba(255, 255, 255, 0.035); flex-direction: column; }
 .corp-delivery-steps li > span { color: var(--mint); font: 760 1.3rem ui-monospace, "Cascadia Code", monospace; }
-.corp-delivery-steps small { margin-top: auto; color: var(--mint); font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; }
-.corp-delivery-steps h3 { margin: 0.5rem 0 0.75rem; font-size: clamp(1.25rem, 2vw, 1.75rem); }
+.corp-delivery-steps small { margin-top: 1.6rem; color: var(--mint); font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; }
+.corp-delivery-steps h3 { min-height: 0; margin: 0.5rem 0 0.75rem; font-size: clamp(1.25rem, 2vw, 1.75rem); }
+html[lang="ko"] .corp-delivery-title-compact { white-space: nowrap; }
 .corp-delivery-steps p { margin: 0; color: rgba(255, 255, 255, 0.58); font-size: 0.85rem; line-height: 1.7; }
 
 .corp-domain-section { background: var(--paper-warm); }
@@ -503,6 +511,8 @@ body[data-page="careers"] main {
 .signal-note-two { right: 4%; bottom: 22%; }
 .signal-note-three { bottom: 12%; left: 12%; }
 
+.corp-culture-section .company-name { white-space: nowrap; }
+
 .corp-culture-section { background: var(--paper-warm); }
 .corp-culture-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
 .corp-culture-list li { display: grid; align-items: center; min-height: 10rem; padding: 1.75rem clamp(1.25rem, 2.5vw, 2.25rem); border-bottom: 1px solid var(--line); grid-template-columns: 3.5rem minmax(0, 1fr); gap: clamp(1.25rem, 3vw, 3rem); }
@@ -538,7 +548,7 @@ body[data-page="careers"] main {
 .corp-growth-steps p { max-width: 35rem; margin: 0.6rem 0 0; color: var(--muted); font-size: 0.8rem; }
 
 .corp-career-contact { color: #fff; background: var(--brand-strong); }
-.corp-career-contact-inner { display: grid; align-items: end; min-height: 31rem; padding-block: clamp(4rem, 7vw, 7rem); grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.65fr); gap: clamp(3rem, 9vw, 9rem); }
+.corp-career-contact-inner { display: grid; align-items: center; min-height: 0; padding-block: clamp(3rem, 4.5vw, 4.5rem); grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.8fr); gap: clamp(2rem, 4vw, 4rem); }
 .corp-career-contact h2 { max-width: 19ch; margin-bottom: 1rem; font-size: clamp(2.25rem, 3.5vw, 3.4rem); line-height: 1.16; }
 .corp-career-contact-inner > div:first-child > p:last-child { max-width: 38rem; color: rgba(255, 255, 255, 0.63); }
 .corp-career-mail { padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.35); }
@@ -548,7 +558,22 @@ body[data-page="careers"] main {
 
 /* Contact */
 
-.corp-contact-hero-grid { grid-template-columns: minmax(26rem, 1fr) minmax(27rem, 0.7fr); }
+.corp-contact-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: clamp(2rem, 3vw, 3rem);
+    gap: 1.5rem;
+}
+.corp-contact-hero .corp-hero-copy { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); column-gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.corp-contact-hero .corp-hero-copy > :not(figure) { grid-column: 1; }
+.corp-contact-hero .corp-hero-copy h1 { max-width: none; margin-bottom: 1rem; font-size: clamp(2.35rem, 3.5vw, 3.25rem); }
+.corp-contact-hero .corp-hero-lead { max-width: none; margin-bottom: 0; line-height: 1.7; }
+.corp-contact-hero .init-location-photo { grid-column: 2; grid-row: 1 / span 3; align-self: center; margin: 0; }
+.corp-contact-channels .corp-heading { margin-bottom: 1.25rem; }
+.corp-contact-channels .corp-heading h2 { max-width: none; font-size: clamp(1.5rem, 2vw, 2rem); }
+.corp-contact-channels .corp-contact-card-grid article { min-height: 0; padding: 1rem 1.5rem; grid-template-rows: auto auto auto auto 1fr; }
+.corp-contact-channels .corp-contact-card-grid small { margin-top: 0.6rem; }
+.corp-contact-channels .corp-contact-card-grid h3 { font-size: 1.35rem; margin-block: 0.35rem 0.65rem; }
+.corp-contact-channels .corp-contact-card-grid p { margin-top: 0.65rem; }
 .corp-contact-primary { padding: clamp(2rem, 4vw, 3.5rem); color: #fff; border-radius: var(--radius-lg); background: radial-gradient(circle at 90% 10%, rgba(78, 215, 189, 0.17), transparent 17rem), var(--navy-deep); box-shadow: var(--shadow-lg); }
 .corp-contact-primary > p { display: flex; align-items: center; color: var(--mint); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; gap: 0.55rem; }
 .corp-contact-primary > p span { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 0.32rem rgba(24, 167, 123, 0.12); }
@@ -602,6 +627,7 @@ body[data-page="careers"] main {
 .corp-contact-final-inner > div:last-child p { margin: 1rem 0 0; color: rgba(255, 255, 255, 0.78); font-size: 0.72rem; }
 
 @media (max-width: 72rem) {
+    .corp-delivery-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .corp-hero { min-height: auto; }
     .corp-hero-grid,
     .corp-contact-hero-grid { grid-template-columns: 1fr; gap: 4rem; }
@@ -633,6 +659,11 @@ body[data-page="careers"] main {
     .corp-hero-copy { padding-top: 0; }
     .corp-hero-copy h1 { max-width: none; margin-bottom: 1.2rem; font-size: clamp(2.4rem, 11.5vw, 3.35rem); line-height: 1.08; }
     .corp-hero-lead { margin-bottom: 1.5rem; font-size: 0.94rem; }
+    .corp-contact-hero .corp-hero-copy { display: block; }
+    .corp-contact-hero .init-location-photo { margin-top: 1.5rem; }
+    .corp-contact-hero-grid { padding-top: 2.5rem; gap: 2rem; }
+    .corp-contact-channels .corp-heading > p { margin-top: 0.85rem; }
+
     .corp-section { padding-block: 5rem; }
     .corp-heading,
     .corp-heading-split { display: block; margin-bottom: 2.5rem; }
@@ -649,7 +680,7 @@ body[data-page="careers"] main {
     .corp-principle-grid { grid-template-columns: 1fr; }
     .corp-principle-grid article,
     .corp-principle-grid article:first-child,
-    .corp-principle-grid article:last-child { display: grid; min-height: 0; padding: 1.4rem; border: 1px solid var(--line); grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.2rem 0.8rem; }
+    .corp-principle-grid article:last-child { display: grid; min-height: 0; padding: 1.4rem; border: 1px solid var(--line); grid-template-columns: 3.2rem minmax(0, 1fr); grid-template-rows: none; grid-row: auto; gap: 0.2rem 0.8rem; }
     .corp-principle-grid article > span { grid-row: 1 / span 3; }
     .corp-principle-grid small { margin-top: 0; }
     .corp-principle-grid h3, .corp-principle-grid p { grid-column: 2; }
@@ -695,6 +726,7 @@ body[data-page="careers"] main {
     .corp-service-flow { margin-top: 1.25rem; grid-template-columns: 1fr; }
     .corp-service-flow li { min-height: 0; }
 
+    .corp-delivery-steps h3 { min-height: 0; }
     .corp-delivery-steps { display: grid; width: 100%; grid-template-columns: 1fr; border-top: 0; gap: 0.7rem; }
     .corp-delivery-steps li,
     .corp-delivery-steps li:first-child,
@@ -726,6 +758,7 @@ body[data-page="careers"] main {
 
     .corp-career-contact-inner,
     .corp-contact-final-inner { display: block; min-height: 0; padding-block: 5rem; }
+    .corp-career-contact-inner { padding-block: 3rem; }
     .corp-career-contact h2,
     .corp-contact-final h2 { max-width: none; font-size: clamp(2rem, 8.5vw, 2.55rem); }
     .corp-career-contact h2 br,

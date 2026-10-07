@@ -73,6 +73,15 @@ function intersection(a, b) {
         const focusScreenshots = {};
         if (viewport.name === 'desktop-1440') {
             await page.locator('.desktop-nav [data-nav="services"]').hover();
+            await page.waitForTimeout(400);
+            if (!await page.locator('[data-hover-menu]').evaluate(menu => menu.hidden)) {
+                throw new Error('Top navigation hover must not open the full menu');
+            }
+            await page.locator('.desktop-nav [data-nav="services"]').focus();
+            if (!await page.locator('[data-hover-menu]').evaluate(menu => menu.hidden)) {
+                throw new Error('Top navigation focus must not open the full menu');
+            }
+            await page.locator('[data-menu-toggle]').click();
             await page.waitForFunction(() => !document.querySelector('[data-hover-menu]').hidden);
             await page.waitForFunction(() => {
                 const hoverLinkCount = document.querySelectorAll('[data-hover-section] li a').length;

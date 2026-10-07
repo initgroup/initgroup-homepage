@@ -308,6 +308,21 @@ body[data-page="projects"] .outcome-band {
     color: var(--muted);
 }
 
+/* Keep these introductions in one reading flow before the related content. */
+.editorial-heading--flow {
+    display: block;
+    margin-bottom: clamp(2rem, 3vw, 3rem);
+}
+
+.editorial-heading--flow h2:not(.heading-lines) {
+    max-width: 28ch;
+}
+
+.editorial-heading--flow > p {
+    max-width: 52rem;
+    margin: 1.4rem 0 0;
+}
+
 .project-case-list {
     display: grid;
     border-top: 1px solid var(--ink);
@@ -524,7 +539,7 @@ body[data-page="projects"] .project-result-label {
 }
 
 .delivery-principles > header {
-    padding: clamp(2rem, 5vw, 4.5rem);
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
     background: radial-gradient(circle at 20% 15%, rgba(78, 215, 189, 0.15), transparent 20rem);
 }
 
@@ -2841,6 +2856,8 @@ body[data-page="insights"] .insight-practice-cta h2 {
         display: block;
         margin-bottom: 2.5rem;
     }
+
+    #sectorsTitle > .heading-line { display: inline; }
 
     .editorial-heading h2 {
         max-width: none;

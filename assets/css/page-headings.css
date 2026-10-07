@@ -16,7 +16,20 @@
     line-height: 1.16;
 }
 
+/* Preferred Korean phrase breaks; shorter screens can wrap within each phrase. */
+h1.heading-lines,
+h2.heading-lines {
+    max-width: none;
+    word-break: keep-all;
+    overflow-wrap: normal;
+}
+
+.heading-lines > .heading-line { display: block; }
+html[lang="en"] .heading-lines > .heading-line { display: inline; }
+
 @media (max-width: 50rem) {
+    .heading-lines--responsive > .heading-line { display: inline; }
+
     .section-heading h2,
     .product-intro h2,
     .corp-heading h2,
