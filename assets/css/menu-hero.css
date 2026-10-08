@@ -194,10 +194,22 @@
 }
 
 .menu-family-hero-meta--project {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     padding-left: 1rem;
     border-top: 0;
     border-left: 3px solid var(--family-accent);
+    column-gap: clamp(1rem, 2vw, 2rem);
 }
+
+.menu-family-hero-meta--project dt,
+.menu-family-hero-meta--project dd {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+}
+
+.menu-family-hero-meta--project dt { letter-spacing: 0; }
 
 .menu-family-hero--insights {
     --family-accent: #087a67;
@@ -309,6 +321,12 @@ body[data-page="insights"] .article-summary > div {
             linear-gradient(180deg, rgba(252, 251, 246, 0.99), rgba(252, 251, 246, 0.92) 72%, rgba(237, 247, 241, 0.72)),
             url("../images/menu-heroes/insights-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
     }
+}
+
+@media (max-width: 40rem) {
+    .menu-family-hero-meta--project { grid-template-columns: 1fr; }
+    .menu-family-hero-meta--project dt,
+    .menu-family-hero-meta--project dd { text-wrap: wrap; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
