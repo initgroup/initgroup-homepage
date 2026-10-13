@@ -475,8 +475,8 @@ html[lang="ko"] .corp-delivery-title-compact { white-space: nowrap; }
 .corp-domain-grid a:hover { color: var(--brand); border-color: rgba(36, 87, 214, 0.35); transform: translateY(-3px); }
 .corp-domain-grid small { color: var(--brand); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; }
 .corp-domain-grid strong { margin-top: auto; font-size: clamp(1.4rem, 2.4vw, 2.1rem); }
-.corp-domain-grid span { margin-top: 0.35rem; color: var(--muted); font-size: 0.82rem; }
-.corp-domain-grid i { position: absolute; top: 1.5rem; right: 1.5rem; font-style: normal; }
+.corp-domain-grid span:not(.detail-link-indicator) { margin-top: 0.35rem; color: var(--muted); font-size: 0.82rem; }
+.corp-domain-grid .detail-link-indicator { align-self: flex-end; margin-top: 1rem; }
 
 /* Careers */
 
@@ -842,7 +842,7 @@ html[lang="ko"] .corp-delivery-title-compact { white-space: nowrap; }
 .corp-team-map p,
 .corp-service-output dd,
 .corp-delivery-steps p,
-.corp-domain-grid span,
+.corp-domain-grid span:not(.detail-link-indicator),
 .corp-growth-steps p,
 .corp-timeline time,
 .corp-prep-list p {

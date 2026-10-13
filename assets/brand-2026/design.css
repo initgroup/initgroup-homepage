@@ -100,7 +100,7 @@ h1,h2,h3{letter-spacing:-.045em} h1{line-height:1.22!important} h2{line-height:1
 .inbaps-summary-flow li{background:#f5f8fb;border-color:#d4e0e8}
 .inbaps-summary-flow li>span{color:var(--solution-accent);background:#e8f0f5}
 .experience-summary-card,.experience-summary-card:nth-child(n){background:#f2f6fa;color:var(--init-ink);border:1px solid #d4e0e8;border-radius:.6rem;box-shadow:none}
-.experience-summary-card>span{color:#2155bc}
+.experience-summary-card>span:not(.detail-link-indicator){color:#2155bc}
 .experience-summary-card>strong{color:#496984}
 .experience-summary-card p{color:var(--init-body)}
 .experience-summary-card::after{border-color:#cadbe9;box-shadow:none}
@@ -204,7 +204,7 @@ body.solutions-page :is(.sol-page-hero:not(.primary-page-hero),.survey-hero){col
 
 /* Final contrast corrections for captions and inherited legacy link styles. */
 .init-light .contact-cta-inner p,.init-light .home-contact-inner p,.init-light .corp-career-contact-inner p{color:var(--init-body)!important}
-.solution-summary-copy>a,.solution-summary-copy>a span{color:#174395}
+.solution-summary-copy>a:not(.detail-link),.solution-summary-copy>a:not(.detail-link) span{color:#174395}
 .experience-summary-card>a,.experience-summary-card>a span{color:#174395}
 .sol-product-evidence :is(b,strong,span,small,i){color:#365573!important}
 
