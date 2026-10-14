@@ -18,7 +18,8 @@
 
 /* Preferred Korean phrase breaks; shorter screens can wrap within each phrase. */
 h1.heading-lines,
-h2.heading-lines {
+h2.heading-lines,
+h3.heading-lines {
     max-width: none;
     word-break: keep-all;
     overflow-wrap: normal;

@@ -14,6 +14,8 @@
     --solution-cyan: #18c9ff;
     --solution-violet: #7a61ff;
     overflow: hidden;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 
 .sol-breadcrumb {
@@ -291,12 +293,22 @@ html[lang="en"] .sol-architecture-ko-name {
     margin-bottom: 0;
     font-size: clamp(2.2rem, 3.4vw, 3.5rem);
     line-height: 1.04;
+    word-break: keep-all;
+    text-wrap: balance;
 }
 
-.sol-section-heading > p {
+.sol-section-heading > p,
+.sol-section-summary {
     max-width: 36rem;
     margin: 0;
     color: var(--muted);
+}
+
+.sol-section-summary {
+    display: grid;
+    padding-left: 1.2rem;
+    line-height: 1.8;
+    gap: 0.9rem;
 }
 
 .sol-portfolio-section {
@@ -880,6 +892,13 @@ html[lang="en"] .sol-architecture-ko-name {
     font-size: 1.1rem;
 }
 
+.de-proof-grid p {
+    margin: 0.75rem 0 0;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
 .de-workflow {
     position: relative;
     display: grid;
@@ -937,6 +956,7 @@ html[lang="en"] .sol-architecture-ko-name {
     color: var(--muted);
     font-size: 0.74rem;
     line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
 .de-rule-section {
@@ -1374,7 +1394,7 @@ html[lang="en"] .sol-architecture-ko-name {
     color: var(--ink);
     border-radius: var(--radius-lg);
     background: #eef4f9;
-    grid-template-columns: minmax(15rem, 0.65fr) minmax(0, 1.35fr);
+    grid-template-columns: minmax(15rem, 1.1fr) minmax(0, 0.9fr);
     gap: clamp(2rem, 5vw, 5rem);
 
     border: 1px solid var(--line);
@@ -1414,7 +1434,28 @@ html[lang="en"] .sol-architecture-ko-name {
     content: "";
 }
 
+/* IN-DEPS consultation: a balanced heading and two short explanatory paragraphs. */
+.contact-cta-inner--indeps {
+    align-items: center;
+    min-height: 0;
+    padding-block: clamp(3.5rem, 6vw, 6rem);
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+}
+
+.de-consultation-copy {
+    display: grid;
+    align-content: center;
+    gap: 1.25rem;
+}
+
+.de-consultation-copy > p { margin: 0; }
+.de-consultation-copy > .button { justify-self: start; }
+
 /* IN-BAPS (인법스) */
+.sol-hero-grid--inbaps { row-gap: 1.5rem; }
+.ib-hero-heading { grid-column: 1 / -1; }
+
 .ib-hero-console {
     min-width: 0;
     padding: 1.2rem;
@@ -2269,7 +2310,7 @@ html[lang="en"] .sol-architecture-ko-name {
 .survey-proof__rail strong { font-size: 1.08rem; line-height: 1.5; }
 
 .survey-heading { display: grid; align-items: end; margin-bottom: clamp(3rem, 5vw, 5rem); grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.65fr); gap: clamp(2rem, 6vw, 6rem); }
-.survey-heading h2 { max-width: 18ch; margin: 0; font-size: clamp(2.25rem, 3.4vw, 3.35rem); line-height: 1.15; letter-spacing: -0.045em; }
+.survey-heading h2 { max-width: 18ch; margin: 0; font-size: clamp(2.25rem, 3.4vw, 3.35rem); line-height: 1.15; letter-spacing: -0.045em; word-break: keep-all; text-wrap: balance; }
 .survey-heading > p { max-width: 36rem; margin: 0; color: #52647c; font-size: 1rem; line-height: 1.8; }
 .survey-heading--light > p { color: var(--ink-soft); }
 
@@ -2280,7 +2321,7 @@ html[lang="en"] .sol-architecture-ko-name {
 .survey-flow__steps li:nth-child(3n):not(:last-child)::after { content: "↓"; }
 .survey-flow__steps li:last-child::after { display: none; }
 .survey-flow__steps span { color: #006d8f; font-size: 1rem; font-weight: 820; letter-spacing: 0.07em; }
-.survey-flow__steps strong { margin-top: auto; font-size: clamp(1.35rem, 2vw, 1.8rem); }
+.survey-flow__steps strong { margin-top: auto; font-size: clamp(1.35rem, 2vw, 1.8rem); word-break: keep-all; text-wrap: balance; }
 .survey-flow__steps p { margin: 0.75rem 0 1.7rem; color: #52647c; font-size: 1rem; line-height: 1.7; }
 
 .survey-product { overflow: hidden; background: linear-gradient(135deg, #eaf2fb, #edf8f7); }
@@ -2309,7 +2350,7 @@ html[lang="en"] .sol-architecture-ko-name {
     gap: clamp(2rem, 7vw, 7rem);
 }
 
-.survey-product-gallery-heading span,
+.survey-product-gallery-heading > div > span,
 .survey-product-gallery__item figcaption > span {
     color: #006d8f;
     font-size: 1rem;
@@ -2322,6 +2363,8 @@ html[lang="en"] .sol-architecture-ko-name {
     margin: 0.9rem 0 0;
     font-size: clamp(2rem, 3vw, 2.8rem);
     line-height: 1.13;
+    word-break: keep-all;
+    text-wrap: balance;
 }
 
 .survey-product-gallery-heading > p {
@@ -2421,7 +2464,7 @@ html[lang="en"] .sol-architecture-ko-name {
 .survey-governance__grid h3 { margin: 3.5rem 0 1rem; font-size: 1.45rem; }
 .survey-governance__grid p { color: var(--ink-soft); font-size: 1rem; line-height: 1.72; }
 .survey-responsibility { display: grid; margin-top: 1rem; padding: clamp(1.7rem, 3vw, 3rem); border-radius: 1rem; color: #0b1730; background: #f4fbfa; grid-template-columns: minmax(18rem, 0.75fr) minmax(0, 1.25fr); gap: clamp(2rem, 5vw, 5rem); }
-.survey-responsibility span { color: #087a67; font-size: 1rem; font-weight: 820; letter-spacing: 0.07em; }
+.survey-responsibility > div > span { color: #087a67; font-size: 1rem; font-weight: 820; letter-spacing: 0.07em; }
 .survey-responsibility h3 { max-width: 18ch; margin: 1rem 0 0; font-size: clamp(1.6rem, 2.5vw, 2.3rem); }
 .survey-responsibility p { margin: 0; color: #425671; font-size: 1rem; line-height: 1.8; }
 .survey-responsibility p + p { margin-top: 1rem; }
@@ -2511,6 +2554,15 @@ html[lang="en"] .sol-architecture-ko-name {
 }
 
 @media (max-width: 50rem) {
+    .contact-cta-inner--indeps {
+        display: grid;
+        padding-block: 3.5rem;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+    }
+
+    .contact-cta-inner--indeps > div:last-child { margin-top: 0; }
+
     .sol-breadcrumb {
         margin-bottom: 1.2rem;
         font-size: 1rem;
@@ -2534,7 +2586,7 @@ html[lang="en"] .sol-architecture-ko-name {
         font-size: clamp(2.35rem, 9.5vw, 2.85rem);
         line-height: 1.06;
         overflow-wrap: anywhere;
-        word-break: normal;
+        word-break: keep-all;
     }
 
 
