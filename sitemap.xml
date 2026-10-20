@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url><loc>https://initgroup.kr/</loc><lastmod>2026-08-15</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-    <url><loc>https://initgroup.kr/company/</loc><lastmod>2026-08-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://initgroup.kr/services/</loc><lastmod>2026-08-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-    <url><loc>https://initgroup.kr/solutions/</loc><lastmod>2026-08-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-    <url><loc>https://initgroup.kr/solutions/data-editing-system/</loc><lastmod>2026-08-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-    <url><loc>https://initgroup.kr/solutions/inbups/</loc><lastmod>2026-08-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://initgroup.kr/solutions/in-surveyone/</loc><lastmod>2026-08-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://initgroup.kr/projects/</loc><lastmod>2026-08-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://initgroup.kr/insights/</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/technology-ai/</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/data-statistics/</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/research-lab/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-    <url><loc>https://initgroup.kr/insights/applied/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260801_01/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260801_02/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260801_03/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260816_01/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260816_02/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260816_03/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260816_04/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260816_05/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/insights/reports/20260816_06/</loc><lastmod>2026-08-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://initgroup.kr/careers/</loc><lastmod>2026-08-01</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-    <url><loc>https://initgroup.kr/contact/</loc><lastmod>2026-08-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://initgroup.kr/</loc></url>
+    <url><loc>https://initgroup.kr/careers/</loc></url>
+    <url><loc>https://initgroup.kr/company/</loc></url>
+    <url><loc>https://initgroup.kr/contact/</loc></url>
+    <url><loc>https://initgroup.kr/projects/</loc></url>
+    <url><loc>https://initgroup.kr/services/</loc></url>
+    <url><loc>https://initgroup.kr/solutions/</loc></url>
+    <url><loc>https://initgroup.kr/solutions/data-editing-system/</loc></url>
+    <url><loc>https://initgroup.kr/solutions/in-surveyone/</loc></url>
+    <url><loc>https://initgroup.kr/solutions/inbups/</loc></url>
 </urlset>

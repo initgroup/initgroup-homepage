@@ -5,13 +5,15 @@ $ErrorActionPreference = 'Stop'
 $siteRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $errors = [System.Collections.Generic.List[string]]::new()
 $manifest = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'static-files.json') | ConvertFrom-Json
+if (@($manifest | Sort-Object -Unique).Count -ne $manifest.Count) { $errors.Add('Duplicate public manifest entries') }
 $publicFiles = @{}
 $htmlContents = @{}
 
 foreach ($entry in $manifest) {
-    if ($entry -match '(^/|\\|(^|/)\.\.(/|$)|:)' -or $entry -match '^assets/images/reference/in-surveyone/') {
+    if ($entry -match '(^/|\\|(^|/)\.\.(/|$)|:)' -or $entry -match '^(insights/|templates/|content/|scripts/|assets/images/reference/in-surveyone/)') {
         throw "Invalid public file: $entry"
     }
+    if (Test-Path -LiteralPath (Join-Path $siteRoot ('templates/disabled-content/' + $entry)) -PathType Leaf) { throw "Retired file in public manifest: $entry" }
     $path = [IO.Path]::GetFullPath((Join-Path $siteRoot $entry))
     if (-not $path.StartsWith($siteRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
         throw "Public file escapes repository: $entry"
@@ -95,11 +97,86 @@ foreach ($entry in $en.PSObject.Properties) {
         $errors.Add("Missing English translation: $($entry.Name)")
     }
 }
+# Search metadata must describe the files that will actually be published.
+$catalogSources = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+foreach ($entry in $ko.PSObject.Properties) { $null = $catalogSources.Add(($entry.Value -replace '\s+', ' ').Trim()) }
+$indexableUrls = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+$titles = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+function Test-SearchValue([string]$file, $value) {
+    if ($null -eq $value) { return }
+    if ($value -is [string]) {
+        if ($value -match '[\uac00-\ud7a3]' -and -not $catalogSources.Contains(($value -replace '\s+', ' ').Trim())) {
+            $errors.Add("$file : search text has no language key '$value'")
+        }
+        if ($value.StartsWith('https://initgroup.kr/')) {
+            $location = [uri]$value
+            $relative = $location.AbsolutePath.TrimStart('/')
+            if (-not $relative) { $relative = 'index.html' }
+            Test-LocalReference $file $relative
+            if ($relative.EndsWith('_kor.png')) { Test-LocalReference $file ($relative -replace '_kor\.png$', '_eng.png') }
+        }
+    } elseif ($value -is [Collections.IEnumerable] -and $value -isnot [pscustomobject]) {
+        foreach ($item in $value) { Test-SearchValue $file $item }
+    } else {
+        foreach ($property in $value.PSObject.Properties) { Test-SearchValue $file $property.Value }
+    }
+}
+foreach ($file in $htmlContents.Keys) {
+    $content = $htmlContents[$file]
+    $title = [Net.WebUtility]::HtmlDecode([regex]::Match($content, '<title>(.*?)</title>', 'Singleline').Groups[1].Value)
+    $description = [Net.WebUtility]::HtmlDecode([regex]::Match($content, '<meta name="description" content="([^"]*)"').Groups[1].Value)
+    $canonical = [regex]::Match($content, '<link rel="canonical" href="([^"]*)"').Groups[1].Value
+    $relative = $file.Substring($siteRoot.Length + 1).Replace('\', '/')
+    $urlPath = if ($relative -eq 'index.html') { '' } else { $relative -replace 'index\.html$', '' }
+    if ($canonical -cne "https://initgroup.kr/$urlPath") { $errors.Add("$file : canonical must match its public file") }
+    if (-not $titles.Add($title)) { $errors.Add("$file : duplicate page title") }
+    Test-SearchValue (Join-Path $siteRoot 'index.html') $canonical
+    Test-SearchValue $file $title
+    Test-SearchValue $file $description
+    $noindex = $content -match '<meta name="robots" content="[^"]*noindex'
+    if (-not $noindex) { $null = $indexableUrls.Add($canonical) }
+    if ($relative -ne '404.html') {
+        foreach ($pair in @(@('og:title', $title), @('og:description', $description), @('og:url', $canonical))) {
+            $matches = [regex]::Matches($content, ('<meta property="' + [regex]::Escape($pair[0]) + '" content="([^"]*)"'))
+            if ($matches.Count -ne 1 -or [Net.WebUtility]::HtmlDecode($matches[0].Groups[1].Value) -cne $pair[1]) {
+                $errors.Add("$file : $($pair[0]) must match page metadata")
+            }
+        }
+        foreach ($property in @('og:site_name', 'og:image', 'og:image:alt')) {
+            $meta = [regex]::Matches($content, ('<meta property="' + [regex]::Escape($property) + '" content="([^"]*)"'))
+            if ($meta.Count -ne 1) { $errors.Add("$file : expected one $property") }
+            else { Test-SearchValue (Join-Path $siteRoot 'index.html') $meta[0].Groups[1].Value }
+        }
+    }
+    $pageSchemas = @()
+    foreach ($payload in [regex]::Matches($content, '<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', 'Singleline')) {
+        $data = $payload.Groups[1].Value | ConvertFrom-Json
+        Test-SearchValue (Join-Path $siteRoot 'index.html') $data
+        $pageSchemas += @($data.'@graph' | Where-Object { $_.'@type' -in @('WebPage', 'AboutPage', 'CollectionPage', 'ContactPage') })
+    }
+    if (-not $noindex) {
+        if ($pageSchemas.Count -ne 1) { $errors.Add("$file : expected one page schema") }
+        elseif ($pageSchemas[0].name -cne $title -or $pageSchemas[0].description -cne $description -or $pageSchemas[0].url -cne $canonical) {
+            $errors.Add("$file : page schema must match title, description and canonical")
+        }
+    }
+}
 [xml]$sitemap = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'sitemap.xml')
+$sitemapUrls = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
 foreach ($url in $sitemap.urlset.url) {
     $location = [uri]$url.loc
-    if ($location.Host -ne 'initgroup.kr') { $errors.Add("Unexpected sitemap domain: $location") }
-    Test-LocalReference (Join-Path $siteRoot 'index.html') $location.AbsolutePath.TrimStart('/')
+    if ($location.Scheme -ne 'https' -or $location.Host -ne 'initgroup.kr' -or $location.Query -or $location.Fragment) {
+        $errors.Add("Unexpected sitemap URL: $location")
+    }
+    if (-not $sitemapUrls.Add([string]$url.loc)) { $errors.Add("Duplicate sitemap URL: $location") }
+    if (-not $indexableUrls.Contains([string]$url.loc)) { $errors.Add("Sitemap URL is not an indexable canonical page: $location") }
+}
+foreach ($url in $indexableUrls) {
+    if (-not $sitemapUrls.Contains($url)) { $errors.Add("Indexable page missing from sitemap: $url") }
+}
+$robots = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'robots.txt')
+if ($robots -notmatch '(?m)^Sitemap: https://initgroup\.kr/sitemap\.xml\s*$' -or $robots -match '(?m)^Disallow:\s*/\s*$') {
+    $errors.Add('robots.txt must allow public crawling and reference the current sitemap')
 }
 
 $node = Get-Command node -ErrorAction SilentlyContinue

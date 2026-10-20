@@ -416,7 +416,7 @@
     menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMenu({ restoreFocus: false })));
     historyBackButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            const fallback = button.dataset.historyFallback || new URL("insights/index.html", siteRootUrl).href;
+            const fallback = button.dataset.historyFallback || new URL("index.html", siteRootUrl).href;
             let sameOriginReferrer = false;
             try {
                 sameOriginReferrer = Boolean(document.referrer)

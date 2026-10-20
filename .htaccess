@@ -5,6 +5,15 @@ AddType video/mp4 .mp4
 AddType font/woff2 .woff2
 Options -Indexes
 ErrorDocument 404 default
+ErrorDocument 410 default
+
+# Retired content must stay unavailable even when old uploads remain on disk.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^insights(?:/|$) - [G,L]
+    RewriteRule ^assets/brand-2026/(?:assets-manifest\.json|company\.webp|gaon-plaza\.webp|icons\.svg|research\.webp)$ - [G,L]
+    RewriteRule ^assets/(?:images/menu-heroes/insights-hero-desktop-v2\.png|images/product/login-overview\.png|videos/initgroup-promo-(?:poster\.jpg|preview\.mp4))$ - [G,L]
+</IfModule>
 
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"

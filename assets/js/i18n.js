@@ -14,8 +14,10 @@
         "placeholder",
         "title"
     ];
-    const translatableMetaKeys = new Set(["description", "og:title", "og:description", "og:image:alt"]);
+    const translatableMetaKeys = new Set(["description", "og:site_name", "og:title", "og:description", "og:image:alt"]);
     const registry = [];
+    const structuredData = [];
+    const localizedMetaImages = [];
     const state = {
         catalogs: {},
         config: null,
@@ -96,9 +98,49 @@
 
             if (element.tagName !== "META") return;
             const metaKey = (element.getAttribute("name") || element.getAttribute("property") || "").toLowerCase();
+            if (metaKey === "og:image" && /_kor\.png$/.test(element.content)) {
+                localizedMetaImages.push({ element, source: element.content });
+            }
             if (!translatableMetaKeys.has(metaKey)) return;
             const key = state.sourceIndex.get(normalize(element.getAttribute("content")));
             if (key) registry.push({ type: "attribute", element, name: "content", key });
+        });
+    }
+
+    function registerStructuredData() {
+        document.querySelectorAll('script[type="application/ld+json"]').forEach((element) => {
+            try {
+                structuredData.push({ element, source: JSON.parse(element.textContent) });
+            } catch (_) {
+                // Static validation reports malformed data; language controls still work.
+            }
+        });
+    }
+
+    function syncStructuredData(languageConfig) {
+        function localize(value, property) {
+            if (Array.isArray(value)) return value.map((item) => localize(item, property));
+            if (value && typeof value === "object") {
+                return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, localize(item, key)]));
+            }
+            if (typeof value !== "string") return value;
+            // Arrays describe all supported languages; a page's scalar tracks its displayed language.
+            if (property === "inLanguage") return value;
+            if (property === "image" && /_kor\.png$/.test(value)) {
+                return value.replace(/_kor\.png$/, `_${languageConfig.imageSuffix}.png`);
+            }
+            const key = state.sourceIndex.get(normalize(value));
+            return key ? translate(key) : value;
+        }
+        structuredData.forEach(({ element, source }) => {
+            const data = localize(source);
+            (data["@graph"] || [data]).forEach((node) => {
+                if (typeof node.inLanguage === "string") node.inLanguage = languageConfig.htmlLang;
+            });
+            element.textContent = JSON.stringify(data);
+        });
+        localizedMetaImages.forEach(({ element, source }) => {
+            element.content = source.replace(/_kor\.png$/, `_${languageConfig.imageSuffix}.png`);
         });
     }
 
@@ -206,6 +248,7 @@
         });
 
         syncLocalizedImages(languageConfig);
+        syncStructuredData(languageConfig);
         syncRuntimeContent();
         updateLanguageControls();
         if (options.persist !== false) persistLanguage(state.config, language);
@@ -239,6 +282,7 @@
         Object.entries(state.catalogs.ko).forEach(([key, value]) => state.sourceIndex.set(normalize(value), key));
         registerTextNodes();
         registerAttributes();
+        registerStructuredData();
         bindLanguageControls();
         observeRuntimeContent();
         applyLanguage(state.language, { persist: false });

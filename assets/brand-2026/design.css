@@ -31,7 +31,6 @@ h1,h2,h3{letter-spacing:-.045em} h1{line-height:1.22!important} h2{line-height:1
 .menu-family-hero--solutions{--family-image:url('../brand-2026/solutions.webp')}
 .menu-family-hero--projects{--family-image:url('../brand-2026/projects.webp')}
 .menu-family-hero--careers{--family-image:url('../brand-2026/careers.webp')}
-.menu-family-hero--insights{--family-image:url('../brand-2026/research.webp')}
 .menu-family-hero--services::before{background-position:68% center}
 .menu-family-hero--solutions::before,.menu-family-hero--projects::before{inset-inline-start:10%;mask-image:none;-webkit-mask-image:none}
 .menu-family-hero .button-primary{color:#fff;background:var(--init-accent)}

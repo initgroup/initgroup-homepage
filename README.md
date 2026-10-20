@@ -13,9 +13,11 @@
 
 `scripts/`, `.git/`, 디자인 참고 자료 및 운영 캡처 원본은 업로드 대상이 아닙니다. 패키지는 `static-files.json`의 공개 파일만 복사합니다. 이 목록에는 페이지, CSS 배경, 언어별 이미지와 공유용 이미지가 등록되어 있습니다. 공개 파일을 추가하거나 삭제할 때 이 목록도 함께 수정합니다.
 
-모든 내부 링크·이미지·CSS·JS·다국어 JSON은 문서 또는 CSS 파일 위치를 기준으로 한 상대경로입니다. 예를 들어 솔루션 상세 페이지는 `../../assets/`를 사용하므로 도메인의 루트뿐 아니라 하위 디렉터리에서도 동작합니다. canonical, OG·JSON-LD, sitemap의 공개 URL과 외부 사이트·메일·전화 링크는 각 형식에 맞게 유지합니다. 운영 도메인이나 공개 기준 경로가 바뀌면 검색·공유 메타데이터도 함께 갱신합니다.
+모든 내부 링크·이미지·CSS·JS·다국어 JSON은 문서 또는 CSS 파일 위치를 기준으로 한 상대경로입니다. 예를 들어 솔루션 상세 페이지는 `../../assets/`를 사용하므로 도메인의 루트뿐 아니라 하위 디렉터리에서도 동작합니다. canonical, OG·JSON-LD, sitemap의 공개 URL과 외부 사이트·메일·전화 링크는 각 형식에 맞게 유지합니다. 운영 도메인이나 공개 기준 경로가 바뀌면 검색·공유 메타데이터도 함께 갱신합니다. 제목·description·OG 제목과 설명·페이지 JSON-LD를 같은 실제 콘텐츠로 유지하며, 제품 공유 이미지는 현재 공개 화면을 사용합니다. 영문 선택 시 OG 사이트명·이미지 설명과 JSON-LD의 문구·제품 이미지도 함께 전환합니다. 별도 언어 URL이 없으므로 가상의 `hreflang` URL을 만들지 않습니다.
 
-`.htaccess`는 UTF-8, `index.html`, 디렉터리 목록 차단, 기존 보안 헤더와 캐시 정책을 설정합니다. 존재하지 않는 URL은 호스팅의 기본 HTTP 404로 응답하며, 홈으로 보내는 rewrite는 없습니다. `404.html`은 직접 열 수 있는 안내 페이지입니다. 하위 경로 오류를 이 파일로 내부 rewrite하면 상대 자산 경로가 달라지므로 기본 오류 응답을 사용합니다. 설정 기준은 [Apache DirectoryIndex](https://httpd.apache.org/docs/2.4/mod/mod_dir.html#directoryindex)와 [ErrorDocument](https://httpd.apache.org/docs/2.4/mod/core.html#errordocument)를 참고합니다.
+sitemap에는 검색 대상 canonical URL만 등록합니다. 실제 변경 이력이 확인되지 않은 `lastmod`와 불필요한 `changefreq`·`priority`는 넣지 않습니다. `robots.txt`는 삭제된 URL도 크롤러가 404/410을 확인하도록 허용합니다. [Google robots.txt 안내](https://developers.google.com/search/docs/crawling-indexing/robots/intro)와 [sitemap 기준](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)을 따릅니다.
+
+`.htaccess`는 UTF-8, `index.html`, 디렉터리 목록 차단, 기존 보안 헤더와 캐시 정책을 설정합니다. Apache `mod_rewrite`가 활성화되면 예전 `/insights/` 경로 전체와 보관한 미사용 자산 9개의 이전 경로는 HTTP 410 Gone으로 응답합니다. 새 패키지를 덮어쓸 때 이전 업로드의 `insights/` 디렉터리와 보관한 미사용 자산 9개도 제거하고, `/insights/`와 예전 보고서 주소가 404 또는 410인지 확인합니다. 새 패키지에서 빠졌다는 사실만으로 운영 서버의 이전 파일이 삭제되지는 않습니다. [Apache G 플래그](https://httpd.apache.org/docs/2.4/rewrite/flags.html#flag_g)를 기준으로 설정했습니다. 존재하지 않는 URL은 호스팅의 기본 HTTP 404로 응답하며, 홈으로 보내는 rewrite는 없습니다. `404.html`은 직접 열 수 있는 안내 페이지입니다. 하위 경로 오류를 이 파일로 내부 rewrite하면 상대 자산 경로가 달라지므로 기본 오류 응답을 사용합니다. 설정 기준은 [Apache DirectoryIndex](https://httpd.apache.org/docs/2.4/mod/mod_dir.html#directoryindex)와 [ErrorDocument](https://httpd.apache.org/docs/2.4/mod/core.html#errordocument)를 참고합니다.
 
 ## 로컬 미리보기와 검증
 
@@ -26,9 +28,9 @@
 
 `http://127.0.0.1:8200/`에서 PowerShell의 정적 파일 서버로 확인합니다. VS Code 기본 빌드 작업이나 `scripts/start-homepage.cmd`도 같은 서버를 실행하며 Python을 시작하지 않습니다. 이미 실행 중인 서버는 자동으로 재시작하지 않습니다. 포트 점유 시 프로세스를 확인하며, 사용자가 재시작을 명시한 경우에만 `-Restart`를 사용합니다. 하위 디렉터리를 함께 검증하려면 `-PreviewSubdirectory`로 시작한 뒤 `http://127.0.0.1:8200/preview/`를 확인합니다.
 
-검증은 완성 HTML의 문서 계약, 템플릿 미해석 여부, 상대 링크·앵커·CSS 자산·언어 이미지 쌍, sitemap, 언어 사전의 key·번역 누락을 검사합니다. Node가 이미 설치되어 있으면 JavaScript 구문 검사도 추가합니다. 로컬 파일 더블클릭(`file://`)은 브라우저가 JSON 로딩을 제한할 수 있으므로 HTTP 미리보기로 확인합니다.
+검증은 완성 HTML의 문서 계약, 템플릿 미해석 여부, 상대 링크·앵커·CSS 자산·언어 이미지 쌍, sitemap의 검색 대상 누락·중복·비공개 URL, canonical·OG·JSON-LD와 실제 배포 파일의 일치, 언어 사전의 key·번역 누락을 검사합니다. Node가 이미 설치되어 있으면 JavaScript 구문 검사도 추가합니다. 로컬 파일 더블클릭(`file://`)은 브라우저가 JSON 로딩을 제한할 수 있으므로 HTTP 미리보기로 확인합니다.
 
-Playwright가 설치된 개발 환경에서는 `node scripts/static-smoke.cjs`로 실제 브라우저 회귀 검증을 실행할 수 있습니다. 먼저 `serve.ps1 -PreviewSubdirectory`로 서버를 시작합니다. Playwright가 별도 위치에 있으면 `PLAYWRIGHT_MODULE` 환경변수로 지정합니다. 이 도구와 Node는 운영·일반 검증에 필요하지 않습니다.
+Playwright가 설치된 개발 환경에서는 `node scripts/static-smoke.cjs`로 실제 브라우저 회귀 검증을 실행할 수 있습니다. 먼저 `serve.ps1 -PreviewSubdirectory`로 서버를 시작합니다. Playwright가 별도 위치에 있으면 `PLAYWRIGHT_MODULE` 환경변수로 지정합니다. 브라우저 번들 대신 설치된 Edge를 사용하려면 실행 전에 `$env:PLAYWRIGHT_CHANNEL = "msedge"`를 설정합니다. 회귀 검증은 공개 페이지를 한국어·영어의 데스크톱·모바일에서 열어 검색 메타·JSON-LD·가로 넘침과 공개 종료 경로를 함께 검사합니다. 이 도구와 Node는 운영·일반 검증에 필요하지 않습니다.
 
 ## 정적 소스 편집
 
@@ -49,7 +51,9 @@ Playwright가 설치된 개발 환경에서는 `node scripts/static-smoke.cjs`�
 .\scripts\package-static.ps1
 ```
 
-인사이트 카테고리 4개와 보고서 9개는 모두 정적 파일입니다. 예전 보고서 주소 3개에도 같은 내용이 있으며 canonical은 번호형 주소를 가리킵니다. 보고서를 수정하면 예전 주소의 사본도 함께 수정합니다. 상세 편집 규칙은 `content/insights/README.md`에 있습니다.
+현재 공개 HTML은 12개입니다. 검색 대상은 홈·회사·서비스·솔루션 허브·제품 상세 3개·사업분야·채용·문의의 10개 canonical URL입니다. 개인정보 안내와 404 안내는 `noindex,follow`로 유지하고 sitemap에서 제외합니다.
+
+메뉴에서 제외한 인사이트 17개 페이지와 정리 전 언어 사전, 미사용 자산 9개는 `templates/disabled-content/`에 보관하며 배포하지 않습니다. 보관 파일의 상대경로는 이전 위치 기준입니다. 재공개 절차는 `content/insights/README.md`를 참고합니다.
 
 ## 한국어·영어와 브라우저 기능
 

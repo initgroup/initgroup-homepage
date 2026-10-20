@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Retired URLs stay crawlable so crawlers can observe their 404/410 responses.
 Sitemap: https://initgroup.kr/sitemap.xml

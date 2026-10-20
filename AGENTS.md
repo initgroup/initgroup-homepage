@@ -64,6 +64,14 @@
 - 새 페이지나 URL을 추가하면 내비게이션, `sitemap.xml`, canonical, 404 및 내부 링크를 함께 확인합니다.
 - 운영 배포 전에 `robots.txt`, sitemap 도메인, 개인정보처리방침과 보안 응답 헤더를 검토합니다.
 
+## 공개 범위와 검색 정보
+
+- 공개 파일은 `static-files.json`을 기준으로 하며, 비공개 보관본은 `templates/disabled-content/`에 둡니다. 현재 숨긴 인사이트 페이지와 미사용 자산을 배포 목록에 다시 넣지 않습니다. 보관한 미사용 자산의 이전 URL도 Apache 410 설정을 유지합니다.
+- sitemap은 실제 검색 대상 canonical URL만 포함합니다. 개인정보 안내와 404 안내는 `noindex,follow`로 유지하며 sitemap에서 제외합니다.
+- title·description·OG·페이지 JSON-LD는 실제 화면 내용과 맞추고 한국어·영어를 함께 반영합니다. 제품 공유 이미지는 현재 공개한 화면만 사용합니다.
+- 별도 언어 URL이 없으므로 같은 URL에 가상의 언어별 `hreflang`을 만들지 않습니다. 확인되지 않은 변경 날짜와 불필요한 sitemap 우선순위·빈도를 추가하지 않습니다.
+- `/insights/`는 공개 종료 경로입니다. Apache 410 설정을 유지하며 robots.txt로 재수집을 막지 않습니다. 운영 업로드 시 예전 파일이 남지 않도록 확인합니다.
+
 ## 개발환경과 검증
 
 ```powershell

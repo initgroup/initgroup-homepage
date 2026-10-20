@@ -210,15 +210,6 @@
 }
 
 .menu-family-hero-meta--project dt { letter-spacing: 0; }
-
-.menu-family-hero--insights {
-    --family-accent: #087a67;
-    --family-muted: #4a574f;
-    --family-image: url("../images/menu-heroes/insights-hero-desktop-v2.png");
-    --family-overlay: linear-gradient(90deg, rgba(252, 251, 246, 0.995) 0%, rgba(252, 251, 246, 0.96) 37%, rgba(249, 248, 242, 0.34) 60%, rgba(237, 247, 241, 0.03) 79%);
-}
-
-.menu-family-hero--insights h1 { font-family: var(--font-display); font-weight: 780; }
 .menu-family-hero-meta--editorial { display: grid; max-width: 30rem; gap: 0; }
 .menu-family-hero-meta--editorial > div {
     display: grid;
@@ -235,41 +226,11 @@
     --family-overlay: linear-gradient(90deg, rgba(249, 250, 255, 0.995) 0%, rgba(249, 250, 255, 0.95) 36%, rgba(246, 247, 255, 0.34) 59%, rgba(255, 242, 235, 0.03) 79%);
 }
 
-/* The same visual language continues into actual solution and insight detail pages. */
+/* Solution details share the main menu visual style. */
 body.solutions-page .sol-page-hero:not(.primary-page-hero) {
     background:
         linear-gradient(90deg, rgba(3, 18, 40, 0.985) 0%, rgba(3, 18, 40, 0.88) 43%, rgba(3, 18, 40, 0.5) 100%),
         url("../images/menu-heroes/solutions-hero-desktop-v2.png") center / cover no-repeat;
-}
-
-body[data-page="insights"] .article-hero {
-    background:
-        linear-gradient(90deg, rgba(252, 251, 246, 0.99), rgba(252, 251, 246, 0.91) 58%, rgba(237, 247, 241, 0.62)),
-        url("../images/menu-heroes/insights-hero-desktop-v2.png") center / cover no-repeat;
-}
-
-body[data-page="insights"] .article-summary-band {
-    color: #0b1730;
-    border-block: 1px solid #d9e3dc;
-    background: #f5f8f3;
-}
-
-body[data-page="insights"] .article-summary > header,
-body[data-page="insights"] .article-summary > div {
-    border-color: rgba(11, 23, 48, 0.14);
-}
-
-body[data-page="insights"] .article-summary > header span,
-body[data-page="insights"] .article-summary strong {
-    color: #087a67;
-}
-
-body[data-page="insights"] .article-summary p {
-    color: #34483e;
-}
-
-body[data-page="insights"] .article-summary > div {
-    background: rgba(255, 255, 255, 0.52);
 }
 
 @media (max-width: 72rem) {
@@ -295,7 +256,6 @@ body[data-page="insights"] .article-summary > div {
     .menu-family-hero--company::after { background: linear-gradient(180deg, rgba(250, 254, 253, 0.995) 0%, rgba(250, 254, 253, 0.96) 58%, rgba(242, 252, 250, 0.76) 78%, rgba(235, 249, 246, 0.2) 100%); }
     .menu-family-hero--solutions::after { background: linear-gradient(180deg, rgba(3, 18, 40, 0.995) 0%, rgba(3, 18, 40, 0.96) 58%, rgba(3, 18, 40, 0.78) 78%, rgba(3, 18, 40, 0.28) 100%); }
     .menu-family-hero--projects::after { background: linear-gradient(180deg, rgba(253, 252, 255, 0.995) 0%, rgba(253, 252, 255, 0.96) 58%, rgba(247, 245, 255, 0.76) 78%, rgba(239, 234, 255, 0.2) 100%); }
-    .menu-family-hero--insights::after { background: linear-gradient(180deg, rgba(252, 251, 246, 0.995) 0%, rgba(252, 251, 246, 0.96) 58%, rgba(249, 248, 242, 0.76) 78%, rgba(237, 247, 241, 0.2) 100%); }
     .menu-family-hero--careers::after { background: linear-gradient(180deg, rgba(249, 250, 255, 0.995) 0%, rgba(249, 250, 255, 0.96) 58%, rgba(246, 247, 255, 0.76) 78%, rgba(255, 242, 235, 0.2) 100%); }
 
     .menu-family-hero-inner {
@@ -308,18 +268,11 @@ body[data-page="insights"] .article-summary > div {
     .menu-family-hero-meta { margin-top: 2rem; flex-wrap: wrap; gap: 1rem 1.5rem; }
     .menu-family-hero-flow { margin-top: 2rem; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
     .menu-family-hero-meta--editorial { display: grid; }
-    .menu-family-hero--insights h1 { font-family: var(--font-sans); font-weight: 790; }
 
     body.solutions-page .sol-page-hero:not(.primary-page-hero) {
         background:
             linear-gradient(180deg, rgba(3, 18, 40, 0.99) 0%, rgba(3, 18, 40, 0.92) 62%, rgba(3, 18, 40, 0.74) 100%),
             url("../images/menu-heroes/solutions-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
-    }
-
-    body[data-page="insights"] .article-hero {
-        background:
-            linear-gradient(180deg, rgba(252, 251, 246, 0.99), rgba(252, 251, 246, 0.92) 72%, rgba(237, 247, 241, 0.72)),
-            url("../images/menu-heroes/insights-hero-desktop-v2.png") 66% bottom / auto 100% no-repeat;
     }
 }
 
