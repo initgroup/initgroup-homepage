@@ -117,8 +117,7 @@
 .menu-family-hero-copy > .menu-family-hero-flow-title { margin: 2rem 0 0; font-weight: 750; }
 .menu-family-hero-flow-title + .menu-family-hero-flow { margin-top: 1rem; }
 .menu-family-hero-features { display: grid; margin: 0 0 1.9rem; padding-left: 1.25rem; color: var(--family-muted); font-size: 1rem; line-height: 1.8; gap: 0.65rem; }
-.menu-family-hero--company .menu-family-hero-meta { flex-wrap: wrap; row-gap: 1rem; }
-.menu-family-hero--company .menu-family-hero-meta > div:last-child { flex-basis: 100%; }
+.menu-family-hero--company .menu-family-hero-meta { flex-direction: column; gap: 1rem; }
 .menu-family-hero--services .menu-family-hero-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 
 .menu-family-hero-flow {

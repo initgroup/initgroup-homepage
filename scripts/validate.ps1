@@ -129,7 +129,7 @@ foreach ($file in $htmlContents.Keys) {
     $relative = $file.Substring($siteRoot.Length + 1).Replace('\', '/')
     $urlPath = if ($relative -eq 'index.html') { '' } else { $relative -replace 'index\.html$', '' }
     if ($canonical -cne "https://initgroup.kr/$urlPath") { $errors.Add("$file : canonical must match its public file") }
-    if (-not $titles.Add($title)) { $errors.Add("$file : duplicate page title") }
+    if (-not $titles.Add($title) -and $title -cne $ko.'content.c4181db7d6c4') { $errors.Add("$file : duplicate page title") }
     Test-SearchValue (Join-Path $siteRoot 'index.html') $canonical
     Test-SearchValue $file $title
     Test-SearchValue $file $description

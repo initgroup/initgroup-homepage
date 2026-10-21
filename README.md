@@ -13,7 +13,7 @@
 
 `scripts/`, `.git/`, 디자인 참고 자료 및 운영 캡처 원본은 업로드 대상이 아닙니다. 패키지는 `static-files.json`의 공개 파일만 복사합니다. 이 목록에는 페이지, CSS 배경, 언어별 이미지와 공유용 이미지가 등록되어 있습니다. 공개 파일을 추가하거나 삭제할 때 이 목록도 함께 수정합니다.
 
-모든 내부 링크·이미지·CSS·JS·다국어 JSON은 문서 또는 CSS 파일 위치를 기준으로 한 상대경로입니다. 예를 들어 솔루션 상세 페이지는 `../../assets/`를 사용하므로 도메인의 루트뿐 아니라 하위 디렉터리에서도 동작합니다. canonical, OG·JSON-LD, sitemap의 공개 URL과 외부 사이트·메일·전화 링크는 각 형식에 맞게 유지합니다. 운영 도메인이나 공개 기준 경로가 바뀌면 검색·공유 메타데이터도 함께 갱신합니다. 제목·description·OG 제목과 설명·페이지 JSON-LD를 같은 실제 콘텐츠로 유지하며, 제품 공유 이미지는 현재 공개 화면을 사용합니다. 영문 선택 시 OG 사이트명·이미지 설명과 JSON-LD의 문구·제품 이미지도 함께 전환합니다. 별도 언어 URL이 없으므로 가상의 `hreflang` URL을 만들지 않습니다.
+모든 내부 링크·이미지·CSS·JS·다국어 JSON은 문서 또는 CSS 파일 위치를 기준으로 한 상대경로입니다. 예를 들어 솔루션 상세 페이지는 `../../assets/`를 사용하므로 도메인의 루트뿐 아니라 하위 디렉터리에서도 동작합니다. canonical, OG·JSON-LD, sitemap의 공개 URL과 외부 사이트·메일·전화 링크는 각 형식에 맞게 유지합니다. 운영 도메인이나 공개 기준 경로가 바뀌면 검색·공유 메타데이터도 함께 갱신합니다. 공개 index.html의 제목·description은 2026-10-21 수정 제안서의 공통 회사 소개 문구를 사용하고 OG·페이지 JSON-LD에도 일치시킵니다. 페이지별 canonical과 본문 구조는 유지하며, 제품 공유 이미지는 현재 공개 화면을 사용합니다. 영문 선택 시 OG 사이트명·이미지 설명과 JSON-LD의 문구·제품 이미지도 함께 전환합니다. 별도 언어 URL이 없으므로 가상의 `hreflang` URL을 만들지 않습니다.
 
 sitemap에는 검색 대상 canonical URL만 등록합니다. 실제 변경 이력이 확인되지 않은 `lastmod`와 불필요한 `changefreq`·`priority`는 넣지 않습니다. `robots.txt`는 삭제된 URL도 크롤러가 404/410을 확인하도록 허용합니다. [Google robots.txt 안내](https://developers.google.com/search/docs/crawling-indexing/robots/intro)와 [sitemap 기준](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)을 따릅니다.
 
@@ -31,6 +31,10 @@ sitemap에는 검색 대상 canonical URL만 등록합니다. 실제 변경 이�
 검증은 완성 HTML의 문서 계약, 템플릿 미해석 여부, 상대 링크·앵커·CSS 자산·언어 이미지 쌍, sitemap의 검색 대상 누락·중복·비공개 URL, canonical·OG·JSON-LD와 실제 배포 파일의 일치, 언어 사전의 key·번역 누락을 검사합니다. Node가 이미 설치되어 있으면 JavaScript 구문 검사도 추가합니다. 로컬 파일 더블클릭(`file://`)은 브라우저가 JSON 로딩을 제한할 수 있으므로 HTTP 미리보기로 확인합니다.
 
 Playwright가 설치된 개발 환경에서는 `node scripts/static-smoke.cjs`로 실제 브라우저 회귀 검증을 실행할 수 있습니다. 먼저 `serve.ps1 -PreviewSubdirectory`로 서버를 시작합니다. Playwright가 별도 위치에 있으면 `PLAYWRIGHT_MODULE` 환경변수로 지정합니다. 브라우저 번들 대신 설치된 Edge를 사용하려면 실행 전에 `$env:PLAYWRIGHT_CHANNEL = "msedge"`를 설정합니다. 회귀 검증은 공개 페이지를 한국어·영어의 데스크톱·모바일에서 열어 검색 메타·JSON-LD·가로 넘침과 공개 종료 경로를 함께 검사합니다. 이 도구와 Node는 운영·일반 검증에 필요하지 않습니다.
+
+## 2026-10-21 수정 제안 반영
+
+회사 소개·연혁과 사업분야 4개 영역의 개요·상세·문의 문구를 한국어·영어로 함께 갱신했습니다. 서비스 화면의 중복 바로가기와 도메인 소개 블록은 제거했으며 상단 메뉴와 각 서비스 상세 앵커는 유지합니다. 사이트맵은 제안서의 깨진 XML을 복사하지 않고 검색 대상 10개 URL을 유지하며, 확인되지 않은 변경 날짜·우선순위·빈도는 추가하지 않습니다.
 
 ## 정적 소스 편집
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url><loc>https://initgroup.kr/</loc></url>
-    <url><loc>https://initgroup.kr/careers/</loc></url>
     <url><loc>https://initgroup.kr/company/</loc></url>
-    <url><loc>https://initgroup.kr/contact/</loc></url>
-    <url><loc>https://initgroup.kr/projects/</loc></url>
     <url><loc>https://initgroup.kr/services/</loc></url>
     <url><loc>https://initgroup.kr/solutions/</loc></url>
     <url><loc>https://initgroup.kr/solutions/data-editing-system/</loc></url>
-    <url><loc>https://initgroup.kr/solutions/in-surveyone/</loc></url>
     <url><loc>https://initgroup.kr/solutions/inbups/</loc></url>
+    <url><loc>https://initgroup.kr/solutions/in-surveyone/</loc></url>
+    <url><loc>https://initgroup.kr/projects/</loc></url>
+    <url><loc>https://initgroup.kr/careers/</loc></url>
+    <url><loc>https://initgroup.kr/contact/</loc></url>
 </urlset>

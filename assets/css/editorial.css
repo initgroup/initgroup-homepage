@@ -333,7 +333,7 @@ body[data-page="projects"] .outcome-band {
     display: grid;
     padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 2.5vw, 2.5rem);
     border-bottom: 1px solid var(--line);
-    grid-template-columns: clamp(10rem, 16vw, 13rem) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: clamp(1.5rem, 3vw, 3rem);
 }
 
@@ -463,6 +463,9 @@ body[data-page="projects"] .project-result-label {
     font-weight: 800;
 }
 
+.case-framework dd p { margin: 0; }
+.case-framework dd p + p { margin-top: 0.85rem; }
+
 .case-framework dd {
     margin: 0;
     color: var(--ink-soft);
@@ -478,6 +481,10 @@ body[data-page="projects"] .project-result-label {
 }
 
 .sector-card {
+    display: grid;
+    grid-row: span 6;
+    grid-template-rows: subgrid;
+    align-items: start;
     min-height: 16rem;
     padding: clamp(1.4rem, 2.5vw, 2.25rem);
     border-right: 1px solid var(--line);
@@ -503,6 +510,10 @@ body[data-page="projects"] .project-result-label {
 }
 
 .sector-card ul {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    align-items: start;
     margin: 0;
     padding-left: 1rem;
     color: var(--ink-soft);
@@ -2708,7 +2719,7 @@ body[data-page="insights"] .insight-practice-cta h2 {
     }
 
     .project-case {
-        grid-template-columns: 8.5rem minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr);
         gap: 2.5rem;
     }
 
@@ -2918,9 +2929,16 @@ body[data-page="insights"] .insight-practice-cta h2 {
     }
 
     .sector-card {
+        display: block;
+        grid-row: auto;
         min-height: 0;
         border: 1px solid var(--line);
         border-radius: 0.8rem;
+    }
+
+    .sector-card ul {
+        display: block;
+        grid-row: auto;
     }
 
     .public-reference-note {
