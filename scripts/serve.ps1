@@ -157,6 +157,12 @@ try {
             # A second mount exercises subdirectory hosting using the same public files.
             if ($PreviewSubdirectory -and $relative.StartsWith('preview/')) { $relative = $relative.Substring('preview/'.Length) }
             if (-not $relative -or $relative.EndsWith('/')) { $relative += 'index.html' }
+            if ($relative.EndsWith('.html') -or $relative -notmatch '\.[^/]+$') {
+                                # Only serve files; HTML composition happens exclusively in browser JavaScript.
+                $manifest = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'static-files.json') | ConvertFrom-Json
+                $files.Clear()
+                foreach ($entry in $manifest) { $null = $files.Add($entry) }
+            }
             if (-not $files.Contains($relative) -or $relative -eq '.htaccess') {
                 if ($files.Contains($relative + '/index.html')) {
                     $response.StatusCode = 308

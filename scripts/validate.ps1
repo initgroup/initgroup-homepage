@@ -1,32 +1,38 @@
 [CmdletBinding()]
 param()
-
 $ErrorActionPreference = 'Stop'
-$siteRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-$errors = [System.Collections.Generic.List[string]]::new()
+$siteRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+& (Join-Path $PSScriptRoot 'build-site.ps1') -Check -Quiet
+& (Join-Path $PSScriptRoot 'update-asset-versions.ps1') -Check -Quiet
+$errors = [Collections.Generic.List[string]]::new()
 $manifest = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'static-files.json') | ConvertFrom-Json
-if (@($manifest | Sort-Object -Unique).Count -ne $manifest.Count) { $errors.Add('Duplicate public manifest entries') }
+$headDefinition = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'assets/shared/site.json') | ConvertFrom-Json
+$sitemapBaseUri = [uri]$headDefinition.sitemapBaseUrl
+$internalHosts = @($sitemapBaseUri.DnsSafeHost,'initgroup.kr','www.initgroup.kr') | Sort-Object -Unique
+if ($headDefinition.PSObject.Properties['publicBaseUrl']) { $errors.Add('Obsolete publicBaseUrl: browser metadata must be relative') }
 $publicFiles = @{}
 $htmlContents = @{}
-
+if (@($manifest | Sort-Object -Unique).Count -ne $manifest.Count) { $errors.Add('Duplicate deployment entries') }
 foreach ($entry in $manifest) {
-    if ($entry -match '(^/|\\|(^|/)\.\.(/|$)|:)' -or $entry -match '^(insights/|templates/|content/|scripts/|assets/images/reference/in-surveyone/)') {
-        throw "Invalid public file: $entry"
-    }
-    if (Test-Path -LiteralPath (Join-Path $siteRoot ('templates/disabled-content/' + $entry)) -PathType Leaf) { throw "Retired file in public manifest: $entry" }
+    if ($entry -match '(^/|\\|(^|/)\.\.(/|$)|:)|^(insights/|templates/|content/|scripts/|references/|includes/|assets/images/reference/in-surveyone/)|\.(php|py|cgi|exe|dll|ps1|cjs|sh)$') { throw "Invalid static deployment file: $entry" }
     $path = [IO.Path]::GetFullPath((Join-Path $siteRoot $entry))
-    if (-not $path.StartsWith($siteRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
-        throw "Public file escapes repository: $entry"
-    }
+    if (-not $path.StartsWith($siteRoot + '\',[StringComparison]::OrdinalIgnoreCase)) { throw 'Path escapes workspace.' }
     $publicFiles[$path] = $true
-    if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { $errors.Add("Missing public file: $entry"); continue }
-    if ($entry.EndsWith('.html')) { $htmlContents[$path] = Get-Content -Raw -Encoding UTF8 -LiteralPath $path }
+    if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { $errors.Add("Missing deployment file: $entry"); continue }
+    if ($entry.EndsWith('.html') -and -not $entry.StartsWith('assets/')) { $htmlContents[$path] = Get-Content -Raw -Encoding UTF8 -LiteralPath $path }
 }
-if ($htmlContents.Count -eq 0) { throw 'No static HTML pages found.' }
 
 function Test-LocalReference([string]$file, [string]$reference) {
     $reference = [Net.WebUtility]::HtmlDecode($reference)
-    if (-not $reference -or $reference -match '^[a-z][a-z0-9+.-]*:') { return }
+    if (-not $reference) { return }
+    if ($reference -match '^https?://') {
+        $absolute = $null
+        if ([uri]::TryCreate($reference, [UriKind]::Absolute, [ref]$absolute) -and $absolute.DnsSafeHost -in $internalHosts) {
+            $errors.Add("$file : same-site absolute reference must be relative '$reference'")
+        }
+        return
+    }
+    if ($reference -match '^[a-z][a-z0-9+.-]*:') { return }
     if ($reference.StartsWith('/') -or $reference.Contains('\')) {
         $errors.Add("$file : absolute or invalid internal reference '$reference'")
         return
@@ -44,44 +50,49 @@ function Test-LocalReference([string]$file, [string]$reference) {
     }
 }
 
+$layout = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot $headDefinition.components)
+$componentIds = @([regex]::Matches($layout,'<template id="([a-z][a-z0-9-]*)">') | ForEach-Object { $_.Groups[1].Value })
+if (@($componentIds | Sort-Object -Unique).Count -ne $componentIds.Count) { $errors.Add('Duplicate HTML component ids') }
+$pages = @($manifest | Where-Object { $_.EndsWith('.html') -and -not $_.StartsWith('assets/') })
+if (@(Compare-Object $pages @($headDefinition.pages.PSObject.Properties.Name)).Count) { $errors.Add('Common page definitions differ from public pages') }
 foreach ($file in $htmlContents.Keys) {
-    $content = $htmlContents[$file]
-    foreach ($contract in @{
-        title = '<title>.*?</title>'; description = '<meta\s+name="description"';
-        canonical = '<link\s+rel="canonical"'; viewport = '<meta\s+name="viewport"';
-        h1 = '<h1(?:\s|>)'; main = '<main(?:\s|>)'
-    }.GetEnumerator()) {
-        $count = [regex]::Matches($content, $contract.Value, 'IgnoreCase, Singleline').Count
-        if ($count -ne 1) { $errors.Add("$file : expected one $($contract.Key), found $count") }
+    $source = $htmlContents[$file]
+    $relative = $file.Substring($siteRoot.Length + 1).Replace('\','/')
+    $loaders = [regex]::Matches($source,'<script[^>]*src="([^"]+)"[^>]*>')
+    if ($loaders.Count -ne 1 -or $loaders[0].Groups[1].Value -notmatch '^(?:\.\./)*assets/js/common\.js\?v=[a-f0-9]{16}$') { $errors.Add("$relative : expected exactly one common loader") }
+    if ($source -notmatch ('data-page-file="' + [regex]::Escape($relative) + '"')) { $errors.Add("$relative : incorrect loader page key") }
+    if ($source -match '<\?php|<meta\b|<link\b|application/ld\+json|data-site-header|class="site-footer"|\{\{|<script(?![^>]*\bsrc=)') { $errors.Add("$relative : duplicated common markup, inline script or unresolved server code") }
+    foreach ($tag in @('h1','main')) {
+        if ([regex]::Matches($source,'<'+$tag+'(?:\s|>)').Count -ne 1) { $errors.Add("$relative : expected one $tag") }
     }
-    if ($content -match '\{%|\{\{') { $errors.Add("$file : unrendered template") }
-    if ($content -match '<script(?![^>]*\bsrc=)(?![^>]*application/ld\+json)[^>]*>') { $errors.Add("$file : executable inline script") }
-    foreach ($payload in [regex]::Matches($content, '<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', 'IgnoreCase, Singleline')) {
-        try { $null = $payload.Groups[1].Value | ConvertFrom-Json } catch { $errors.Add("$file : invalid JSON-LD") }
+    foreach ($include in [regex]::Matches($source,'data-site-include="([^"]+)"')) {
+        if ($include.Groups[1].Value -notin $componentIds) { $errors.Add("$relative : unknown HTML include") }
     }
-    $ids = [regex]::Matches($content, '\sid="([^"]+)"') | ForEach-Object { $_.Groups[1].Value }
-    foreach ($duplicate in @($ids | Group-Object | Where-Object Count -gt 1)) { $errors.Add("$file : duplicate id '$($duplicate.Name)'") }
-    foreach ($image in [regex]::Matches($content, '<img\b[^>]*>', 'IgnoreCase')) {
-        if ($image.Value -notmatch '\salt="[^"]*"') { $errors.Add("$file : image without alt") }
+    $ids = @([regex]::Matches($source,'\sid="([^"]+)"') | ForEach-Object { $_.Groups[1].Value })
+    if (@($ids | Sort-Object -Unique).Count -ne $ids.Count) { $errors.Add("$relative : duplicate id") }
+    foreach ($image in [regex]::Matches($source,'<img\b[^>]*>')) { if ($image.Value -notmatch '\salt="[^"]*"') { $errors.Add("$relative : missing image alt") } }
+    foreach ($match in [regex]::Matches($source,'(?:^|\s)(?:src|href|poster|action|data-image|data-history-fallback|data-promo-src-ko|data-promo-src-en)="([^"]*)"')) { Test-LocalReference $file $match.Groups[1].Value }
+    foreach ($match in [regex]::Matches($source,'data-i18n-image-base="([^"]+)"')) {
+        foreach ($suffix in @('kor','eng')) { Test-LocalReference $file ($match.Groups[1].Value + "_$suffix.png") }
     }
-    foreach ($reference in [regex]::Matches($content, '(?:^|\s)(?:src|href|data-image|data-i18n-config|data-history-fallback)="([^"]*)"', 'IgnoreCase')) {
-        Test-LocalReference $file $reference.Groups[1].Value
+}
+foreach ($include in [regex]::Matches($layout,'\{\{include:([^{}]+)\}\}')) { if ($include.Groups[1].Value -notin $componentIds) { $errors.Add('Unknown nested HTML include') } }
+foreach ($entry in @($manifest | Where-Object { $_.EndsWith('.css') })) {
+    $file = Join-Path $siteRoot $entry
+    $source = Get-Content -Raw -Encoding UTF8 -LiteralPath $file
+    if ([regex]::Matches($source,'\{').Count -ne [regex]::Matches($source,'\}').Count) { $errors.Add("$entry : CSS brace mismatch") }
+    foreach ($reference in [regex]::Matches($source,'url\(\s*["'']?([^\)"''\s]+)')) {
+        if (-not $reference.Groups[1].Value.StartsWith('#')) { Test-LocalReference $file $reference.Groups[1].Value }
     }
-    foreach ($imageBase in [regex]::Matches($content, 'data-i18n-image-base="([^"]+)"')) {
-        $base = $imageBase.Groups[1].Value
-        if ($base -match '_(kor|eng)$') { $errors.Add("$file : localized image base contains suffix") }
-        foreach ($suffix in @('kor', 'eng')) { Test-LocalReference $file "${base}_${suffix}.png" }
-    }
+}
+$hostPattern = '(?:https?:)?//(?:' + (($internalHosts | ForEach-Object { [regex]::Escape($_) }) -join '|') + ')(?=[:/?#]|$)'
+foreach ($entry in @($manifest | Where-Object { $_ -match '\.(js|json)$' -and $_ -ne 'assets/shared/site.json' })) {
+    $source = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot $entry)
+    if ($source -match $hostPattern) { $errors.Add("$entry : hardcoded same-site absolute URL") }
 }
 
-$cssFiles = @($manifest | Where-Object { $_.EndsWith('.css') } | ForEach-Object { Get-Item -LiteralPath (Join-Path $siteRoot $_) })
-foreach ($file in $cssFiles) {
-    $content = Get-Content -Raw -Encoding UTF8 -LiteralPath $file.FullName
-    if ([regex]::Matches($content, '\{').Count -ne [regex]::Matches($content, '\}').Count) { $errors.Add("$($file.Name) : CSS brace mismatch") }
-    foreach ($reference in [regex]::Matches($content, 'url\(\s*["'']?([^\)"''\s]+)')) {
-        if (-not $reference.Groups[1].Value.StartsWith('#')) { Test-LocalReference $file.FullName $reference.Groups[1].Value }
-    }
-}
+$browserSettings = ($headDefinition.PSObject.Properties | Where-Object { $_.Name -ne 'sitemapBaseUrl' } | ForEach-Object { ConvertTo-Json $_.Value -Depth 50 }) -join "`n"
+if ($browserSettings -match $hostPattern) { $errors.Add('Same-site absolute URL in browser configuration') }
 
 $configPath = Join-Path $siteRoot 'assets/i18n/config.json'
 $config = Get-Content -Raw -Encoding UTF8 -LiteralPath $configPath | ConvertFrom-Json
@@ -97,97 +108,77 @@ foreach ($entry in $en.PSObject.Properties) {
         $errors.Add("Missing English translation: $($entry.Name)")
     }
 }
-# Search metadata must describe the files that will actually be published.
-$catalogSources = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
-foreach ($entry in $ko.PSObject.Properties) { $null = $catalogSources.Add(($entry.Value -replace '\s+', ' ').Trim()) }
-$indexableUrls = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
-$titles = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
-function Test-SearchValue([string]$file, $value) {
-    if ($null -eq $value) { return }
-    if ($value -is [string]) {
-        if ($value -match '[\uac00-\ud7a3]' -and -not $catalogSources.Contains(($value -replace '\s+', ' ').Trim())) {
-            $errors.Add("$file : search text has no language key '$value'")
-        }
-        if ($value.StartsWith('https://initgroup.kr/')) {
-            $location = [uri]$value
-            $relative = $location.AbsolutePath.TrimStart('/')
-            if (-not $relative) { $relative = 'index.html' }
-            Test-LocalReference $file $relative
-            if ($relative.EndsWith('_kor.png')) { Test-LocalReference $file ($relative -replace '_kor\.png$', '_eng.png') }
-        }
-    } elseif ($value -is [Collections.IEnumerable] -and $value -isnot [pscustomobject]) {
-        foreach ($item in $value) { Test-SearchValue $file $item }
-    } else {
-        foreach ($property in $value.PSObject.Properties) { Test-SearchValue $file $property.Value }
-    }
-}
 foreach ($file in $htmlContents.Keys) {
-    $content = $htmlContents[$file]
-    $title = [Net.WebUtility]::HtmlDecode([regex]::Match($content, '<title>(.*?)</title>', 'Singleline').Groups[1].Value)
-    $description = [Net.WebUtility]::HtmlDecode([regex]::Match($content, '<meta name="description" content="([^"]*)"').Groups[1].Value)
-    $canonical = [regex]::Match($content, '<link rel="canonical" href="([^"]*)"').Groups[1].Value
-    $relative = $file.Substring($siteRoot.Length + 1).Replace('\', '/')
-    $urlPath = if ($relative -eq 'index.html') { '' } else { $relative -replace 'index\.html$', '' }
-    if ($canonical -cne "https://initgroup.kr/$urlPath") { $errors.Add("$file : canonical must match its public file") }
-    if (-not $titles.Add($title) -and $title -cne $ko.'content.c4181db7d6c4') { $errors.Add("$file : duplicate page title") }
-    Test-SearchValue (Join-Path $siteRoot 'index.html') $canonical
-    Test-SearchValue $file $title
-    Test-SearchValue $file $description
-    $noindex = $content -match '<meta name="robots" content="[^"]*noindex'
-    if (-not $noindex) { $null = $indexableUrls.Add($canonical) }
-    if ($relative -ne '404.html') {
-        foreach ($pair in @(@('og:title', $title), @('og:description', $description), @('og:url', $canonical))) {
-            $matches = [regex]::Matches($content, ('<meta property="' + [regex]::Escape($pair[0]) + '" content="([^"]*)"'))
-            if ($matches.Count -ne 1 -or [Net.WebUtility]::HtmlDecode($matches[0].Groups[1].Value) -cne $pair[1]) {
-                $errors.Add("$file : $($pair[0]) must match page metadata")
-            }
-        }
-        foreach ($property in @('og:site_name', 'og:image', 'og:image:alt')) {
-            $meta = [regex]::Matches($content, ('<meta property="' + [regex]::Escape($property) + '" content="([^"]*)"'))
-            if ($meta.Count -ne 1) { $errors.Add("$file : expected one $property") }
-            else { Test-SearchValue (Join-Path $siteRoot 'index.html') $meta[0].Groups[1].Value }
+    foreach ($match in [regex]::Matches($htmlContents[$file], 'data-i18n="([^"]+)"')) {
+        $key = $match.Groups[1].Value
+        if (-not $ko.PSObject.Properties[$key] -or -not $en.PSObject.Properties[$key]) {
+            $errors.Add("$file : missing explicit translation key '$key'")
         }
     }
-    $pageSchemas = @()
-    foreach ($payload in [regex]::Matches($content, '<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', 'Singleline')) {
-        $data = $payload.Groups[1].Value | ConvertFrom-Json
-        Test-SearchValue (Join-Path $siteRoot 'index.html') $data
-        $pageSchemas += @($data.'@graph' | Where-Object { $_.'@type' -in @('WebPage', 'AboutPage', 'CollectionPage', 'ContactPage') })
-    }
-    if (-not $noindex) {
-        if ($pageSchemas.Count -ne 1) { $errors.Add("$file : expected one page schema") }
-        elseif ($pageSchemas[0].name -cne $title -or $pageSchemas[0].description -cne $description -or $pageSchemas[0].url -cne $canonical) {
-            $errors.Add("$file : page schema must match title, description and canonical")
-        }
-    }
-}
-[xml]$sitemap = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'sitemap.xml')
-$sitemapUrls = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
-foreach ($url in $sitemap.urlset.url) {
-    $location = [uri]$url.loc
-    if ($location.Scheme -ne 'https' -or $location.Host -ne 'initgroup.kr' -or $location.Query -or $location.Fragment) {
-        $errors.Add("Unexpected sitemap URL: $location")
-    }
-    if (-not $sitemapUrls.Add([string]$url.loc)) { $errors.Add("Duplicate sitemap URL: $location") }
-    if (-not $indexableUrls.Contains([string]$url.loc)) { $errors.Add("Sitemap URL is not an indexable canonical page: $location") }
-}
-foreach ($url in $indexableUrls) {
-    if (-not $sitemapUrls.Contains($url)) { $errors.Add("Indexable page missing from sitemap: $url") }
-}
-$robots = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'robots.txt')
-if ($robots -notmatch '(?m)^Sitemap: https://initgroup\.kr/sitemap\.xml\s*$' -or $robots -match '(?m)^Disallow:\s*/\s*$') {
-    $errors.Add('robots.txt must allow public crawling and reference the current sitemap')
 }
 
+
+$assetRoot = Join-Path $siteRoot 'index.html'
+foreach ($kind in @('styles','scripts','icons')) {
+    $items = @($headDefinition.PSObject.Properties[$kind].Value)
+    if (@($items.path | Sort-Object -Unique).Count -ne $items.Count) { $errors.Add("Duplicate shared $kind") }
+    foreach ($item in $items) { Test-LocalReference $assetRoot $item.path }
+}
+Test-LocalReference $assetRoot $headDefinition.components
+Test-LocalReference $assetRoot $headDefinition.i18n
+foreach ($item in $headDefinition.navigation.links.PSObject.Properties) {
+    if (-not $item.Value.path.StartsWith('#')) { Test-LocalReference $assetRoot $item.Value.path }
+    foreach ($language in @('ko','en')) {
+        if (-not $item.Value.label.PSObject.Properties[$language].Value) { $errors.Add("Missing $language menu label: $($item.Name)") }
+    }
+}
+foreach ($group in $headDefinition.navigation.groups) {
+    foreach ($id in @($group.root) + @($group.items)) {
+        if (-not $headDefinition.navigation.links.PSObject.Properties[$id]) { $errors.Add("Unknown menu item: $id") }
+    }
+}
+foreach ($key in $koKeys) { if ($key.StartsWith('navigation.')) { $errors.Add('Menu translations must exist only in assets/shared/site.json') } }
+foreach ($entry in $headDefinition.navigation.mobileActions.PSObject.Properties) {
+    foreach ($id in $entry.Value.links) {
+        $item = $headDefinition.navigation.links.PSObject.Properties[$id].Value
+        if (-not $item) { $errors.Add("Unknown mobile action: $id"); continue }
+        if ($item.path.StartsWith('#')) { Test-LocalReference (Join-Path $siteRoot $entry.Name) $item.path }
+    }
+}
+$expectedUrls = @()
+foreach ($page in $headDefinition.pages.PSObject.Properties) {
+    $relative = [string]$page.Value.canonicalPath
+    if ($relative -match '(^/|\\|(^|/)\.\.(/|$)|:|[?#])') { $errors.Add("Invalid canonical path: $($page.Name)") }
+    Test-LocalReference $assetRoot $(if ($relative) { $relative } else { 'index.html' })
+    foreach ($key in @($headDefinition.defaults.titleKey,$headDefinition.defaults.descriptionKey,$headDefinition.defaults.siteNameKey,$headDefinition.defaults.ogImageAltKey,$page.Value.titleKey,$page.Value.descriptionKey,$page.Value.ogImageAltKey) | Where-Object { $_ }) {
+        if (-not $ko.PSObject.Properties[$key] -or -not $en.PSObject.Properties[$key]) { $errors.Add("Missing metadata translation: $key") }
+    }
+    if ($page.Value.ogImage) { Test-LocalReference $assetRoot $page.Value.ogImage }
+}
+Test-LocalReference $assetRoot $headDefinition.defaults.ogImage
+foreach ($reference in [regex]::Matches((ConvertTo-Json $headDefinition -Depth 50),'"sitePath":\s*"([^"]*)"')) {
+    $relative = ($reference.Groups[1].Value -split '#',2)[0]
+    Test-LocalReference $assetRoot $(if ($relative) { $relative } else { 'index.html' })
+}
+$sitemapPages = @($headDefinition.sitemapPages)
+if (-not $headDefinition.sitemapPages -or @($sitemapPages | Sort-Object -Unique).Count -ne $sitemapPages.Count) { $errors.Add('Missing or duplicate approved sitemap pages') }
+foreach ($pageFile in $sitemapPages) {
+    $page = $headDefinition.pages.PSObject.Properties[[string]$pageFile]
+    if (-not $page -or $page.Value.robots -match 'noindex') { $errors.Add("Invalid approved sitemap page: $pageFile"); continue }
+    $expectedUrls += [uri]::new($sitemapBaseUri,[string]$page.Value.canonicalPath).AbsoluteUri
+}
+[xml]$sitemap = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'sitemap.xml')
+$actualUrls = @($sitemap.urlset.url | ForEach-Object { [string]$_.loc })
+if (($expectedUrls -join "|") -cne ($actualUrls -join "|") -or @($actualUrls | Sort-Object -Unique).Count -ne $actualUrls.Count) { $errors.Add('Sitemap URLs or their order differ from the approved sitemapPages list') }
 $node = Get-Command node -ErrorAction SilentlyContinue
 if ($node) {
-    foreach ($file in @($manifest | Where-Object { $_.EndsWith('.js') } | ForEach-Object { Get-Item -LiteralPath (Join-Path $siteRoot $_) })) {
-        & $node.Source --check $file.FullName
-        if ($LASTEXITCODE -ne 0) { $errors.Add("$($file.Name) : JavaScript syntax error") }
+    foreach ($entry in @($manifest | Where-Object { $_.EndsWith('.js') })) {
+        & $node.Source --check (Join-Path $siteRoot $entry)
+        if ($LASTEXITCODE -ne 0) { $errors.Add("JavaScript syntax error: $entry") }
     }
 }
 if ($errors.Count) {
     $errors | ForEach-Object { Write-Host "ERROR: $_" -ForegroundColor Red }
-    throw "Static validation failed: $($errors.Count) issue(s)"
+    throw "Static-source validation failed: $($errors.Count) issue(s)"
 }
-Write-Host "Static validation OK: $($htmlContents.Count) HTML pages, $($manifest.Count) public files, $($koKeys.Count) language keys."
+Write-Host "Static-source validation OK: $($pages.Count) pages, $($manifest.Count) deployment files, $($koKeys.Count) body/metadata translation keys plus shared bilingual navigation."

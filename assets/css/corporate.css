@@ -113,7 +113,7 @@ body[data-page="careers"] main {
     letter-spacing: -0.062em;
 }
 
-.corp-heading > p:last-child {
+.corp-heading > p:not(.eyebrow) {
     max-width: 38rem;
     margin-top: 1.2rem;
     margin-bottom: 0;
@@ -334,7 +334,7 @@ body[data-page="careers"] main {
 .corp-services-hero {
     background:
         radial-gradient(circle at 86% 24%, rgba(24, 201, 255, 0.13), transparent 28rem),
-        url("../images/design-system/grid-light.svg"),
+        url("../images/design-system/grid-light.svg?v=eb0edfbe2974ef53"),
         linear-gradient(145deg, #fbfdff 0%, #edf4ff 100%);
 }
 
@@ -378,7 +378,7 @@ body[data-page="careers"] main {
     z-index: 0;
     inset: 0;
     opacity: 0.62;
-    background: url("../images/design-system/grid-light.svg");
+    background: url("../images/design-system/grid-light.svg?v=eb0edfbe2974ef53");
     -webkit-mask-image: linear-gradient(180deg, #000, transparent 84%);
     mask-image: linear-gradient(180deg, #000, transparent 84%);
 }
@@ -415,7 +415,7 @@ body[data-page="careers"] main {
 .corp-anchor-nav a:hover { color: var(--brand); background: var(--paper); }
 .corp-anchor-nav span { color: var(--brand); font: 760 0.68rem ui-monospace, "Cascadia Code", monospace; }
 
-.corp-service-detail-section { background: linear-gradient(rgba(246, 248, 252, 0.92), rgba(246, 248, 252, 0.98)), url("../images/design-system/grid-light.svg"); }
+.corp-service-detail-section { background: linear-gradient(rgba(246, 248, 252, 0.92), rgba(246, 248, 252, 0.98)), url("../images/design-system/grid-light.svg?v=eb0edfbe2974ef53"); }
 .corp-service-stack { display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
 .corp-service-block { --service-accent: #2457d6; --service-soft: rgba(36, 87, 214, 0.075); position: relative; display: grid; min-height: 0; padding: clamp(2rem, 4vw, 3.6rem); overflow: hidden; border: 1px solid rgba(36, 87, 214, 0.18); border-top: 3px solid var(--service-accent); border-radius: 1.25rem; scroll-margin-top: calc(var(--site-chrome-height) + 5rem); background: rgba(255, 255, 255, 0.9); box-shadow: 0 1.5rem 4rem rgba(32, 66, 126, 0.08); grid-template-columns: minmax(8rem, 0.24fr) minmax(24rem, 1fr) minmax(15rem, 0.45fr); gap: clamp(2rem, 5vw, 5rem); }
 .corp-service-block:nth-child(2) { --service-accent: #087a67; --service-soft: rgba(8, 122, 103, 0.075); border-color: rgba(8, 122, 103, 0.2); }

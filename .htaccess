@@ -10,6 +10,9 @@ ErrorDocument 410 default
 # Retired content must stay unavailable even when old uploads remain on disk.
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    # Only content-versioned public assets receive immutable caching.
+    RewriteCond %{QUERY_STRING} (?:^|&)v=[a-f0-9]{16}(?:&|$)
+    RewriteRule ^assets/(?!shared/site\.json$).+\.(?:css|js|json|html|png|jpe?g|webp|svg|ico|pdf|mp4|woff2)$ - [E=INIT_VERSIONED:1]
     RewriteRule ^insights(?:/|$) - [G,L]
     RewriteRule ^assets/brand-2026/(?:assets-manifest\.json|company\.webp|gaon-plaza\.webp|icons\.svg|research\.webp)$ - [G,L]
     RewriteRule ^assets/(?:images/menu-heroes/insights-hero-desktop-v2\.png|images/product/login-overview\.png|videos/initgroup-promo-(?:poster\.jpg|preview\.mp4))$ - [G,L]
@@ -21,8 +24,6 @@ ErrorDocument 410 default
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
     Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'"
-    Header set Cache-Control "no-cache"
-    <FilesMatch "\.(css|js|json|png|jpe?g|webp|svg|ico|pdf|mp4|woff2)$">
-        Header set Cache-Control "public, max-age=3600, must-revalidate"
-    </FilesMatch>
+    Header set Cache-Control "no-cache, must-revalidate"
+    Header set Cache-Control "public, max-age=31536000, immutable" env=INIT_VERSIONED
 </IfModule>

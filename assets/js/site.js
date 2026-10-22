@@ -1,7 +1,13 @@
-(function() {
+(function () {
     "use strict";
-
     const siteRootUrl = new URL("../../", document.currentScript.src);
+    window.INIT_PAGE.register("assets/js/site.js", function (context = {}) {
+    const scope = window.INIT_PAGE.scope();
+    const listen = scope.listen;
+
+
+
+
     const normalizedPath = (path) => path.replace(/index\.html$/, "");
     const header = document.querySelector("[data-site-header]");
     const progress = document.querySelector("[data-scroll-progress]");
@@ -28,6 +34,32 @@
     let activePageSubLink = pageSubLinks.find((link) => link.classList.contains("is-current")) || null;
     let frameRequested = false;
     let readableTypeFrameRequested = false;
+
+    function isPageNavigation(event, link) {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return false;
+        if (link.hasAttribute("download") || (link.target && link.target !== "_self")) return false;
+        const target = new URL(link.href,document.baseURI);
+        if (target.origin !== location.origin || !/^https?:$/.test(target.protocol)) return false;
+        return normalizedPath(target.pathname) !== normalizedPath(location.pathname) || target.search !== location.search;
+    }
+    listen(document,"click",event => {
+        const link = event.target.closest?.("a[href]");
+        if (link && isPageNavigation(event,link)) {
+            document.documentElement.dataset.navigationPending = "true";
+            // Dialogs and other local handlers may cancel the browser's default navigation.
+            queueMicrotask(() => {
+                if (event.defaultPrevented && !window.INIT_PAGE_NAVIGATION?.pending) delete document.documentElement.dataset.navigationPending;
+            });
+        }
+    },true);
+    listen(window,"pageshow",event => {
+        delete document.documentElement.dataset.navigationPending;
+        if (event.persisted) {
+            closeMenu({restoreFocus:false});
+            closeHoverMenu({force:true});
+            requestScrollUiUpdate();
+        }
+    });
 
     function updateScrollUi() {
         frameRequested = false;
@@ -101,7 +133,7 @@
     function requestScrollUiUpdate() {
         if (frameRequested) return;
         frameRequested = true;
-        window.requestAnimationFrame(updateScrollUi);
+        scope.frame(updateScrollUi);
     }
 
     function enforceReadableTypeFloor() {
@@ -120,7 +152,7 @@
     function requestReadableTypeFloor() {
         if (readableTypeFrameRequested) return;
         readableTypeFrameRequested = true;
-        window.requestAnimationFrame(enforceReadableTypeFloor);
+        scope.frame(enforceReadableTypeFloor);
     }
 
     function focusableElements(container) {
@@ -170,7 +202,7 @@
     }
 
     function openHoverMenu(key, options = {}) {
-        if (!hoverMenu || !header || !desktopNavigation.matches) return;
+        if (document.documentElement.dataset.navigationPending || !hoverMenu || !header || !desktopNavigation.matches) return;
         if (!menu?.hidden) closeMenu({ restoreFocus: false });
         if (options.pinned !== undefined) hoverMenuPinned = options.pinned;
         if (options.returnFocus instanceof HTMLElement) hoverReturnFocus = options.returnFocus;
@@ -189,7 +221,7 @@
     }
 
     function closeHoverMenu(options = {}) {
-        if (!hoverMenu || (hoverMenuPinned && !options.force)) return;
+        if (document.documentElement.dataset.navigationPending || !hoverMenu || (hoverMenuPinned && !options.force)) return;
         hoverMenu.hidden = true;
         hoverMenuPinned = false;
         header?.classList.remove("is-hover-open");
@@ -213,11 +245,11 @@
         document.body.classList.add("menu-open");
         header.classList.add("is-menu-open");
         setPageInert(true);
-        window.requestAnimationFrame(() => focusableElements(menu)[0]?.focus());
+        scope.frame(() => focusableElements(menu)[0]?.focus());
     }
 
     function closeMenu(options = {}) {
-        if (!menu || !menuToggle || !menuBackdrop || !header || menu.hidden) return;
+        if (document.documentElement.dataset.navigationPending || !menu || !menuToggle || !menuBackdrop || !header || menu.hidden) return;
         menu.hidden = true;
         menuBackdrop.hidden = true;
         menuToggle.setAttribute("aria-expanded", "false");
@@ -234,7 +266,7 @@
     }
 
     function closeHoverMenuAfterFocusLeaves() {
-        window.requestAnimationFrame(() => {
+        scope.frame(() => {
             if (!hoverMenu || hoverMenu.hidden) return;
             const activeElement = document.activeElement;
             if (
@@ -297,7 +329,8 @@
                 item.setAttribute("aria-selected", String(selected));
                 item.tabIndex = selected ? 0 : -1;
             });
-            image.src = tab.dataset.image || image.src;
+            const source = tab.dataset.image || image.getAttribute("src");
+            image.src = window.INIT_ASSETS?.url(source) || source;
             image.alt = tab.dataset.alt || image.alt;
             if (kicker) kicker.textContent = tab.dataset.kicker || "";
             if (title) title.textContent = tab.dataset.title || "";
@@ -320,7 +353,7 @@
                 activateTab(tabs[nextIndex], { focus: true });
             });
         });
-        document.addEventListener("init:languagechange", () => {
+        listen(document,"init:languagechange", () => {
             activateTab(tabs.find((tab) => tab.getAttribute("aria-selected") === "true") || tabs[0]);
         });
     }
@@ -363,21 +396,26 @@
     function initReveals() {
         const elements = Array.from(document.querySelectorAll(".reveal"));
         if (!elements.length) return;
+        // Mark the initial viewport before enabling reveal CSS, so its opacity never starts at zero.
+        elements.forEach(element=>{if(element.getBoundingClientRect().top < innerHeight)element.classList.add("is-visible");});
         document.documentElement.classList.add("reveal-enabled");
         if (reducedMotion.matches || !("IntersectionObserver" in window)) {
             elements.forEach((element) => element.classList.add("is-visible"));
             return;
         }
-        const observer = new IntersectionObserver((entries) => {
+        const observer = scope.observe(new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;
                 entry.target.classList.add("is-visible");
                 observer.unobserve(entry.target);
             });
-        }, { rootMargin: "0px 0px -8%", threshold: 0.08 });
-        elements.forEach((element) => observer.observe(element));
+        }, { rootMargin: "0px 0px -8%", threshold: 0.08 }));
+        elements.forEach((element) => {
+            observer.observe(element);
+        });
     }
 
+    listen(document,"init:close-menus",()=>{ closeMenu({restoreFocus:false}); closeHoverMenu({force:true}); });
     menuToggle?.addEventListener("click", () => {
         if (desktopNavigation.matches) {
             if (!hoverMenu?.hidden && hoverMenuPinned) {
@@ -425,20 +463,21 @@
                 sameOriginReferrer = false;
             }
             if (sameOriginReferrer && window.history.length > 1) window.history.back();
+            else if (window.INIT_PAGE_NAVIGATION) window.INIT_PAGE_NAVIGATION.navigate(fallback);
             else window.location.assign(fallback);
         });
     });
-    document.addEventListener("pointerdown", (event) => {
+    listen(document,"pointerdown", (event) => {
         if (hoverMenu?.hidden || header?.contains(event.target)) return;
         closeHoverMenu({ force: true });
     });
-    window.addEventListener("scroll", requestScrollUiUpdate, { passive: true });
-    window.addEventListener("resize", () => {
+    listen(window,"scroll", requestScrollUiUpdate, { passive: true });
+    listen(window,"resize", () => {
         requestScrollUiUpdate();
         requestReadableTypeFloor();
         revealDetailNavigationLocation();
     }, { passive: true });
-    window.addEventListener("load", () => {
+    listen(window,"load", () => {
         enforceReadableTypeFloor();
         revealDetailNavigationLocation();
     }, { once: true });
@@ -446,11 +485,11 @@
         enforceReadableTypeFloor();
         revealDetailNavigationLocation();
     });
-    document.addEventListener("init:languagechange", () => {
+    listen(document,"init:languagechange", () => {
         requestReadableTypeFloor();
-        window.requestAnimationFrame(revealDetailNavigationLocation);
+        scope.frame(revealDetailNavigationLocation);
     });
-    desktopNavigation.addEventListener?.("change", handleNavigationViewport);
+    listen(desktopNavigation,"change", handleNavigationViewport);
     document.querySelectorAll("[data-current-year]").forEach((element) => {
         element.textContent = String(new Date().getFullYear());
     });
@@ -463,4 +502,7 @@
     enforceReadableTypeFloor();
     updateScrollUi();
     revealDetailNavigationLocation();
-})();
+
+    return scope.dispose;
+    });
+}());

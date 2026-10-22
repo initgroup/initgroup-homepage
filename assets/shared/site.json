@@ -1,0 +1,1466 @@
+{
+  "schemaVersion": 2,
+  "sitemapBaseUrl": "https://initgroup.kr/",
+  "sitemapPages": [
+    "index.html",
+    "company/index.html",
+    "services/index.html",
+    "solutions/index.html",
+    "projects/index.html",
+    "careers/index.html",
+    "contact/index.html"
+  ],
+  "defaults": {
+    "titleKey": "content.c4181db7d6c4",
+    "descriptionKey": "revision20261007.002.1725",
+    "siteNameKey": "content.a477d7464e6c",
+    "themeColor": "#f4f6f8",
+    "colorScheme": "light",
+    "ogImage": "assets/images/brand/init-logo.png",
+    "ogImageAltKey": "seo.logo.alt",
+    "ogType": "website",
+    "ogLocale": "ko_KR"
+  },
+  "meta": [
+    {
+      "charset": "utf-8"
+    },
+    {
+      "name": "viewport",
+      "content": "width=device-width, initial-scale=1"
+    },
+    {
+      "name": "theme-color",
+      "content": "{themeColor}"
+    },
+    {
+      "name": "color-scheme",
+      "content": "{colorScheme}"
+    }
+  ],
+  "icons": [
+    {
+      "path": "assets/images/brand/favicon.ico",
+      "attributes": {
+        "rel": "icon",
+        "sizes": "16x16 32x32 48x48 64x64"
+      }
+    },
+    {
+      "path": "assets/images/brand/favicon.svg",
+      "attributes": {
+        "rel": "icon",
+        "type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "assets/images/brand/apple-touch-icon.png",
+      "attributes": {
+        "rel": "apple-touch-icon",
+        "sizes": "180x180"
+      }
+    }
+  ],
+  "styles": [
+    {
+      "path": "assets/css/site.css"
+    },
+    {
+      "path": "assets/css/corporate.css",
+      "group": "corporate"
+    },
+    {
+      "path": "assets/css/editorial.css",
+      "group": "editorial"
+    },
+    {
+      "path": "assets/css/solutions.css",
+      "group": "solutions"
+    },
+    {
+      "path": "assets/css/legal.css",
+      "group": "legal"
+    },
+    {
+      "path": "assets/css/page-hero.css"
+    },
+    {
+      "path": "assets/css/page-headings.css"
+    },
+    {
+      "path": "assets/css/menu-hero.css"
+    },
+    {
+      "path": "assets/css/i18n.css"
+    },
+    {
+      "path": "assets/brand-2026/design.css",
+      "attributes": {
+        "data-init-design-css": true
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "path": "assets/js/i18n.js",
+      "attributes": {
+        "data-i18n-config": "{i18nConfig}"
+      }
+    },
+    {
+      "path": "assets/js/site.js"
+    },
+    {
+      "path": "assets/js/home-video.js",
+      "group": "home"
+    },
+    {
+      "path": "assets/brand-2026/design.js",
+      "attributes": {
+        "data-init-design-js": true
+      }
+    },
+    {
+      "path": "assets/js/navigation.js"
+    }
+  ],
+  "sharedSchemas": {
+    "organization": {
+      "@type": "Organization",
+      "@id": {
+        "sitePath": "#organization"
+      },
+      "name": "주식회사 인아이티",
+      "alternateName": "INIT",
+      "url": {
+        "sitePath": ""
+      },
+      "logo": {
+        "sitePath": "assets/images/brand/init-logo.png"
+      },
+      "foundingDate": "2013-03",
+      "email": "support@initgroup.kr",
+      "telephone": "+82-70-8785-9647",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "KR",
+        "addressRegion": "대전광역시",
+        "streetAddress": "대덕구 대화로 120, 가온비즈타워 1024호"
+      }
+    }
+  },
+  "pages": {
+    "404.html": {
+      "group": "legal",
+      "canonicalPath": "404.html",
+      "titleKey": "content.707d154b55cf",
+      "descriptionKey": "content.f60d46c8b29e",
+      "robots": "noindex,follow",
+      "openGraph": false,
+      "schemas": []
+    },
+    "careers/index.html": {
+      "group": "corporate",
+      "canonicalPath": "careers/",
+      "openGraph": true,
+      "schemas": [
+        {
+          "@type": "WebPage",
+          "@id": {
+            "sitePath": "careers/#webpage"
+          },
+          "url": {
+            "sitePath": "careers/"
+          },
+          "name": "{pageTitle}",
+          "description": "{pageDescription}",
+          "about": {
+            "@id": {
+              "sitePath": "#organization"
+            }
+          },
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          },
+          "inLanguage": "ko"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "채용",
+              "item": {
+                "sitePath": "careers/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "company/index.html": {
+      "group": "corporate",
+      "canonicalPath": "company/",
+      "openGraph": true,
+      "schemas": [
+        {
+          "shared": "organization"
+        },
+        {
+          "@type": "AboutPage",
+          "@id": {
+            "sitePath": "company/#webpage"
+          },
+          "url": {
+            "sitePath": "company/"
+          },
+          "name": "{pageTitle}",
+          "description": "{pageDescription}",
+          "about": {
+            "@id": {
+              "sitePath": "#organization"
+            }
+          },
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          },
+          "inLanguage": "ko"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "회사소개",
+              "item": {
+                "sitePath": "company/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "contact/index.html": {
+      "group": "corporate",
+      "canonicalPath": "contact/",
+      "openGraph": true,
+      "schemas": [
+        {
+          "shared": "organization"
+        },
+        {
+          "@type": "ContactPage",
+          "@id": {
+            "sitePath": "contact/#webpage"
+          },
+          "url": {
+            "sitePath": "contact/"
+          },
+          "name": "{pageTitle}",
+          "description": "{pageDescription}",
+          "about": {
+            "@id": {
+              "sitePath": "#organization"
+            }
+          },
+          "inLanguage": "ko",
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "문의",
+              "item": {
+                "sitePath": "contact/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "index.html": {
+      "group": "home",
+      "canonicalPath": "",
+      "openGraph": true,
+      "schemas": [
+        {
+          "shared": "organization"
+        },
+        {
+          "@type": "WebSite",
+          "@id": {
+            "sitePath": "#website"
+          },
+          "url": {
+            "sitePath": ""
+          },
+          "name": "인아이티",
+          "inLanguage": [
+            "ko",
+            "en"
+          ],
+          "publisher": {
+            "@id": {
+              "sitePath": "#organization"
+            }
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": {
+            "sitePath": "#webpage"
+          },
+          "url": {
+            "sitePath": ""
+          },
+          "name": "{pageTitle}",
+          "description": "{pageDescription}",
+          "inLanguage": "ko",
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          }
+        }
+      ]
+    },
+    "privacy/index.html": {
+      "group": "legal",
+      "canonicalPath": "privacy/",
+      "robots": "noindex,follow",
+      "openGraph": true,
+      "schemas": []
+    },
+    "projects/index.html": {
+      "group": "editorial",
+      "canonicalPath": "projects/",
+      "openGraph": true,
+      "schemas": [
+        {
+          "shared": "organization"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": {
+            "sitePath": "projects/#breadcrumb"
+          },
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "사업분야",
+              "item": {
+                "sitePath": "projects/"
+              }
+            }
+          ]
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": {
+            "sitePath": "projects/#webpage"
+          },
+          "url": {
+            "sitePath": "projects/"
+          },
+          "name": "{pageTitle}",
+          "description": "{pageDescription}",
+          "inLanguage": "ko",
+          "breadcrumb": {
+            "@id": {
+              "sitePath": "projects/#breadcrumb"
+            }
+          },
+          "publisher": {
+            "@id": {
+              "sitePath": "#organization"
+            }
+          },
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          }
+        }
+      ]
+    },
+    "services/index.html": {
+      "group": "corporate",
+      "canonicalPath": "services/",
+      "openGraph": true,
+      "schemas": [
+        {
+          "@type": "CollectionPage",
+          "@id": {
+            "sitePath": "services/#webpage"
+          },
+          "url": {
+            "sitePath": "services/"
+          },
+          "name": "{pageTitle}",
+          "description": "{pageDescription}",
+          "about": {
+            "@id": {
+              "sitePath": "#organization"
+            }
+          },
+          "mainEntity": {
+            "@id": {
+              "sitePath": "services/#catalog"
+            }
+          },
+          "inLanguage": "ko",
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          }
+        },
+        {
+          "@type": "OfferCatalog",
+          "@id": {
+            "sitePath": "services/#catalog"
+          },
+          "name": "인아이티 데이터·AI 서비스",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "데이터 전략·통계 컨설팅",
+                "provider": {
+                  "@id": {
+                    "sitePath": "#organization"
+                  }
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "데이터 엔지니어링·품질",
+                "provider": {
+                  "@id": {
+                    "sitePath": "#organization"
+                  }
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "AI·통계 분석",
+                "provider": {
+                  "@id": {
+                    "sitePath": "#organization"
+                  }
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "의사결정 시스템 구축·운영",
+                "provider": {
+                  "@id": {
+                    "sitePath": "#organization"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "서비스",
+              "item": {
+                "sitePath": "services/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "solutions/data-editing-system/index.html": {
+      "group": "solutions",
+      "canonicalPath": "solutions/data-editing-system/",
+      "openGraph": true,
+      "ogImage": "assets/images/reference/data-editing-system/flow-designer_kor.png",
+      "ogImageAltKey": "seo.image.data-editing-system",
+      "schemas": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": {
+            "sitePath": "solutions/data-editing-system/#software"
+          },
+          "name": "인뎁스 IN-DEPS",
+          "alternateName": "INIT-Data Editing Platform System",
+          "url": {
+            "sitePath": "solutions/data-editing-system/"
+          },
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "description": "{pageDescription}",
+          "image": {
+            "sitePath": "assets/images/reference/data-editing-system/flow-designer_kor.png"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "@id": {
+              "sitePath": "#organization"
+            },
+            "name": "주식회사 인아이티",
+            "alternateName": "INIT",
+            "url": {
+              "sitePath": ""
+            },
+            "logo": {
+              "sitePath": "assets/images/brand/init-logo.png"
+            },
+            "foundingDate": "2013-03",
+            "email": "support@initgroup.kr",
+            "telephone": "+82-70-8785-9647",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "KR",
+              "addressRegion": "대전광역시",
+              "streetAddress": "대덕구 대화로 120, 가온비즈타워 1024호"
+            }
+          },
+          "inLanguage": [
+            "ko",
+            "en"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": {
+            "sitePath": "solutions/data-editing-system/#page"
+          },
+          "url": {
+            "sitePath": "solutions/data-editing-system/"
+          },
+          "name": "{pageTitle}",
+          "mainEntity": {
+            "@id": {
+              "sitePath": "solutions/data-editing-system/#software"
+            }
+          },
+          "description": "{pageDescription}",
+          "inLanguage": "ko",
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "솔루션",
+              "item": {
+                "sitePath": "solutions/"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "인뎁스 IN-DEPS",
+              "item": {
+                "sitePath": "solutions/data-editing-system/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "solutions/in-surveyone/index.html": {
+      "group": "solutions",
+      "canonicalPath": "solutions/in-surveyone/",
+      "openGraph": true,
+      "ogImage": "assets/images/product/in-surveyone/dashboard-public-demo_kor.png",
+      "ogImageAltKey": "seo.image.in-surveyone",
+      "schemas": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": {
+            "sitePath": "solutions/in-surveyone/#software"
+          },
+          "name": "인서베이원 IN-SURVEYONE",
+          "alternateName": "IN-SURVEYONE",
+          "url": {
+            "sitePath": "solutions/in-surveyone/"
+          },
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "description": "{pageDescription}",
+          "image": {
+            "sitePath": "assets/images/product/in-surveyone/dashboard-public-demo_kor.png"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "@id": {
+              "sitePath": "#organization"
+            },
+            "name": "주식회사 인아이티",
+            "alternateName": "INIT",
+            "url": {
+              "sitePath": ""
+            },
+            "logo": {
+              "sitePath": "assets/images/brand/init-logo.png"
+            },
+            "foundingDate": "2013-03",
+            "email": "support@initgroup.kr",
+            "telephone": "+82-70-8785-9647",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "KR",
+              "addressRegion": "대전광역시",
+              "streetAddress": "대덕구 대화로 120, 가온비즈타워 1024호"
+            }
+          },
+          "inLanguage": [
+            "ko",
+            "en"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": {
+            "sitePath": "solutions/in-surveyone/#page"
+          },
+          "url": {
+            "sitePath": "solutions/in-surveyone/"
+          },
+          "name": "{pageTitle}",
+          "description": "{pageDescription}",
+          "mainEntity": {
+            "@id": {
+              "sitePath": "solutions/in-surveyone/#software"
+            }
+          },
+          "inLanguage": "ko",
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "솔루션",
+              "item": {
+                "sitePath": "solutions/"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "인서베이원",
+              "item": {
+                "sitePath": "solutions/in-surveyone/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "solutions/inbups/index.html": {
+      "group": "solutions",
+      "canonicalPath": "solutions/inbups/",
+      "openGraph": true,
+      "ogImage": "assets/images/reference/in-baps/v-bap-visualization.png",
+      "ogImageAltKey": "seo.image.inbups",
+      "schemas": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": {
+            "sitePath": "solutions/inbups/#software"
+          },
+          "name": "인법스 IN-BAPS",
+          "alternateName": "IN-BAPS",
+          "url": {
+            "sitePath": "solutions/inbups/"
+          },
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "description": "{pageDescription}",
+          "publisher": {
+            "@type": "Organization",
+            "@id": {
+              "sitePath": "#organization"
+            },
+            "name": "주식회사 인아이티",
+            "alternateName": "INIT",
+            "url": {
+              "sitePath": ""
+            },
+            "logo": {
+              "sitePath": "assets/images/brand/init-logo.png"
+            },
+            "foundingDate": "2013-03",
+            "email": "support@initgroup.kr",
+            "telephone": "+82-70-8785-9647",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "KR",
+              "addressRegion": "대전광역시",
+              "streetAddress": "대덕구 대화로 120, 가온비즈타워 1024호"
+            }
+          },
+          "image": {
+            "sitePath": "assets/images/reference/in-baps/v-bap-visualization.png"
+          },
+          "inLanguage": [
+            "ko",
+            "en"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": {
+            "sitePath": "solutions/inbups/#page"
+          },
+          "url": {
+            "sitePath": "solutions/inbups/"
+          },
+          "name": "{pageTitle}",
+          "mainEntity": {
+            "@id": {
+              "sitePath": "solutions/inbups/#software"
+            }
+          },
+          "description": "{pageDescription}",
+          "inLanguage": "ko",
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "솔루션",
+              "item": {
+                "sitePath": "solutions/"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "인법스",
+              "item": {
+                "sitePath": "solutions/inbups/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "solutions/index.html": {
+      "group": "solutions",
+      "canonicalPath": "solutions/",
+      "openGraph": true,
+      "schemas": [
+        {
+          "@type": "CollectionPage",
+          "@id": {
+            "sitePath": "solutions/#page"
+          },
+          "url": {
+            "sitePath": "solutions/"
+          },
+          "name": "{pageTitle}",
+          "description": "{pageDescription}",
+          "isPartOf": {
+            "@id": {
+              "sitePath": "#website"
+            }
+          },
+          "about": [
+            {
+              "@id": {
+                "sitePath": "solutions/data-editing-system/#software"
+              }
+            },
+            {
+              "@id": {
+                "sitePath": "solutions/inbups/#software"
+              }
+            },
+            {
+              "@id": {
+                "sitePath": "solutions/in-surveyone/#software"
+              }
+            }
+          ],
+          "inLanguage": "ko"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "홈",
+              "item": {
+                "sitePath": ""
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "솔루션",
+              "item": {
+                "sitePath": "solutions/"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "navigation": {
+    "schemaVersion": 1,
+    "links": {
+      "company": {
+        "path": "company/index.html",
+        "label": {
+          "ko": "회사",
+          "en": "Company"
+        }
+      },
+      "company-overview": {
+        "path": "company/index.html",
+        "label": {
+          "ko": "회사 소개",
+          "en": "Company Overview"
+        }
+      },
+      "company-missionTitle": {
+        "path": "company/index.html#missionTitle",
+        "label": {
+          "ko": "비전",
+          "en": "Vision"
+        }
+      },
+      "company-teamTitle": {
+        "path": "company/index.html#teamTitle",
+        "label": {
+          "ko": "수행 체계",
+          "en": "Delivery Structure"
+        }
+      },
+      "company-historyTitle": {
+        "path": "company/index.html#historyTitle",
+        "label": {
+          "ko": "주요 연혁",
+          "en": "Milestones"
+        }
+      },
+      "company-credentialTitle": {
+        "path": "company/index.html#credentialTitle",
+        "label": {
+          "ko": "대외인지도",
+          "en": "Recognition"
+        }
+      },
+      "services": {
+        "path": "services/index.html",
+        "label": {
+          "ko": "서비스",
+          "en": "Services"
+        }
+      },
+      "services-consulting": {
+        "path": "services/index.html#consulting",
+        "label": {
+          "ko": "데이터 전략·통계 컨설팅",
+          "en": "Data Strategy & Statistical Consulting"
+        }
+      },
+      "services-quality": {
+        "path": "services/index.html#quality",
+        "label": {
+          "ko": "데이터 엔지니어링·품질",
+          "en": "Data Engineering & Quality"
+        }
+      },
+      "services-analytics": {
+        "path": "services/index.html#analytics",
+        "label": {
+          "ko": "AI·통계 분석",
+          "en": "AI & Statistical Analysis"
+        }
+      },
+      "services-engineering": {
+        "path": "services/index.html#engineering",
+        "label": {
+          "ko": "의사결정 시스템 구축·운영",
+          "en": "Decision Systems Delivery & Operations"
+        }
+      },
+      "solutions": {
+        "path": "solutions/index.html",
+        "label": {
+          "ko": "솔루션",
+          "en": "Solutions"
+        }
+      },
+      "solutions-overview": {
+        "path": "solutions/index.html",
+        "label": {
+          "ko": "솔루션 개요",
+          "en": "Solution Overview"
+        }
+      },
+      "solutions-data-editing-system": {
+        "path": "solutions/data-editing-system/index.html",
+        "label": {
+          "ko": "인뎁스 IN-DEPS",
+          "en": "IN-DEPS"
+        }
+      },
+      "solutions-inbups": {
+        "path": "solutions/inbups/index.html",
+        "label": {
+          "ko": "인법스 IN-BAPS",
+          "en": "IN-BAPS"
+        }
+      },
+      "solutions-in-surveyone": {
+        "path": "solutions/in-surveyone/index.html",
+        "label": {
+          "ko": "인서베이원 IN-SURVEYONE",
+          "en": "IN-SURVEYONE"
+        }
+      },
+      "projects": {
+        "path": "projects/index.html",
+        "label": {
+          "ko": "사업분야",
+          "en": "Business Areas"
+        }
+      },
+      "projects-overview": {
+        "path": "projects/index.html",
+        "label": {
+          "ko": "사업분야 개요",
+          "en": "Business Areas Overview"
+        }
+      },
+      "projects-business-public": {
+        "path": "projects/index.html#business-public",
+        "label": {
+          "ko": "공공·행정",
+          "en": "Public Administration"
+        }
+      },
+      "projects-business-finance": {
+        "path": "projects/index.html#business-finance",
+        "label": {
+          "ko": "금융·핀테크",
+          "en": "Finance & FinTech"
+        }
+      },
+      "projects-business-industry": {
+        "path": "projects/index.html#business-industry",
+        "label": {
+          "ko": "스마트 제조·인텔리전스 마켓",
+          "en": "Smart Manufacturing & Market Intelligence"
+        }
+      },
+      "projects-business-research": {
+        "path": "projects/index.html#business-research",
+        "label": {
+          "ko": "R&D·정책",
+          "en": "R&D & Policy"
+        }
+      },
+      "careers": {
+        "path": "careers/index.html",
+        "label": {
+          "ko": "채용",
+          "en": "Careers"
+        }
+      },
+      "careers-overview": {
+        "path": "careers/index.html",
+        "label": {
+          "ko": "채용 안내",
+          "en": "Careers Overview"
+        }
+      },
+      "careers-cultureTitle": {
+        "path": "careers/index.html#cultureTitle",
+        "label": {
+          "ko": "일하는 방식",
+          "en": "How We Work"
+        }
+      },
+      "careers-roleTitle": {
+        "path": "careers/index.html#roleTitle",
+        "label": {
+          "ko": "직무 분야",
+          "en": "Roles"
+        }
+      },
+      "careers-growthTitle": {
+        "path": "careers/index.html#growthTitle",
+        "label": {
+          "ko": "성장 방식",
+          "en": "Professional Growth"
+        }
+      },
+      "contact": {
+        "path": "contact/index.html",
+        "label": {
+          "ko": "문의",
+          "en": "Contact"
+        }
+      },
+      "footer-company": {
+        "path": "company/index.html",
+        "label": {
+          "ko": "회사소개",
+          "en": "About INIT"
+        }
+      },
+      "footer-privacy": {
+        "path": "privacy/index.html",
+        "label": {
+          "ko": "개인정보 안내",
+          "en": "Privacy Policy"
+        }
+      },
+      "action-careers-1": {
+        "path": "company/index.html",
+        "label": {
+          "ko": "회사 보기",
+          "en": "View companies"
+        }
+      },
+      "action-careers-2": {
+        "path": "mailto:support@initgroup.kr?subject=%5B%EC%B1%84%EC%9A%A9%20%EB%AC%B8%EC%9D%98%5D%20%EC%9D%B8%EC%95%84%EC%9D%B4%ED%8B%B0",
+        "label": {
+          "ko": "채용 문의",
+          "en": "Recruitment Inquiry"
+        }
+      },
+      "action-company-1": {
+        "path": "services/index.html",
+        "label": {
+          "ko": "서비스 보기",
+          "en": "View services"
+        }
+      },
+      "action-company-2": {
+        "path": "contact/index.html",
+        "label": {
+          "ko": "문의하기",
+          "en": "Contact Us"
+        }
+      },
+      "action-contact-1": {
+        "path": "tel:+827087859647",
+        "label": {
+          "ko": "전화하기",
+          "en": "Call"
+        }
+      },
+      "action-contact-2": {
+        "path": "mailto:support@initgroup.kr?subject=%5B%EC%82%AC%EC%97%85%20%EB%AC%B8%EC%9D%98%5D%20%EC%9D%B8%EC%95%84%EC%9D%B4%ED%8B%B0",
+        "label": {
+          "ko": "이메일 문의",
+          "en": "Email Inquiry"
+        }
+      },
+      "action-index-1": {
+        "path": "services/index.html",
+        "label": {
+          "ko": "역량 보기",
+          "en": "View capabilities"
+        }
+      },
+      "action-privacy-1": {
+        "path": "solutions/index.html",
+        "label": {
+          "ko": "솔루션 보기",
+          "en": "View solution"
+        }
+      },
+      "action-services-1": {
+        "path": "projects/index.html",
+        "label": {
+          "ko": "사업분야 보기",
+          "en": "View business areas"
+        }
+      },
+      "action-solutions-data-editing-system-1": {
+        "path": "#productScreensTitle",
+        "label": {
+          "ko": "실제 화면",
+          "en": "Actual screen"
+        }
+      },
+      "action-solutions-data-editing-system-2": {
+        "path": "contact/index.html",
+        "label": {
+          "ko": "도입 문의",
+          "en": "Adoption Inquiry"
+        }
+      },
+      "action-solutions-in-surveyone-1": {
+        "path": "#surveyOperations",
+        "label": {
+          "ko": "운영 흐름",
+          "en": "Operating workflow"
+        }
+      },
+      "action-solutions-inbups-1": {
+        "path": "#inbupsModules",
+        "label": {
+          "ko": "모듈 보기",
+          "en": "View module"
+        }
+      },
+      "action-solutions-inbups-2": {
+        "path": "contact/index.html",
+        "label": {
+          "ko": "적용 문의",
+          "en": "Adoption Inquiry"
+        }
+      },
+      "action-solutions-1": {
+        "path": "#portfolioTitle",
+        "label": {
+          "ko": "제품 비교",
+          "en": "Product Comparison"
+        }
+      }
+    },
+    "groups": [
+      {
+        "id": "company",
+        "mode": "sections",
+        "root": "company",
+        "items": [
+          "company-overview",
+          "company-missionTitle",
+          "company-teamTitle",
+          "company-historyTitle",
+          "company-credentialTitle"
+        ]
+      },
+      {
+        "id": "services",
+        "mode": "sections",
+        "root": "services",
+        "items": [
+          "services",
+          "services-consulting",
+          "services-quality",
+          "services-analytics",
+          "services-engineering"
+        ]
+      },
+      {
+        "id": "solutions",
+        "mode": "pages",
+        "root": "solutions",
+        "items": [
+          "solutions-overview",
+          "solutions-data-editing-system",
+          "solutions-inbups",
+          "solutions-in-surveyone"
+        ]
+      },
+      {
+        "id": "projects",
+        "mode": "sections",
+        "root": "projects",
+        "items": [
+          "projects-overview",
+          "projects-business-public",
+          "projects-business-finance",
+          "projects-business-industry",
+          "projects-business-research"
+        ]
+      },
+      {
+        "id": "careers",
+        "mode": "sections",
+        "root": "careers",
+        "items": [
+          "careers-overview",
+          "careers-cultureTitle",
+          "careers-roleTitle",
+          "careers-growthTitle"
+        ]
+      }
+    ],
+    "mobileActions": {
+      "careers/index.html": {
+        "links": [
+          "action-careers-1",
+          "action-careers-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "company/index.html": {
+        "links": [
+          "action-company-1",
+          "action-company-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "contact/index.html": {
+        "links": [
+          "action-contact-1",
+          "action-contact-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "index.html": {
+        "links": [
+          "action-index-1",
+          "action-company-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "privacy/index.html": {
+        "links": [
+          "action-privacy-1",
+          "action-company-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "projects/index.html": {
+        "links": [
+          "action-company-1",
+          "action-company-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "services/index.html": {
+        "links": [
+          "action-services-1",
+          "action-company-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "solutions/data-editing-system/index.html": {
+        "links": [
+          "action-solutions-data-editing-system-1",
+          "action-solutions-data-editing-system-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "solutions/in-surveyone/index.html": {
+        "links": [
+          "action-solutions-in-surveyone-1",
+          "action-solutions-data-editing-system-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "solutions/inbups/index.html": {
+        "links": [
+          "action-solutions-inbups-1",
+          "action-solutions-inbups-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      },
+      "solutions/index.html": {
+        "links": [
+          "action-solutions-1",
+          "action-solutions-data-editing-system-2"
+        ],
+        "ariaLabel": "빠른 이동"
+      }
+    },
+    "submenuLabelFormat": {
+      "ko": "{label} 하위 메뉴",
+      "en": "{label} submenu"
+    }
+  },
+  "assetVersions": {
+    "assets/brand-2026/careers.webp": "9ca79de5b7a996a8",
+    "assets/brand-2026/design.css": "5bebde9f334d639e",
+    "assets/brand-2026/design.js": "163758d81624c195",
+    "assets/brand-2026/FONT-LICENSE.txt": "1c05c68c34f97084",
+    "assets/brand-2026/gaon-rooftop.webp": "df11ba4d1dfcdb80",
+    "assets/brand-2026/gaon-tower.webp": "71822c78a0accca6",
+    "assets/brand-2026/growth.webp": "e2782a104a7fffa8",
+    "assets/brand-2026/home.webp": "6237988b740ab9ff",
+    "assets/brand-2026/init-sans.woff2": "8b5e72a3700ce88f",
+    "assets/brand-2026/projects.webp": "fb01c277eb6a12d5",
+    "assets/brand-2026/services.webp": "9130fab1e2d7e577",
+    "assets/brand-2026/solutions.webp": "af001ccd0998fb06",
+    "assets/brand-2026/team.webp": "e06bbd879de9c457",
+    "assets/css/corporate.css": "a6e5c6386be78358",
+    "assets/css/editorial.css": "2b18e05ddfee229d",
+    "assets/css/i18n.css": "77858c7ddf3a0371",
+    "assets/css/legal.css": "e773a0aeb122b5fa",
+    "assets/css/menu-hero.css": "78c5f465839d95b8",
+    "assets/css/page-headings.css": "3cdc4b472b717823",
+    "assets/css/page-hero.css": "4b813cb6152e2fee",
+    "assets/css/site.css": "3c7b3593dc52c7b0",
+    "assets/css/solutions.css": "3c79fd7fef9f46f7",
+    "assets/downloads/init-company-introduction.pdf": "000fb4a2b8f0c436",
+    "assets/i18n/config.json": "536291e441112e06",
+    "assets/i18n/en.json": "8a227b4172e856ae",
+    "assets/i18n/ko.json": "85784eef8c9ec1e1",
+    "assets/images/brand/apple-touch-icon.png": "833faed37fd080f3",
+    "assets/images/brand/favicon.ico": "b84c8f0d0a674118",
+    "assets/images/brand/favicon.svg": "ceb2a334a18e0038",
+    "assets/images/brand/init-logo.png": "5c12d6bdfcacb1e4",
+    "assets/images/design-system/grid-dark.svg": "9d37eb51437fad52",
+    "assets/images/design-system/grid-light.svg": "eb0edfbe2974ef53",
+    "assets/images/design-system/wave-lines.svg": "8797f4c76585cf1d",
+    "assets/images/home/home-data-hub-hero-v1.png": "0ad5e781a1e75bb6",
+    "assets/images/home/initgroup-promo-poster.jpg": "7301034e2106a396",
+    "assets/images/menu-heroes/careers-hero-desktop-v2.png": "25c48707448df7e6",
+    "assets/images/menu-heroes/company-hero-desktop-v2.png": "9d1473128307202b",
+    "assets/images/menu-heroes/projects-hero-desktop-v2.png": "1ebc125f7e878a46",
+    "assets/images/menu-heroes/services-hero-desktop-v2.png": "d1d8bef5ec432608",
+    "assets/images/menu-heroes/solutions-hero-desktop-v2.png": "2077a9f719e89e07",
+    "assets/images/product/in-surveyone/dashboard-public-demo_eng.png": "1b2000082a4a08de",
+    "assets/images/product/in-surveyone/dashboard-public-demo_kor.png": "d3c521f5ada0f2a7",
+    "assets/images/product/in-surveyone/distribution-center-public-demo_eng.png": "c23ec21a36e0b19c",
+    "assets/images/product/in-surveyone/distribution-center-public-demo_kor.png": "5fac8d8d47f5738e",
+    "assets/images/product/in-surveyone/insurveyone-logo-white.png": "807be9c24b9d3eaf",
+    "assets/images/product/in-surveyone/report-builder-public-demo_eng.png": "bf7ed89d691400be",
+    "assets/images/product/in-surveyone/report-builder-public-demo_kor.png": "4cad3da862a8b806",
+    "assets/images/product/in-surveyone/response-data-public-demo_eng.png": "be31afb2f932c153",
+    "assets/images/product/in-surveyone/response-data-public-demo_kor.png": "9487b29742f6ec35",
+    "assets/images/product/in-surveyone/survey-builder-public-demo_eng.png": "099cea26842dbe7d",
+    "assets/images/product/in-surveyone/survey-builder-public-demo_kor.png": "92511ac6e79ce179",
+    "assets/images/reference/data-editing-system/categorical-rules_eng.png": "ae9fcaa35644cc38",
+    "assets/images/reference/data-editing-system/categorical-rules_kor.png": "0dd0a9055203c36a",
+    "assets/images/reference/data-editing-system/continuous-rule-detail_eng.png": "0665dc11b475c5e0",
+    "assets/images/reference/data-editing-system/continuous-rule-detail_kor.png": "4c5c40519fb8a7d1",
+    "assets/images/reference/data-editing-system/editing-error_eng.png": "a9cc7997c3d98f9f",
+    "assets/images/reference/data-editing-system/editing-error_kor.png": "e9ce16c28b3f18a8",
+    "assets/images/reference/data-editing-system/editing-production-deployment_eng.png": "6baaea6472dac4ce",
+    "assets/images/reference/data-editing-system/editing-production-deployment_kor.png": "bdedff3757040bfe",
+    "assets/images/reference/data-editing-system/flow-designer_eng.png": "b0fedab9b7073c28",
+    "assets/images/reference/data-editing-system/flow-designer_kor.png": "b2bc62dd95061f45",
+    "assets/images/reference/data-editing-system/rule-master_eng.png": "1df93e6d44354aee",
+    "assets/images/reference/data-editing-system/rule-master_kor.png": "20318992f70aa1d5",
+    "assets/images/reference/data-editing-system/violation-query_eng.png": "68dca336286300fe",
+    "assets/images/reference/data-editing-system/violation-query_kor.png": "92a58fa05fb33725",
+    "assets/images/reference/in-baps/c-bap-collection.png": "67526eb5ca9a80cd",
+    "assets/images/reference/in-baps/r-bap-analysis.png": "8487a728321f6894",
+    "assets/images/reference/in-baps/v-bap-visualization.png": "9606c2b546fd3b1c",
+    "assets/images/section-backgrounds/home-services-network-light.png": "241146fba6a05d60",
+    "assets/images/section-backgrounds/home-solutions-platform-dark.png": "52795d4a9cf539ff",
+    "assets/images/section-backgrounds/solutions-operating-path-dark.png": "4d18e238d5d98c07",
+    "assets/images/section-backgrounds/solutions-portfolio-light.png": "8acc81d50b5d873c",
+    "assets/js/common.js": "014dcc1a4c0bc175",
+    "assets/js/home-video.js": "2d1da9f3055e11c0",
+    "assets/js/i18n.js": "8c20948286f3e403",
+    "assets/js/navigation.js": "85c2340e1b140f4e",
+    "assets/js/site.js": "f1f9499cba50d4c7",
+    "assets/shared/layout.html": "03c35d6f2069828b",
+    "assets/videos/initgroup-promo_eng.mp4": "a0c35e0cf6bf33f2",
+    "assets/videos/initgroup-promo_kor.mp4": "92d3dd43e5e0830e"
+  },
+  "components": "assets/shared/layout.html",
+  "i18n": "assets/i18n/config.json"
+}

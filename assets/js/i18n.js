@@ -1,9 +1,10 @@
 (function () {
     "use strict";
 
-    const script = document.currentScript;
+    let pageDocument = document;
+    const script = pageDocument.currentScript;
     const configUrl = script?.dataset.i18nConfig
-        ? new URL(script.dataset.i18nConfig, document.baseURI).href
+        ? new URL(script.dataset.i18nConfig, pageDocument.baseURI).href
         : "";
     const translatableAttributes = [
         "alt",
@@ -15,10 +16,10 @@
         "title"
     ];
     const translatableMetaKeys = new Set(["description", "og:site_name", "og:title", "og:description", "og:image:alt"]);
-    const registry = [];
-    const structuredData = [];
-    const localizedMetaImages = [];
-    const state = {
+    let registry = [];
+    let structuredData = [];
+    let localizedMetaImages = [];
+    let state = {
         catalogs: {},
         config: null,
         language: "ko",
@@ -58,14 +59,41 @@
     }
 
     function catalogUrl(config, language) {
-        return new URL(config.catalogs[language], configUrl).href;
+        const url = new URL(config.catalogs[language], configUrl).href;
+        return window.INIT_ASSETS?.url(url) || url;
+    }
+
+    function localizedContent(value) {
+        const fragment = pageDocument.createDocumentFragment();
+        const company = /(?:㈜|\(주\))\s*인아이티/g;
+        let offset = 0;
+        for (const match of value.matchAll(company)) {
+            fragment.append(pageDocument.createTextNode(value.slice(offset, match.index)));
+            const name = pageDocument.createElement("span");
+            name.className = "company-name";
+            name.textContent = match[0];
+            fragment.append(name);
+            offset = match.index + match[0].length;
+        }
+        fragment.append(pageDocument.createTextNode(value.slice(offset)));
+        return fragment;
+    }
+
+    function registerExplicitContent() {
+        pageDocument.querySelectorAll("[data-i18n]").forEach((element) => {
+            const key = element.dataset.i18n;
+            if (!Object.prototype.hasOwnProperty.call(state.catalogs.ko, key)) {
+                throw new Error(`Unknown translation key: ${key}`);
+            }
+            registry.push({ type: "content", element, key });
+        });
     }
 
     function registerTextNodes() {
-        const walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT, {
+        const walker = pageDocument.createTreeWalker(pageDocument.documentElement, NodeFilter.SHOW_TEXT, {
             acceptNode(node) {
                 const parent = node.parentElement;
-                if (!parent || parent.closest("script, style, noscript, template, [data-i18n-ignore]")) {
+                if (!parent || parent.closest("script, style, noscript, template, [data-i18n-ignore], [data-i18n]")) {
                     return NodeFilter.FILTER_REJECT;
                 }
                 return state.sourceIndex.has(normalize(node.nodeValue))
@@ -89,7 +117,7 @@
     }
 
     function registerAttributes() {
-        document.querySelectorAll("*").forEach((element) => {
+        pageDocument.querySelectorAll("*").forEach((element) => {
             translatableAttributes.forEach((name) => {
                 const value = element.getAttribute(name);
                 const key = state.sourceIndex.get(normalize(value));
@@ -108,7 +136,7 @@
     }
 
     function registerStructuredData() {
-        document.querySelectorAll('script[type="application/ld+json"]').forEach((element) => {
+        pageDocument.querySelectorAll('script[type="application/ld+json"]').forEach((element) => {
             try {
                 structuredData.push({ element, source: JSON.parse(element.textContent) });
             } catch (_) {
@@ -145,7 +173,7 @@
     }
 
     function updateLanguageControls() {
-        document.querySelectorAll("[data-language]").forEach((button) => {
+        pageDocument.querySelectorAll(".language-switcher [data-language]").forEach((button) => {
             const active = button.dataset.language === state.language;
             button.classList.toggle("is-active", active);
             button.setAttribute("aria-pressed", String(active));
@@ -156,12 +184,13 @@
         const suffix = languageConfig?.imageSuffix;
         if (!suffix) return;
 
-        document.querySelectorAll("[data-i18n-image-base]").forEach((element) => {
+        pageDocument.querySelectorAll("[data-i18n-image-base]").forEach((element) => {
             const base = element.dataset.i18nImageBase;
             const extension = element.dataset.i18nImageExtension || "png";
             if (!base) return;
-            const source = `${base}_${suffix}.${extension}`;
+            const localized = `${base}_${suffix}.${extension}`;
 
+            const source = window.INIT_ASSETS?.url(localized) || localized;
             if (element instanceof HTMLImageElement) {
                 if (element.getAttribute("src") !== source) element.setAttribute("src", source);
             } else if (element.dataset.image !== source) {
@@ -171,14 +200,14 @@
     }
 
     function syncRuntimeContent() {
-        const menuToggle = document.querySelector("[data-menu-toggle]");
+        const menuToggle = pageDocument.querySelector("[data-menu-toggle]");
         if (menuToggle) {
             const key = menuToggle.getAttribute("aria-expanded") === "true" ? "ui.menu.close" : "ui.menu.open";
             const label = translate(key);
             if (menuToggle.getAttribute("aria-label") !== label) menuToggle.setAttribute("aria-label", label);
         }
 
-        const selectedTab = document.querySelector('[data-product-tab][aria-selected="true"]');
+        const selectedTab = pageDocument.querySelector('[data-product-tab][aria-selected="true"]');
         const gallery = selectedTab?.closest("[data-product-gallery]");
         if (selectedTab && gallery) {
             const image = gallery.querySelector("[data-product-image]");
@@ -194,25 +223,30 @@
             if (description) description.textContent = selectedTab.dataset.description || "";
         }
 
-        const lightboxImage = document.querySelector("[data-lightbox-image]");
-        const productImage = document.querySelector("[data-product-image]");
-        if (lightboxImage && productImage && document.body.classList.contains("lightbox-open")) {
+        const lightboxImage = pageDocument.querySelector("[data-lightbox-image]");
+        const productImage = pageDocument.querySelector("[data-product-image]");
+        if (lightboxImage && productImage && pageDocument.body.classList.contains("lightbox-open")) {
             const alt = translate("ui.product.zoomed", { alt: productImage.alt });
             if (lightboxImage.alt !== alt) lightboxImage.alt = alt;
         }
     }
 
+    const runtimeObservers = [];
     function observeRuntimeContent() {
-        const menuToggle = document.querySelector("[data-menu-toggle]");
+        const menuToggle = pageDocument.querySelector("[data-menu-toggle]");
         if (menuToggle) {
-            new MutationObserver(syncRuntimeContent).observe(menuToggle, {
+            const observer = new MutationObserver(syncRuntimeContent);
+            runtimeObservers.push(observer);
+            observer.observe(menuToggle, {
                 attributes: true,
                 attributeFilter: ["aria-expanded"]
             });
         }
-        const lightboxImage = document.querySelector("[data-lightbox-image]");
+        const lightboxImage = pageDocument.querySelector("[data-lightbox-image]");
         if (lightboxImage) {
-            new MutationObserver(syncRuntimeContent).observe(lightboxImage, {
+            const observer = new MutationObserver(syncRuntimeContent);
+            runtimeObservers.push(observer);
+            observer.observe(lightboxImage, {
                 attributes: true,
                 attributeFilter: ["alt"]
             });
@@ -231,17 +265,19 @@
     function applyLanguage(language, options = {}) {
         if (!state.config || !state.catalogs[language]) return;
         state.language = language;
-        window.INIT_LANGUAGE = language;
+        if (!options.silent) window.INIT_LANGUAGE = language;
 
         const languageConfig = state.config.languages.find((item) => item.code === language);
-        document.documentElement.lang = languageConfig?.htmlLang || language;
-        document.documentElement.dataset.language = language;
-        document.querySelector('meta[property="og:locale"]')?.setAttribute("content", languageConfig?.ogLocale || "");
+        pageDocument.documentElement.lang = languageConfig?.htmlLang || language;
+        pageDocument.documentElement.dataset.language = language;
+        pageDocument.querySelector('meta[property="og:locale"]')?.setAttribute("content", languageConfig?.ogLocale || "");
 
         registry.forEach((entry) => {
             const value = translate(entry.key);
             if (entry.type === "text") {
                 entry.node.nodeValue = `${entry.leading}${value}${entry.trailing}`;
+            } else if (entry.type === "content") {
+                entry.element.replaceChildren(localizedContent(value));
             } else {
                 entry.element.setAttribute(entry.name, value);
             }
@@ -252,34 +288,39 @@
         syncRuntimeContent();
         updateLanguageControls();
         if (options.persist !== false) persistLanguage(state.config, language);
-        document.dispatchEvent(new CustomEvent("init:languagechange", { detail: { language } }));
+        if (!options.silent) pageDocument.dispatchEvent(new CustomEvent("init:languagechange", { detail: { language } }));
     }
 
     async function setLanguage(candidate) {
         if (!state.config) return;
         const language = supportedLanguage(state.config, candidate);
         if (!state.catalogs[language]) {
-            state.catalogs[language] = await fetchJson(catalogUrl(state.config, language));
+            state.catalogs[language] = withNavigation(language, await fetchJson(catalogUrl(state.config, language)));
         }
         applyLanguage(language);
     }
 
     function bindLanguageControls() {
-        document.querySelectorAll("[data-language]").forEach((button) => {
+        pageDocument.querySelectorAll(".language-switcher [data-language]").forEach((button) => {
             button.addEventListener("click", () => setLanguage(button.dataset.language));
         });
     }
 
+    function withNavigation(language, catalog) {
+        return {...catalog, ...(window.INIT_NAVIGATION_CATALOGS?.[language] || {})};
+    }
+
     async function initialize() {
         if (!configUrl) throw new Error("Missing i18n configuration URL.");
-        const config = await fetchJson(configUrl);
+        const config = window.INIT_I18N_PRELOAD?.config || await fetchJson(configUrl);
         state.config = config;
         state.language = supportedLanguage(config, storedLanguage(config));
-        state.catalogs.ko = await fetchJson(catalogUrl(config, "ko"));
+        state.catalogs.ko = withNavigation("ko", window.INIT_I18N_PRELOAD?.catalogs?.ko || await fetchJson(catalogUrl(config, "ko")));
         if (state.language !== "ko") {
-            state.catalogs[state.language] = await fetchJson(catalogUrl(config, state.language));
+            state.catalogs[state.language] = withNavigation(state.language, await fetchJson(catalogUrl(config, state.language)));
         }
         Object.entries(state.catalogs.ko).forEach(([key, value]) => state.sourceIndex.set(normalize(value), key));
+        registerExplicitContent();
         registerTextNodes();
         registerAttributes();
         registerStructuredData();
@@ -289,8 +330,47 @@
         return state.language;
     }
 
+    function prepare(targetDocument, preload) {
+        const saved = {pageDocument,state,registry,structuredData,localizedMetaImages};
+        const next = {
+            pageDocument:targetDocument,
+            state:{
+                config:preload.config,
+                catalogs:Object.fromEntries(["ko","en"].map(language=>[language,{...preload.catalogs[language],...preload.navigation[language]}])),
+                language:window.INIT_LANGUAGE,
+                sourceIndex:new Map()
+            },
+            registry:[],structuredData:[],localizedMetaImages:[]
+        };
+        function use(value) {
+            ({pageDocument,state,registry,structuredData,localizedMetaImages}=value);
+        }
+        function localized(language) {
+            const active = {pageDocument,state,registry,structuredData,localizedMetaImages};
+            use(next);
+            applyLanguage(supportedLanguage(state.config,language),{persist:false,silent:true});
+            use(active);
+        }
+        try {
+            use(next);
+            Object.entries(state.catalogs.ko).forEach(([key,value])=>state.sourceIndex.set(normalize(value),key));
+            registerExplicitContent(); registerTextNodes(); registerAttributes(); registerStructuredData();
+            applyLanguage(supportedLanguage(state.config,window.INIT_LANGUAGE),{persist:false,silent:true});
+        } finally { use(saved); }
+        return {
+            localize:localized,
+            get language(){return next.state.language;},
+            activate() {
+                runtimeObservers.splice(0).forEach(observer=>observer.disconnect());
+                use({...next,pageDocument:document});
+                bindLanguageControls(); observeRuntimeContent();
+                applyLanguage(state.language,{persist:false});
+            }
+        };
+    }
+
     const ready = initialize().catch((error) => {
-        document.documentElement.dataset.language = "ko";
+        pageDocument.documentElement.dataset.language = "ko";
         console.warn(error.message);
         return "ko";
     });
@@ -299,6 +379,7 @@
     window.INIT_I18N = Object.freeze({
         ready,
         setLanguage,
+        prepare,
         t: translate,
         getLanguage: () => state.language
     });

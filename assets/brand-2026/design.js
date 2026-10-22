@@ -1,7 +1,15 @@
 /* Decorative enhancement only: does not change copy, links, data or event handlers. */
-(() => {
- 'use strict';
+(function () {
+    "use strict";
  const assetRoot = new URL('.', document.currentScript.src);
+    window.INIT_PAGE.register("assets/brand-2026/design.js", function (context = {}) {
+    const pageDocument = context.document || document;
+    const assetUrl = context.assetUrl || window.INIT_ASSETS.url;
+    const scope = window.INIT_PAGE.scope();
+    const listen = scope.listen;
+
+
+
  const icons={
   people:'<circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M17 4a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v3"/>',
   statistics:'<path d="M4 3v17h17M8 16v-4m5 4V7m5 9v-6M7 8l5-4 6 2"/>',
@@ -14,37 +22,38 @@
   contact:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>'
  };
  const svg=(name)=>`<svg class="init-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${icons[name]||icons.data}</svg>`;
- const page=document.body.dataset.page||'home';
+ const page=pageDocument.body.dataset.page||'home';
  const pageIcon={home:'data',company:'people',services:'statistics',solutions:'ai',projects:'project',careers:'growth',contact:'contact'}[page]||'research';
- document.querySelectorAll('.eyebrow > i').forEach(el=>{el.classList.add('init-mark');el.setAttribute('aria-hidden','true');el.innerHTML=svg(pageIcon)});
+ pageDocument.querySelectorAll('.eyebrow > i').forEach(el=>{el.classList.add('init-mark');el.setAttribute('aria-hidden','true');el.innerHTML=svg(pageIcon)});
  ['strategy','quality','analytics','system'].forEach((name,i)=>{
-  const el=document.querySelector('.summary-card-visual--'+name);
+  const el=pageDocument.querySelector('.summary-card-visual--'+name);
   if(el) el.innerHTML=svg(['statistics','data','ai','survey'][i]);
  });
  ['consulting','quality','analytics','engineering'].forEach((name,i)=>{
-  const el=document.querySelector('#'+name+' .corp-service-index');
+  const el=pageDocument.querySelector('#'+name+' .corp-service-index');
   if(el&&!el.querySelector('.init-icon'))el.insertAdjacentHTML('beforeend',svg(['statistics','data','ai','project'][i]));
  });
  function editorialPhoto(selector,name){
-  const el=document.querySelector(selector);if(!el||el.querySelector('.init-editorial-photo'))return;
-  const figure=document.createElement('div');figure.className='init-editorial-photo';figure.setAttribute('aria-hidden','true');
-  const img=document.createElement('img');img.src=new URL(name+'.webp',assetRoot).href;img.alt='';img.loading='lazy';img.decoding='async';img.width=1672;img.height=941;
+  const el=pageDocument.querySelector(selector);if(!el||el.querySelector('.init-editorial-photo'))return;
+  const figure=pageDocument.createElement('div');figure.className='init-editorial-photo';figure.setAttribute('aria-hidden','true');
+  const img=pageDocument.createElement('img');img.src=assetUrl(new URL(name+'.webp',assetRoot).href);img.alt='';img.loading='lazy';img.decoding='async';img.width=1672;img.height=941;
   figure.append(img);el.append(figure);
  }
  editorialPhoto('.corp-team-copy','team');
  editorialPhoto('.corp-growth-layout .corp-heading','growth');
  const locationLabels=[];
- const companyHero=document.querySelector('.menu-family-hero--company');
+ const companyHero=pageDocument.querySelector('.menu-family-hero--company');
  if(companyHero){
-  const caption=document.createElement('p');caption.className='init-place-caption';
-  companyHero.append(caption);
+  const caption=companyHero.querySelector('.init-place-caption') || pageDocument.createElement('p');caption.className='init-place-caption';
+  if(!caption.parentNode)companyHero.append(caption);
   locationLabels.push([caption,'design.location.headquarters']);
  }
- const contactCopy=document.querySelector('.corp-contact-hero .corp-hero-copy');
+ const contactCopy=pageDocument.querySelector('.corp-contact-hero .corp-hero-copy');
  if(contactCopy){
-  const figure=document.createElement('figure');figure.className='init-location-photo';
-  const img=document.createElement('img');img.src=new URL('gaon-rooftop.webp',assetRoot).href;img.width=1000;img.height=560;img.decoding='async';
-  const caption=document.createElement('figcaption');figure.append(img,caption);contactCopy.append(figure);
+  const figure=contactCopy.querySelector('.init-location-photo') || pageDocument.createElement('figure');figure.className='init-location-photo';
+  const img=figure.querySelector('img') || pageDocument.createElement('img');img.src=assetUrl(new URL('gaon-rooftop.webp',assetRoot).href);img.width=1000;img.height=560;img.decoding='async';
+  const caption=figure.querySelector('figcaption') || pageDocument.createElement('figcaption');
+  if(!img.parentNode)figure.append(img);if(!caption.parentNode)figure.append(caption);if(!figure.parentNode)contactCopy.append(figure);
   locationLabels.push([caption,'design.location.sharedSpaces']);
   locationLabels.push([img,'design.location.rooftopAlt','alt']);
  }
@@ -55,7 +64,18 @@
    if(attr)el.setAttribute(attr,text);else el.textContent=text;
   });
  }
- document.addEventListener('init:languagechange',syncLocationLabels);
+ if(context.preparing) {
+  locationLabels.forEach(([el,key,attr])=>{
+   const text=context.catalog[key];
+   if(attr)el.setAttribute(attr,text);else{el.dataset.i18n=key;el.textContent=text;}
+  });
+  pageDocument.documentElement.dataset.initDesign='2026.09';
+  return scope.dispose;
+ }
+ listen(pageDocument,'init:languagechange',syncLocationLabels);
  window.INIT_I18N?.ready.then(syncLocationLabels);
- document.documentElement.dataset.initDesign='2026.09';
-})();
+ pageDocument.documentElement.dataset.initDesign='2026.09';
+
+    return scope.dispose;
+    });
+}());

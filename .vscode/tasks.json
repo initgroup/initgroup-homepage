@@ -47,6 +47,22 @@
             "problemMatcher": []
         },
         {
+            "label": "INIT Homepage: Sync Search Files",
+            "type": "process",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\build-site.ps1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "INIT Homepage: Validate",
             "type": "process",
             "command": "powershell",

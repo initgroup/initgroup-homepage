@@ -1,0 +1,150 @@
+<template id="footer-bottom">
+        <div class="shell footer-bottom"><span>© <b data-current-year>2026</b> INIT. All rights reserved.</span><div class="footer-bottom-links">{{footerLead}}<a class="footer-members-link" href="https://initgroup-members.onrender.com/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>직원전용</span></a></div></div>
+</template>
+
+<template id="footer-compact">
+    <footer class="site-footer">
+{{include:footer-bottom}}
+    </footer>
+</template>
+
+<template id="footer-tagline">
+<span>통계 · 데이터 품질 · AI 분석 · 업무 시스템</span>
+</template>
+
+<template id="footer">
+    <footer class="site-footer">
+        <div class="shell footer-main">
+            <div class="footer-brand"><a href="{{root}}index.html"><img src="{{root}}assets/images/brand/init-logo.png" alt="iNIT"></a><p><span data-i18n="revision20261007.138.1878"><span class="company-name">㈜인아이티</span>는 2013년 출범 이래 통계적 엄밀함과 혁신적인 AI 기술을 융합해 온 데이터 인텔리전스 전문 기업입니다.</span></p></div>
+            <div class="footer-links">
+                <div>
+                    <strong data-i18n="navigation.company">{{text:company}}</strong>
+                    <div class="footer-company-item">
+                        {{link:footer-company}}
+                        <a class="footer-company-download" href="{{root}}assets/downloads/init-company-introduction.pdf" download="INIT_회사소개서.pdf" aria-label="회사소개서 다운로드" title="회사소개서 다운로드">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10m0 0 4-4m-4 4-4-4M5 16v3h14v-3"></path></svg>
+                        </a>
+                    </div>
+                    {{link:projects}}
+                    {{link:careers}}
+                    {{link:footer-privacy}}
+                </div>
+                <div><strong>사업 영역</strong>{{link:services}}{{link:solutions}}</div>
+                <div class="footer-contact"><strong>연락처</strong><a href="mailto:support@initgroup.kr">support@initgroup.kr</a><a href="tel:+827087859647">070-8785-9647</a><address class="footer-address"><span>대전광역시 대덕구 대화로 120</span><span>가온비즈타워 1024호</span></address></div>
+            </div>
+        </div>
+{{include:footer-bottom}}
+    </footer>
+</template>
+
+<template id="header-bar">
+        <div class="header-inner">
+            <a class="brand" href="{{root}}index.html" aria-label="인아이티 홈">
+                <img src="{{root}}assets/images/brand/init-logo.png" alt="iNIT">
+                <span>Data Intelligence</span>
+            </a>
+
+            <nav class="desktop-nav" aria-label="주요 메뉴" data-desktop-nav>
+{{desktopLinks}}
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-switcher" role="group" aria-label="언어 선택" data-language-switcher>
+                    <button type="button" data-language="ko" aria-pressed="true">Korea</button>
+                    <button type="button" data-language="en" aria-pressed="false">English</button>
+                </div>
+                <a class="header-contact" href="{{path:contact}}" data-i18n="navigation.contact">{{text:contact}}</a>
+{{menuToggle}}
+            </div>
+        </div>
+</template>
+
+<template id="header-compact">
+    <header class="site-header" data-site-header>
+{{include:header-bar}}
+    </header>
+</template>
+
+<template id="header">
+    <header class="site-header" data-site-header>
+{{include:header-bar}}
+        {{subNavigation}}
+
+
+        <div id="hoverNavigation" class="hover-navigation" data-hover-menu hidden>
+            <div class="hover-navigation-inner shell">
+{{hoverSections}}
+            </div>
+        </div>
+
+        <div id="siteNavigation" class="full-navigation" data-mobile-menu hidden>
+            <div class="mobile-navigation-head shell">
+                <div>
+                    <span>INIT / ALL MENU</span>
+                    <strong>전체 메뉴를 한 화면에서 확인하세요.</strong>
+                </div>
+                <button type="button" aria-label="전체 메뉴 닫기" data-menu-close>닫기 <i aria-hidden="true">×</i></button>
+            </div>
+
+            <div class="site-map-layout shell">
+                <div class="site-map-intro">
+                    <p>DATA INTELLIGENCE</p>
+                    <strong>통계·데이터 분석과<br>업무 시스템 전문기업.</strong>
+                    <a href="{{root}}contact/index.html">프로젝트·제품 문의 <span aria-hidden="true">↗</span></a>
+                </div>
+
+                <nav class="site-map-grid" aria-label="전체 메뉴">
+{{mobileSections}}
+                </nav>
+            </div>
+        </div>
+        <button class="menu-backdrop" type="button" aria-label="전체 메뉴 닫기" data-menu-backdrop hidden></button>
+    </header>
+</template>
+
+<template id="menu-toggle">
+                <button class="menu-toggle" type="button" aria-label="전체 메뉴 열기" aria-controls="hoverNavigation siteNavigation" aria-expanded="false" data-menu-toggle>
+                    <span class="menu-toggle-label">전체 메뉴</span>
+                    <span class="menu-toggle-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+                </button>
+</template>
+
+<template id="mobile-actions">
+    <div class="mobile-action-bar" aria-label="{{ariaLabel}}">
+        <a href="{{firstHref}}"><span data-i18n="{{firstKey}}">{{firstLabel}}</span></a>
+        <a href="{{secondHref}}"><span data-i18n="{{secondKey}}">{{secondLabel}}</span> <span aria-hidden="true">↗</span></a>
+    </div>
+</template>
+
+<template id="navigation-link">
+<a href="{{href}}"{{attributes}} data-i18n="{{labelKey}}">{{label}}</a>
+</template>
+
+<template id="navigation-section">
+                <section {{sectionAttributes}}>
+                    <a class="{{rootClass}}" href="{{href}}"><span>{{number}}</span><strong data-i18n="{{labelKey}}">{{label}}</strong></a>
+                    <ul>
+{{links}}
+                    </ul>
+                </section>
+</template>
+
+<template id="scroll-progress">
+    <div class="scroll-progress" aria-hidden="true"><i data-scroll-progress></i></div>
+</template>
+
+<template id="skip-link">
+    <p class="visually-hidden" role="status" aria-live="polite" data-page-status></p>
+    <a class="skip-link" href="#mainContent">본문으로 바로가기</a>
+</template>
+
+<template id="sub-navigation">
+        <div class="page-sub-navigation" data-page-sub-navigation data-navigation-mode="{{mode}}">
+            <div class="page-sub-navigation-inner shell">
+                <a class="page-sub-navigation-root" href="{{href}}"><strong data-i18n="{{labelKey}}">{{label}}</strong></a>
+                <nav class="page-sub-navigation-links" aria-label="{{ariaLabel}}">
+{{links}}
+                </nav>
+            </div>
+        </div>
+</template>

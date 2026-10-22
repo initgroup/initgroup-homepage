@@ -28,6 +28,8 @@
   "assets/i18n/en.json",
   "assets/i18n/ko.json",
   "assets/images/brand/favicon.svg",
+  "assets/images/brand/apple-touch-icon.png",
+  "assets/images/brand/favicon.ico",
   "assets/images/brand/init-logo.png",
   "assets/images/design-system/grid-dark.svg",
   "assets/images/design-system/grid-light.svg",
@@ -71,7 +73,6 @@
   "assets/images/section-backgrounds/home-solutions-platform-dark.png",
   "assets/images/section-backgrounds/solutions-operating-path-dark.png",
   "assets/images/section-backgrounds/solutions-portfolio-light.png",
-  "assets/js/boot.js",
   "assets/js/home-video.js",
   "assets/js/i18n.js",
   "assets/js/site.js",
@@ -89,5 +90,9 @@
   "solutions/data-editing-system/index.html",
   "solutions/in-surveyone/index.html",
   "solutions/inbups/index.html",
-  "solutions/index.html"
+  "solutions/index.html",
+  "assets/js/common.js",
+  "assets/shared/site.json",
+  "assets/shared/layout.html",
+  "assets/js/navigation.js"
 ]

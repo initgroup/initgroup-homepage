@@ -3,6 +3,8 @@ param()
 
 $ErrorActionPreference = 'Stop'
 $siteRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+& (Join-Path $PSScriptRoot 'build-site.ps1')
+& (Join-Path $PSScriptRoot 'update-asset-versions.ps1')
 & (Join-Path $PSScriptRoot 'validate.ps1')
 $manifest = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'static-files.json') | ConvertFrom-Json
 $outputRoot = [IO.Path]::GetFullPath((Join-Path $siteRoot 'dist/site'))
