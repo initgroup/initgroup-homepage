@@ -56,7 +56,7 @@
 - 공통 스타일은 공통 CSS 변수와 원본 규칙으로 제어합니다. 페이지별 인라인 스타일이나 중복 override를 추가하지 않습니다. HTML·site.json은 캐시 재검증을 사용하고 내용 해시가 붙은 자산은 캐시를 재사용합니다. 페이지별 버전 문자열을 수동 관리하지 않습니다.
 - scripts/build-site.ps1과 sync-head.ps1은 sitemap·robots 갱신용 호환 도구일 뿐 HTML을 수정하지 않습니다. 공통 변경 후 validate.ps1, test-common-loader.cjs, static-smoke.cjs로 한 곳 변경 전파·HTML 불변·ko/en·PC/모바일·스크립트 순서와 중복 방지를 검증합니다.
 - ㈜인아이티와 (주) 인아이티는 .company-name으로 묶어 법인 표시와 회사명이 분리되지 않도록 합니다. 회사명 포함 번역 문장은 data-i18n과 한국어 span을 사용하고 기능 요소를 번역 span 안에 넣지 않습니다.
-- 문의 마지막 제목은 .heading-lines > .heading-line의 네 문맥 구간을 유지합니다. 한국어 PC의 네 줄과 좁은 화면의 추가 줄바꿈, 자연스러운 영어 흐름을 확인합니다.
+- 문의 마지막 제목은 .heading-lines > .heading-line의 네 문맥 구간을 유지합니다. 한국어 PC의 네 줄과 좁은 화면의 추가 줄바꿈, 자연스러운 영어 흐름을 확인합니다. corporate.css에서 제목 칸의 폭과 균형 줄바꿈을 제어하며 72rem 이하에서는 이메일 영역을 아래로 배치해 마지막 서술어만 고립되지 않도록 합니다.
 
 ## 캐시와 화면 전환 유지 기준
 

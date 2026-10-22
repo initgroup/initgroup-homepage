@@ -622,11 +622,12 @@ html[lang="ko"] .corp-delivery-title-compact { white-space: nowrap; }
 .corp-inquiry-scope small { color: var(--muted); font-size: 0.76rem; }
 
 .corp-contact-final { color: #fff; background: var(--brand-strong); }
-.corp-contact-final-inner { display: grid; align-items: end; min-height: 30rem; padding-block: clamp(4rem, 7vw, 7rem); grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.55fr); gap: clamp(3rem, 9vw, 9rem); }
-.corp-contact-final h2 { max-width: 20ch; margin-bottom: 0; font-size: clamp(2.25rem, 3.5vw, 3.4rem); line-height: 1.16; }
-.corp-contact-final-inner > div:last-child p { margin: 1rem 0 0; color: rgba(255, 255, 255, 0.78); font-size: 0.72rem; }
+.corp-contact-final-inner { display: grid; align-items: end; min-height: 30rem; padding-block: clamp(4rem, 7vw, 7rem); grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.42fr); gap: clamp(2rem, 4vw, 4rem); }
+.corp-contact-final h2 { max-width: 20ch; margin-bottom: 0; font-size: clamp(2.25rem, 3.5vw, 3.4rem); line-height: 1.16; text-wrap: balance; }
+.corp-contact-final-inner > div:last-child p { margin: 1rem 0 0; color: rgba(255, 255, 255, 0.78); font-size: 0.72rem; word-break: keep-all; text-wrap: balance; }
 
 @media (max-width: 72rem) {
+    .corp-contact-final-inner { min-height: 0; grid-template-columns: 1fr; gap: 2.5rem; }
     .corp-delivery-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .corp-hero { min-height: auto; }
     .corp-hero-grid,
@@ -652,6 +653,7 @@ html[lang="ko"] .corp-delivery-title-compact { white-space: nowrap; }
 }
 
 @media (max-width: 50rem) {
+    .corp-contact-final { --section-title-size: clamp(1.625rem, 8vw, 2.15rem); }
     .corp-hero { min-height: auto; }
     .corp-hero::before { top: 30%; right: -20rem; }
     .corp-hero-grid,
