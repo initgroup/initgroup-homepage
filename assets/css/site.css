@@ -299,11 +299,6 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
 .page-sub-navigation-links a:hover { color: var(--ink); }
 .page-sub-navigation-links a.is-current { color: var(--brand-strong); font-weight: 800; }
 .page-sub-navigation-links a.is-current::after { transform: scaleX(1); }
-.page-sub-navigation[data-navigation-mode="pages"] .page-sub-navigation-links { align-items: center; gap: 0.45rem; }
-.page-sub-navigation[data-navigation-mode="pages"] .page-sub-navigation-links a[data-navigation-item="product"] { min-height: 2.65rem; margin-block: 0.35rem; padding-inline: 0.85rem; border: 1px solid #cdd9eb; border-radius: 0.7rem; background: rgba(255, 255, 255, 0.86); box-shadow: 0 0.25rem 0.8rem rgba(32, 67, 127, 0.045); }
-.page-sub-navigation[data-navigation-mode="pages"] .page-sub-navigation-links a[data-navigation-item="product"]::after { display: none; }
-.page-sub-navigation[data-navigation-mode="pages"] .page-sub-navigation-links a[data-navigation-item="product"]:hover { color: var(--brand-strong); border-color: #96afe0; background: #fff; }
-.page-sub-navigation[data-navigation-mode="pages"] .page-sub-navigation-links a[data-navigation-item="product"].is-current { color: #fff; border-color: var(--brand); background: var(--brand); box-shadow: 0 0.35rem 1rem rgba(36, 87, 214, 0.18); }
 
 .hover-navigation {
     position: absolute;
@@ -337,11 +332,6 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
 .hover-navigation li a:hover { padding-left: 0.35rem; }
 .hover-navigation li a.is-current { padding-left: 0.85rem; color: var(--brand-strong); font-weight: 820; }
 .hover-navigation li a.is-current::before { position: absolute; top: 50%; left: 0; width: 0.38rem; height: 0.38rem; border-radius: 50%; background: var(--brand); content: ""; transform: translateY(-50%); }
-.hover-navigation section[data-navigation-mode="pages"] li a[data-navigation-item="product"] { margin-bottom: 0.35rem; padding-inline: 0.65rem; border: 1px solid #ccd8ea; border-radius: 0.55rem; background: #fff; box-shadow: 0 0.2rem 0.55rem rgba(30, 61, 114, 0.045); }
-.hover-navigation section[data-navigation-mode="pages"] li a[data-navigation-item="product"]:hover,
-.hover-navigation section[data-navigation-mode="pages"] li a[data-navigation-item="product"]:focus-visible { color: var(--brand-strong); border-color: #8fa9dc; background: #fff; }
-.hover-navigation section[data-navigation-mode="pages"] li a[data-navigation-item="product"].is-current { padding-left: 1.25rem; }
-.hover-navigation section[data-navigation-mode="pages"] li a[data-navigation-item="product"].is-current::before { left: 0.55rem; }
 
 .full-navigation {
     position: fixed;
@@ -416,10 +406,6 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
 .site-map-grid li a { display: flex; align-items: center; min-height: 2.75rem; padding: 0.35rem 0; color: rgba(255, 255, 255, 0.68); font-size: 1rem; line-height: 1.35; }
 .site-map-grid li a:hover, .site-map-root:hover { color: var(--mint); }
 .site-map-grid li a.is-current { color: #fff; font-weight: 800; text-decoration: underline; text-decoration-color: var(--mint); text-decoration-thickness: 2px; text-underline-offset: 0.35rem; }
-.site-map-grid section[data-navigation-mode="pages"] li a[data-navigation-item="product"] { min-height: 2.55rem; margin-bottom: 0.35rem; padding: 0.35rem 0.6rem; border: 1px solid rgba(135, 169, 235, 0.42); border-radius: 0.55rem; background: rgba(66, 103, 178, 0.14); }
-.site-map-grid section[data-navigation-mode="pages"] li a[data-navigation-item="product"]:hover,
-.site-map-grid section[data-navigation-mode="pages"] li a[data-navigation-item="product"]:focus-visible { color: var(--mint); border-color: rgba(78, 215, 189, 0.62); background: rgba(66, 103, 178, 0.24); }
-.site-map-grid section[data-navigation-mode="pages"] li a[data-navigation-item="product"].is-current { color: #fff; border-color: rgba(78, 215, 189, 0.62); background: rgba(66, 103, 178, 0.28); }
 .menu-backdrop { position: fixed; z-index: 201; inset: 0; background: rgba(4, 14, 30, 0.48); cursor: default; animation: menu-backdrop-fade 180ms ease-out both; -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
 
 .eyebrow {
@@ -1326,10 +1312,11 @@ html[lang="en"] .home-company-metrics dd { line-height: 1.3; white-space: normal
 .solution-summary-card--surveyone .solution-summary-media { background: linear-gradient(135deg, rgba(166, 154, 255, 0.08), rgba(88, 185, 255, 0.025)); }
 .solution-summary-copy { display: flex; min-width: 0; height: auto; min-height: 32.6rem; padding: clamp(1.75rem, 2.5vw, 2.6rem); flex: 1 0 auto; flex-direction: column; }
 .solution-summary-copy > span { color: var(--solution-accent); font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; }
-.solution-summary-copy h3 { display: flex; flex-wrap: wrap; align-items: baseline; align-content: start; column-gap: 0.25em; row-gap: 0.1em; min-height: 0; margin: 1.1rem 0 1.1rem; font-size: clamp(1.8rem, 1.8vw, 2.15rem); line-height: 1.14; }
+.solution-summary-copy h3 { min-height: 0; margin: 1.1rem 0 1.1rem; font-size: clamp(1.8rem, 1.8vw, 2.15rem); line-height: 1.14; word-break: keep-all; overflow-wrap: anywhere; }
 .solution-summary-copy h3 b { color: var(--solution-accent); font-weight: inherit; white-space: nowrap; }
 html[lang="en"] .ko-brand-name { display: none; }
-.solution-summary-copy p { min-height: 6.9rem; margin: 0; color: rgba(255, 255, 255, 0.76); font-size: 1rem; line-height: 1.75; }
+.solution-summary-copy p { min-height: 6.9rem; margin: 0; color: rgba(255, 255, 255, 0.76); font-size: 1rem; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere; }
+.solution-summary-copy .solution-summary-context { min-height: 0; margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
 .solution-summary-copy ul { display: flex; align-content: flex-start; flex-wrap: wrap; min-height: 3rem; margin: 1.2rem 0 1.4rem; padding: 0; list-style: none; gap: 0.5rem; }
 .solution-summary-copy li { padding: 0.55rem 0.75rem; color: rgba(255, 255, 255, 0.86); border: 1px solid rgba(126, 218, 214, 0.26); border-radius: 999px; font-size: 1rem; }
 .solution-summary-copy > a { margin-top: auto; justify-self: end; align-self: flex-end; }
@@ -1375,13 +1362,15 @@ html[lang="en"] .ko-brand-name { display: none; }
 .home-contact h2 { max-width: 18ch; margin: 0; font-size: clamp(2.35rem, 3.6vw, 3.4rem); line-height: 1.16; }
 .home-contact-inner > div:last-child p { color: rgba(255, 255, 255, 0.78); font-size: 1rem; line-height: 1.75; }
 
-/* Product copy shares five content rows across the desktop lineup. */
+/* Solution copy shares six content rows across the desktop lineup. */
 @media (min-width: 72.01rem) {
-    .solution-summary-card { display: grid; min-height: 0; grid-template-rows: subgrid; grid-row: span 6; row-gap: 0; }
-    .solution-summary-copy { display: grid; min-height: 0; flex: none; grid-template-rows: subgrid; grid-row: span 5; row-gap: 0; }
+    .solution-summary-card { display: grid; min-height: 0; grid-template-rows: subgrid; grid-row: span 7; row-gap: 0; }
+    .solution-summary-copy { display: grid; min-height: 0; flex: none; grid-template-rows: subgrid; grid-row: span 6; row-gap: 0; }
     .solution-summary-copy > p { min-height: 0; }
     .solution-summary-copy > ul { align-items: flex-start; align-content: start; }
     .solution-summary-copy > a { margin-top: 0; }
+    .solution-summary-media { margin-top: 0; justify-content: flex-start; }
+    .inbaps-summary-flow { margin-top: 0; }
 }
 
 @media (max-width: 72rem) {
@@ -1423,6 +1412,14 @@ html[lang="en"] .ko-brand-name { display: none; }
 
 @media (max-width: 50rem) {
     :root { --header-height: 4.5rem; }
+    :root:has(body[data-page="solutions"]) { --sub-navigation-height: 4.9rem; }
+    .page-sub-navigation[data-navigation-mode="pages"] .page-sub-navigation-links a[data-navigation-item="product"] {
+        max-width: calc(100vw - 8.5rem);
+        min-height: var(--sub-navigation-height);
+        white-space: normal;
+        text-wrap: balance;
+        line-height: 1.25;
+    }
     .page-sub-navigation-inner { width: calc(100% - 1rem); }
     .page-sub-navigation-root { min-width: 6.6rem; max-width: 8rem; padding-right: 0.7rem; }
     .page-sub-navigation-links a { padding-inline: 0.7rem; }

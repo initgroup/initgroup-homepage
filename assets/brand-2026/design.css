@@ -89,8 +89,8 @@ h1,h2,h3{letter-spacing:-.045em} h1{line-height:1.22!important} h2{line-height:1
 .summary-card-visual .init-icon :is(path,rect,circle,ellipse){fill:none;stroke:currentColor;stroke-width:1.5;vector-effect:none}
 .capability-summary-card h3{font-size:1.65rem;line-height:1.45}
 .solution-summary-card{--solution-accent:#2155bc;color:var(--init-ink);background:#fff;border:1px solid #cad9e7;border-top:2px solid var(--solution-accent);border-radius:.6rem;box-shadow:none}
-.solution-summary-card:nth-child(2){--solution-accent:#176959}
-.solution-summary-card:nth-child(3){--solution-accent:#5748a2}
+.solution-summary-card--inbaps{--solution-accent:#176959}
+.solution-summary-card--surveyone{--solution-accent:#5748a2}
 .solution-summary-card :is(h3,b,strong){color:var(--init-ink)}
 .solution-summary-card :is(p,small,figcaption){color:var(--init-body)}
 .solution-summary-card :is(.solution-summary-kicker,.solution-summary-link){color:var(--solution-accent)}

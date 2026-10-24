@@ -487,6 +487,7 @@
     });
     listen(document,"init:languagechange", () => {
         requestReadableTypeFloor();
+        requestScrollUiUpdate();
         scope.frame(revealDetailNavigationLocation);
     });
     listen(desktopNavigation,"change", handleNavigationViewport);

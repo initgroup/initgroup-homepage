@@ -354,8 +354,7 @@ html[lang="en"] .sol-architecture-ko-name {
     transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
-.sol-product-card--indeps,
-.sol-product-card--inbaps {
+.sol-product-card--compact {
     grid-column: span 6;
 }
 
@@ -367,6 +366,9 @@ html[lang="en"] .sol-architecture-ko-name {
 .sol-product-card--surveyone {
     --product-accent: #6547e8;
     --product-accent-dark: #4b32b7;
+}
+
+.sol-product-card--wide {
     min-height: 31rem;
     grid-column: 1 / -1;
     grid-template-areas:
@@ -379,11 +381,11 @@ html[lang="en"] .sol-architecture-ko-name {
     column-gap: clamp(2rem, 4vw, 4.5rem);
 }
 
-.sol-product-card--surveyone .sol-product-card-top { grid-area: product-top; }
-.sol-product-card--surveyone h3 { grid-area: product-title; }
-.sol-product-card--surveyone > p { grid-area: product-copy; }
-.sol-product-card--surveyone .sol-product-evidence { align-self: center; margin: 0; grid-area: product-evidence; }
-.sol-product-card--surveyone .sol-card-link { grid-area: product-link; }
+.sol-product-card--wide .sol-product-card-top { grid-area: product-top; }
+.sol-product-card--wide h3 { grid-area: product-title; }
+.sol-product-card--wide > .sol-product-copy { grid-area: product-copy; }
+.sol-product-card--wide .sol-product-evidence { align-self: center; margin: 0; grid-area: product-evidence; }
+.sol-product-card--wide .sol-card-link { grid-area: product-link; }
 
 .sol-product-card:hover {
     border-color: rgba(36, 87, 214, 0.38);
@@ -414,7 +416,7 @@ html[lang="en"] .sol-architecture-ko-name {
 }
 
 .sol-product-cards .sol-product-card h3 {
-    max-width: 18ch;
+    max-width: none;
     margin-bottom: 1rem;
     font-size: clamp(2rem, 2.15vw, 2.3rem);
     line-height: 1.06;
@@ -422,12 +424,26 @@ html[lang="en"] .sol-architecture-ko-name {
     word-break: keep-all;
 }
 
-.sol-product-card > p {
+.sol-product-copy {
     max-width: 40rem;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
     color: var(--muted);
     font-size: 1rem;
     line-height: 1.72;
 }
+
+.sol-product-description { margin: 0; }
+.sol-product-context { display: block; margin: 0.9rem 0 0; padding-top: 0.9rem; border-top: 1px solid var(--line); color: var(--text-description); }
+.sol-application-section { background: #f4f7fb; border-bottom: 1px solid var(--line); }
+.sol-application-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.25rem; }
+.sol-application-card { display: flex; min-width: 0; flex-direction: column; padding: clamp(1.4rem, 2.5vw, 2rem); border: 1px solid var(--line); border-radius: 0.8rem; background: #fff; }
+.sol-application-card .sol-application-sector { margin: 0 0 1rem; color: var(--brand-strong); font-size: 0.9rem; font-weight: 800; line-height: 1.5; }
+.sol-application-card h3 { margin: 0 0 0.8rem; font-size: 1.35rem; line-height: 1.4; }
+.sol-application-card > p { color: var(--text-description); font-size: 1rem; line-height: 1.75; }
+.sol-application-card > a { align-self: flex-start; margin-top: auto; padding-top: 1rem; color: var(--brand-strong); font-size: 0.95rem; font-weight: 750; line-height: 1.5; }
+.sol-application-card > a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.sol-application-card > a:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
 
 .sol-product-fullname {
     display: block;
@@ -2476,6 +2492,21 @@ html[lang="en"] .sol-architecture-ko-name {
 .survey-cta__inner > div:last-child { padding: 1.75rem; border: 1px solid #ceddea; border-radius: 1rem; background: rgba(255, 255, 255, 0.82); box-shadow: 0 1.3rem 3rem rgba(18, 54, 94, 0.09); }
 .survey-cta__inner > div:last-child p { color: var(--text-description); font-size: 1rem; line-height: 1.75; }
 
+/* Share content rows across the two desktop solution cards. */
+@media (min-width: 72.01rem) {
+    .sol-product-card--compact {
+        grid-row: span 7;
+        grid-template-rows: subgrid;
+        row-gap: 0;
+    }
+    .sol-product-card--compact > .sol-product-copy {
+        display: grid;
+        grid-row: span 3;
+        grid-template-rows: subgrid;
+        row-gap: 0;
+    }
+}
+
 @media (max-width: 72rem) {
     .sol-hero-grid {
         grid-template-columns: minmax(0, 1fr);
@@ -2516,15 +2547,10 @@ html[lang="en"] .sol-architecture-ko-name {
     }
 
     .sol-product-cards { grid-template-columns: 1fr; }
-    .sol-product-card,
-    .sol-product-card--indeps,
-    .sol-product-card--inbaps,
-    .sol-product-card--surveyone { min-height: 0; grid-column: auto; }
-
-    .sol-product-card--indeps,
-    .sol-product-card--inbaps,
-    .sol-product-card--surveyone {
+    .sol-product-card {
         display: grid;
+        min-height: 0;
+        grid-column: auto;
         grid-template-areas:
             "product-top product-evidence"
             "product-title product-evidence"
@@ -2535,16 +2561,11 @@ html[lang="en"] .sol-architecture-ko-name {
         column-gap: 2rem;
     }
 
-    .sol-product-card--indeps .sol-product-card-top,
-    .sol-product-card--inbaps .sol-product-card-top { grid-area: product-top; }
-    .sol-product-card--indeps h3,
-    .sol-product-card--inbaps h3 { grid-area: product-title; }
-    .sol-product-card--indeps > p,
-    .sol-product-card--inbaps > p { grid-area: product-copy; }
-    .sol-product-card--indeps .sol-product-evidence,
-    .sol-product-card--inbaps .sol-product-evidence { align-self: center; margin: 0; grid-area: product-evidence; }
-    .sol-product-card--indeps .sol-card-link,
-    .sol-product-card--inbaps .sol-card-link { grid-area: product-link; }
+    .sol-product-card--compact .sol-product-card-top { grid-area: product-top; }
+    .sol-product-card--compact h3 { grid-area: product-title; }
+    .sol-product-card--compact > .sol-product-copy { grid-area: product-copy; }
+    .sol-product-card--compact .sol-product-evidence { align-self: center; margin: 0; grid-area: product-evidence; }
+    .sol-product-card--compact .sol-card-link { grid-area: product-link; }
 
     .survey-hero__grid { grid-template-columns: 1fr; }
     .survey-hero__copy { max-width: 50rem; }
@@ -2675,43 +2696,24 @@ html[lang="en"] .sol-architecture-ko-name {
         grid-template-columns: 1fr;
     }
 
-    .sol-product-card--surveyone { grid-column: auto; }
-
     .sol-product-card {
         display: flex;
         min-height: 0;
         padding: 1.35rem;
         border-radius: 1rem;
         flex-direction: column;
-    }
-
-    .sol-product-card--indeps,
-    .sol-product-card--inbaps,
-    .sol-product-card--surveyone {
         grid-template-areas: none;
         grid-template-columns: none;
         grid-template-rows: none;
     }
 
-    .sol-product-card--indeps .sol-product-card-top,
-    .sol-product-card--inbaps .sol-product-card-top,
-    .sol-product-card--surveyone .sol-product-card-top,
-    .sol-product-card--indeps h3,
-    .sol-product-card--inbaps h3,
-    .sol-product-card--surveyone h3,
-    .sol-product-card--indeps > p,
-    .sol-product-card--inbaps > p,
-    .sol-product-card--surveyone > p,
-    .sol-product-card--indeps .sol-product-evidence,
-    .sol-product-card--inbaps .sol-product-evidence,
-    .sol-product-card--surveyone .sol-product-evidence,
-    .sol-product-card--indeps .sol-card-link,
-    .sol-product-card--inbaps .sol-card-link,
-    .sol-product-card--surveyone .sol-card-link { grid-area: auto; }
+    .sol-product-card .sol-product-card-top,
+    .sol-product-card h3,
+    .sol-product-card > .sol-product-copy,
+    .sol-product-card .sol-product-evidence,
+    .sol-product-card .sol-card-link { grid-area: auto; }
 
-    .sol-product-card--indeps .sol-product-evidence,
-    .sol-product-card--inbaps .sol-product-evidence,
-    .sol-product-card--surveyone .sol-product-evidence { margin-top: 1rem; }
+    .sol-product-card .sol-product-evidence { margin-top: 1rem; }
 
     .sol-product-cards .sol-product-card h3 {
         font-size: clamp(2rem, 8vw, 2.25rem);
@@ -3104,9 +3106,7 @@ html[lang="en"] .sol-architecture-ko-name {
 }
 
 @media (min-width: 44.01rem) and (max-width: 50rem) {
-    .sol-product-card--indeps,
-    .sol-product-card--inbaps,
-    .sol-product-card--surveyone {
+    .sol-product-card {
         display: grid;
         grid-template-areas:
             "product-top product-evidence"
@@ -3118,21 +3118,11 @@ html[lang="en"] .sol-architecture-ko-name {
         column-gap: 1.25rem;
     }
 
-    .sol-product-card--indeps .sol-product-card-top,
-    .sol-product-card--inbaps .sol-product-card-top,
-    .sol-product-card--surveyone .sol-product-card-top { grid-area: product-top; }
-    .sol-product-card--indeps h3,
-    .sol-product-card--inbaps h3,
-    .sol-product-card--surveyone h3 { grid-area: product-title; }
-    .sol-product-card--indeps > p,
-    .sol-product-card--inbaps > p,
-    .sol-product-card--surveyone > p { grid-area: product-copy; }
-    .sol-product-card--indeps .sol-product-evidence,
-    .sol-product-card--inbaps .sol-product-evidence,
-    .sol-product-card--surveyone .sol-product-evidence { align-self: center; margin: 0; grid-area: product-evidence; }
-    .sol-product-card--indeps .sol-card-link,
-    .sol-product-card--inbaps .sol-card-link,
-    .sol-product-card--surveyone .sol-card-link { grid-area: product-link; }
+    .sol-product-card .sol-product-card-top { grid-area: product-top; }
+    .sol-product-card h3 { grid-area: product-title; }
+    .sol-product-card > .sol-product-copy { grid-area: product-copy; }
+    .sol-product-card .sol-product-evidence { align-self: center; margin: 0; grid-area: product-evidence; }
+    .sol-product-card .sol-card-link { grid-area: product-link; }
     .sol-product-cards .sol-product-card h3 { font-size: 2rem; }
 }
 

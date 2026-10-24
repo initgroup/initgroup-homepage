@@ -876,17 +876,17 @@
           "about": [
             {
               "@id": {
-                "sitePath": "solutions/data-editing-system/#software"
-              }
-            },
-            {
-              "@id": {
                 "sitePath": "solutions/inbups/#software"
               }
             },
             {
               "@id": {
                 "sitePath": "solutions/in-surveyone/#software"
+              }
+            },
+            {
+              "@id": {
+                "sitePath": "solutions/data-editing-system/#software"
               }
             }
           ],
@@ -1013,22 +1013,22 @@
       "solutions-data-editing-system": {
         "path": "solutions/data-editing-system/index.html",
         "label": {
-          "ko": "인뎁스 IN-DEPS",
-          "en": "IN-DEPS"
+          "ko": "AI 데이터 품질 거버넌스",
+          "en": "AI Data Quality Governance"
         }
       },
       "solutions-inbups": {
         "path": "solutions/inbups/index.html",
         "label": {
-          "ko": "인법스 IN-BAPS",
-          "en": "IN-BAPS"
+          "ko": "통합 데이터 의사결정 솔루션",
+          "en": "Integrated Data Decision-Making Solution"
         }
       },
       "solutions-in-surveyone": {
         "path": "solutions/in-surveyone/index.html",
         "label": {
-          "ko": "인서베이원 IN-SURVEYONE",
-          "en": "IN-SURVEYONE"
+          "ko": "통합 설문조사 운영 솔루션",
+          "en": "Integrated Survey Operations Solution"
         }
       },
       "projects": {
@@ -1233,6 +1233,13 @@
           "ko": "제품 비교",
           "en": "Product Comparison"
         }
+      },
+      "services-overview": {
+        "path": "services/index.html",
+        "label": {
+          "ko": "서비스 개요",
+          "en": "Service Overview"
+        }
       }
     },
     "groups": [
@@ -1253,7 +1260,7 @@
         "mode": "sections",
         "root": "services",
         "items": [
-          "services",
+          "services-overview",
           "services-consulting",
           "services-quality",
           "services-analytics",
@@ -1266,9 +1273,9 @@
         "root": "solutions",
         "items": [
           "solutions-overview",
-          "solutions-data-editing-system",
           "solutions-inbups",
-          "solutions-in-surveyone"
+          "solutions-in-surveyone",
+          "solutions-data-editing-system"
         ]
       },
       {
@@ -1381,7 +1388,7 @@
   },
   "assetVersions": {
     "assets/brand-2026/careers.webp": "9ca79de5b7a996a8",
-    "assets/brand-2026/design.css": "5bebde9f334d639e",
+    "assets/brand-2026/design.css": "e5f7ed70636648dd",
     "assets/brand-2026/design.js": "163758d81624c195",
     "assets/brand-2026/FONT-LICENSE.txt": "1c05c68c34f97084",
     "assets/brand-2026/gaon-rooftop.webp": "df11ba4d1dfcdb80",
@@ -1394,18 +1401,18 @@
     "assets/brand-2026/solutions.webp": "af001ccd0998fb06",
     "assets/brand-2026/team.webp": "e06bbd879de9c457",
     "assets/css/corporate.css": "3a711b0c4d1210a5",
-    "assets/css/editorial.css": "2b18e05ddfee229d",
+    "assets/css/editorial.css": "70aa31130950a423",
     "assets/css/i18n.css": "77858c7ddf3a0371",
     "assets/css/legal.css": "e773a0aeb122b5fa",
     "assets/css/menu-hero.css": "78c5f465839d95b8",
     "assets/css/page-headings.css": "3cdc4b472b717823",
     "assets/css/page-hero.css": "4b813cb6152e2fee",
-    "assets/css/site.css": "3c7b3593dc52c7b0",
-    "assets/css/solutions.css": "3c79fd7fef9f46f7",
+    "assets/css/site.css": "4bbcd30e565f1d46",
+    "assets/css/solutions.css": "f7217d7f9387491a",
     "assets/downloads/init-company-introduction.pdf": "000fb4a2b8f0c436",
     "assets/i18n/config.json": "536291e441112e06",
-    "assets/i18n/en.json": "8a227b4172e856ae",
-    "assets/i18n/ko.json": "85784eef8c9ec1e1",
+    "assets/i18n/en.json": "1bd46bd8a6dcd33b",
+    "assets/i18n/ko.json": "9bc9c117f6a8bdde",
     "assets/images/brand/apple-touch-icon.png": "833faed37fd080f3",
     "assets/images/brand/favicon.ico": "b84c8f0d0a674118",
     "assets/images/brand/favicon.svg": "ceb2a334a18e0038",
@@ -1456,7 +1463,7 @@
     "assets/js/home-video.js": "2d1da9f3055e11c0",
     "assets/js/i18n.js": "8c20948286f3e403",
     "assets/js/navigation.js": "85c2340e1b140f4e",
-    "assets/js/site.js": "f1f9499cba50d4c7",
+    "assets/js/site.js": "219a6303aba06b71",
     "assets/shared/layout.html": "03c35d6f2069828b",
     "assets/videos/initgroup-promo_eng.mp4": "a0c35e0cf6bf33f2",
     "assets/videos/initgroup-promo_kor.mp4": "92d3dd43e5e0830e"

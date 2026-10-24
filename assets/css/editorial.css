@@ -432,18 +432,21 @@ body[data-page="projects"] .project-result-label {
 .case-framework {
     display: grid;
     margin: 0;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem clamp(2rem, 5vw, 5rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: 1rem;
 }
 
 .case-framework > div {
-    padding: 1.2rem 0 1.35rem;
-    border-top: 1px solid var(--line);
+    padding: clamp(1.15rem, 2vw, 1.6rem);
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    background: rgba(255, 255, 255, 0.88);
 }
 
 .case-framework dt {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 0.85rem;
     color: var(--brand-strong);
     gap: 0.7rem;
@@ -464,10 +467,39 @@ body[data-page="projects"] .project-result-label {
 }
 
 .case-framework dd p { margin: 0; }
-.case-framework dd p + p { margin-top: 0.85rem; }
+.case-framework dt strong { font-size: 1.15rem; line-height: 1.45; }
+.case-framework dt strong span { font: inherit; letter-spacing: inherit; }
+.case-framework dd ul { margin: 1rem 0 0; padding-left: 1.15rem; }
+.case-framework dd li { padding-left: 0.15rem; }
+.case-framework dd li + li { margin-top: 0.55rem; }
+.case-framework dd li::marker { color: var(--brand); }
+.business-icon {
+    flex: 0 0 auto;
+    width: 2.8rem;
+    height: 2.8rem;
+    padding: 0.6rem;
+    border: 1px solid #dce5f2;
+    border-radius: 0.7rem;
+    color: var(--brand-strong);
+    background: #eef3fb;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.case-solutions { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.case-solutions > p { margin: 0 0 0.65rem; color: var(--text-description); font-size: 0.95rem; font-weight: 750; }
+.case-solutions ul { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.case-solutions li { min-width: 0; max-width: 100%; }
+.case-solutions a { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.85rem; border: 1px solid var(--line); border-radius: 0.5rem; color: var(--brand-strong); background: #fff; font-size: 0.9rem; line-height: 1.5; }
+.case-solutions a:hover { border-color: var(--brand); }
+.case-solutions a:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
 
 .case-framework dd {
     margin: 0;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
     color: var(--ink-soft);
     font-size: clamp(0.98rem, 0.18vw + 0.94rem, 1.05rem);
     line-height: 1.75;
@@ -493,6 +525,10 @@ body[data-page="projects"] .project-result-label {
 }
 
 .sector-card > span {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
     color: var(--brand);
     font: 800 1rem ui-monospace, "Cascadia Code", monospace;
     letter-spacing: 0.09em;
