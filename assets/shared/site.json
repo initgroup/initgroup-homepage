@@ -1133,7 +1133,7 @@
         "path": "company/index.html",
         "label": {
           "ko": "회사 보기",
-          "en": "View companies"
+          "en": "About INIT"
         }
       },
       "action-careers-2": {
@@ -1174,15 +1174,15 @@
       "action-index-1": {
         "path": "services/index.html",
         "label": {
-          "ko": "역량 보기",
-          "en": "View capabilities"
+          "ko": "서비스 보기",
+          "en": "View services"
         }
       },
       "action-privacy-1": {
         "path": "solutions/index.html",
         "label": {
           "ko": "솔루션 보기",
-          "en": "View solution"
+          "en": "View solutions"
         }
       },
       "action-services-1": {
@@ -1196,7 +1196,7 @@
         "path": "#productScreensTitle",
         "label": {
           "ko": "실제 화면",
-          "en": "Actual screen"
+          "en": "Product Screens"
         }
       },
       "action-solutions-data-editing-system-2": {
@@ -1217,7 +1217,7 @@
         "path": "#inbupsModules",
         "label": {
           "ko": "모듈 보기",
-          "en": "View module"
+          "en": "View modules"
         }
       },
       "action-solutions-inbups-2": {
@@ -1230,8 +1230,8 @@
       "action-solutions-1": {
         "path": "#portfolioTitle",
         "label": {
-          "ko": "제품 비교",
-          "en": "Product Comparison"
+          "ko": "솔루션 살펴보기",
+          "en": "Explore Solutions"
         }
       },
       "services-overview": {
