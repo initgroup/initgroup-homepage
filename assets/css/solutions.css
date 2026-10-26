@@ -753,7 +753,7 @@ html[lang="en"] .sol-architecture-ko-name {
     color: rgba(255, 255, 255, 0.6);
 }
 
-/* IN-DEPS */
+/* IN-EDITAONE */
 .de-hero-stage {
     position: relative;
     min-width: 0;
@@ -1450,7 +1450,7 @@ html[lang="en"] .sol-architecture-ko-name {
     content: "";
 }
 
-/* IN-DEPS consultation: a balanced heading and two short explanatory paragraphs. */
+/* IN-EDITAONE consultation: a balanced heading and two short explanatory paragraphs. */
 .contact-cta-inner--indeps {
     align-items: center;
     min-height: 0;
@@ -2272,9 +2272,17 @@ html[lang="en"] .sol-architecture-ko-name {
 }
 
 .survey-hero__copy { min-width: 0; }
-.survey-hero__logo { width: min(100%, 19rem); height: auto; margin-bottom: 1.8rem;
+.product-brand { width: min(100%, 22rem); margin-bottom: 1.8rem; color: var(--ink); }
+.product-brand__wordmark { overflow: hidden; aspect-ratio: 920 / 158; }
+.product-brand--surveyone .product-brand__wordmark { aspect-ratio: 981 / 154; }
+.product-brand__wordmark img {
+    display: block;
+    width: 100%;
+    height: auto;
     filter: brightness(0) saturate(100%) invert(13%) sepia(28%) saturate(1269%) hue-rotate(173deg) brightness(93%) contrast(93%);
 }
+.product-brand__tagline { display: block; margin-top: 0.35rem; font-size: clamp(0.75rem, 2.3vw, 1rem); font-weight: 600; line-height: 1.35; letter-spacing: -0.025em; }
+.sol-product-tagline { display: block; margin-top: 0.25rem; color: var(--text-description); font-size: 0.76rem; line-height: 1.5; }
 .survey-hero__copy h1 { max-width: none; margin-bottom: 1.5rem; font-size: clamp(2.65rem, 4vw, 3.6rem); line-height: 1.08; letter-spacing: -0.05em; }
 .survey-product-name { display: inline-block; font-size: clamp(1.6rem, 3.2vw, 3.25rem); letter-spacing: -0.045em; white-space: nowrap; }
 .survey-hero__copy h1 em { color: var(--brand-strong); font-style: normal; }
@@ -2768,7 +2776,6 @@ html[lang="en"] .sol-architecture-ko-name {
 
     .survey-hero { padding: calc(var(--site-chrome-height) + 3.25rem) 0 4.5rem; }
     .survey-hero__grid { gap: 2.5rem; }
-    .survey-hero__logo { width: 14rem; }
     .survey-hero__copy h1 { max-width: none; font-size: clamp(2.35rem, 9.5vw, 2.85rem); }
     .survey-hero__actions { display: grid; grid-template-columns: 1fr; }
     .survey-console { padding: 0.75rem; border-radius: 1rem; }

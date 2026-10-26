@@ -553,8 +553,8 @@
           "@id": {
             "sitePath": "solutions/data-editing-system/#software"
           },
-          "name": "인뎁스 IN-DEPS",
-          "alternateName": "INIT-Data Editing Platform System",
+          "name": "인에디타원 IN-EDITAONE",
+          "alternateName": ["INIT-Data Editing Solution", "INIT One-Stop Data Editing Solution"],
           "url": {
             "sitePath": "solutions/data-editing-system/"
           },
@@ -636,7 +636,7 @@
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "인뎁스 IN-DEPS",
+              "name": "인에디타원 IN-EDITAONE",
               "item": {
                 "sitePath": "solutions/data-editing-system/"
               }
@@ -658,7 +658,7 @@
             "sitePath": "solutions/in-surveyone/#software"
           },
           "name": "인서베이원 IN-SURVEYONE",
-          "alternateName": "IN-SURVEYONE",
+          "alternateName": ["IN-SURVEYONE", "INIT One-Stop Survey Integrated Solution"],
           "url": {
             "sitePath": "solutions/in-surveyone/"
           },
@@ -1408,11 +1408,11 @@
     "assets/css/page-headings.css": "3cdc4b472b717823",
     "assets/css/page-hero.css": "4b813cb6152e2fee",
     "assets/css/site.css": "4bbcd30e565f1d46",
-    "assets/css/solutions.css": "f7217d7f9387491a",
+    "assets/css/solutions.css": "da860f619b374a39",
     "assets/downloads/init-company-introduction.pdf": "000fb4a2b8f0c436",
     "assets/i18n/config.json": "536291e441112e06",
-    "assets/i18n/en.json": "63982cd986cd5fde",
-    "assets/i18n/ko.json": "9e65f0e9eb4f407e",
+    "assets/i18n/en.json": "1ff76d4fed6c62ac",
+    "assets/i18n/ko.json": "e0f7dcaea685525d",
     "assets/images/brand/apple-touch-icon.png": "833faed37fd080f3",
     "assets/images/brand/favicon.ico": "b84c8f0d0a674118",
     "assets/images/brand/favicon.svg": "ceb2a334a18e0038",
@@ -1427,6 +1427,7 @@
     "assets/images/menu-heroes/projects-hero-desktop-v2.png": "1ebc125f7e878a46",
     "assets/images/menu-heroes/services-hero-desktop-v2.png": "d1d8bef5ec432608",
     "assets/images/menu-heroes/solutions-hero-desktop-v2.png": "2077a9f719e89e07",
+    "assets/images/product/ineditaone-logo-white.png": "a3e72f58eb7dcc75",
     "assets/images/product/in-surveyone/dashboard-public-demo_eng.png": "1b2000082a4a08de",
     "assets/images/product/in-surveyone/dashboard-public-demo_kor.png": "d3c521f5ada0f2a7",
     "assets/images/product/in-surveyone/distribution-center-public-demo_eng.png": "c23ec21a36e0b19c",
@@ -1438,6 +1439,7 @@
     "assets/images/product/in-surveyone/response-data-public-demo_kor.png": "9487b29742f6ec35",
     "assets/images/product/in-surveyone/survey-builder-public-demo_eng.png": "099cea26842dbe7d",
     "assets/images/product/in-surveyone/survey-builder-public-demo_kor.png": "92511ac6e79ce179",
+    "assets/images/product/inSurveyOneLogoW.png": "807be9c24b9d3eaf",
     "assets/images/reference/data-editing-system/categorical-rules_eng.png": "ae9fcaa35644cc38",
     "assets/images/reference/data-editing-system/categorical-rules_kor.png": "0dd0a9055203c36a",
     "assets/images/reference/data-editing-system/continuous-rule-detail_eng.png": "0665dc11b475c5e0",
@@ -1464,7 +1466,7 @@
     "assets/js/i18n.js": "8c20948286f3e403",
     "assets/js/navigation.js": "85c2340e1b140f4e",
     "assets/js/site.js": "219a6303aba06b71",
-    "assets/shared/layout.html": "03c35d6f2069828b",
+    "assets/shared/layout.html": "525100684fa6a574",
     "assets/videos/initgroup-promo_eng.mp4": "a0c35e0cf6bf33f2",
     "assets/videos/initgroup-promo_kor.mp4": "92d3dd43e5e0830e"
   },
