@@ -554,7 +554,7 @@
             "sitePath": "solutions/data-editing-system/#software"
           },
           "name": "인에디타원 IN-EDITAONE",
-          "alternateName": ["INIT-Data Editing Solution", "INIT One-Stop Data Editing Solution"],
+          "alternateName": ["INIT-Data Editing Solution", "INIT One-Stop Data Editing&Imputation Solution"],
           "url": {
             "sitePath": "solutions/data-editing-system/"
           },
@@ -1408,11 +1408,11 @@
     "assets/css/page-headings.css": "3cdc4b472b717823",
     "assets/css/page-hero.css": "4b813cb6152e2fee",
     "assets/css/site.css": "4bbcd30e565f1d46",
-    "assets/css/solutions.css": "da860f619b374a39",
+    "assets/css/solutions.css": "426a2667b958fd86",
     "assets/downloads/init-company-introduction.pdf": "000fb4a2b8f0c436",
     "assets/i18n/config.json": "536291e441112e06",
-    "assets/i18n/en.json": "1ff76d4fed6c62ac",
-    "assets/i18n/ko.json": "e0f7dcaea685525d",
+    "assets/i18n/en.json": "a584ab7db499f2fe",
+    "assets/i18n/ko.json": "cddc8178fdde50af",
     "assets/images/brand/apple-touch-icon.png": "833faed37fd080f3",
     "assets/images/brand/favicon.ico": "b84c8f0d0a674118",
     "assets/images/brand/favicon.svg": "ceb2a334a18e0038",

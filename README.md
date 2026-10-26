@@ -210,6 +210,6 @@ Codex가 소스를 수정한 직후에는 자동으로 stage, commit 또는 push
 
 ## 2026-10-26 제품 명칭
 
-- 인에디타원 `IN-EDITAONE`: 정식 명칭은 `INIT-Data Editing Solution`, 로고 세부 명칭은 `INIT One-Stop Data Editing Solution`입니다. 기존 `solutions/data-editing-system/` URL은 유지합니다.
+- 인에디타원 `IN-EDITAONE`: 정식 명칭은 `INIT-Data Editing Solution`, 로고 세부 명칭은 `INIT One-Stop Data Editing&Imputation Solution`입니다. 기존 `solutions/data-editing-system/` URL은 유지합니다.
 - 인서베이원 `IN-SURVEYONE`: 로고 세부 명칭은 `INIT One-Stop Survey Integrated Solution`입니다.
 - 제품 상세 로고는 `assets/images/product/ineditaone-logo-white.png`와 `inSurveyOneLogoW.png`의 워드마크를 사용하고, 기존 이미지 하단 문구는 CSS로 표시 영역에서 제외합니다. 새 세부 명칭은 HTML 텍스트로 조합하여 한국어·영어에서 동일하게 표시합니다. 원본 PNG와 비공개 과거 상표 시안은 보존합니다.
