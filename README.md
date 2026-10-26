@@ -55,6 +55,14 @@ Playwright가 설치된 개발 환경에서는 `node scripts/static-smoke.cjs`�
 
 홈의 솔루션 제목·소개와 제품 3개의 설명·활용 분야·핵심 기능, 솔루션 개요 상단 소개 3줄을 PPT 화살표 대상에 맞춰 한국어·영어로 갱신했습니다. 명칭은 `통합 데이터 의사결정 플랫폼`, `통합 리서치 프로세스 자동화 솔루션`, `AI 기반 데이터 품질 거버넌스 솔루션`으로 메뉴·관련 링크·상세 제목에 함께 반영합니다. 설문 핵심 기능은 제안서의 네 항목을 모두 표시합니다. 공개 URL과 제품명은 유지합니다.
 
+## 2026-10-26 제품 구명칭 검색 노출 정리
+
+현재 제품 표기는 한국어 `인에디타원`, 영어 `IN-EDITAONE`, 영문명 `INIT-Data Editing Solution`입니다. 공개 HTML·CSS 식별자와 두 언어 번역 key, 참고 HTML·사전도 같은 명칭으로 맞춥니다. `scripts/validate.ps1`은 공개 배포 목록과 텍스트 자산에 구명칭이 다시 포함되면 실패합니다. 참고 템플릿은 실행·배포 원본으로 사용하지 않습니다.
+
+이전 상표 로고 12개와 미사용 영상 참고 이미지 1개는 `templates/disabled-content/assets/`로 옮겨 원본을 보존하며 배포하지 않습니다. `.htaccess`의 이전 자산 URL 410 응답을 유지합니다. `sitemap.xml`에는 제품명이 들어가지 않으며, 승인된 7개 URL과 순서를 유지합니다.
+
+로컬 수정이나 ZIP 생성만으로 운영 서버·검색 색인이 바뀌지는 않습니다. `scripts/package-static.ps1`으로 만든 `dist/site/` 내용 전체(숨김 파일 `.htaccess` 포함)를 업로드하고, 이전 로고·영상 참고 파일은 운영 공개 폴더에서도 제거합니다. `initgroup.kr`과 `www.initgroup.kr` 모두 최신 HTML·`assets/shared/site.json`·언어 사전을 제공하는지 확인합니다. 네이버 서치어드바이저에서 홈·솔루션 개요·제품 상세의 웹페이지 수집을 요청하고 `sitemap.xml`을 제출할 수 있습니다. 재수집 및 검색 링크 갱신은 즉시 반영되지 않으며 사이트맵만 바꿔 메뉴명을 강제할 수 없습니다. [검색 정보 갱신 안내](https://searchadvisor.naver.com/guide/faq-serpedit)와 [수집 요청 안내](https://searchadvisor.naver.com/guide/request-crawl)를 참고합니다.
+
 ## 공통 파일과 HTML include 방식 (2026-10-22 최종 기준)
 
 홈페이지는 **HTML·CSS·JavaScript와 정적 JSON·이미지 파일만으로 동작**합니다. PHP·Python·서버 애플리케이션·DB·Node.js 실행이나 HTML 생성 과정에 의존하지 않습니다. 카페24는 파일만 제공하고 브라우저의 공통 JavaScript가 공통 영역을 구성합니다.

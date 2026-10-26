@@ -10,6 +10,15 @@ $headDefinition = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteR
 $sitemapBaseUri = [uri]$headDefinition.sitemapBaseUrl
 $internalHosts = @($sitemapBaseUri.DnsSafeHost,'initgroup.kr','www.initgroup.kr') | Sort-Object -Unique
 if ($headDefinition.PSObject.Properties['publicBaseUrl']) { $errors.Add('Obsolete publicBaseUrl: browser metadata must be relative') }
+# Historical references may remain private; deployed text and filenames use the current brand.
+$legacyProductPattern = '(?i)\uC778\uB381\uC2A4|in[-_ ]?deps|INIT[- ]Data Editing Platform System'
+foreach ($entry in $manifest) {
+    if ($entry -match $legacyProductPattern) { $errors.Add("Retired product name in deployment path: $entry") }
+    if ($entry -match '\.(?:html|css|js|json|xml|txt|svg)$') {
+        $source = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot $entry)
+        if ($source -match $legacyProductPattern) { $errors.Add("Retired product name in public source: $entry") }
+    }
+}
 $publicFiles = @{}
 $htmlContents = @{}
 if (@($manifest | Sort-Object -Unique).Count -ne $manifest.Count) { $errors.Add('Duplicate deployment entries') }

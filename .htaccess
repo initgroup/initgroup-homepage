@@ -14,6 +14,9 @@ ErrorDocument 410 default
     RewriteCond %{QUERY_STRING} (?:^|&)v=[a-f0-9]{16}(?:&|$)
     RewriteRule ^assets/(?!shared/site\.json$).+\.(?:css|js|json|html|png|jpe?g|webp|svg|ico|pdf|mp4|woff2)$ - [E=INIT_VERSIONED:1]
     RewriteRule ^insights(?:/|$) - [G,L]
+    # Retired product artwork must not be indexed under the former brand.
+    RewriteRule ^assets/images/brand/indeps_(?:banner|compact)_(?:ko|en|bilingual)\.(?:svg|png)$ - [G,L,NC]
+    RewriteRule ^assets/videos/initgroup-promo-indeps_flow\.png$ - [G,L,NC]
     RewriteRule ^assets/brand-2026/(?:assets-manifest\.json|company\.webp|gaon-plaza\.webp|icons\.svg|research\.webp)$ - [G,L]
     RewriteRule ^assets/(?:images/menu-heroes/insights-hero-desktop-v2\.png|images/product/login-overview\.png|videos/initgroup-promo-(?:poster\.jpg|preview\.mp4))$ - [G,L]
 </IfModule>

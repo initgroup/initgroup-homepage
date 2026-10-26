@@ -15,3 +15,7 @@
 - `assets/images/product/login-overview.png`
 - `assets/videos/initgroup-promo-poster.jpg`
 - `assets/videos/initgroup-promo-preview.mp4`
+
+## 이전 제품 상표 자산
+
+이전 제품 상표의 로고 12개(`assets/images/brand/`의 banner·compact, ko·en·bilingual PNG/SVG)와 사용하지 않는 영상 참고 이미지 1개(`assets/videos/`)도 이 보관 경로로 옮겼습니다. 그림에 포함된 옛 상표는 원본 기록이므로 새 상표로 이름만 바꾸지 않습니다. 원래 파일명은 운영 파일 정리와 410 URL 대조를 위해 보존하며 현재 공개 HTML이나 배포 목록에서 참조하지 않습니다. 공개 콘텐츠의 현재 표기는 인에디타원(IN-EDITAONE)입니다.

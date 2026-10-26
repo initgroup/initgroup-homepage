@@ -500,7 +500,7 @@ html[lang="en"] .sol-architecture-ko-name {
     object-fit: contain;
 }
 
-.sol-product-evidence--indeps > figcaption,
+.sol-product-evidence--ineditaone > figcaption,
 .sol-product-evidence--surveyone > figcaption {
     display: flex;
     align-items: center;
@@ -512,12 +512,12 @@ html[lang="en"] .sol-architecture-ko-name {
     gap: 1rem;
 }
 
-.sol-product-evidence--indeps > figcaption strong,
+.sol-product-evidence--ineditaone > figcaption strong,
 .sol-product-evidence--surveyone > figcaption strong {
     color: #fff;
 }
 
-.sol-product-evidence--indeps > figcaption span,
+.sol-product-evidence--ineditaone > figcaption span,
 .sol-product-evidence--surveyone > figcaption span {
     color: #9eb1c8;
 }
@@ -1451,7 +1451,7 @@ html[lang="en"] .sol-architecture-ko-name {
 }
 
 /* IN-EDITAONE consultation: a balanced heading and two short explanatory paragraphs. */
-.contact-cta-inner--indeps {
+.contact-cta-inner--ineditaone {
     align-items: center;
     min-height: 0;
     padding-block: clamp(3.5rem, 6vw, 6rem);
@@ -2582,14 +2582,14 @@ html[lang="en"] .sol-architecture-ko-name {
 }
 
 @media (max-width: 50rem) {
-    .contact-cta-inner--indeps {
+    .contact-cta-inner--ineditaone {
         display: grid;
         padding-block: 3.5rem;
         grid-template-columns: minmax(0, 1fr);
         gap: 2rem;
     }
 
-    .contact-cta-inner--indeps > div:last-child { margin-top: 0; }
+    .contact-cta-inner--ineditaone > div:last-child { margin-top: 0; }
 
     .sol-breadcrumb {
         margin-bottom: 1.2rem;

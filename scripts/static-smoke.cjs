@@ -30,6 +30,7 @@ async function checkSharedRendering(page, language, url) {
     }
     return {
       names, unwrapped,
+      retiredProductMarkup: /\uC778\uB381\uC2A4|in[-_ ]?deps|INIT[- ]Data Editing Platform System/i.test(document.documentElement.outerHTML),
       display: {visibility:getComputedStyle(document.body).visibility,opacity:getComputedStyle(document.body).opacity,inert:document.body.inert},
       translations: [...document.querySelectorAll('[data-i18n]')].map(element => ({key: element.dataset.i18n, text: normalize(element.textContent)})),
       styles: [...document.querySelectorAll('link[rel="stylesheet"]')].map(element => element.href),
@@ -42,6 +43,7 @@ async function checkSharedRendering(page, language, url) {
   });
   assert.deepEqual(data.display, {visibility:"visible",opacity:"1",inert:false}, url+": ready page display");
   assert.deepEqual(data.unwrapped, [], `${url}: unwrapped company name`);
+  assert.equal(data.retiredProductMarkup, false, `${url}: retired product text, metadata or identifier`);
   for (const name of data.names) {
     assert.equal(name.nowrap, 'nowrap', `${url}: company-name CSS`);
     assert.ok(name.lines <= 1, `${url}: company name split across lines`);

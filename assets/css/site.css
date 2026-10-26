@@ -1389,7 +1389,7 @@ html[lang="en"] .ko-brand-name { display: none; }
     .capability-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .capability-summary-card { min-height: 29rem; }
     .solution-summary-grid { grid-template-columns: 1fr; }
-    .solution-summary-card--indeps,
+    .solution-summary-card--ineditaone,
     .solution-summary-card--inbaps,
     .solution-summary-card--surveyone { display: grid; min-height: 29rem; grid-template-columns: minmax(18rem, 0.72fr) minmax(24rem, 1.28fr); }
     .solution-summary-copy { height: auto; min-height: 0; }
