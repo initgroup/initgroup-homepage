@@ -1013,22 +1013,22 @@
       "solutions-data-editing-system": {
         "path": "solutions/data-editing-system/index.html",
         "label": {
-          "ko": "AI 데이터 품질 거버넌스",
-          "en": "AI Data Quality Governance"
+          "ko": "AI 기반 데이터 품질 거버넌스 솔루션",
+          "en": "AI-Based Data Quality Governance Solution"
         }
       },
       "solutions-inbups": {
         "path": "solutions/inbups/index.html",
         "label": {
-          "ko": "통합 데이터 의사결정 솔루션",
-          "en": "Integrated Data Decision-Making Solution"
+          "ko": "통합 데이터 의사결정 플랫폼",
+          "en": "Integrated Data Decision-Making Platform"
         }
       },
       "solutions-in-surveyone": {
         "path": "solutions/in-surveyone/index.html",
         "label": {
-          "ko": "통합 설문조사 운영 솔루션",
-          "en": "Integrated Survey Operations Solution"
+          "ko": "통합 리서치 프로세스 자동화 솔루션",
+          "en": "Integrated Research Process Automation Solution"
         }
       },
       "projects": {
@@ -1411,8 +1411,8 @@
     "assets/css/solutions.css": "426a2667b958fd86",
     "assets/downloads/init-company-introduction.pdf": "000fb4a2b8f0c436",
     "assets/i18n/config.json": "536291e441112e06",
-    "assets/i18n/en.json": "a584ab7db499f2fe",
-    "assets/i18n/ko.json": "cddc8178fdde50af",
+    "assets/i18n/en.json": "965f46d0c8eced78",
+    "assets/i18n/ko.json": "2bb6694fa4c305a6",
     "assets/images/brand/apple-touch-icon.png": "833faed37fd080f3",
     "assets/images/brand/favicon.ico": "b84c8f0d0a674118",
     "assets/images/brand/favicon.svg": "ceb2a334a18e0038",
