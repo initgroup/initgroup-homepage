@@ -44,7 +44,7 @@
  const locationLabels=[];
  const companyHero=pageDocument.querySelector('.menu-family-hero--company');
  if(companyHero){
-  const caption=companyHero.querySelector('.init-place-caption') || pageDocument.createElement('p');caption.className='init-place-caption';
+  const caption=companyHero.querySelector('.init-place-caption') || pageDocument.createElement('p');caption.classList.add('init-place-caption');
   if(!caption.parentNode)companyHero.append(caption);
   locationLabels.push([caption,'design.location.headquarters']);
  }
@@ -61,7 +61,9 @@
   if (!window.INIT_I18N) return;
   locationLabels.forEach(([el,key,attr])=>{
    const text=window.INIT_I18N.t(key);
-   if(attr)el.setAttribute(attr,text);else el.textContent=text;
+   // Keep translated child spans and their readability sizing when text is unchanged.
+   if(attr){if(el.getAttribute(attr)!==text)el.setAttribute(attr,text);}
+   else if(el.textContent!==text)el.textContent=text;
   });
  }
  if(context.preparing) {

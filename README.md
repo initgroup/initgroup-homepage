@@ -136,6 +136,24 @@ Playwright가 설치된 개발 환경에서는 `node scripts/static-smoke.cjs`�
 
 
 스타일은 다음 페이지 준비 중에만 계산된 URL로 임시 로드하며, 최종 DOM에는 현재 문서 기준 상대경로만 남깁니다. 활성 CSS 링크의 href 변경이나 재삽입으로 스타일을 잠깐 해제하지 않고, 상대경로 링크도 로딩이 끝난 뒤 기존 시트를 넘겨줍니다. CSSStyleSheet.media.mediaText로 준비된 시트를 활성화해 link.media 속성 변경에 따른 재요청을 피합니다. 캐시가 꺼진 경우에도 준비된 스타일을 유지합니다.
+
+페이지별 CSS와 기존 공통 CSS를 함께 사용할 때도 모든 표시 프레임에서 `site.json.styles`의 순서를 유지합니다. 새 CSS를 head 끝에 붙였다가 상대경로 정리 후 순서를 바꾸면 제목 줄바꿈·본문 높이가 이동 직후 다시 바뀔 수 있습니다. 새 시트는 다음 재사용 시트 앞에, 상대경로 교체 시트는 기존 시트 바로 앞에 준비합니다. viewport·charset·브라우저 색상 메타는 노드를 유지하고 실제 값만 갱신합니다. 페이지 동작과 최소 글자 크기 보정 후 위치를 복원하며, 활성 서브메뉴 표시는 메뉴 레일의 가로 좌표만 움직입니다.
+
+장식 초기화도 기존 DOM의 글자 크기 보정 클래스를 유지합니다. 회사 캡션의 `className`을 통째로 덮어써 `minimum-font-size`가 사라지면 글꼴 준비 후 다시 보정될 때 구간 높이가 5px 바뀌는 사례가 있어, `classList.add`로 장식 클래스만 추가합니다. 같은 번역 문구를 다시 설정하며 번역 자식 노드를 지우지 않습니다.
+
+같은 문서의 하위 메뉴는 `INIT_PAGE.reveal`로 목적지와 상위 `.reveal` 요소의 opacity·transform 전환을 먼저 완료한 뒤 최종 위치로 스크롤합니다. 제목의 12px 등장 이동과 앵커 스크롤이 겹쳐 도착 위치가 달라지는 것을 막습니다. 대상 요소의 전환만 [getAnimations](https://developer.mozilla.org/en-US/docs/Web/API/Element/getAnimations)·[finish](https://developer.mozilla.org/en-US/docs/Web/API/Animation/finish)로 완료하며 기다리는 시간이나 화면을 덮는 전환을 추가하지 않습니다.
+
+CSS 시트를 교체할 때 글꼴도 다시 등록되면 기본 글꼴과 웹 글꼴 사이에서 제목 줄 수가 두 번 바뀔 수 있습니다. `common.js`는 기존 CSS의 `@font-face`를 읽어 준비한 `FontFace`를 문서 수명 동안 유지합니다. 글꼴의 주소·내용 해시·설정이 같으면 같은 객체를 재사용하고, 바뀐 글꼴은 준비 후 화면 교체 시 적용합니다. 취소된 준비는 현재 글꼴을 바꾸지 않으며, 초기 직접 접속의 글꼴 오류는 CSS 대체 글꼴로 복구합니다. 글꼴 정의와 이미지·폰트 의존 해시의 원본은 계속 CSS 한 곳에 둡니다. [CSS Font Loading 규격](https://www.w3.org/TR/css-font-loading/)에 따라 수동 등록한 준비 완료 글꼴은 CSS 연결 시트가 교체돼도 유지됩니다.
+
+모바일 하단 왼쪽 버튼은 홈 `서비스 보기` → 서비스 `솔루션 보기` → 솔루션 `사업분야 보기` → 사업분야 `채용 보기`로 다음 대메뉴를 연결합니다. 영어는 각각 `View services`, `View solutions`, `View business areas`, `View careers`입니다. 솔루션 상세 3개도 공통 `action-solutions-1`을 사용해 사업분야로 이동하며, 버튼 문구·경로는 `site.json.navigation`에서 함께 관리합니다.
+
+서브메뉴바는 대메뉴·솔루션 상세에서 공통 `--sub-navigation-height: 3.35rem`을 사용합니다. 솔루션만 별도의 높이나 여러 줄 제품명을 적용하지 않습니다. 긴 한국어·영어 메뉴명은 한 줄을 유지하고 메뉴 레일을 가로로 스크롤해 확인합니다. 상단 영역과 앵커 스크롤 여백도 같은 공통 높이를 참조합니다. `node scripts/test-sub-navigation-height.cjs`는 WebKit·Chromium의 320·390·768·810·1440px ko/en에서 페이지별 높이, 순차 하단 버튼·제품 탭 이동 중 표시 프레임과 텍스트 잘림을 검사합니다.
+
+`node scripts/test-navigation-stability.cjs`는 WebKit의 iPhone·iPad와 Chromium의 Android 폰·태블릿 모의 환경에서 ko/en 전체 공개 페이지, 전체 메뉴의 모든 항목과 모든 하위 메뉴, 하단 왼쪽 순차 이동 버튼, 뒤로 가기와 화면 회전을 검사합니다. 같은 페이지의 구간 이동은 의도한 부드러운 스크롤과 이후의 위치 떨림을 구분해 검사합니다. 캐시를 끄고 교체 CSS 응답을 늦춰 중간 프레임의 CSS 순서·제목 및 스크롤 좌표·viewport 노드와 배율을 확인합니다. 결과와 화면은 `.tmp/navigation-stability/`에 보관합니다. 실물 기기의 주소창·네이버 인앱 브라우저 움직임은 별도 운영 확인이 필요합니다.
+
+`node scripts/test-navigation-fonts.cjs`는 WebKit·Chromium의 ko/en에서 로드된 글꼴 객체의 재사용, 캐시 주소 유지, 새 해시의 글꼴 준비 후 교체, 준비 중 메뉴 조작, 글꼴 오류·취소 복구와 초기 직접 접속의 대체 글꼴을 검사합니다. 하단 버튼이 없는 넓은 iPad 화면에서는 전체 메뉴를 원래 크기로 점검하고, 하단 버튼은 좁은 분할 화면 크기에서도 확인합니다.
+
+스크롤 좌표는 프레임마다 메모리에 갱신하고 방문 기록에는 최대 500ms 간격으로 저장합니다. 같은 상태의 `replaceState` 호출도 생략합니다. iPhone의 `history.replaceState()` 빈도 제한을 피하면서, 즉시 뒤로·앞으로 이동할 때는 메모리의 최신 위치를 복원하고 페이지를 떠날 때는 기록에 즉시 저장합니다. `node scripts/test-navigation-history.cjs`는 ko/en WebKit·Chromium에서 160프레임 연속 스크롤의 호출 빈도와 즉시 뒤로·앞으로 이동, pagehide 저장을 확인합니다.
 캐시 버전에서 JavaScript 프로그램 자체의 변경이 감지되면 호환성을 위해 한 번 새 문서를 엽니다. 일반 메뉴 이동에서는 문서를 다시 열지 않습니다. 이 기능은 자체 호스팅 JavaScript와 정적 파일만 사용하며 서버 프로그램·프레임워크·서비스 워커를 추가하지 않습니다.
 
 `validate.ps1`은 버전의 최신 여부도 검사합니다. 소스 수정 후 미리보기 전에 `scripts/update-asset-versions.ps1`을 실행하거나 패키징합니다. 이 도구들은 로컬 배포 준비용이며 홈페이지 실행에는 HTML·CSS·JavaScript와 정적 데이터만 필요합니다.
@@ -177,6 +195,10 @@ node scripts/test-cache-transition.cjs
 node scripts/test-prepared-navigation.cjs
 node scripts/test-navigation-video.cjs
 node scripts/test-navigation-styles.cjs
+node scripts/test-navigation-stability.cjs
+node scripts/test-navigation-fonts.cjs
+node scripts/test-navigation-history.cjs
+node scripts/test-sub-navigation-height.cjs
 node scripts/test-common-loader.cjs
 node scripts/static-smoke.cjs
 node scripts/test-relocation.cjs

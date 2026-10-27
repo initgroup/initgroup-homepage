@@ -10,6 +10,10 @@
     let refreshTimer=0;
     const refreshInterval=60000;
     let scrollFrame=0;
+    let scrollTimer=0;
+    let lastScrollWrite=0;
+    const scrollWriteInterval=500;
+    const scrollPositions=new Map();
     const stateKey="initStaticPage";
     function position(){return {x:scrollX,y:scrollY};}
     function stateAt(file,scroll,currentIndex) {
@@ -26,9 +30,22 @@
         const node=document.querySelector("[data-page-status]");
         if(node)node.textContent=message;
     }
-    function rememberScroll() {
+    function replaceScroll(file,scroll,currentIndex,url) {
+        scrollPositions.set(currentIndex,scroll);
+        const saved=history.state?.[stateKey];
+        if(location.href===url && saved?.file===file && saved.index===currentIndex && saved.scroll?.x===scroll.x && saved.scroll?.y===scroll.y)return;
+        history.replaceState(stateAt(file,scroll,currentIndex),"",url);
+        lastScrollWrite=performance.now();
+    }
+    function rememberScroll(force = false) {
         if(pending || location.href!==activeUrl.href)return;
-        history.replaceState(stateAt(engine.file,position(),index),"",location.href);
+        const scroll=position();
+        scrollPositions.set(index,scroll);
+        const wait=scrollWriteInterval-(performance.now()-lastScrollWrite);
+        if(force || wait<=0) {
+            clearTimeout(scrollTimer);scrollTimer=0;
+            replaceScroll(engine.file,scroll,index,location.href);
+        } else if(!scrollTimer)scrollTimer=setTimeout(()=>{scrollTimer=0;rememberScroll();},wait);
     }
     function restorePosition(url,scroll) {
         if(url.hash) {
@@ -58,7 +75,7 @@
                 if(pending!==task || task.controller.signal.aborted){prepared.discard?.();return false;}
                 if(prepared.reload) {
                     if(options.replace && url.href===location.href) {
-                        history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
+                        replaceScroll(engine.file,position(),index,activeUrl.href);
                         location.reload();
                     } else location.assign(url.href);
                     return false;
@@ -68,7 +85,7 @@
                     if(options.pop) {
                         index=options.state?.index ?? index;
                     } else if(!options.replace) {
-                        history.replaceState(stateAt(engine.file,outgoing,index),"",activeUrl.href);
+                        replaceScroll(engine.file,outgoing,index,activeUrl.href);
                         index++;
                         history.pushState(stateAt(file,{x:0,y:0},index),"",url.href);
                     }
@@ -77,14 +94,14 @@
                 if(pending===task) {
                     pending=null;
                     busy(false);status();
-                    history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
+                    replaceScroll(engine.file,position(),index,activeUrl.href);
                 }
                 return true;
             } catch(error) {
                 task.prepared?.discard?.();
                 if(pending!==task)return false;
                 pending=null;busy(false);
-                if(options.pop)history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
+                if(options.pop)replaceScroll(engine.file,position(),index,activeUrl.href);
                 if(error.name!=="AbortError" || task.controller.signal.reason?.message==="Page loading timed out") {
                     status(window.INIT_I18N.t("ui.page.loadError"));
                     console.warn("Page preparation failed; current page retained.",error.message);
@@ -98,7 +115,7 @@
     }
     function localNavigation(url) {
         pending?.controller.abort();pending?.prepared?.discard?.();pending=null;busy(false);status();
-        rememberScroll();
+        rememberScroll(true);
         if(url.href!==activeUrl.href) {
             index++;
             history.pushState(stateAt(engine.file,{x:0,y:0},index),"",url.href);
@@ -109,6 +126,7 @@
         if(url.hash) {
             try {target=document.getElementById(decodeURIComponent(url.hash.slice(1))) || target;}catch(_){}
         }
+        if(url.hash)window.INIT_PAGE.reveal(target);
         const behavior=matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth";
         if(url.hash)target?.scrollIntoView({behavior,block:"start"});
         else window.scrollTo({top:0,left:0,behavior});
@@ -160,7 +178,7 @@
         if(restored?.file===engine.file) {
             window.scrollTo({top:restored.scroll?.y || 0,left:restored.scroll?.x || 0,behavior:"instant"});
         }
-        history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
+        replaceScroll(engine.file,position(),index,activeUrl.href);
         document.addEventListener("click",event=>{
             if(event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)return;
             const link=event.target.closest?.("a[href]");
@@ -174,18 +192,21 @@
             else navigate(url);
         });
         window.addEventListener("popstate",event=>{
+            scrollPositions.set(index,position());
+            const saved=event.state?.[stateKey];
+            const restored=saved?{...saved,scroll:scrollPositions.get(saved.index) || saved.scroll}:saved;
             const url=new URL(location.href);
             if(engine.pageFor(url)===engine.file && url.search===activeUrl.search) {
                 pending?.controller.abort();pending?.prepared?.discard?.();pending=null;busy(false);
                 activeUrl=url;
-                index=event.state?.[stateKey]?.index ?? index;
-                restorePosition(url,event.state?.[stateKey]?.scroll);
+                index=restored?.index ?? index;
+                restorePosition(url,restored?.scroll);
                 window.INIT_SITE_READY=Promise.resolve(true);
                 document.dispatchEvent(new CustomEvent("init:close-menus"));
                 refreshCurrent();
                 return;
             }
-            navigate(url,{pop:true,state:event.state?.[stateKey]});
+            navigate(url,{pop:true,state:restored});
         });
         window.addEventListener("hashchange",()=>{
             if(!pending && engine.pageFor(new URL(location.href))===engine.file)activeUrl=new URL(location.href);
@@ -196,11 +217,14 @@
         });
         document.addEventListener("visibilitychange",()=>{
             if(!document.hidden)refreshCurrent();
-            else refreshController?.abort();
+            else {rememberScroll(true);refreshController?.abort();}
             scheduleRefresh();
         });
         window.addEventListener("online",()=>{refreshCurrent();scheduleRefresh();});
-        window.addEventListener("pagehide",()=>{clearTimeout(refreshTimer);refreshController?.abort();});
+        window.addEventListener("pagehide",()=>{
+            rememberScroll(true);clearTimeout(scrollTimer);cancelAnimationFrame(scrollFrame);scrollFrame=0;
+            clearTimeout(refreshTimer);refreshController?.abort();
+        });
         scheduleRefresh();
         window.addEventListener("scroll",()=>{
             if(scrollFrame)return;
@@ -210,7 +234,7 @@
             if(event.key!=="Escape" || !pending)return;
             const cancelled=pending;
             cancelled.controller.abort();cancelled.prepared?.discard?.();pending=null;busy(false);status();
-            if(cancelled.pop)history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
+            if(cancelled.pop)replaceScroll(engine.file,position(),index,activeUrl.href);
             window.INIT_SITE_READY=Promise.resolve(true);
         },true);
     });

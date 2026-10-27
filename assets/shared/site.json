@@ -1185,18 +1185,18 @@
           "en": "View solutions"
         }
       },
-      "action-services-1": {
-        "path": "projects/index.html",
+      "action-projects-1": {
+        "path": "careers/index.html",
         "label": {
-          "ko": "사업분야 보기",
-          "en": "View business areas"
+          "ko": "채용 보기",
+          "en": "View careers"
         }
       },
-      "action-solutions-data-editing-system-1": {
-        "path": "#productScreensTitle",
+      "action-services-1": {
+        "path": "solutions/index.html",
         "label": {
-          "ko": "실제 화면",
-          "en": "Product Screens"
+          "ko": "솔루션 보기",
+          "en": "View solutions"
         }
       },
       "action-solutions-data-editing-system-2": {
@@ -1204,20 +1204,6 @@
         "label": {
           "ko": "도입 문의",
           "en": "Adoption Inquiry"
-        }
-      },
-      "action-solutions-in-surveyone-1": {
-        "path": "#surveyOperations",
-        "label": {
-          "ko": "운영 흐름",
-          "en": "Operating workflow"
-        }
-      },
-      "action-solutions-inbups-1": {
-        "path": "#inbupsModules",
-        "label": {
-          "ko": "모듈 보기",
-          "en": "View modules"
         }
       },
       "action-solutions-inbups-2": {
@@ -1228,10 +1214,10 @@
         }
       },
       "action-solutions-1": {
-        "path": "#portfolioTitle",
+        "path": "projects/index.html",
         "label": {
-          "ko": "솔루션 살펴보기",
-          "en": "Explore Solutions"
+          "ko": "사업분야 보기",
+          "en": "View business areas"
         }
       },
       "services-overview": {
@@ -1340,7 +1326,7 @@
       },
       "projects/index.html": {
         "links": [
-          "action-company-1",
+          "action-projects-1",
           "action-company-2"
         ],
         "ariaLabel": "빠른 이동"
@@ -1354,21 +1340,21 @@
       },
       "solutions/data-editing-system/index.html": {
         "links": [
-          "action-solutions-data-editing-system-1",
+          "action-solutions-1",
           "action-solutions-data-editing-system-2"
         ],
         "ariaLabel": "빠른 이동"
       },
       "solutions/in-surveyone/index.html": {
         "links": [
-          "action-solutions-in-surveyone-1",
+          "action-solutions-1",
           "action-solutions-data-editing-system-2"
         ],
         "ariaLabel": "빠른 이동"
       },
       "solutions/inbups/index.html": {
         "links": [
-          "action-solutions-inbups-1",
+          "action-solutions-1",
           "action-solutions-inbups-2"
         ],
         "ariaLabel": "빠른 이동"
@@ -1387,23 +1373,23 @@
     }
   },
   "pageVersions": {
-    "404.html": "f6d9fb39f0b5b5de",
-    "careers/index.html": "1aee1c7ae0392163",
-    "company/index.html": "014e4cb4b99b4c7d",
-    "contact/index.html": "32efc4ad231ec937",
-    "index.html": "43570f8b2aa5691d",
-    "privacy/index.html": "7f78c6757166e93f",
-    "projects/index.html": "9dae4034b12074df",
-    "services/index.html": "8c987bec0fc3f850",
-    "solutions/data-editing-system/index.html": "28638a863ba8e7b0",
-    "solutions/inbups/index.html": "02006f37732212da",
-    "solutions/index.html": "c3443134211d522e",
-    "solutions/in-surveyone/index.html": "4a9e2e875582ec1a"
+    "404.html": "f8164538848fb794",
+    "careers/index.html": "0e72fe8e46aa0a54",
+    "company/index.html": "58250d54de4cf6d1",
+    "contact/index.html": "c51ece9654e9d432",
+    "index.html": "cd46883e525965de",
+    "privacy/index.html": "c463233f164ae8bd",
+    "projects/index.html": "598d6544f8491384",
+    "services/index.html": "7da43c6fd3da1179",
+    "solutions/data-editing-system/index.html": "238463b4283b4c91",
+    "solutions/inbups/index.html": "7e5789e369dc09d8",
+    "solutions/index.html": "1e4de28a2128a266",
+    "solutions/in-surveyone/index.html": "04e97dd2522522a2"
   },
   "assetVersions": {
     "assets/brand-2026/careers.webp": "9ca79de5b7a996a8",
     "assets/brand-2026/design.css": "4b9b8c9477103db4",
-    "assets/brand-2026/design.js": "163758d81624c195",
+    "assets/brand-2026/design.js": "a98da9803aa92b9e",
     "assets/brand-2026/FONT-LICENSE.txt": "1c05c68c34f97084",
     "assets/brand-2026/gaon-rooftop.webp": "df11ba4d1dfcdb80",
     "assets/brand-2026/gaon-tower.webp": "71822c78a0accca6",
@@ -1421,7 +1407,7 @@
     "assets/css/menu-hero.css": "78c5f465839d95b8",
     "assets/css/page-headings.css": "3cdc4b472b717823",
     "assets/css/page-hero.css": "4b813cb6152e2fee",
-    "assets/css/site.css": "74647b4f4ac5209d",
+    "assets/css/site.css": "e9b89d4cd695a818",
     "assets/css/solutions.css": "2a7e8a56358d4144",
     "assets/downloads/init-company-introduction.pdf": "000fb4a2b8f0c436",
     "assets/i18n/config.json": "536291e441112e06",
@@ -1475,11 +1461,11 @@
     "assets/images/section-backgrounds/home-solutions-platform-dark.png": "52795d4a9cf539ff",
     "assets/images/section-backgrounds/solutions-operating-path-dark.png": "4d18e238d5d98c07",
     "assets/images/section-backgrounds/solutions-portfolio-light.png": "8acc81d50b5d873c",
-    "assets/js/common.js": "9b83534b7d32837a",
+    "assets/js/common.js": "358d6541570e869f",
     "assets/js/home-video.js": "2d1da9f3055e11c0",
     "assets/js/i18n.js": "8c20948286f3e403",
-    "assets/js/navigation.js": "195b690421861844",
-    "assets/js/site.js": "55f4ff3e4a83cef0",
+    "assets/js/navigation.js": "ae5e35d9b9aff61a",
+    "assets/js/site.js": "218e3eeaa718a7c7",
     "assets/shared/layout.html": "525100684fa6a574",
     "assets/videos/initgroup-promo_eng.mp4": "a0c35e0cf6bf33f2",
     "assets/videos/initgroup-promo_kor.mp4": "92d3dd43e5e0830e"

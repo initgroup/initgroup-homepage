@@ -6,6 +6,8 @@
     let activeConfig;
     const behaviors = new Map();
     const loadedScripts = new Map();
+    const fontCache = new Map();
+    let activeFonts = new Set();
     let pageCleanups = [];
     let keyboardInput = false;
     document.addEventListener("pointerdown",()=>{
@@ -29,9 +31,20 @@
             else target.setAttribute("tabindex",previous);
         },{once:true});
     }
+    function revealDestination(target) {
+        // Measure the final heading position, not a moving reveal transform.
+        for(let element=target;element;element=element.parentElement) {
+            if(!element.classList.contains("reveal"))continue;
+            element.classList.add("is-visible");
+            for(const animation of element.getAnimations?.() || []) {
+                if(["opacity","transform"].includes(animation.transitionProperty))animation.finish();
+            }
+        }
+    }
     window.INIT_PAGE = Object.freeze({
         register(path,mount) { behaviors.set(path,mount); },
         focus:focusDestination,
+        reveal:revealDestination,
         scope() {
             const controller = new AbortController(), frames = new Set(), observers = [];
             return {
@@ -306,7 +319,7 @@
         if (!config.pages[file] && config.pages[file+"/index.html"]) file += "/index.html";
         return Object.hasOwn(config.pages,file) ? file : null;
     }
-    function stagedStyle(definition,href,signal,created) {
+    function stagedStyle(definition,href,signal,created,before = null) {
         return new Promise((resolve,reject)=>{
             const node=document.createElement("link");
             node.rel="stylesheet";node.media="not all";node.href=href;
@@ -320,27 +333,71 @@
             node.onerror=()=>{signal.removeEventListener("abort",abort);reject(new Error("Stylesheet failed: "+definition.path));};
             signal.addEventListener("abort",abort,{once:true});
             if(signal.aborted)return abort();
-            document.head.append(node);
+            document.head.insertBefore(node,before);
         });
     }
     async function prepareStyles(config,page,signal,url) {
         const created=[];
         try {
-            return await Promise.all(config.styles.filter(item=>!item.group || item.group===page.group).map(definition=>{
+            const planned=config.styles.filter(item=>!item.group || item.group===page.group).map(definition=>{
                 // A temporary computed URL keeps the loaded sheet stable when history changes depth.
                 const href=new URL(local(definition.path,config.assetVersions),document.baseURI).href;
                 const existing=[...document.querySelectorAll("link[data-site-style]:not([data-site-staged])")].find(node=>
                     node.dataset.siteStyle===definition.path && node.href===href && new URL(node.getAttribute("href"),url).href===href);
-                if(existing)return {node:existing,definition,staged:false};
-                return stagedStyle(definition,href,signal,created);
+                return {node:existing,definition,href,staged:false};
+            });
+            return await Promise.all(planned.map((item,index)=>{
+                if(item.node)return item;
+                // Keep the configured cascade even when only some sheets are reused.
+                const before=planned.slice(index+1).find(next=>next.node)?.node || null;
+                return stagedStyle(item.definition,item.href,signal,created,before);
             }));
         } catch(error){created.forEach(node=>node.remove());throw error;}
+    }
+    async function prepareFonts(styles,signal) {
+        if(!window.FontFace || !document.fonts)return [];
+        const selected=new Map();
+        const descriptors={style:"font-style",weight:"font-weight",stretch:"font-stretch",unicodeRange:"unicode-range",featureSettings:"font-feature-settings",variationSettings:"font-variation-settings",display:"font-display",ascentOverride:"ascent-override",descentOverride:"descent-override",lineGapOverride:"line-gap-override",sizeAdjust:"size-adjust"};
+        function walk(rules,base) {
+            for(const rule of rules) {
+                if(rule.cssRules)walk(rule.cssRules,base);
+                if(rule.type!==CSSRule.FONT_FACE_RULE)continue;
+                const family=rule.style.getPropertyValue("font-family").replace(/^(["'])(.*)\1$/,"$2");
+                const source=rule.style.getPropertyValue("src").replace(/url\(\s*(["']?)([^"')]+)\1\s*\)/g,(_,quote,path)=>"url("+JSON.stringify(new URL(path,base).href)+")");
+                const options=Object.fromEntries(Object.entries(descriptors).map(([name,css])=>[name,rule.style.getPropertyValue(css)]).filter(([,value])=>value));
+                const key=JSON.stringify([family,source,options]);
+                if(!fontCache.has(key)) {
+                    const face=new FontFace(family,source,options);
+                    const ready=face.load();
+                    fontCache.set(key,{face,ready});
+                    ready.catch(()=>fontCache.delete(key));
+                }
+                selected.set(key,fontCache.get(key));
+            }
+        }
+        for(const {node} of styles)walk(node.sheet.cssRules,node.href);
+        await Promise.all([...selected.values()].map(({ready})=>new Promise((resolve,reject)=>{
+            const abort=()=>reject(new DOMException("Font preparation cancelled","AbortError"));
+            signal.addEventListener("abort",abort,{once:true});
+            if(signal.aborted)abort();
+            ready.then(resolve,reject).finally(()=>signal.removeEventListener("abort",abort));
+        })));
+        signal.throwIfAborted();
+        return [...selected.values()].map(({face})=>face);
+    }
+    function activateFonts(fonts) {
+        if(!document.fonts)return;
+        // Loaded faces survive CSS URL handovers; no temporary fallback/reflow.
+        const next=new Set(fonts);
+        next.forEach(face=>document.fonts.add(face));
+        activeFonts.forEach(face=>{if(!next.has(face))document.fonts.delete(face);});
+        activeFonts=next;
     }
     async function normalizeStyles(styles,signal) {
         const created=[];
         const pending=styles.filter(({node,definition})=>node.getAttribute("href")!==local(definition.path));
         try {
-            const relative=await Promise.all(pending.map(({definition})=>stagedStyle(definition,local(definition.path),signal,created)));
+            const relative=await Promise.all(pending.map(({node,definition})=>stagedStyle(definition,local(definition.path),signal,created,node)));
             signal.throwIfAborted();
             // Both sets are ready. Hand over without mutating or reinserting any active stylesheet.
             for(const {node,definition} of relative) {
@@ -437,7 +494,7 @@
             decorationCleanup?.();
             const translation=window.INIT_I18N.prepare(target,{config:languageConfig,catalogs:{ko,en},navigation});
             const tokens={i18nConfig:local(config.i18n,config.assetVersions)};
-            await Promise.all(config.scripts.filter(item=>!item.group || item.group===page.group).map(item=>loadScript(item,tokens)));
+            const [fonts]=await Promise.all([prepareFonts(styles,signal),...config.scripts.filter(item=>!item.group || item.group===page.group).map(item=>loadScript(item,tokens))]);
             do {
                 translation.localize(window.INIT_LANGUAGE);
                 versionDomAssets(target,config.assetVersions);
@@ -446,7 +503,7 @@
             signal.throwIfAborted();
             let committed=false;
             return {
-                url,file,config,page,target,navigation,translation,styles,
+                url,file,config,page,target,navigation,translation,styles,fonts,
                 markCommitted(){committed=true;},
                 discard(){if(!committed)styles.filter(item=>item.staged).forEach(item=>item.node.remove());}
             };
@@ -467,13 +524,28 @@
             versions=activeConfig.assetVersions;
             window.INIT_SITE_CONFIG=activeConfig;
             window.INIT_NAVIGATION_CATALOGS=prepared.navigation;
+            activateFonts(prepared.fonts);
             const keep=new Set(prepared.styles.map(item=>item.node));
             document.querySelectorAll("link[data-site-style]").forEach(node=>{if(!keep.has(node))node.remove();});
             for(const {node,definition} of prepared.styles) {
                 node.sheet.media.mediaText=definition.attributes?.media || "all";
                 delete node.dataset.siteStaged;
             }
-            document.querySelectorAll("[data-site-meta]").forEach(node=>node.remove());
+            // Viewport and browser appearance settings belong to the document lifetime.
+            // Removing them during navigation can reset the mobile viewport/zoom.
+            const settings='meta[charset],meta[name="viewport"],meta[name="theme-color"],meta[name="color-scheme"]';
+            const retained=new Set();
+            const incoming=[...prepared.target.head.querySelectorAll("[data-site-meta]")];
+            for(const node of incoming.filter(node=>node.matches(settings))) {
+                const current=[...document.head.querySelectorAll(settings)].find(item=>
+                    item.getAttribute("name")===node.getAttribute("name"));
+                if(!current)continue;
+                for(const attr of [...current.attributes])if(!node.hasAttribute(attr.name))current.removeAttribute(attr.name);
+                for(const attr of node.attributes)if(current.getAttribute(attr.name)!==attr.value)current.setAttribute(attr.name,attr.value);
+                retained.add(current);
+                node.remove();
+            }
+            document.querySelectorAll("[data-site-meta]").forEach(node=>{if(!retained.has(node))node.remove();});
             for(const node of [...prepared.target.head.querySelectorAll("[data-site-meta]")])document.head.append(node);
             for(const attribute of [...document.body.attributes])document.body.removeAttribute(attribute.name);
             for(const attribute of prepared.target.body.attributes)document.body.setAttribute(attribute.name,attribute.value);
@@ -486,6 +558,9 @@
             loader.dataset.pageFile=pageFile;
             loader.setAttribute("src",local("assets/js/common.js"));
             document.querySelectorAll("script[data-site-runtime]").forEach(node=>node.setAttribute("src",local(node.dataset.siteRuntime)));
+            // Finish layout-affecting page setup before measuring/restoring a position.
+            for(const script of activeConfig.scripts.filter(item=>!item.group || item.group===prepared.page.group))mountBehavior(script.path,true);
+            versionDomAssets();
             const hash=prepared.url.hash;
             if(position) window.scrollTo({top:position.y || 0,left:position.x || 0,behavior:"instant"});
             else if(hash) {
@@ -494,8 +569,6 @@
                 if(target)target.scrollIntoView({behavior:"instant",block:"start"});
                 else window.scrollTo({top:0,left:0,behavior:"instant"});
             } else window.scrollTo({top:position?.y || 0,left:position?.x || 0,behavior:"instant"});
-            for(const script of activeConfig.scripts.filter(item=>!item.group || item.group===prepared.page.group))mountBehavior(script.path,true);
-            versionDomAssets();
             prepared.markCommitted();
             focusDestination(document.querySelector("h1"));
         };
@@ -537,6 +610,11 @@
         const [layout, languageConfig, ko] = await Promise.all([
             resource(config.components,false),resource(config.i18n),resource("assets/i18n/ko.json"),styleReady
         ]);
+        const initialFonts=await prepareFonts([...document.querySelectorAll("link[data-site-style]")].map(node=>({node})),requests.signal).catch(error=>{
+            if(error.name!=="AbortError")console.warn("Font preload unavailable; CSS fallback retained.",error.message);
+            return [];
+        });
+        activateFonts(initialFonts);
         const tokens = renderHead(config,page,ko);
         await domReady;
         createLayout(config,layout);

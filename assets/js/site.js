@@ -113,8 +113,16 @@
         if (!linkRail) return;
         const linkBounds = activeLink.getBoundingClientRect();
         const railBounds = linkRail.getBoundingClientRect();
-        const isClipped = linkBounds.left < railBounds.left || linkBounds.right > railBounds.right;
-        if (isClipped) activeLink.scrollIntoView({ block: "nearest", inline: "center" });
+        const isClipped = linkBounds.left < railBounds.left - 1 || linkBounds.right > railBounds.right + 1;
+        if (!isClipped) return;
+        // Only move this horizontal rail. scrollIntoView also scrolls the page,
+        // including its viewport padding, and can undo the destination position.
+        const centered = linkRail.scrollLeft + linkBounds.left - railBounds.left
+            - Math.max(0, (linkRail.clientWidth - linkBounds.width) / 2);
+        const left = Math.max(0, Math.min(centered, linkRail.scrollWidth - linkRail.clientWidth));
+        if (Math.abs(left - linkRail.scrollLeft) > 1) {
+            linkRail.scrollTo({left, top:linkRail.scrollTop, behavior:"instant"});
+        }
     }
 
     function revealDetailNavigationLocation() {
@@ -499,10 +507,14 @@
     setActiveNavigation();
     initProductGallery();
     initLightbox();
-    initReveals();
     enforceReadableTypeFloor();
-    updateScrollUi();
-    revealDetailNavigationLocation();
+    function finishLayout() {
+        initReveals();
+        updateScrollUi();
+        revealDetailNavigationLocation();
+    }
+    if (context.navigation) listen(document,"init:site-ready",finishLayout,{once:true});
+    else finishLayout();
 
     return scope.dispose;
     });

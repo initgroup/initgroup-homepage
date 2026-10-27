@@ -1419,14 +1419,6 @@ html[lang="en"] .ko-brand-name { display: none; }
 
 @media (max-width: 50rem) {
     :root { --header-height: 4.5rem; }
-    :root:has(body[data-page="solutions"]) { --sub-navigation-height: 4.9rem; }
-    .page-sub-navigation[data-navigation-mode="pages"] .page-sub-navigation-links a[data-navigation-item="product"] {
-        max-width: calc(100vw - 8.5rem);
-        min-height: var(--sub-navigation-height);
-        white-space: normal;
-        text-wrap: balance;
-        line-height: 1.25;
-    }
     .page-sub-navigation-inner { width: calc(100% - 1rem); }
     .page-sub-navigation-root { min-width: 6.6rem; max-width: 8rem; padding-right: 0.7rem; }
     .page-sub-navigation-links a { padding-inline: 0.7rem; }
