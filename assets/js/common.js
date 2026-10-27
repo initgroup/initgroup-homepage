@@ -7,8 +7,31 @@
     const behaviors = new Map();
     const loadedScripts = new Map();
     let pageCleanups = [];
+    let keyboardInput = false;
+    document.addEventListener("pointerdown",()=>{
+        keyboardInput=false;document.documentElement.dataset.inputModality="pointer";
+    },true);
+    document.addEventListener("keydown",event=>{
+        if(!["Shift","Control","Alt","Meta"].includes(event.key)) {
+            keyboardInput=true;document.documentElement.dataset.inputModality="keyboard";
+        }
+    },true);
+    function focusDestination(target) {
+        if(!target)return;
+        const previous=target.getAttribute("tabindex");
+        const alreadyManaged=target.hasAttribute("data-navigation-focus");
+        target.tabIndex=-1;
+        target.dataset.navigationFocus=keyboardInput?"keyboard":"pointer";
+        target.focus({preventScroll:true});
+        if(!alreadyManaged)target.addEventListener("blur",()=>{
+            delete target.dataset.navigationFocus;
+            if(previous===null)target.removeAttribute("tabindex");
+            else target.setAttribute("tabindex",previous);
+        },{once:true});
+    }
     window.INIT_PAGE = Object.freeze({
         register(path,mount) { behaviors.set(path,mount); },
+        focus:focusDestination,
         scope() {
             const controller = new AbortController(), frames = new Set(), observers = [];
             return {
@@ -300,34 +323,41 @@
             document.head.append(node);
         });
     }
-    async function prepareStyles(config,page,signal) {
+    async function prepareStyles(config,page,signal,url) {
         const created=[];
         try {
             return await Promise.all(config.styles.filter(item=>!item.group || item.group===page.group).map(definition=>{
                 // A temporary computed URL keeps the loaded sheet stable when history changes depth.
                 const href=new URL(local(definition.path,config.assetVersions),document.baseURI).href;
+                const existing=[...document.querySelectorAll("link[data-site-style]:not([data-site-staged])")].find(node=>
+                    node.dataset.siteStyle===definition.path && node.href===href && new URL(node.getAttribute("href"),url).href===href);
+                if(existing)return {node:existing,definition,staged:false};
                 return stagedStyle(definition,href,signal,created);
             }));
         } catch(error){created.forEach(node=>node.remove());throw error;}
     }
     async function normalizeStyles(styles,signal) {
         const created=[];
+        const pending=styles.filter(({node,definition})=>node.getAttribute("href")!==local(definition.path));
         try {
-            const relative=await Promise.all(styles.map(({definition})=>stagedStyle(definition,local(definition.path),signal,created)));
+            const relative=await Promise.all(pending.map(({definition})=>stagedStyle(definition,local(definition.path),signal,created)));
             signal.throwIfAborted();
             // Both sets are ready. Hand over without mutating or reinserting any active stylesheet.
             for(const {node,definition} of relative) {
                 node.sheet.media.mediaText=definition.attributes?.media || "all";
                 delete node.dataset.siteStaged;
             }
-            styles.forEach(({node})=>node.remove());
+            pending.forEach(({node})=>node.remove());
         } catch(error) {
             created.forEach(node=>node.remove());
             if(error.name!=="AbortError")console.warn("Prepared styles retained while relative references are unavailable.",error.message);
         }
-    }    function imageUrls(target,styles) {
+    }
+    function imageUrls(target,styles) {
         const urls=new Set();
         for (const image of target.images) {
+            // Below-the-fold screenshots keep native lazy loading on mobile connections.
+            if(image.loading==="lazy")continue;
             const source=image.getAttribute("src");
             if(source)urls.add(new URL(source,target.baseURI).href);
         }
@@ -350,16 +380,25 @@
         return urls;
     }
     async function preloadImages(target,styles,signal) {
-        await Promise.all([...imageUrls(target,styles)].map(url=>new Promise((resolve,reject)=>{
-            const image=new Image();
-            const abort=()=>{image.removeAttribute("src");reject(new DOMException("Navigation cancelled","AbortError"));};
-            const finish=callback=>{signal.removeEventListener("abort",abort);image.onload=null;image.onerror=null;callback();};
-            image.onload=()=>image.decode().catch(()=>{}).then(()=>finish(resolve));
-            image.onerror=()=>finish(()=>reject(new Error("Image failed: "+url)));
-            signal.addEventListener("abort",abort,{once:true});
-            if(signal.aborted)return abort();
-            image.src=url;
-        })));
+        // Images are optional: one slow or missing image must not block the whole page.
+        const controller=new AbortController();
+        const cancel=()=>controller.abort();
+        signal.addEventListener("abort",cancel,{once:true});
+        const timer=setTimeout(cancel,700);
+        const imageSignal=controller.signal;
+        try {
+            await Promise.all([...imageUrls(target,styles)].map(url=>new Promise(resolve=>{
+                const image=new Image();
+                const finish=()=>{imageSignal.removeEventListener("abort",abort);image.onload=null;image.onerror=null;resolve();};
+                const abort=()=>{image.removeAttribute("src");finish();};
+                image.onload=()=>image.decode().catch(()=>{}).then(finish);
+                image.onerror=finish;
+                imageSignal.addEventListener("abort",abort,{once:true});
+                if(imageSignal.aborted || signal.aborted)return abort();
+                image.src=url;
+            })));
+        } finally {clearTimeout(timer);signal.removeEventListener("abort",cancel);}
+        signal.throwIfAborted();
     }
     async function preparePage(url,signal) {
         const config=await resource("assets/shared/site.json",true,{},signal);
@@ -369,7 +408,7 @@
         if(scriptPaths.some(path=>config.assetVersions?.[path]!==versions[path]))return {reload:true,url};
         const page=config.pages[file];
         let styles=[], preparationFailed=false;
-        const stylesReady=prepareStyles(config,page,signal).then(value=>{
+        const stylesReady=prepareStyles(config,page,signal,url).then(value=>{
             styles=value;
             if(preparationFailed)styles.filter(item=>item.staged).forEach(item=>item.node.remove());
             return value;
@@ -458,36 +497,27 @@
             for(const script of activeConfig.scripts.filter(item=>!item.group || item.group===prepared.page.group))mountBehavior(script.path,true);
             versionDomAssets();
             prepared.markCommitted();
-            const heading=document.querySelector("h1");
-            if(heading) {
-                heading.tabIndex=-1;
-                heading.focus({preventScroll:true});
-                heading.addEventListener("blur",()=>heading.removeAttribute("tabindex"),{once:true});
-            }
+            focusDestination(document.querySelector("h1"));
         };
-        if(typeof document.startViewTransition==="function") {
-            const transition=document.startViewTransition(async()=>{
-                update();
-                await normalizeStyles(prepared.styles,signal);
-                await document.fonts?.ready;
-                await Promise.all([...document.images].filter(image=>{
-                    const rect=image.getBoundingClientRect();return rect.width && rect.height && rect.top<innerHeight && rect.bottom>0;
-                }).map(image=>{image.loading="eager";return image.decode().catch(()=>{});}));
-            });
-            await transition.updateCallbackDone;
-            await transition.finished;
-        } else {
-            update();
-            await normalizeStyles(prepared.styles,signal);
-        }
+        // A synchronous swap paints once. Browser snapshot overlays can intercept taps
+        // while CSS/font/image promises are pending, even with animations disabled.
+        update();
         document.dispatchEvent(new CustomEvent("init:site-ready"));
         document.dispatchEvent(new CustomEvent("init:pagechange",{detail:{file:pageFile}}));
+        await normalizeStyles(prepared.styles,signal);
         return true;
     }
     window.INIT_SITE_ENGINE=Object.freeze({
         rootUrl,
         pageFor:url=>publicPage(url),
         get file(){return pageFile;},
+        async hasUpdate(signal) {
+            const latest=await resource("assets/shared/site.json",true,{},signal);
+            const {pageVersions:nextPages,...nextShared}=latest;
+            const {pageVersions:currentPages,...currentShared}=activeConfig;
+            return nextPages?.[pageFile]!==currentPages?.[pageFile]
+                || JSON.stringify(nextShared)!==JSON.stringify(currentShared);
+        },
         prepare:preparePage,
         activate:activatePage
     });

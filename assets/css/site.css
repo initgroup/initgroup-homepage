@@ -58,11 +58,16 @@ html {
 
 /* Only a fully styled, translated page is revealed; no outgoing-content fade. */
 html[data-site-loading="true"] body { opacity: 0; pointer-events: none; }
-/* A prepared document is replaced atomically, with no fade through a blank frame. */
-::view-transition-group(root),
-::view-transition-old(root),
-::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 html[data-navigation-pending="true"] a { cursor: progress; }
+html[data-navigation-pending="true"]::after {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: 3px;
+    z-index: 10000;
+    background: var(--brand);
+    pointer-events: none;
+}
 
 /* Keep the legal prefix and company name together in both static and translated copy. */
 .company-name { white-space: nowrap; word-break: keep-all; }
@@ -97,7 +102,9 @@ img, svg { display: block; max-width: 100%; }
 h1, h2, h3, p, ol, ul, dl, dd, figure { margin-top: 0; }
 h1, h2, h3, strong { letter-spacing: -0.045em; }
 ::selection { color: #fff; background: var(--brand); }
-:focus-visible { outline: 3px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 6px var(--navy-deep); }
+:focus-visible:where(:not([data-navigation-focus="pointer"])),
+:where(html[data-input-modality="keyboard"]) :focus:where(:not([data-navigation-focus="pointer"])) { outline: 3px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 6px var(--navy-deep); }
+[data-navigation-focus="pointer"]:focus { outline: none; box-shadow: none; }
 [hidden] { display: none !important; }
 .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; white-space: nowrap !important; border: 0 !important; }
 .minimum-font-size { font-size: 1rem !important; }

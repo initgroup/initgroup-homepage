@@ -49,6 +49,19 @@ foreach ($entry in @($manifest | Where-Object { $_.EndsWith('.css') } | Sort-Obj
     })
     Save-ChangedText $cssPath $updated
 }
+$loaderVersion = Get-AssetVersion (Join-Path $siteRoot 'assets/js/common.js')
+$pageVersionLines = @()
+foreach ($entry in @($manifest | Where-Object { $_.EndsWith('.html') -and -not $_.StartsWith('assets/') } | Sort-Object)) {
+    $htmlPath = Join-Path $siteRoot $entry
+    $source = [IO.File]::ReadAllText($htmlPath,$utf8)
+    $updated = [regex]::Replace($source,'<script src="((?:\.\./)*assets/js/common\.js)(?:\?[^"]*)?"',[Text.RegularExpressions.MatchEvaluator]{
+        param($match)
+        '<script src="' + $match.Groups[1].Value + '?v=' + $loaderVersion + '"'
+    })
+    # Only the bootstrap query is changed; the authored body remains the source.
+    Save-ChangedText $htmlPath $updated
+    $pageVersionLines += '    "' + $entry + '": "' + (Get-AssetVersion $htmlPath) + '"'
+}
 $versionLines = @()
 foreach ($entry in @($manifest | Where-Object { $_.StartsWith('assets/') -and $_ -ne 'assets/shared/site.json' } | Sort-Object)) {
     $versionLines += '    "' + $entry + '": "' + (Get-AssetVersion (Join-Path $siteRoot $entry)) + '"'
@@ -64,17 +77,13 @@ if ([regex]::IsMatch($config,$existingPattern)) {
     if ($offset -lt 0) { throw 'Missing shared component configuration.' }
     $updatedConfig = $config.Insert($offset,$block)
 }
-Save-ChangedText $configPath $updatedConfig
-
-$loaderVersion = Get-AssetVersion (Join-Path $siteRoot 'assets/js/common.js')
-foreach ($entry in @($manifest | Where-Object { $_.EndsWith('.html') -and -not $_.StartsWith('assets/') })) {
-    $htmlPath = Join-Path $siteRoot $entry
-    $source = [IO.File]::ReadAllText($htmlPath,$utf8)
-    $updated = [regex]::Replace($source,'<script src="((?:\.\./)*assets/js/common\.js)(?:\?[^"]*)?"',[Text.RegularExpressions.MatchEvaluator]{
-        param($match)
-        '<script src="' + $match.Groups[1].Value + '?v=' + $loaderVersion + '"'
-    })
-    # Only the existing common loader query is updated; body and include structure remain authored.
-    Save-ChangedText $htmlPath $updated
+$pageBlock = '  "pageVersions": {' + "`n" + ($pageVersionLines -join ",`n") + "`n  },`n"
+$pagePattern = '(?ms)^  "pageVersions": \{\r?\n.*?^  \},\r?\n'
+if ([regex]::IsMatch($updatedConfig,$pagePattern)) {
+    $updatedConfig = [regex]::Replace($updatedConfig,$pagePattern,[Text.RegularExpressions.MatchEvaluator]{ param($match) $pageBlock })
+} else {
+    $offset = $updatedConfig.IndexOf('  "assetVersions":',[StringComparison]::Ordinal)
+    $updatedConfig = $updatedConfig.Insert($offset,$pageBlock)
 }
+Save-ChangedText $configPath $updatedConfig
 if (-not $Quiet) { Write-Host "Asset versions current: content-based SHA-256, $script:updatedFiles file(s) updated; unchanged files keep their version." }

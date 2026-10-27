@@ -202,7 +202,7 @@
     }
 
     function openHoverMenu(key, options = {}) {
-        if (document.documentElement.dataset.navigationPending || !hoverMenu || !header || !desktopNavigation.matches) return;
+        if (!hoverMenu || !header || !desktopNavigation.matches) return;
         if (!menu?.hidden) closeMenu({ restoreFocus: false });
         if (options.pinned !== undefined) hoverMenuPinned = options.pinned;
         if (options.returnFocus instanceof HTMLElement) hoverReturnFocus = options.returnFocus;
@@ -221,7 +221,7 @@
     }
 
     function closeHoverMenu(options = {}) {
-        if (document.documentElement.dataset.navigationPending || !hoverMenu || (hoverMenuPinned && !options.force)) return;
+        if ((options.navigation && document.documentElement.dataset.navigationPending) || !hoverMenu || (hoverMenuPinned && !options.force)) return;
         hoverMenu.hidden = true;
         hoverMenuPinned = false;
         header?.classList.remove("is-hover-open");
@@ -249,7 +249,7 @@
     }
 
     function closeMenu(options = {}) {
-        if (document.documentElement.dataset.navigationPending || !menu || !menuToggle || !menuBackdrop || !header || menu.hidden) return;
+        if ((options.navigation && document.documentElement.dataset.navigationPending) || !menu || !menuToggle || !menuBackdrop || !header || menu.hidden) return;
         menu.hidden = true;
         menuBackdrop.hidden = true;
         menuToggle.setAttribute("aria-expanded", "false");
@@ -274,7 +274,7 @@
                 || pageSubNavigation?.contains(activeElement)
                 || hoverMenu.contains(activeElement)
             ) return;
-            closeHoverMenu({ force: true });
+            closeHoverMenu({ force: true, navigation: true });
         });
     }
 
@@ -441,7 +441,7 @@
         if (event.key === "Escape") closeHoverMenu({ force: true, restoreFocus: true });
     });
     desktopNavLinks.forEach((link) => {
-        link.addEventListener("click", () => closeHoverMenu({ force: true }));
+        link.addEventListener("click", () => closeHoverMenu({ force: true, navigation: true }));
     });
     hoverSections.forEach((section) => {
         section.addEventListener("pointerenter", () => {
@@ -449,9 +449,9 @@
         });
     });
     hoverMenu?.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => closeHoverMenu({ force: true }));
+        link.addEventListener("click", () => closeHoverMenu({ force: true, navigation: true }));
     });
-    menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMenu({ restoreFocus: false })));
+    menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMenu({ restoreFocus: false, navigation: true })));
     historyBackButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const fallback = button.dataset.historyFallback || new URL("index.html", siteRootUrl).href;

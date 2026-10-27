@@ -5,6 +5,10 @@
     let activeUrl=new URL(location.href);
     let index=0;
     let pending=null;
+    let refreshController=null;
+    let refreshPromise=null;
+    let refreshTimer=0;
+    const refreshInterval=60000;
     let scrollFrame=0;
     const stateKey="initStaticPage";
     function position(){return {x:scrollX,y:scrollY};}
@@ -38,24 +42,32 @@
         const file=engine.pageFor(url);
         if(file && !url.pathname.endsWith("/") && !url.pathname.split("/").pop().includes("."))url.pathname+="/";
         if(!file){location.assign(url.href);return false;}
+        if(pending?.url===url.href && pending.pop===!!options.pop)return pending.promise;
+        refreshController?.abort();
         const previous=pending;
         previous?.controller.abort();
         previous?.prepared?.discard?.();
-        const task={controller:new AbortController(),prepared:null,pop:!!options.pop};
+        const task={controller:new AbortController(),prepared:null,pop:!!options.pop,url:url.href};
         pending=task;
-        busy(true);status();
+        busy(true);status(window.INIT_I18N.t("ui.page.loading"));
         const timeout=setTimeout(()=>task.controller.abort(new Error("Page loading timed out")),12000);
         const promise=(async()=>{
             try {
                 const prepared=await engine.prepare(url,task.controller.signal);
                 task.prepared=prepared;
                 if(pending!==task || task.controller.signal.aborted){prepared.discard?.();return false;}
-                if(prepared.reload){location.assign(url.href);return false;}
+                if(prepared.reload) {
+                    if(options.replace && url.href===location.href) {
+                        history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
+                        location.reload();
+                    } else location.assign(url.href);
+                    return false;
+                }
                 const outgoing=position();
                 await engine.activate(prepared,()=>{
                     if(options.pop) {
                         index=options.state?.index ?? index;
-                    } else {
+                    } else if(!options.replace) {
                         history.replaceState(stateAt(engine.file,outgoing,index),"",activeUrl.href);
                         index++;
                         history.pushState(stateAt(file,{x:0,y:0},index),"",url.href);
@@ -64,7 +76,7 @@
                 },options.state?.scroll,task.controller.signal);
                 if(pending===task) {
                     pending=null;
-                    busy(false);
+                    busy(false);status();
                     history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
                 }
                 return true;
@@ -80,6 +92,7 @@
                 return false;
             } finally {clearTimeout(timeout);}
         })();
+        task.promise=promise;
         window.INIT_SITE_READY=promise;
         return promise;
     }
@@ -99,20 +112,54 @@
         const behavior=matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth";
         if(url.hash)target?.scrollIntoView({behavior,block:"start"});
         else window.scrollTo({top:0,left:0,behavior});
-        if(target) {
-            const hadTabIndex=target.hasAttribute("tabindex");
-            target.tabIndex=-1;target.focus({preventScroll:true});
-            if(!hadTabIndex)target.addEventListener("blur",()=>target.removeAttribute("tabindex"),{once:true});
-        }
+        window.INIT_PAGE.focus(target);
         window.INIT_SITE_READY=Promise.resolve(true);
+        refreshCurrent();
+    }
+    function refreshCurrent() {
+        if(pending || document.hidden)return;
+        if(refreshPromise && !refreshController?.signal.aborted)return refreshPromise;
+        const controller=new AbortController();
+        refreshController=controller;
+        const before=activeUrl.href;
+        const timeout=setTimeout(()=>controller.abort(),4000);
+        const promise=(async()=>{
+            try {
+                const changed=await engine.hasUpdate(controller.signal);
+                const interacting=[...document.querySelectorAll('dialog[open], [role="dialog"]:not([hidden]), [data-mobile-menu]:not([hidden]), [data-hover-menu]:not([hidden])')].some(node=>node.getClientRects().length)
+                    || document.activeElement?.matches('input, textarea, select, [contenteditable="true"]')
+                    || [...document.querySelectorAll('video')].some(video=>!video.paused);
+                if(changed && !interacting && !pending && !document.hidden && activeUrl.href===before && !controller.signal.aborted) {
+                    await navigate(before,{replace:true,state:{scroll:position()}});
+                }
+            } catch(_) {
+                // Offline tabs keep their cached page; the next check retries.
+            } finally {
+                clearTimeout(timeout);
+                if(refreshController===controller)refreshPromise=null;
+            }
+        })();
+        refreshPromise=promise;
+        return promise;
+    }
+    function scheduleRefresh() {
+        clearTimeout(refreshTimer);
+        if(!document.hidden)refreshTimer=setTimeout(()=>{
+            Promise.resolve(refreshCurrent()).finally(scheduleRefresh);
+        },refreshInterval);
     }
     window.INIT_PAGE_NAVIGATION=Object.freeze({
         navigate,
+        refresh:refreshCurrent,
         get pending(){return !!pending;}
     });
     window.INIT_SITE_READY.then(()=>{
         history.scrollRestoration="manual";
-        index=history.state?.[stateKey]?.index || 0;
+        const restored=history.state?.[stateKey];
+        index=restored?.index || 0;
+        if(restored?.file===engine.file) {
+            window.scrollTo({top:restored.scroll?.y || 0,left:restored.scroll?.x || 0,behavior:"instant"});
+        }
         history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
         document.addEventListener("click",event=>{
             if(event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)return;
@@ -135,6 +182,7 @@
                 restorePosition(url,event.state?.[stateKey]?.scroll);
                 window.INIT_SITE_READY=Promise.resolve(true);
                 document.dispatchEvent(new CustomEvent("init:close-menus"));
+                refreshCurrent();
                 return;
             }
             navigate(url,{pop:true,state:event.state?.[stateKey]});
@@ -142,6 +190,18 @@
         window.addEventListener("hashchange",()=>{
             if(!pending && engine.pageFor(new URL(location.href))===engine.file)activeUrl=new URL(location.href);
         });
+        window.addEventListener("pageshow",event=>{
+            if(event.persisted)refreshCurrent();
+            scheduleRefresh();
+        });
+        document.addEventListener("visibilitychange",()=>{
+            if(!document.hidden)refreshCurrent();
+            else refreshController?.abort();
+            scheduleRefresh();
+        });
+        window.addEventListener("online",()=>{refreshCurrent();scheduleRefresh();});
+        window.addEventListener("pagehide",()=>{clearTimeout(refreshTimer);refreshController?.abort();});
+        scheduleRefresh();
         window.addEventListener("scroll",()=>{
             if(scrollFrame)return;
             scrollFrame=requestAnimationFrame(()=>{scrollFrame=0;rememberScroll();});
@@ -149,7 +209,7 @@
         window.addEventListener("keydown",event=>{
             if(event.key!=="Escape" || !pending)return;
             const cancelled=pending;
-            cancelled.controller.abort();cancelled.prepared?.discard?.();pending=null;busy(false);
+            cancelled.controller.abort();cancelled.prepared?.discard?.();pending=null;busy(false);status();
             if(cancelled.pop)history.replaceState(stateAt(engine.file,position(),index),"",activeUrl.href);
             window.INIT_SITE_READY=Promise.resolve(true);
         },true);

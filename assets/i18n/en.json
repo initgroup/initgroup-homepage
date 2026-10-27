@@ -1,5 +1,6 @@
 {
   "ui.page.loadError": "The page could not be loaded. Please try again.",
+  "ui.page.loading": "Loading page.",
   "content.0000631811af": "A corporate research center was established and analysis technology research began in earnest.",
   "content.000132f9d1f4": "Leave conditions, formulas, indicators and thresholds together to determine why the candidate was created.",
   "content.00b871c76f20": "Create a basis for statistical design and data utilization suitable for policy and research purposes.",
@@ -398,7 +399,6 @@
   "content.bea30b3b3b63": "Status diagnosis",
   "content.c12c6ec76c26": "Go beyond proposing a method by specifying who will execute it, under which criteria, in day-to-day operations.",
   "content.c194458b5592": "Rule violation row screen preview",
-  "content.c26e617f44c7": "View capabilities",
   "content.c2a45138bcee": "Check progress",
   "content.c315daf4975a": "Optimized exploration and comparison visualization for R analysis results",
   "content.c3f9ff88a2b6": "Define purpose and scope",
