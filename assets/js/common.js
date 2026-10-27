@@ -121,14 +121,17 @@
         if (!response.ok) throw new Error("Shared resource failed: " + path + " (" + response.status + ")");
         return json ? response.json() : response.text();
     }
-    function appendElement(tag, attributes, parent = document.head) {
-        const node = parent.ownerDocument.createElement(tag);
+    function appendElement(tag, attributes, parent = document.head, node = parent.ownerDocument.createElement(tag)) {
+        for(const attribute of [...node.attributes]) {
+            if(attribute.name!=="data-site-meta" && !Object.hasOwn(attributes,attribute.name))node.removeAttribute(attribute.name);
+        }
         for (const [name, value] of Object.entries(attributes)) {
             if (!/^[a-z][a-z0-9:-]*$/.test(name) || name.startsWith("on")) throw new Error("Invalid shared attribute: " + name);
             if (value === false || value == null) continue;
-            node.setAttribute(name, value === true ? "" : String(value));
+            const content=value === true ? "" : String(value);
+            if(node.getAttribute(name)!==content)node.setAttribute(name,content);
         }
-        parent.append(node);
+        if(!node.parentNode)parent.append(node);
         return node;
     }
     function loadStyle(definition) {
@@ -162,7 +165,13 @@
     }
     function renderHead(config, page, ko, targetDocument = document, file = pageFile) {
         const element = (tag,attributes) => {
-            const node = appendElement(tag,attributes,targetDocument.head);
+            const existing=[...targetDocument.head.querySelectorAll("[data-site-meta]")].find(node=>{
+                if(node.localName!==tag)return false;
+                if(tag==="meta" && attributes.charset)return node.hasAttribute("charset");
+                const keys=tag==="meta"?[attributes.name?"name":"property"]:tag==="link"?["rel","type","sizes"]:["type"];
+                return keys.every(key=>node.getAttribute(key)===(attributes[key] ?? null));
+            });
+            const node = appendElement(tag,attributes,targetDocument.head,existing);
             node.dataset.siteMeta = "true";
             return node;
         };
@@ -171,9 +180,9 @@
             if (!Object.hasOwn(ko, key)) throw new Error("Missing metadata translation: " + key);
             return ko[key];
         };
-        // Keep raw metadata attributes relative, including root and fragment-only targets.
+        // Search metadata uses the one official HTTPS base; UI links/assets stay portable.
         const metadataPrefix = "../".repeat(file.split("/").length-1);
-        const metadataPath = path => (metadataPrefix || "./") + assertPath(path);
+        const metadataPath = path => new URL(assertPath(path),config.sitemapBaseUrl).href;
         const assetPath = path => assetUrl(metadataPrefix+assertPath(path),targetDocument.baseURI,config.assetVersions);
         const tokens = {
             themeColor: defaults.themeColor, colorScheme: defaults.colorScheme,
@@ -304,7 +313,7 @@
             });
         }
         // Prepare all fragments before replacing any placeholder.
-        const replacements = [...targetDocument.querySelectorAll("template[data-site-include]")].map(node => [node,include(node.dataset.siteInclude)]);
+        const replacements = [...targetDocument.querySelectorAll("[data-site-include]")].map(node => [node,include(node.dataset.siteInclude)]);
         for (const [node,html] of replacements) {
             const template = targetDocument.createElement("template");
             template.innerHTML = html;

@@ -39,7 +39,7 @@
 ## HTML·CSS·JavaScript 기준
 
 - 공통 로더 완료 후 DOM에는 title, description, canonical, viewport, 정확히 하나의 h1과 main을 유지합니다. 원본 HTML에는 고유 본문과 로더 참조·공통 include 자리만 둡니다.
-- 내부 링크와 자산은 현재 HTML·CSS 기준 상대경로를 사용합니다. canonical·OG·JSON-LD의 같은 사이트 주소도 문서 기준 상대경로로 생성합니다. sitemap·robots의 검색 안내 주소만 아래 규격 예외를 따릅니다.
+- 내부 이동 링크와 자산은 현재 HTML·CSS 기준 상대경로를 사용합니다. 2026-10-27 SEO 요청의 예외로 canonical·OG·JSON-LD의 같은 사이트 검색 주소는 공식 HTTPS 기준주소에서 생성합니다. 화면 이동과 자산 요청에 검색 기준주소를 사용하지 않습니다.
 - 인라인 실행 JavaScript를 추가하지 않고 `assets/js/`의 자체 호스팅 파일을 사용합니다.
 - 이미지에는 용도에 맞는 `alt`를 제공하고 공개 승인되지 않은 개인정보·운영 식별자를 포함하지 않습니다.
 - 키보드 조작, 포커스 표시, skip link, `prefers-reduced-motion`을 훼손하지 않습니다.
@@ -49,14 +49,15 @@
 
 ## 공통 HTML·메뉴·head와 줄바꿈 유지 기준
 
-- 각 공개 HTML의 head에는 내용 해시 쿼리가 붙은 assets/js/common.js 상대경로와 data-page-file을 가진 script 참조 한 개만 둡니다. 메타·CSS·아이콘·JSON-LD·추가 스크립트 목록을 각 HTML에 다시 복제하지 않습니다.
+- 2026-10-27 네이버 SEO 요청에 따라 각 공개 HTML의 head에는 내용 해시가 붙은 common.js 실행 참조 한 개와 `site:seo` 생성 블록을 둡니다. 정적 SEO의 원본은 site.json·ko/en 사전이며 sync-seo.ps1이 title·description·canonical·OG·JSON-LD를 생성합니다. CSS·아이콘·추가 실행 스크립트 목록은 계속 런타임 공통 설정에서 관리합니다. 생성 블록을 수동 편집하거나 본문 전체를 생성기로 바꾸지 않습니다.
 - 공통 메타·CSS·JS 참조와 페이지별 예외, sitemapBaseUrl은 assets/shared/site.json에서 관리합니다. 대메뉴·서브메뉴·전체 메뉴·모바일 버튼은 같은 파일의 navigation에서 이름·경로·순서를 관리하고 label.ko·label.en을 함께 수정합니다.
 - 모바일 하단 왼쪽 버튼의 순차 이동은 홈→서비스→솔루션→사업분야→채용입니다. 표시 문구는 서비스 보기·솔루션 보기·사업분야 보기·채용 보기이며 영어도 함께 유지합니다. 솔루션 상세 3개도 사업분야 보기로 연결합니다. 공통 navigation 정의로 관리하고 전체 메뉴·하위 메뉴와 함께 실제 터치 이동 및 전환 직후 안정성을 검증합니다.
+- 하단 버튼은 VisualViewport의 실제 표시 영역에 맞추고 window/VisualViewport resize·scroll·pageshow 및 버튼 크기 변화를 페이지 scope 안에서 처리합니다. 화면 크기 변경 때문에 viewport 메타를 재삽입하거나 새로고침하지 않습니다. 버튼 높이만큼 본문 하단 여백을 확보하고, `test-responsive-viewport.cjs`로 ko/en 전 메뉴의 PC→모바일→PC 전환·높이 변경·DevTools 모바일 전환·축소된 표시 영역·좌표 클릭을 검사합니다.
 - 서브메뉴바는 대메뉴와 솔루션 상세에서 공통 `--sub-navigation-height: 3.35rem`을 유지합니다. 특정 메뉴만 높이를 늘리거나 제품명을 여러 줄로 바꾸지 않으며, 긴 메뉴명은 한 줄 가로 스크롤로 제공합니다. `test-sub-navigation-height.cjs`로 ko/en 모바일·태블릿·PC의 높이·표시 프레임·순차 하단 버튼과 제품 탭을 확인합니다.
 - navigation.* 번역을 ko.json·en.json에 중복 저장하지 않습니다. 브라우저 로더가 공통 정의에서 번역을 구성합니다. 일반 본문·메타 번역은 기존 두 사전에 함께 반영합니다.
-- 반복되는 HTML은 assets/shared/layout.html의 template 모듈로 분리하고 각 페이지에서는 `<template data-site-include="header"></template>`처럼 참조합니다. 중첩 모듈·경로·문구 토큰은 README의 규칙을 따릅니다.
-- 수정은 공통 파일 저장과 새로고침으로 반영되어야 합니다. HTML을 펼쳐 쓰는 생성기를 다시 만들거나 PHP·SSI·서버 include로 바꾸지 않습니다. 사이트 실행 시 PowerShell·Python·Node.js·빌드 도구를 호출하지 않습니다.
-- JavaScript가 꺼지면 고유 본문은 남지만 공통 메뉴·스타일·검색 메타는 구성되지 않습니다. 이 제약을 숨기거나 초기 응답에 검색 메타가 있다고 보고하지 않습니다. 원본 태그 반복과 서버 프로그램 연동을 금지한 최신 사용자 요청을 우선합니다.
+- 반복 UI는 assets/shared/layout.html의 template 모듈로 관리합니다. 헤더만 `site:header` 생성 블록의 검색용 정적 링크를 기본 응답으로 제공하고, 로더가 data-site-include를 읽어 기존 UI 헤더로 한 번 교체합니다. footer·mobile-actions 등 다른 공통 영역은 기존 template 참조를 유지합니다. 검색 링크 이름은 navigation.searchLabels에서 기존 메뉴·번역 키를 참조합니다.
+- 브라우저의 공통 파일 수정 전파는 유지하며, 배포 전 build-site.ps1 또는 update-asset-versions.ps1로 SEO·정적 헤더 블록도 동기화합니다. 초기 원본 SEO가 공통 설정과 다르면 검증에서 실패해야 합니다. PHP·SSI·서버 include를 추가하지 않고 카페24에서 빌드 도구를 실행하지 않습니다.
+- JavaScript가 꺼져도 정적 SEO·검색용 헤더 링크·고유 한국어 본문을 제공합니다. 전체 UI 메뉴·스타일·언어 전환은 기존 JavaScript가 구성합니다. 초기 원본 응답과 실행 후 DOM을 각각 검사하며, 실행 후 메타·헤더가 중복되거나 기존 화면에 변화가 없어야 합니다.
 - CSS·JS 본문 코드는 기존 공통 자산에서 수정합니다. 로더가 공통 HTML 구성 후 스크립트를 정의된 순서로 한 번씩 실행하고 INIT_SITE_READY로 준비 완료를 제공합니다. 중복 로더 실행도 기능·이벤트를 중복 등록하지 않아야 합니다.
 - 공통 스타일은 공통 CSS 변수와 원본 규칙으로 제어합니다. 페이지별 인라인 스타일이나 중복 override를 추가하지 않습니다. HTML·site.json은 캐시 재검증을 사용하고 내용 해시가 붙은 자산은 캐시를 재사용합니다. 페이지별 버전 문자열을 수동 관리하지 않습니다.
 - 준비한 DOM을 다시 장식할 때 기존 className·번역 자식 노드를 통째로 덮어쓰지 않습니다. `minimum-font-size` 등 이미 완료한 레이아웃 보정을 유지하고 장식 클래스만 추가하며, 동일한 번역 문구는 다시 쓰지 않습니다.
@@ -64,14 +65,14 @@
 - 웹 글꼴은 CSS의 @font-face를 원본으로 삼아 준비 완료 FontFace를 문서 수명 동안 재사용합니다. 시트 교체·상대경로 정리 때문에 글꼴이 잠깐 해제되지 않도록 하며, 변경된 해시의 글꼴은 준비 후 화면 교체 시 활성화합니다. 취소·실패 시 현재 화면·글꼴을 유지하고 초기 글꼴 오류는 CSS 대체 글꼴로 복구합니다. 별도 글꼴 버전 문자열이나 중복 정의를 만들지 않습니다.
 - 글꼴 수명 변경 후에는 `test-navigation-fonts.cjs`로 ko/en WebKit·Chromium의 기존 캐시 재사용·새 해시 교체·준비 중 메뉴 조작·실패·취소·초기 대체 글꼴을 확인합니다.
 - 스크롤마다 방문 기록 API를 호출하지 않습니다. 최신 좌표는 메모리에 유지하고 replaceState 저장은 500ms 간격으로 제한하며 같은 상태의 저장은 생략합니다. 이동·pagehide 때 필요한 위치는 즉시 저장하고 뒤로·앞으로 이동은 메모리의 최신 좌표를 우선합니다. `test-navigation-history.cjs`로 iPhone의 연속 스크롤 호출 제한과 ko/en 즉시 위치 복원을 확인합니다.
-- scripts/build-site.ps1과 sync-head.ps1은 sitemap·robots 갱신용 호환 도구일 뿐 HTML을 수정하지 않습니다. 공통 변경 후 validate.ps1, test-common-loader.cjs, static-smoke.cjs로 한 곳 변경 전파·HTML 불변·ko/en·PC/모바일·스크립트 순서와 중복 방지를 검증합니다.
+- build-site.ps1·sync-head.ps1은 생성 SEO/헤더 블록과 sitemap·robots만 동기화합니다. 공통 변경 후 validate.ps1, test-static-seo.cjs, test-common-loader.cjs, static-smoke.cjs로 한 곳 변경 전파·고유 본문 불변·ko/en·PC/모바일·스크립트 순서와 중복 방지를 검증합니다. 메뉴·캐시·글꼴·스크롤·서브메뉴 높이의 기존 검사를 약화하지 않습니다.
 - ㈜인아이티와 (주) 인아이티는 .company-name으로 묶어 법인 표시와 회사명이 분리되지 않도록 합니다. 회사명 포함 번역 문장은 data-i18n과 한국어 span을 사용하고 기능 요소를 번역 span 안에 넣지 않습니다.
 - 문의 마지막 제목은 .heading-lines > .heading-line의 네 문맥 구간을 유지합니다. 한국어 PC의 네 줄과 좁은 화면의 추가 줄바꿈, 자연스러운 영어 흐름을 확인합니다. corporate.css에서 제목 칸의 폭과 균형 줄바꿈을 제어하며 72rem 이하에서는 이메일 영역을 아래로 배치해 마지막 서술어만 고립되지 않도록 합니다.
 
 ## 캐시와 화면 전환 유지 기준
 
 - package-static.ps1은 update-asset-versions.ps1을 호출해 자산별 SHA-256 앞 16자리와 site.json의 assetVersions·pageVersions를 갱신합니다. 공개 HTML 본문만 바뀐 경우도 감지하며 두 버전 맵은 직접 편집하지 않습니다. 내용이 같으면 버전과 파일 수정 시각을 유지합니다. 날짜·난수·접속·mtime으로 버전을 올리지 않습니다.
-- CSS의 이미지·폰트 참조와 CSS 자체 버전은 의존 파일 변경을 반영합니다. common.js가 바뀔 때 공개 HTML의 해당 script 쿼리만 갱신하며 본문·공통 head·메뉴를 펼쳐 쓰지 않습니다. assetVersions는 직접 편집하지 않습니다.
+- CSS의 이미지·폰트 참조와 CSS 자체 버전은 의존 파일 변경을 반영합니다. 자산 버전 계산 전에 SEO 생성 블록을 동기화하고, common.js 변경 시 bootstrap 쿼리를 갱신합니다. 고유 본문과 전체 UI 메뉴는 다시 생성하지 않으며 assetVersions·pageVersions는 직접 편집하지 않습니다.
 - 새 동적 자산은 INIT_ASSETS.url로 연결하고 내부 경로·쿼리·앵커를 보존합니다. HTML·site.json과 버전 없는 주소는 재검증하고, 해시가 붙은 공개 자산만 장기 캐시합니다. 서비스 워커나 별도 서버 프로그램을 추가하지 않습니다.
 - 내부 메뉴는 현재 화면을 유지한 채 다음 정적 HTML·공통 모듈·양 언어 사전·CSS·이미지를 준비하고 한 번에 교체합니다. 전환 중 현재 문서를 비우거나 body 전체의 opacity를 낮추는 등장 효과를 넣지 않습니다. 초기 직접 접속 시에만 준비 전 HTML·기본 언어 노출을 막으며, 실패·시간 초과 시 고유 본문을 복구합니다.
 - common.js의 INIT_SITE_ENGINE과 navigation.js가 문서 준비·주소·히스토리를 관리합니다. 각 URL의 정적 HTML 직접 접속을 보존하고 같은 페이지 메뉴·앵커도 불필요하게 재로딩하지 않습니다. document.startViewTransition이 없어도 같은 준비 후 교체 동작을 지원합니다. JavaScript 버전이 바뀐 배포 때만 호환성을 위한 전체 문서 갱신을 허용합니다.
@@ -91,9 +92,9 @@
 
 - 같은 사이트의 이동 링크와 자산은 현재 HTML·CSS·스크립트 기준 상대경로로 작성합니다. 운영 도메인이 포함된 절대 주소, `//도메인/...`, `/assets/...`·`/solutions/...` 같은 도메인 루트 고정 경로를 넣지 않습니다. 쿼리·앵커는 보존하고 외부 사이트·메일·전화 링크는 원래 형식을 유지합니다.
 - JavaScript가 생성하는 경로도 문서 또는 스크립트 위치와 상대경로로 계산합니다. 브라우저가 `href`/`src` 프로퍼티를 절대 주소로 해석하는 동작과 소스의 도메인 하드코딩을 혼동하지 않습니다.
-- 2026-10-22 최신 요청에 따라 검색·공유 메타도 상대경로로 생성합니다. canonical href, OG content, JSON-LD의 같은 사이트 URL·이미지·@id에 도메인이나 루트 고정 경로를 넣지 않습니다. canonicalPath·ogImage와 JSON-LD의 {"sitePath":"경로#식별자"}는 공통 JSON에서 사이트 루트 기준 상대경로로 관리하고 로더가 현재 문서 기준으로 바꿉니다. 홈은 빈 주소가 아닌 ./를 사용하고 쿼리·앵커를 canonical에 남기지 않습니다. schema.org 어휘 식별자는 외부 표준 URL로 유지합니다.
-- 도메인·하위 경로 이동 시 페이지 메타의 설정 변경은 필요 없습니다. sitemap.xml의 loc와 robots.txt의 Sitemap만 규격상 절대 URL을 유지하며 assets/shared/site.json의 sitemapBaseUrl에서 계산합니다. 이 값은 브라우저 메타·내비게이션에 사용하지 않습니다. build-site.ps1은 검색 안내 파일만 갱신합니다. 개인정보·404의 noindex 및 사이트맵 제외를 유지합니다.
-- 상대 메타가 새 도메인·다단계 경로·명시적 index.html·디렉터리 URL·쿼리·앵커에서 같은 대상을 가리키는지 ko/en으로 검사합니다. JavaScript 생성·상대 OG의 검색 및 공유 수집기 지원은 보장하지 않습니다.
+- canonicalPath·ogImage와 JSON-LD의 {"sitePath":"경로#식별자"}는 공통 JSON에 사이트 루트 기준 상대경로로 저장하고, 정적 생성기·로더가 sitemapBaseUrl의 공식 HTTPS 절대주소로 변환합니다. canonical에는 접속 쿼리·앵커를 남기지 않고 schema.org 어휘 식별자는 유지합니다. 이 기준은 2026-10-22의 상대 메타 원칙을 대체합니다.
+- sitemapBaseUrl은 canonical·OG·JSON-LD·사이트맵·robots의 공통 검색 기준주소입니다. 미리보기·다른 도메인/하위 폴더에서도 UI와 자산은 해당 위치의 상대경로로 작동하며, 검색 메타는 공식 주소를 유지합니다. 공식 도메인을 바꿀 때는 이 설정 한 곳을 바꾸고 SEO를 재생성합니다. 개인정보·404의 noindex 및 사이트맵 제외를 유지합니다.
+- 원본 정적 메타와 실행 후 ko/en 메타를 각각 검사하고 같은 유형이 중복되지 않아야 합니다. 검색용 정적 링크는 일반 href와 현재 브랜드명을 제공합니다. .htaccess의 대표주소 301은 initgroup.kr·www.initgroup.kr에만 적용하고 path/query·기존 410·캐시 정책과 프록시 HTTPS를 보존합니다. 카페24 업로드 전후를 구분하고 실제 HTTP 응답 검증 없이 운영 적용을 확정하지 않습니다.
 - 경로 관련 수정 뒤 `scripts/validate.ps1`, `scripts/test-relative-paths.ps1`, `scripts/test-shared-head.ps1`, `scripts/test-relocation.cjs`로 상대경로, 쿼리·앵커, 새 도메인·다단계 하위 경로, 한국어·영어 PC·모바일을 검증합니다. 미리보기 서버 포트는 계속 8200만 사용합니다.
 
 ## 다국어 콘텐츠 기준
@@ -121,8 +122,8 @@
 ## 공개 범위와 검색 정보
 
 - 공개 파일은 `static-files.json`을 기준으로 하며, 비공개 보관본은 `templates/disabled-content/`에 둡니다. 현재 숨긴 인사이트 페이지와 미사용 자산을 배포 목록에 다시 넣지 않습니다. 보관한 미사용 자산의 이전 URL도 Apache 410 설정을 유지합니다.
-- sitemap.xml은 2026-10-22 사용자가 재확인한 캡처에 맞춰 홈(/) → 회사(company/) → 서비스(services/) → 솔루션(solutions/) → 사업분야(projects/) → 채용(careers/) → 문의(contact/)의 7개 주소만 이 순서로 포함합니다. assets/shared/site.json의 sitemapPages에서 대상과 순서를 관리하며 공개 페이지 전체를 자동 등록하거나 알파벳순으로 정렬하지 않습니다.
-- 제품 상세 3개의 공개·canonical 설정은 유지하되 사이트맵에는 추가하지 않습니다. 개인정보 안내와 404 안내는 `noindex,follow`로 유지하며 사이트맵에서 제외합니다. 패키징 후에도 승인된 7개 URL과 순서가 유지되는지 확인합니다.
+- sitemap.xml은 2026-10-27 SEO 요청에 따라 기존 홈→회사→서비스→솔루션→사업분야→채용→문의의 7개 순서를 유지하고, 인에디타원→인법스→인서베이원 상세를 더한 10개 주소를 포함합니다. site.json.sitemapPages에서 대상·순서를 관리하며 알파벳순 자동 등록을 하지 않습니다.
+- 제품 상세 3개를 사이트맵에 포함하고 개인정보·404는 noindex·사이트맵 제외를 유지합니다. 패키징 후 10개 URL과 순서, 정적 검색 링크의 현재 브랜드 이름·목적지를 확인합니다.
 - title·description·OG·페이지 JSON-LD는 실제 화면 내용과 맞추고 한국어·영어를 함께 반영합니다. 제품 공유 이미지는 현재 공개한 화면만 사용합니다.
 - 별도 언어 URL이 없으므로 같은 URL에 가상의 언어별 `hreflang`을 만들지 않습니다. 확인되지 않은 변경 날짜와 불필요한 sitemap 우선순위·빈도를 추가하지 않습니다.
 - `/insights/`는 공개 종료 경로입니다. Apache 410 설정을 유지하며 robots.txt로 재수집을 막지 않습니다. 운영 업로드 시 예전 파일이 남지 않도록 확인합니다.
@@ -149,4 +150,4 @@
 
 - 데이터 품질 제품은 한국어 `인에디타원`, 영어 `IN-EDITAONE`, 영문명 `INIT-Data Editing Solution`을 사용합니다. 표시 문구·메타·번역 key·CSS 식별자에 과거 명칭을 재도입하지 않습니다.
 - 이전 상표 그림은 `templates/disabled-content/assets/`의 비공개 원본으로만 보존하고 재배포하지 않습니다. `.htaccess`의 이전 상표 자산 410 규칙을 유지합니다.
-- 사이트맵은 기존 승인 7개 URL을 유지합니다. 검색 결과 변경을 완료했다고 보고하려면 소스 수정·운영 업로드·검색 재수집을 구분하며 검색 사이트의 즉시 갱신을 보장하지 않습니다.
+- 사이트맵은 최신 승인 10개 URL을 유지합니다. 검색 결과 변경을 완료했다고 보고하려면 소스 수정·운영 업로드·검색 재수집을 구분하며 검색 사이트의 즉시 갱신을 보장하지 않습니다. 네이버 소유확인 값이나 nosublinks는 임의로 추가하지 않습니다.

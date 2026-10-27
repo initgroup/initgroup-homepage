@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 
-// Checks raw metadata separately from the browser's resolved URL properties.
+// Search metadata stays on the official HTTPS origin even in a relocated preview.
 async function checkMetadataPaths(page, config, file, deploymentBase) {
   const data = await page.evaluate(() => ({
     base: document.baseURI,
@@ -13,9 +13,9 @@ async function checkMetadataPaths(page, config, file, deploymentBase) {
   function check(raw, target, label) {
     assert.equal(typeof raw,'string',file+': missing '+label);
     assert.ok(raw.length,file+': empty '+label);
-    assert.doesNotMatch(raw,/^(?:[a-z][a-z0-9+.-]*:|\/)|\\/i,file+': non-relative '+label);
-    const resolved = new URL(raw,data.base).href;
-    assert.equal(resolved,new URL(target,deploymentBase).href,file+': incorrect '+label);
+    assert.match(raw,/^https:\/\//i,file+': non-absolute '+label);
+    assert.doesNotMatch(raw,/\\/,file+': invalid '+label);
+    assert.equal(raw,new URL(target,config.sitemapBaseUrl).href,file+': incorrect '+label);
   }
   const definition = config.pages[file];
   check(data.canonical,definition.canonicalPath,'canonical');

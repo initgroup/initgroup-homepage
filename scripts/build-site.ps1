@@ -1,12 +1,13 @@
 [CmdletBinding()]
 param([switch]$Check, [switch]$Quiet)
-# Compatibility command: only search-discovery files are synchronized.
-# Public HTML is authored directly and is never expanded or rewritten here.
+# Prepare only generated SEO/header blocks and search-discovery files.
+# Authored main content and runtime UI modules remain their original sources.
 $ErrorActionPreference = 'Stop'
 $siteRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $configPath = Join-Path $siteRoot 'assets/shared/site.json'
 if (-not (Test-Path -LiteralPath $configPath)) { throw 'Missing browser site configuration.' }
 $config = Get-Content -Raw -Encoding UTF8 -LiteralPath $configPath | ConvertFrom-Json
+& (Join-Path $PSScriptRoot 'sync-seo.ps1') -Check:$Check -Quiet:$Quiet
 $base = [uri]$config.sitemapBaseUrl
 if ($base.Scheme -notin @('https','http') -or -not $config.sitemapBaseUrl.EndsWith('/') -or $base.Query -or $base.Fragment -or $base.UserInfo) { throw 'Invalid sitemapBaseUrl.' }
 $lines = @('<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
@@ -33,4 +34,4 @@ foreach ($file in $updates.Keys) {
         [IO.File]::WriteAllText($path,$updates[$file],$utf8)
     }
 }
-if (-not $Quiet) { Write-Host 'Search discovery is current. HTML/CSS/JS run directly in the browser; no HTML generation.' }
+if (-not $Quiet) { Write-Host 'Search discovery is current. Cafe24 serves static HTML; only SEO/header blocks are prepared locally.' }

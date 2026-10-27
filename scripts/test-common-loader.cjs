@@ -16,8 +16,12 @@ const mime = {'.html':'text/html; charset=utf-8','.json':'application/json; char
   const initial = hashes();
   for(const file of pages) {
     const source = read(file);
-    assert.equal((source.match(/<script\b/g)||[]).length,1,file);
-    assert.doesNotMatch(source,/<meta\b|<link\b|<\?php|application\/ld\+json/,file);
+    assert.equal((source.match(/<script\b[^>]*\bsrc=/g)||[]).length,1,file);
+    assert.match(source,/<!-- site:seo:start -->/,file);
+    assert.match(source,/<meta name="description"/,file);
+    assert.match(source,/<link rel="canonical" href="https:\/\//,file);
+    assert.match(source,/data-site-prerender="navigation"/,file);
+    assert.doesNotMatch(source,/<\?php/,file);
     assert.match(source,/assets\/js\/common\.js/,file);
   }
   const browser = await chromium.launch({headless:true});
@@ -57,7 +61,7 @@ const mime = {'.html':'text/html; charset=utf-8','.json':'application/json; char
     config.meta.push({name:'application-name',content:'Common metadata update'});
     config.styles.push({path:'assets/css/common-regression.css'});
     config.scripts.push({path:'assets/js/common-regression.js'});
-    // Sitemap settings must have no effect on browser metadata or resource paths.
+    // The official search base changes metadata, never UI/resource paths.
     config.sitemapBaseUrl='https://sitemap-only.example/deploy/';
     layout=layout.replace('<div class="shell footer-bottom">','<div class="shell footer-bottom"><span data-common-regression>Shared footer</span>');
     for(const file of pages) {
@@ -73,6 +77,8 @@ const mime = {'.html':'text/html; charset=utf-8','.json':'application/json; char
       assert.equal(await page.locator('[data-common-regression]').count(),1);
       assert.equal(await page.locator('template[data-site-include]').count(),0);
       assert.equal(await page.locator('.site-header').count(),1);
+      assert.equal(await page.locator('[data-site-prerender]').count(),0);
+      for(const selector of ['title','meta[name="viewport"]','meta[name="description"]','link[rel="canonical"]'])assert.equal(await page.locator(selector).count(),1,file+' duplicate '+selector);
       assert.equal(await page.locator('.site-footer').count(),1);
       assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--common-regression').trim()),'passed');
       assert.equal(await page.evaluate(()=>window.commonRegressionRuns),1);
@@ -112,6 +118,6 @@ const mime = {'.html':'text/html; charset=utf-8','.json':'application/json; char
     assert.equal(await page.locator('.site-header').count(),0,'Failed include must not partially replace placeholders');
     await context.close();
     assert.deepEqual(hashes(),initial,'Runtime changes must never rewrite public HTML files');
-    console.log('PASS: 12 unexpanded source pages; shared meta/CSS/JS and bilingual menu changes propagate without HTML generation; footer reuse, script order/uniqueness, domain migration, body isolation, duplicate-loader guard and recursive-include failure.');
+    console.log('PASS: 12 static-SEO source pages; shared metadata upserts and bilingual UI changes propagate without runtime file writes; header/footer uniqueness, script order, domain migration, body isolation, duplicate-loader guard and recursive-include failure.');
   } finally {await browser.close();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

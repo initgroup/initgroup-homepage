@@ -9,7 +9,7 @@ $manifest = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 's
 $headDefinition = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'assets/shared/site.json') | ConvertFrom-Json
 $sitemapBaseUri = [uri]$headDefinition.sitemapBaseUrl
 $internalHosts = @($sitemapBaseUri.DnsSafeHost,'initgroup.kr','www.initgroup.kr') | Sort-Object -Unique
-if ($headDefinition.PSObject.Properties['publicBaseUrl']) { $errors.Add('Obsolete publicBaseUrl: browser metadata must be relative') }
+if ($sitemapBaseUri.Scheme -ne 'https') { $errors.Add('Search metadata must use the official HTTPS base') }
 # Historical references may remain private; deployed text and filenames use the current brand.
 $legacyProductPattern = '(?i)\uC778\uB381\uC2A4|in[-_ ]?deps|INIT[- ]Data Editing Platform System'
 foreach ($entry in $manifest) {
@@ -70,7 +70,10 @@ foreach ($file in $htmlContents.Keys) {
     $loaders = [regex]::Matches($source,'<script[^>]*src="([^"]+)"[^>]*>')
     if ($loaders.Count -ne 1 -or $loaders[0].Groups[1].Value -notmatch '^(?:\.\./)*assets/js/common\.js\?v=[a-f0-9]{16}$') { $errors.Add("$relative : expected exactly one common loader") }
     if ($source -notmatch ('data-page-file="' + [regex]::Escape($relative) + '"')) { $errors.Add("$relative : incorrect loader page key") }
-    if ($source -match '<\?php|<meta\b|<link\b|application/ld\+json|data-site-header|class="site-footer"|\{\{|<script(?![^>]*\bsrc=)') { $errors.Add("$relative : duplicated common markup, inline script or unresolved server code") }
+    # Only the checked generated blocks may contain static SEO/common header markup.
+    $authored = [regex]::Replace($source,'(?ms)^    <!-- site:seo:start -->\n.*?^    <!-- site:seo:end -->','')
+    $authored = [regex]::Replace($authored,'(?ms)^<!-- site:header:start -->\n.*?^<!-- site:header:end -->','')
+    if ($authored -match '<\?php|<meta\b|<link\b|application/ld\+json|data-site-header|class="site-footer"|\{\{|<script(?![^>]*\bsrc=)') { $errors.Add("$relative : unmanaged common markup, inline script or unresolved server code") }
     foreach ($tag in @('h1','main')) {
         if ([regex]::Matches($source,'<'+$tag+'(?:\s|>)').Count -ne 1) { $errors.Add("$relative : expected one $tag") }
     }
@@ -80,7 +83,8 @@ foreach ($file in $htmlContents.Keys) {
     $ids = @([regex]::Matches($source,'\sid="([^"]+)"') | ForEach-Object { $_.Groups[1].Value })
     if (@($ids | Sort-Object -Unique).Count -ne $ids.Count) { $errors.Add("$relative : duplicate id") }
     foreach ($image in [regex]::Matches($source,'<img\b[^>]*>')) { if ($image.Value -notmatch '\salt="[^"]*"') { $errors.Add("$relative : missing image alt") } }
-    foreach ($match in [regex]::Matches($source,'(?:^|\s)(?:src|href|poster|action|data-image|data-history-fallback|data-promo-src-ko|data-promo-src-en)="([^"]*)"')) { Test-LocalReference $file $match.Groups[1].Value }
+    $resourceSource = [regex]::Replace($source,'(?ms)^    <!-- site:seo:start -->\n.*?^    <!-- site:seo:end -->','')
+    foreach ($match in [regex]::Matches($resourceSource,'(?:^|\s)(?:src|href|poster|action|data-image|data-history-fallback|data-promo-src-ko|data-promo-src-en)="([^"]*)"')) { Test-LocalReference $file $match.Groups[1].Value }
     foreach ($match in [regex]::Matches($source,'data-i18n-image-base="([^"]+)"')) {
         foreach ($suffix in @('kor','eng')) { Test-LocalReference $file ($match.Groups[1].Value + "_$suffix.png") }
     }

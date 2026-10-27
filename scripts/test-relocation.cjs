@@ -51,6 +51,7 @@ const sourceAttributes = ['href','src','poster','action','formaction','data-imag
             const base = new URL(baseUrl);
             const invalid=[];
             for(const element of document.querySelectorAll('*')) {
+              if(element.matches('link[rel="canonical"]'))continue;
               for(const attribute of attributes) {
                 const raw=element.getAttribute(attribute);
                 if(!raw || /^(mailto:|tel:|data:|#)/i.test(raw))continue;

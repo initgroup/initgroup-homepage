@@ -34,6 +34,8 @@
     let activePageSubLink = pageSubLinks.find((link) => link.classList.contains("is-current")) || null;
     let frameRequested = false;
     let readableTypeFrameRequested = false;
+    let viewportFrameRequested = false;
+    const visualViewport = window.visualViewport;
 
     function isPageNavigation(event, link) {
         if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return false;
@@ -161,6 +163,45 @@
         if (readableTypeFrameRequested) return;
         readableTypeFrameRequested = true;
         scope.frame(enforceReadableTypeFloor);
+    }
+
+    function updateMobileActionViewport() {
+        viewportFrameRequested = false;
+        if (!mobileActionBar?.isConnected) return;
+        const set = (element, name, value) => {
+            const next = Math.max(0, value).toFixed(3) + "px";
+            if (element.style.getPropertyValue(name) !== next) element.style.setProperty(name, next);
+        };
+        let bounds = mobileActionBar.getBoundingClientRect();
+        if (!bounds.height) {
+            document.body.style.removeProperty("--mobile-action-height");
+            return;
+        }
+        const inset = name => Number.parseFloat(mobileActionBar.style.getPropertyValue(name)) || 0;
+        // Fixed positioning follows the layout viewport; zoom/device mode/keyboard
+        // can leave a smaller visible viewport. Measure the neutral fixed edges
+        // rather than assuming innerHeight and the painted bottom are identical.
+        const bottom = visualViewport ? bounds.bottom + inset("--mobile-action-bottom") - visualViewport.offsetTop - visualViewport.height : 0;
+        const right = visualViewport ? bounds.right + inset("--mobile-action-right") - visualViewport.offsetLeft - visualViewport.width : 0;
+        set(mobileActionBar, "--mobile-action-bottom", bottom);
+        set(mobileActionBar, "--mobile-action-right", right);
+        set(mobileActionBar, "--mobile-action-left", visualViewport?.offsetLeft || 0);
+        bounds = mobileActionBar.getBoundingClientRect();
+        set(document.body, "--mobile-action-height", bounds.height);
+    }
+
+    function requestViewportUpdate() {
+        if (viewportFrameRequested) return;
+        viewportFrameRequested = true;
+        scope.frame(() => {
+            updateMobileActionViewport();
+            // A responsive reflow may bring a previously hidden reveal into view.
+            // Finish it in this frame instead of requiring a scroll or reload.
+            document.querySelectorAll(".reveal:not(.is-visible)").forEach(element => {
+                const bounds = element.getBoundingClientRect();
+                if (bounds.bottom > 0 && bounds.top < innerHeight) window.INIT_PAGE.reveal(element);
+            });
+        });
     }
 
     function focusableElements(container) {
@@ -483,18 +524,27 @@
     listen(window,"resize", () => {
         requestScrollUiUpdate();
         requestReadableTypeFloor();
+        requestViewportUpdate();
         revealDetailNavigationLocation();
     }, { passive: true });
+    listen(visualViewport,"resize", requestViewportUpdate, { passive: true });
+    listen(visualViewport,"scroll", requestViewportUpdate, { passive: true });
+    listen(window,"pageshow", requestViewportUpdate);
+    if (mobileActionBar && window.ResizeObserver) {
+        scope.observe(new ResizeObserver(requestViewportUpdate)).observe(mobileActionBar);
+    }
     listen(window,"load", () => {
         enforceReadableTypeFloor();
         revealDetailNavigationLocation();
     }, { once: true });
     document.fonts?.ready.then(() => {
         enforceReadableTypeFloor();
+        updateMobileActionViewport();
         revealDetailNavigationLocation();
     });
     listen(document,"init:languagechange", () => {
         requestReadableTypeFloor();
+        requestViewportUpdate();
         requestScrollUiUpdate();
         scope.frame(revealDetailNavigationLocation);
     });
@@ -508,6 +558,7 @@
     initProductGallery();
     initLightbox();
     enforceReadableTypeFloor();
+    updateMobileActionViewport();
     function finishLayout() {
         initReveals();
         updateScrollUi();

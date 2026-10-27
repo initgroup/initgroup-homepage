@@ -845,7 +845,7 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
         --primary-hero-top-space: 2.5rem;
         --primary-hero-bottom-space: 4rem;
     }
-    body { padding-bottom: calc(4.6rem + env(safe-area-inset-bottom)); word-break: normal; overflow-wrap: anywhere; }
+    body { padding-bottom: max(calc(4.6rem + env(safe-area-inset-bottom)), var(--mobile-action-height, 0px)); word-break: normal; overflow-wrap: anywhere; }
     .shell, .header-inner { width: calc(100% - 2rem); }
     .brand img { width: 5.4rem; }
     .brand span, .header-contact { display: none; }
@@ -937,7 +937,7 @@ h1, h2, h3, strong { letter-spacing: -0.045em; }
     .footer-bottom span { display: block; margin-bottom: 0.2rem; }
     .footer-bottom-links { margin-top: 0.65rem; flex-wrap: wrap; gap: 0.65rem 1rem; }
     .footer-members-link span { margin-bottom: 0; }
-    .mobile-action-bar { position: fixed; z-index: 190; right: 0; bottom: 0; left: 0; display: grid; padding: 0.55rem max(0.75rem, env(safe-area-inset-right)) calc(0.55rem + env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left)); border-top: 1px solid rgba(11, 19, 36, 0.1); background: rgba(255, 255, 255, 0.94); box-shadow: 0 -12px 28px rgba(8, 23, 47, 0.08); grid-template-columns: 0.82fr 1.18fr; gap: 0.5rem; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+    .mobile-action-bar { position: fixed; z-index: 190; right: var(--mobile-action-right, 0px); bottom: var(--mobile-action-bottom, 0px); left: var(--mobile-action-left, 0px); display: grid; padding: 0.55rem max(0.75rem, env(safe-area-inset-right)) calc(0.55rem + env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left)); border-top: 1px solid rgba(11, 19, 36, 0.1); background: rgba(255, 255, 255, 0.94); box-shadow: 0 -12px 28px rgba(8, 23, 47, 0.08); grid-template-columns: 0.82fr 1.18fr; gap: 0.5rem; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
     .mobile-action-bar a { display: flex; align-items: center; justify-content: center; min-height: 3.1rem; color: var(--ink); border: 1px solid var(--line); border-radius: 0.55rem; font-size: 1rem; font-weight: 760; }
     .mobile-action-bar a:last-child { color: #fff; border-color: var(--brand); background: var(--brand); gap: 0.7rem; }
     .image-lightbox { width: 100vw; max-height: 100dvh; border: 0; border-radius: 0; }

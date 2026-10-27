@@ -10,6 +10,14 @@ ErrorDocument 410 default
 # Retired content must stay unavailable even when old uploads remain on disk.
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    # Normalize only the production aliases. Preview/relocated hosts stay untouched.
+    RewriteCond %{HTTP_HOST} ^www\.initgroup\.kr(?::[0-9]+)?$ [NC]
+    RewriteRule ^ https://initgroup.kr%{REQUEST_URI} [R=301,L,NE]
+    RewriteCond %{HTTP_HOST} ^initgroup\.kr(?::[0-9]+)?$ [NC]
+    RewriteCond %{HTTPS} !=on
+    # Cafe24 may terminate TLS at its front proxy; avoid an HTTPS redirect loop.
+    RewriteCond %{HTTP:X-Forwarded-Proto} !^https(?:\s*,|$) [NC]
+    RewriteRule ^ https://initgroup.kr%{REQUEST_URI} [R=301,L,NE]
     # Only content-versioned public assets receive immutable caching.
     RewriteCond %{QUERY_STRING} (?:^|&)v=[a-f0-9]{16}(?:&|$)
     RewriteRule ^assets/(?!shared/site\.json$).+\.(?:css|js|json|html|png|jpe?g|webp|svg|ico|pdf|mp4|woff2)$ - [E=INIT_VERSIONED:1]

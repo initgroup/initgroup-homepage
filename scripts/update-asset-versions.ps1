@@ -7,6 +7,8 @@ $siteRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $utf8 = New-Object Text.UTF8Encoding($false)
 $manifest = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $siteRoot 'static-files.json') | ConvertFrom-Json
 $configPath = Join-Path $siteRoot 'assets/shared/site.json'
+$seoSync = Join-Path $PSScriptRoot 'sync-seo.ps1'
+if (Test-Path -LiteralPath $seoSync) { & $seoSync -Check:$Check -Quiet }
 $publicFiles = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
 foreach ($entry in $manifest) { $null = $publicFiles.Add($entry) }
 $script:updatedFiles = 0
