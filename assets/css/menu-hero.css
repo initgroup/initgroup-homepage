@@ -294,6 +294,9 @@ body.solutions-page .sol-page-hero:not(.primary-page-hero) {
     to { transform: scale(1.025) translate3d(-0.4rem, -0.2rem, 0); }
 }
 
+/* Balance each Korean phrase, while English flows across both inline spans. */
+#solutionHubTitle { text-wrap: balance; }
+
 /* Give the solution overview room for its preferred Korean phrases. */
 @media (min-width: 50.01rem) {
     html[lang="ko"] .solution-hub-page .menu-family-hero-copy { width: min(62%, 52rem); }
