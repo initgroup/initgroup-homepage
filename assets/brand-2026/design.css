@@ -1,14 +1,14 @@
 /* INIT / People, research and useful technology. Add after existing stylesheets. */
 @font-face{font-family:Init Sans;src:url('./init-sans.woff2?v=8b5e72a3700ce88f') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
-:root{--font-sans:'Init Sans','Noto Sans KR','Malgun Gothic',sans-serif;--font-display:var(--font-sans);--ink:#142a43;--ink-soft:var(--text-description);--muted:var(--text-description);--brand:#2155bc;--brand-strong:#174395;--paper:#f6f9fc;--paper-warm:#f8faf9;--line:#d6e1ea;--shadow-sm:0 12px 38px #203d6010;--radius-lg:1rem;--init-accent:#2155bc;--init-body:var(--text-description);--init-ink:#142a43}
+:root{--font-sans:'Init Sans','Noto Sans KR','Malgun Gothic',sans-serif;--font-display:var(--font-sans);--ink:#142a43;--ink-soft:var(--text-description);--muted:var(--text-description);--brand:#2155bc;--brand-strong:#174395;--init-button-background:var(--brand);--init-button-hover:var(--brand-strong);--paper:#f6f9fc;--paper-warm:#f8faf9;--line:#d6e1ea;--shadow-sm:0 12px 38px #203d6010;--radius-lg:1rem;--init-accent:#2155bc;--init-body:var(--text-description);--init-ink:#142a43}
 body{background:#fff;font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
-body[data-page=company],body[data-page=careers]{--init-accent:#176959}
+body[data-page=company]{--init-accent:#176959}
 h1,h2,h3{letter-spacing:-.045em} h1{line-height:1.22!important} h2{line-height:1.3!important}
 .site-header{background:rgba(255,255,255,.97);box-shadow:0 1px 0 #203d6012}
 .site-header .brand img,.footer-brand img{object-fit:contain}
 .button{border-radius:.4rem;min-height:3.25rem;box-shadow:none;transition:background .18s,color .18s,transform .18s}
-.button-primary{color:#fff;background:var(--brand);box-shadow:none!important}
-.button-primary:hover{background:#174395;transform:translateY(-1px)}
+.button-primary{color:#fff;background:var(--init-button-background);box-shadow:none!important}
+.button-primary:hover{background:var(--init-button-hover);transform:translateY(-1px)}
 .button-secondary{color:#173c67;border-color:#7e96ad;background:#ffffffed}
 .button-secondary:hover{color:#153c74;border-color:#2155bc;background:#eef4ff}
 :focus-visible:where(:not([data-navigation-focus="pointer"])),
@@ -34,8 +34,8 @@ h1,h2,h3{letter-spacing:-.045em} h1{line-height:1.22!important} h2{line-height:1
 .menu-family-hero--careers{--family-image:url('../brand-2026/careers.webp?v=9ca79de5b7a996a8')}
 .menu-family-hero--services::before{background-position:68% center}
 .menu-family-hero--solutions::before,.menu-family-hero--projects::before{inset-inline-start:10%;mask-image:none;-webkit-mask-image:none}
-.menu-family-hero .button-primary{color:#fff;background:var(--init-accent)}
-.menu-family-hero .button-primary:hover{background:#163e70}
+.menu-family-hero .button-primary{color:#fff;background:var(--init-button-background)}
+.menu-family-hero .button-primary:hover{background:var(--init-button-hover)}
 .menu-family-hero .button-secondary,.menu-family-hero .button-secondary:hover{color:#173c67;border-color:#7e96ad;background:#ffffffef}
 .menu-family-hero .sol-hero-note{color:var(--text-description)}
 .menu-family-hero-meta{border-color:#acbecd;margin-top:2.2rem;gap:1.5rem}
@@ -62,8 +62,8 @@ h1,h2,h3{letter-spacing:-.045em} h1{line-height:1.22!important} h2{line-height:1
 .init-light.init-light :is(h2,h3,h4,strong,dt){color:var(--init-ink)}
 .init-light.init-light :is(p,li,dd,small,figcaption){color:var(--init-body)!important}
 .init-light .eyebrow,.init-light .eyebrow-light{color:var(--init-accent)}
-.init-light .button-primary,.init-light .button-primary span{color:#fff;background:var(--brand)}
-.init-light .button-light{color:#fff;background:var(--brand);border-color:var(--brand)}
+.init-light .button-primary,.init-light .button-primary span{color:#fff;background:var(--init-button-background)}
+.init-light .button-light{color:#fff;background:var(--init-button-background);border-color:var(--init-button-background)}
 .init-light .button-light span{color:#fff}
 .init-light :is(.button-secondary,.text-link){color:#174395}
 .init-light :is(.corp-team-map li>span,.corp-role-head>span,.corp-delivery-steps li>span,.corp-delivery-steps small,.outcome-card>span){color:var(--init-accent)}
