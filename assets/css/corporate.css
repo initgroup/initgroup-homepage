@@ -6,8 +6,8 @@
  * changing the shared header, submenu or footer states.
  */
 body[data-page="company"] main {
-    --brand: #087a67;
-    --brand-strong: #075f53;
+    --brand: #2155bc;
+    --brand-strong: #174395;
     --mint: #3fd4ba;
     --success: #087a67;
     --paper-warm: #f5fbfa;
@@ -418,7 +418,7 @@ body[data-page="careers"] main {
 .corp-service-detail-section { background: linear-gradient(rgba(246, 248, 252, 0.92), rgba(246, 248, 252, 0.98)), url("../images/design-system/grid-light.svg?v=eb0edfbe2974ef53"); }
 .corp-service-stack { display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
 .corp-service-block { --service-accent: #2457d6; --service-soft: rgba(36, 87, 214, 0.075); position: relative; display: grid; min-height: 0; padding: clamp(2rem, 4vw, 3.6rem); overflow: hidden; border: 1px solid rgba(36, 87, 214, 0.18); border-top: 3px solid var(--service-accent); border-radius: 1.25rem; scroll-margin-top: calc(var(--site-chrome-height) + 5rem); background: rgba(255, 255, 255, 0.9); box-shadow: 0 1.5rem 4rem rgba(32, 66, 126, 0.08); grid-template-columns: minmax(8rem, 0.24fr) minmax(24rem, 1fr) minmax(15rem, 0.45fr); gap: clamp(2rem, 5vw, 5rem); }
-.corp-service-block:nth-child(2) { --service-accent: #087a67; --service-soft: rgba(8, 122, 103, 0.075); border-color: rgba(8, 122, 103, 0.2); }
+.corp-service-block:nth-child(2) { --service-accent: var(--brand); --service-soft: rgba(8, 122, 103, 0.075); border-color: rgba(8, 122, 103, 0.2); }
 .corp-service-block:nth-child(3) { --service-accent: #6547e8; --service-soft: rgba(101, 71, 232, 0.07); border-color: rgba(101, 71, 232, 0.18); }
 .corp-service-block:nth-child(4) { --service-accent: #006d8f; --service-soft: rgba(0, 109, 143, 0.075); border-color: rgba(0, 109, 143, 0.2); }
 .corp-service-block::after { position: absolute; top: -7rem; right: -6rem; width: 19rem; height: 19rem; pointer-events: none; border: 1px solid color-mix(in srgb, var(--service-accent) 18%, transparent); border-radius: 50%; content: ""; box-shadow: 0 0 0 3.5rem color-mix(in srgb, var(--service-accent) 3%, transparent); }
@@ -878,7 +878,7 @@ html[lang="ko"] .corp-delivery-title-compact { white-space: nowrap; }
 }
 
 body[data-page="company"] .corp-principle-grid article { border-color: rgba(8, 122, 103, 0.2); }
-body[data-page="company"] .corp-principle-grid article > span { color: #087a67; }
+body[data-page="company"] .corp-principle-grid article > span { color:var(--brand); }
 
 @media print {
     .corp-anchor-nav,
