@@ -2340,9 +2340,6 @@ html[lang="en"] .sol-architecture-ko-name {
 .survey-flow { overflow: hidden; background: #f5f8fc; }
 .survey-flow__steps { display: grid; margin: 0; padding: 0; list-style: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #cfdbe9; }
 .survey-flow__steps li { position: relative; display: flex; min-height: 18rem; padding: clamp(1.5rem, 2.5vw, 2.3rem); flex-direction: column; background: #fff; }
-.survey-flow__steps li::after { position: absolute; right: 1.4rem; bottom: 1.35rem; color: #9badc3; content: "↘"; font-size: 1.15rem; }
-.survey-flow__steps li:nth-child(3n):not(:last-child)::after { content: "↓"; }
-.survey-flow__steps li:last-child::after { display: none; }
 .survey-flow__steps span { color: #006d8f; font-size: 1rem; font-weight: 820; letter-spacing: 0.07em; }
 .survey-flow__steps strong { margin-top: auto; font-size: clamp(1.35rem, 2vw, 1.8rem); word-break: keep-all; text-wrap: balance; }
 .survey-flow__steps p { margin: 0.75rem 0 1.7rem; color: var(--text-description); font-size: 1rem; line-height: 1.7; }
@@ -2791,9 +2788,6 @@ html[lang="en"] .sol-architecture-ko-name {
     .survey-heading > p { margin-top: 1.25rem; }
     .survey-flow__steps { grid-template-columns: 1fr; }
     .survey-flow__steps li { min-height: 15rem; }
-    .survey-flow__steps li::after,
-    .survey-flow__steps li:nth-child(3n)::after { content: "↓"; }
-    .survey-flow__steps li:last-child::after { display: none; }
     .survey-product__bar { grid-template-columns: auto 1fr; }
     .survey-product__bar em { display: none; }
     .survey-product__media { aspect-ratio: auto; }
